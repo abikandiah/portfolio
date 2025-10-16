@@ -1,7 +1,7 @@
 import { DownloadLink, SendEmail } from '@/components/misc'
 import { email } from '@/constants'
 import { createFileRoute } from '@tanstack/react-router'
-import { Download, MapPin } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 
 export const Route = createFileRoute('/')({
 	component: App,
@@ -13,6 +13,8 @@ function App() {
 			<div className="flex flex-col space-y-2">
 				<ResumeHeader />
 				<ResumeSummary />
+
+				<CardDemo />
 			</div>
 		</>
 	)
@@ -67,11 +69,11 @@ function ResumeHeader() {
 	)
 }
 
-const ResumeSummary = () => {
+function ResumeSummary() {
 	return (
 		<section
 			id="summary"
-			className="p-6 rounded-md bg-white/50 border-stone-200 border"
+			className="p-6 rounded-md bg-card border-stone-200 border"
 		>
 			{/* Section Title
 			<h2 className="text-2xl font-bold text-white border-b border-gray-600 pb-2 mb-4">
@@ -95,6 +97,44 @@ const ResumeSummary = () => {
 			</div>
 		</section>
 	);
-};
+}
+
+import { Button } from "@/components/ui/button"
+import {
+	Card,
+	CardAction,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card"
+
+export function CardDemo() {
+	return (
+		<Card className="w-full max-w-sm">
+			<CardHeader>
+				<CardTitle>Login to your account</CardTitle>
+				<CardDescription>
+					Enter your email below to login to your account
+				</CardDescription>
+				<CardAction>
+					<Button variant="link">Sign Up</Button>
+				</CardAction>
+			</CardHeader>
+			<CardContent>
+
+			</CardContent>
+			<CardFooter className="flex-col gap-2">
+				<Button type="submit" className="w-full">
+					Login
+				</Button>
+				<Button variant="outline" className="w-full">
+					Login with Google
+				</Button>
+			</CardFooter>
+		</Card>
+	)
+}
 
 
