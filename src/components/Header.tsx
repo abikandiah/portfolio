@@ -1,11 +1,14 @@
 import { Link } from "@tanstack/react-router";
+import { Mail } from "lucide-react";
 
-import { BriefcaseBusiness, Contact, Drum, Mail } from "lucide-react";
-import { Button } from "./ui/button";
+
+const githubUrl = "https://github.com/abikandiah";
+const linkedinUrl = "https://www.linkedin.com/in/abilaesh-kandiah-58b3b2ba/";
+const email = "abikandiah@gmail.com";
 
 export function Header() {
     return (
-        <header className="shadow-sm bg-stone-50 mb-4">
+        <header className="header">
             <div className="max-w-screen-xl mx-auto flex items-center justify-between">
                 <h1 className="ml-4 text-xl font-semibold">
                     <Link className="flex items-center" to="/">
@@ -21,36 +24,72 @@ export function Header() {
                 <div className="flex items-center divide-x-2 divide-stone-200">
                     <nav className="flex items-center justify-center gap-5 pr-6">
 
-                        <NavLink to="/" Icon={Contact}>
+                        <NavLink to="/">
                             Home
                         </NavLink>
 
-                        <NavLink to="/projects" Icon={BriefcaseBusiness}>
+                        <NavLink to="/projects">
                             Projects
                         </NavLink>
 
-                        <NavLink to="/playground" Icon={Drum}>
+                        <NavLink to="/playground">
                             Playground
                         </NavLink>
                     </nav>
 
-                    <SendEmail />
+                    <div className="flex items-center justify-center gap-3 pl-6">
+                        <ExternalSite
+                            url={linkedinUrl}
+                            src="/src/assets/linkedin.svg"
+                            alt="LinkedIn Logo"
+                            aria-label="LinkedIn Profile"
+                        />
+
+                        <ExternalSite
+                            url={githubUrl}
+                            src="/src/assets/github.svg"
+                            alt="GitHub Logo"
+                            aria-label="Github Profile"
+                        />
+
+                        <SendEmail email={email} />
+                    </div>
                 </div>
             </div>
         </header>
     );
 }
 
-function SendEmail() {
+function SendEmail({ email }: { email: string }) {
     return (
-        <Button className="ml-6" variant={"ghost"}>
-            <Mail size={24} />
-            Send Email
-        </Button>
+        <a
+            title="Send me an email"
+            href={`mailto:${email}?subject=Hello From Your Website!&body=I wanted to reach out to you regarding...`}
+        >
+            <Mail />
+        </a>
     )
 }
 
-function NavLink({ to, children, Icon }: { to: string; children: React.ReactNode; Icon: React.ElementType }) {
+interface ExternalSiteProps {
+    url: string;
+    src: string;
+    alt: string;
+}
+
+function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & Record<string, any>) {
+    return (
+        <a href={url} target="_blank" rel="noopener noreferrer" {...rest}>
+            <img
+                src={src}
+                alt={alt}
+                className="h-6 w-6"
+            />
+        </a>
+    )
+}
+
+function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
     return (
         <Link to={to}
             className="flex items-center hover:opacity-75 gap-1"
@@ -58,7 +97,6 @@ function NavLink({ to, children, Icon }: { to: string; children: React.ReactNode
                 className: 'text-shadow-bold hover:opacity-100'
             }}
         >
-            <Icon size={20} />
             {children}
         </Link>
     );

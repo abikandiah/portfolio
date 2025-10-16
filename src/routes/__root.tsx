@@ -16,7 +16,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 	component: () => (
 		<>
 			<Header />
-			<div className="max-w-screen-xl mx-auto border border-black p-4">
+			
+			<div className="outlet-content">
 				<Outlet />
 			</div>
 
