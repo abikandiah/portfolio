@@ -4,6 +4,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer utilities {
+	.text-shadow-bold {
+		text-shadow: 1px 0px 0px black;
+	}
+	.text-shadow-sm {
+		text-shadow: 1px 1px 1px black;
+	}
+	.text-shadow-md {
+		text-shadow: 2px 2px 4px black;
+	}
+
+	/* ... and so on */
+}
+
 body {
 	@apply m-0;
 	font-family:
@@ -20,7 +34,7 @@ code {
 }
 
 :root {
-	--background: oklch(1 0 0);
+	--background: linen;
 	--foreground: oklch(0.141 0.005 285.823);
 	--card: oklch(1 0 0);
 	--card-foreground: oklch(0.141 0.005 285.823);
@@ -133,6 +147,7 @@ code {
 	* {
 		@apply border-border outline-ring/50;
 	}
+
 	body {
 		@apply bg-background text-foreground;
 	}
