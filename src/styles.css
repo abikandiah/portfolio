@@ -14,6 +14,9 @@
 	.text-shadow-md {
 		text-shadow: 2px 2px 4px black;
 	}
+	.action-hover {
+		@apply hover:text-gray-900 transition-colors
+	}
 
 	/* ... and so on */
 }

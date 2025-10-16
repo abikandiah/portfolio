@@ -82,9 +82,9 @@ function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & Record<str
 function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
     return (
         <Link to={to}
-            className="flex items-center hover:opacity-75 gap-1"
+            className="flex items-center action-hover gap-1"
             activeProps={{
-                className: 'text-shadow-bold hover:opacity-100'
+                className: 'text-gray-900'
             }}
         >
             {children}
