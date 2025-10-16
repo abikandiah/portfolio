@@ -24,7 +24,7 @@
 }
 
 .outlet-content {
-	@apply max-w-screen-xl mx-auto p-4 border m-4;
+	@apply max-w-screen-2xl mx-auto p-4 m-4;
 	min-height: calc(100vh - 8rem); /* Adjust based on header height */
 }
 
@@ -44,7 +44,7 @@ code {
 }
 
 :root {
-	--background: oklch(1 0.02 100);
+	--background: oklch(0.975 0.015 100);
 	--foreground: oklch(0.141 0.005 285.823);
 	--card: oklch(1 0 0);
 	--card-foreground: oklch(0.141 0.005 285.823);

@@ -1,10 +1,6 @@
+import { email, githubUrl, linkedinUrl } from "@/constants";
 import { Link } from "@tanstack/react-router";
-import { Mail } from "lucide-react";
-
-
-const email = "abikandiah@gmail.com";
-const githubUrl = "https://github.com/abikandiah";
-const linkedinUrl = "https://www.linkedin.com/in/abilaesh-kandiah-58b3b2ba/";
+import { SendEmail } from "./misc";
 
 
 export function Header() {
@@ -64,16 +60,6 @@ export function Header() {
     );
 }
 
-function SendEmail({ email }: { email: string }) {
-    return (
-        <a
-            title="Send me an email"
-            href={`mailto:${email}?subject=Hello From Your Website!&body=I wanted to reach out to you regarding...`}
-        >
-            <Mail />
-        </a>
-    )
-}
 
 interface ExternalSiteProps {
     url: string;
