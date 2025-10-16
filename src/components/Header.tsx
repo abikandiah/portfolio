@@ -2,24 +2,28 @@ import { Link } from "@tanstack/react-router";
 import { Mail } from "lucide-react";
 
 
+const email = "abikandiah@gmail.com";
 const githubUrl = "https://github.com/abikandiah";
 const linkedinUrl = "https://www.linkedin.com/in/abilaesh-kandiah-58b3b2ba/";
-const email = "abikandiah@gmail.com";
+
 
 export function Header() {
     return (
         <header className="header">
             <div className="max-w-screen-xl mx-auto flex items-center justify-between">
-                <h1 className="ml-4 text-xl font-semibold">
-                    <Link className="flex items-center" to="/">
-                        <img
-                            src="/src/assets/bee.svg"
-                            alt="Bee Logo"
-                            className="h-10 w-10 mr-2"
-                        />
-                        Abi Kandiah
-                    </Link>
-                </h1>
+                <Link className="flex items-center" to="/">
+                    <span className="text-xl font-semibold">
+                        A
+                    </span>
+                    <img
+                        src="/src/assets/bee.svg"
+                        alt="Bee Logo"
+                        className="h-10 w-10 mr"
+                    />
+                    <span className="text-xl font-semibold">
+                        's Portfolio
+                    </span>
+                </Link>
 
                 <div className="flex items-center divide-x-2 divide-stone-200">
                     <nav className="flex items-center justify-center gap-5 pr-6">
