@@ -1,6 +1,15 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+
+export function CardH2Header({ Icon, title }: { Icon: React.ElementType; title: string}) {
+	return (
+		<h2 className="flex font-semibold">
+			<Icon />
+			<span className="ml-3">{title}</span>
+		</h2>
+	)
+}
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
 	return (
@@ -80,5 +89,5 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
 
 export {
 	Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
-}
+};
 
