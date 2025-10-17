@@ -26,12 +26,12 @@
 }
 
 .header {
-	@apply sticky top-0 z-50 shadow-sm shadow-stone-300/80 py-1 px-4 bg-card backdrop-blur-md;
+	@apply sticky top-0 z-50 shadow-sm shadow-stone-300 py-1 px-8 bg-card backdrop-blur-md;
 	align-content: center;
 }
 
 .outlet-content {
-	@apply max-w-screen-2xl mx-auto p-4 m-4;
+	@apply max-w-screen-xl mx-auto p-8 m-4;
 }
 
 .card {

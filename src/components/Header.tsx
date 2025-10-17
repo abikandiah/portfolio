@@ -1,12 +1,11 @@
-import { personalEmail, githubUrl, linkedinUrl } from "@/constants";
 import { Link } from "@tanstack/react-router";
-import { SendEmail } from "./misc";
+import { NavLink } from "./misc";
 
 
 function Header() {
     return (
         <header className="header">
-            <div className="max-w-screen-2xl mx-auto flex items-center justify-between">
+            <div className="max-w-screen-xl mx-auto flex items-center justify-between">
                 <Link className="flex items-center" to="/">
                     <span className="text-xl font-semibold">
                         A
@@ -27,59 +26,10 @@ function Header() {
                         <NavLink to="/" text={'Home'} />
 
                         <NavLink to="/projects" text={'Projects'} />
-
-                        <NavLink to="/playground" text={'Playground'} />
                     </nav>
-
-                    <div className="flex items-center justify-center gap-3 pl-6">
-                        <ExternalSite
-                            url={linkedinUrl}
-                            src="/src/assets/linkedin.svg"
-                            alt="LinkedIn Logo"
-                            aria-label="LinkedIn Profile"
-                        />
-
-                        <ExternalSite
-                            url={githubUrl}
-                            src="/src/assets/github.svg"
-                            alt="GitHub Logo"
-                            aria-label="Github Profile"
-                        />
-
-                        <SendEmail email={personalEmail} />
-                    </div>
                 </div>
             </div>
         </header>
-    );
-}
-
-interface ExternalSiteProps {
-    url: string;
-    src: string;
-    alt: string;
-}
-
-function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & Record<string, any>) {
-    return (
-        <a href={url} target="_blank" rel="noopener noreferrer" {...rest}>
-            <img
-                src={src}
-                alt={alt}
-                className="h-6 w-6"
-            />
-        </a>
-    )
-}
-
-function NavLink({ to, text }: { to: string; text: string }) {
-    return (
-        <Link className="nav-link"
-            to={to} data-text={text}
-            activeProps={{className: 'nav-link-active'}}
-        >
-            {text}
-        </Link>
     );
 }
 

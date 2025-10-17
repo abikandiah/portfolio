@@ -1,6 +1,8 @@
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
 import WorkExperience from '@/components/home/WorkExperience'
+import { ExternalSite, SendEmail } from '@/components/misc'
+import { githubUrl, linkedinUrl, personalEmail } from '@/constants'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
@@ -10,7 +12,7 @@ export const Route = createFileRoute('/')({
 function App() {
 	return (
 		<>
-			<div className="flex flex-col space-y-8">
+			<div className="flex flex-col space-y-10">
 				<ProfileHeader />
 				<ProfileSummary />
 				<MainContent />
@@ -44,7 +46,7 @@ function ProfileHeader() {
 
 function ProfileSummary() {
 	return (
-		<section>
+		<section className='flex flex-col gap-y-4'>
 
 			{/* Summary Content */}
 			<p className="leading-relaxed text-base">
@@ -55,13 +57,33 @@ function ProfileSummary() {
 				Expert in <span className="font-semibold">Java, JavaScript, and React</span>, with a deep understanding of software development and system design principles.
 				Seeking a challenging role to leverage my skills in producing high-quality software solutions, while continuously expanding my technical expertise.
 			</p>
+
+			<div className="flex items-center gap-4">
+				<SendEmail email={personalEmail} />
+
+				<ExternalSite
+					url={githubUrl}
+					src="/src/assets/github.svg"
+					alt="GitHub Logo"
+					aria-label="Github Profile"
+					title="Visit my Github"
+				/>
+
+				<ExternalSite
+					url={linkedinUrl}
+					src="/src/assets/linkedin-black.png"
+					alt="LinkedIn Logo"
+					aria-label="LinkedIn Profile"
+					title="Check out my LinkedIn"
+				/>
+			</div>
 		</section>
 	);
 }
 
 function MainContent() {
 	return (
-		<div className="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
+		<div className="grid grid-cols-1 gap-y-4 lg:grid-cols-2 mt-4">
 			<div className="flex flex-col">
 				<ProjectsOverview />
 			</div>
