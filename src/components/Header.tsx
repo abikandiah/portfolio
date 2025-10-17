@@ -1,9 +1,9 @@
-import { email, githubUrl, linkedinUrl } from "@/constants";
+import { personalEmail, githubUrl, linkedinUrl } from "@/constants";
 import { Link } from "@tanstack/react-router";
 import { SendEmail } from "./misc";
 
 
-export function Header() {
+function Header() {
     return (
         <header className="header">
             <div className="max-w-screen-2xl mx-auto flex items-center justify-between">
@@ -46,14 +46,13 @@ export function Header() {
                             aria-label="Github Profile"
                         />
 
-                        <SendEmail email={email} />
+                        <SendEmail email={personalEmail} />
                     </div>
                 </div>
             </div>
         </header>
     );
 }
-
 
 interface ExternalSiteProps {
     url: string;
@@ -83,4 +82,6 @@ function NavLink({ to, text }: { to: string; text: string }) {
         </Link>
     );
 }
+
+export default Header;
 

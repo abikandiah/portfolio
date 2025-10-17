@@ -1,4 +1,3 @@
-import Contact from '@/components/home/Contact'
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
 import WorkExperience from '@/components/home/WorkExperience'
@@ -11,10 +10,9 @@ export const Route = createFileRoute('/')({
 function App() {
 	return (
 		<>
-			<div className="flex flex-col space-y-4">
+			<div className="flex flex-col space-y-8">
 				<ProfileHeader />
 				<ProfileSummary />
-
 				<MainContent />
 			</div>
 		</>
@@ -23,7 +21,7 @@ function App() {
 
 function ProfileHeader() {
 	return (
-		<div className="flex flex-col items-center justify-center mx-auto mb-8">
+		<div className="flex flex-col items-center justify-center mx-auto">
 
 			<img
 				className="h-48 w-48 rounded-full object-cover ring-4 ring-white shadow-lg"
@@ -61,7 +59,6 @@ function ProfileSummary() {
 	);
 }
 
-
 function MainContent() {
 	return (
 		<div className="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
@@ -70,7 +67,6 @@ function MainContent() {
 			</div>
 
 			<div className="space-y-4 lg:pl-24 xl:pl-36">
-				<Contact />
 				<Education />
 				<WorkExperience />
 			</div>

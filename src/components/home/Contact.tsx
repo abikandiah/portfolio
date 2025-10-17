@@ -1,12 +1,39 @@
-import { ContactRound } from "lucide-react";
-import { Card, CardH2Header } from "../ui/card";
+import { personalEmail, personalLocation, personalMobile } from "@/constants";
+import { ContactRound, Mail, MapPin, Phone } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
 
 function Contact() {
     return (
         <Card>
-            <CardH2Header title={'Contact'}
-                Icon={ContactRound}
-            />
+            <CardHeader>
+                <h2 className="flex font-semibold">
+                    <ContactRound />
+                    <span className="ml-3">Contact</span>
+                </h2>
+
+                <CardDescription>
+                    Feel free to reach out and say hello!
+                </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+                <ol className="space-y-2">
+                    <li className="flex gap-4">
+                        <MapPin />
+                        {personalLocation}
+                    </li>
+
+                    <li className="flex gap-4">
+                        <Mail />
+                        {personalEmail}
+                    </li>
+
+                    <li className="flex gap-4">
+                        <Phone />
+                        {personalMobile}
+                    </li>
+                </ol>
+            </CardContent>
         </Card>
     )
 }
