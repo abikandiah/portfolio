@@ -12,7 +12,7 @@ export const Route = createFileRoute('/')({
 function App() {
 	return (
 		<>
-			<div className="flex flex-col space-y-10">
+			<div className="flex flex-col">
 				<ProfileHeader />
 				<ProfileSummary />
 				<MainContent />
@@ -24,20 +24,17 @@ function App() {
 function ProfileHeader() {
 	return (
 		<div className="flex flex-col items-center justify-center mx-auto">
-
 			<img
-				className="h-48 w-48 rounded-full object-cover ring-4 ring-white shadow-lg"
+				className="sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg"
 				src="/src/assets/profile-photo.jpg"
 				alt="Abilaesh Kandiah's Profile Photo"
 			/>
 
-			{/* 1. Name */}
-			<h1 className="mt-8 text-5xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+			<h1 className="font-bold tracking-tight text-gray-900 sm:text-4xl text-3xl mt-6">
 				Abilaesh Kandiah
 			</h1>
 
-			{/* 2. Professional Title */}
-			<h2 className="mt-2 text-3xl font-light text-gray-700 sm:text-3xl">
+			<h2 className="mt-1 font-light text-gray-700 sm:text-2xl text-xl">
 				Full-Stack Developer
 			</h2>
 		</div>
@@ -46,9 +43,8 @@ function ProfileHeader() {
 
 function ProfileSummary() {
 	return (
-		<section className='flex flex-col gap-y-4'>
+		<section className='card mt-6'>
 
-			{/* Summary Content */}
 			<p className="leading-relaxed text-base">
 				<span className="font-semibold">Full-Stack Developer</span> with
 				<span className="font-semibold"> 7+ years of experience</span> specializing in building innovative, quality full-stack solutions from the ground up, culminating
@@ -88,7 +84,7 @@ function MainContent() {
 				<ProjectsOverview />
 			</div>
 
-			<div className="space-y-4 lg:pl-24 xl:pl-36">
+			<div className="space-y-4 lg:pl-4">
 				<Education />
 				<WorkExperience />
 			</div>

@@ -26,7 +26,7 @@
 }
 
 .header {
-	@apply sticky top-0 z-50 py-1 px-8 backdrop-blur-md;
+	@apply sticky top-0 z-50 py-1 px-8 backdrop-blur-md bg-card;
 	align-content: center;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .footer {
-	@apply flex-none mt-32 py-1 px-8 backdrop-blur-md;
+	@apply flex-none mt-32 py-1 px-8 backdrop-blur-md bg-card h-full;
 }
 
 .card {
@@ -80,7 +80,7 @@ code {
 :root {
 	--background: oklch(0.95 0.005 80);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.5);
+	--card: oklch(1 0 0 / 0.25);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);

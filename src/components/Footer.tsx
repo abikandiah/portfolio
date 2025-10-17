@@ -3,7 +3,7 @@ import { NavLink } from "./misc";
 function Footer() {
     return (
         <footer className="footer">
-            <div className="mx-auto max-w-screen-xl">
+            <div className="mx-auto max-w-screen-xl px-8">
                 <div className="border-t border-zinc-100 pt-10 pb-16 dark:border-zinc-700/40">
                     <div>
                         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
