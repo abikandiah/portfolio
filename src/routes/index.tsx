@@ -71,10 +71,8 @@ function ResumeHeader() {
 
 function ResumeSummary() {
 	return (
-		<section
-			id="summary"
-			className="p-6 rounded-md bg-card border-stone-200 border"
-		>
+		<section id="summary" className="card">
+
 			<h2 className="text-2xl font-bold mb-4">Professional Summary</h2>
 
 			{/* Summary Content */}
@@ -101,6 +99,9 @@ function DownloadResume() {
 		</a>
 	)
 }
+
+
+
 
 import { Button } from "@/components/ui/button"
 import {
