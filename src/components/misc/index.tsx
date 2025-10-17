@@ -1,4 +1,4 @@
-import { Download, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export function SendEmail({ email, showText }: { email: string; showText?: boolean }) {
     return (
@@ -13,13 +13,3 @@ export function SendEmail({ email, showText }: { email: string; showText?: boole
     )
 }
 
-export function DownloadLink({ url, text, ...rest }: { url: string; text: string } & Record<string, any>) {
-    return (
-        <a {...rest} href={url} download
-            className="flex items-center action-hover"
-        >
-            <Download />
-            {text && <span className="ml-2 font-medium">{text}</span>}
-        </a>
-    )
-}

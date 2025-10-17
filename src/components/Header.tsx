@@ -6,7 +6,7 @@ import { SendEmail } from "./misc";
 export function Header() {
     return (
         <header className="header">
-            <div className="max-w-screen-xl mx-auto flex items-center justify-between">
+            <div className="max-w-screen-2xl mx-auto flex items-center justify-between">
                 <Link className="flex items-center" to="/">
                     <span className="text-xl font-semibold">
                         A
@@ -22,19 +22,13 @@ export function Header() {
                 </Link>
 
                 <div className="flex items-center divide-x-2 divide-stone-200">
-                    <nav className="flex items-center justify-center gap-5 pr-6">
+                    <nav className="flex items-center justify-center gap-4 pr-6">
 
-                        <NavLink to="/">
-                            Home
-                        </NavLink>
+                        <NavLink to="/" text={'Home'} />
 
-                        <NavLink to="/projects">
-                            Projects
-                        </NavLink>
+                        <NavLink to="/projects" text={'Projects'} />
 
-                        <NavLink to="/playground">
-                            Playground
-                        </NavLink>
+                        <NavLink to="/playground" text={'Playground'} />
                     </nav>
 
                     <div className="flex items-center justify-center gap-3 pl-6">
@@ -79,15 +73,13 @@ function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & Record<str
     )
 }
 
-function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
+function NavLink({ to, text }: { to: string; text: string }) {
     return (
-        <Link to={to}
-            className="flex items-center action-hover gap-1"
-            activeProps={{
-                className: 'text-gray-900'
-            }}
+        <Link className="nav-link"
+            to={to} data-text={text}
+            activeProps={{className: 'nav-link-active'}}
         >
-            {children}
+            {text}
         </Link>
     );
 }

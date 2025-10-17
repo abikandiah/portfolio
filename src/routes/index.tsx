@@ -1,7 +1,7 @@
-import { DownloadLink, SendEmail } from '@/components/misc'
+import { SendEmail } from '@/components/misc'
 import { email } from '@/constants'
 import { createFileRoute } from '@tanstack/react-router'
-import { MapPin } from 'lucide-react'
+import { Download, MapPin } from 'lucide-react'
 
 export const Route = createFileRoute('/')({
 	component: App,
@@ -10,7 +10,7 @@ export const Route = createFileRoute('/')({
 function App() {
 	return (
 		<>
-			<div className="flex flex-col space-y-2">
+			<div className="flex flex-col space-y-4">
 				<ResumeHeader />
 				<ResumeSummary />
 
@@ -22,7 +22,7 @@ function App() {
 
 function ResumeHeader() {
 	return (
-		<div className="flex flex-col items-center justify-center mx-auto p-4 mb-4">
+		<div className="flex flex-col items-center justify-center mx-auto mb-8">
 
 			<img
 				className="h-64 w-64 rounded-full object-cover ring-4 ring-white shadow-lg"
@@ -62,7 +62,7 @@ function ResumeHeader() {
 
 				{/* Dwonload Resume */}
 				<div className="flex items-center">
-					<DownloadLink url={"/src/assets/Abilaesh Kandiah - Resume.pdf"} text={"Download Resume"} />
+					<DownloadResume />
 				</div>
 			</div>
 		</div>
@@ -75,28 +75,31 @@ function ResumeSummary() {
 			id="summary"
 			className="p-6 rounded-md bg-card border-stone-200 border"
 		>
-			{/* Section Title
-			<h2 className="text-2xl font-bold text-white border-b border-gray-600 pb-2 mb-4">
-				Professional Profile
-			</h2> */}
+			<h2 className="text-2xl font-bold mb-4">Professional Summary</h2>
 
 			{/* Summary Content */}
 			<p className="leading-relaxed text-base">
-				Highly accomplished and results-driven <span className="font-semibold">Senior Full-Stack Developer</span> with
-				<span className="font-semibold"> 8+ years of experience</span> specializing in building resilient, high-traffic platforms using
-				<span className="font-semibold"> React, Node.js, and AWS</span>. Proven success in
-				<span className="font-semibold"> accelerating feature delivery by 40%</span> through strategic adoption of CI/CD pipelines and optimized cloud architecture. Consistently deliver
-				<span className="font-semibold"> measurable business impact</span>, including a 15% reduction in infrastructure latency. Seeking a Lead Architect position to scale engineering excellence.
-			</p>
+				<span className="font-semibold">Full-Stack Developer</span> with
+				<span className="font-semibold"> 7+ years of experience</span> specializing in building innovative, quality full-stack solutions from the ground up, culminating
+				in a <span className="font-semibold">successful company acquisition</span>.
 
-			{/* Optional: Key Skills / Callouts */}
-			<div className="mt-4 flex flex-wrap gap-2 text-sm">
-				<span className="px-3 py-1 bg rounded-md font-medium border border-stone-200">AWS Certified</span>
-				<span className="px-3 py-1 bg rounded-md font-medium border border-stone-200">AWS Certified</span>
-				<span className="px-3 py-1 bg rounded-md font-medium border border-stone-200">AWS Certified</span>
-			</div>
+				Expert in <span className="font-semibold">Java, JavaScript, and React</span>, with a deep understanding of software development and system design principles.
+				Seeking a challenging role to leverage my skills in producing high-quality software solutions, while continuously expanding my technical expertise.
+			</p>
 		</section>
 	);
+}
+
+function DownloadResume() {
+	return (
+		<a href={"/src/assets/Abilaesh Kandiah - Resume.pdf"} download
+			className="flex items-center action-hover"
+			title="Download my resume"
+		>
+			<Download />
+			<span className="ml-2 font-medium">Download Resume</span>
+		</a>
+	)
 }
 
 import { Button } from "@/components/ui/button"

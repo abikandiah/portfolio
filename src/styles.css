@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
@@ -8,27 +7,51 @@
 	.text-shadow-bold {
 		text-shadow: 1px 0px 0px black;
 	}
+
 	.text-shadow-sm {
 		text-shadow: 1px 1px 1px black;
 	}
+
 	.text-shadow-md {
 		text-shadow: 2px 2px 4px black;
 	}
+
 	.action-hover {
-		@apply hover:text-gray-900 transition-colors
+		@apply hover:text-gray-900 transition duration-200;
 	}
 
-	/* ... and so on */
+	.action-hover-dark {
+		@apply hover:text-gray-100 transition duration-200;
+	}
 }
 
 .header {
-	@apply sticky top-0 z-50 shadow-sm shadow-stone-200 py-1 bg-card backdrop-blur-md;
+	@apply sticky top-0 z-50 shadow-sm shadow-stone-200 py-1 px-4 bg-card backdrop-blur-md;
 	align-content: center;
 }
 
 .outlet-content {
 	@apply max-w-screen-2xl mx-auto p-4 m-4;
-	min-height: calc(100vh - 8rem); /* Adjust based on header height */
+}
+
+.nav-link {
+	display: inline-flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.nav-link::after {
+	content: attr(data-text);
+	font-weight: 500;
+	opacity: 0;
+	height: 0;
+	pointer-events: none;
+}
+
+.nav-link:hover,
+.nav-link-active {
+	@apply transition duration-200;
+	font-weight: 500;
 }
 
 body {
@@ -49,7 +72,7 @@ code {
 :root {
 	--background: oklch(0.95 0.01 80);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.8);
+	--card: oklch(1 0 0 / 0.75);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);
