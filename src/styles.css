@@ -26,16 +26,20 @@
 }
 
 .header {
-	@apply sticky top-0 z-50 shadow-sm shadow-stone-300 py-1 px-8 bg-card backdrop-blur-md;
+	@apply sticky top-0 z-50 py-1 px-8 backdrop-blur-md;
 	align-content: center;
 }
 
 .outlet-content {
-	@apply max-w-screen-xl mx-auto p-8 m-4;
+	@apply max-w-screen-xl mx-auto p-8;
+}
+
+.footer {
+	@apply flex-none mt-32 py-1 px-8 backdrop-blur-md;
 }
 
 .card {
-	@apply text-card-foreground flex flex-col gap-6 p-6 rounded-md bg-card border-stone-300/80 border
+	@apply text-card-foreground flex flex-col gap-6 p-6 rounded-md bg-card border-stone-300/80 border;
 }
 
 .nav-link {

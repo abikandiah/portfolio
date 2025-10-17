@@ -21,7 +21,7 @@ function Header() {
                 </Link>
 
                 <div className="flex items-center divide-x-2 divide-stone-200">
-                    <nav className="flex items-center justify-center gap-4 pr-6">
+                    <nav className="flex items-center justify-center gap-4">
 
                         <NavLink to="/" text={'Home'} />
 
