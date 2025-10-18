@@ -1,20 +1,44 @@
-import { NavLink } from "./misc";
+import { Link } from "@tanstack/react-router";
 
 
 function Header() {
     return (
-        <header className="header">
-            <div className="max-w-screen-xl mx-auto flex items-center justify-end px-8">
-                <div className="flex items-center divide-x-2 divide-stone-200">
-                    <nav className="flex items-center justify-center gap-4">
+        <header className="relative top-0 z-50 h-32">
+            <div className="relative top-0 z-10 h-16 pt-12">
 
-                        <NavLink to="/" text={'Home'} />
+                <div className="flex flex-1 justify-end md:justify-center">
+                    <div className="md:hidden">
+                        HAMBURGER FOR SMALL PHONE!
+                    </div>
 
-                        <NavLink to="/projects" text={'Projects'} />
+                    <nav className="hidden md:block">
+                        <ul className="
+                            flex rounded-full bg-card px-3 text-sm font-medium text-gray-800 
+                            shadow-md ring-1 shadow-stone-800/5 ring-stone-900/5 backdrop-blur-sm"
+                        >
+                            <li>
+                                <NavLink to="/" text={'Home'} />
+                            </li>
+                            <li>
+                                <NavLink to="/projects" text={'Projects'} />
+                            </li>
+                        </ul>
                     </nav>
                 </div>
             </div>
         </header>
+    );
+}
+
+function NavLink({ to, text }: { to: string; text: string }) {
+    // MAKE ACTIVE TEXT COLOR!?!
+    return (
+        <Link className="relative block px-3 py-2 transition hover:text-teal-500"
+            to={to} data-text={text}
+            activeProps={{ className: 'nav-link-active' }}
+        >
+            {text}
+        </Link>
     );
 }
 

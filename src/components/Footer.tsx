@@ -2,17 +2,17 @@ import { NavLink } from "./misc";
 
 function Footer() {
     return (
-        <footer className="footer">
+        <footer className="flex-none mt-32 py-1 px-8 backdrop-blur-md">
             <div className="mx-auto max-w-screen-xl px-8">
-                <div className="border-t border-zinc-100 pt-10 pb-16 dark:border-zinc-700/40">
+                <div className="pt-10 pb-16">
                     <div>
                         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-                            <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+                            <div className="flex flex-wrap justify-center gap-x-6 gap-y-1">
                                 <NavLink to="/" text={'Home'} />
 
                                 <NavLink to="/projects" text={'Projects'} />
                             </div>
-                            <p className="text-sm text-zinc-400 dark:text-zinc-500">
+                            <p className="text-sm text-gray-500">
                                 ©
                                 2025
                                 Abilaesh Kandiah. All rights reserved.

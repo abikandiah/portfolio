@@ -12,7 +12,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 		<>
 			<Header />
 			
-			<main className="outlet-content">
+			<main className="max-w-screen-xl mx-auto p-8">
 				<Outlet />
 			</main>
 

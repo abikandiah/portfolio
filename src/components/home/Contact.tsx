@@ -50,7 +50,7 @@ export default Contact;
 // 				</div>
 
 // 				{/* Divider for separation on larger screens */}
-// 				<span className="hidden sm:block text-gray-400">|</span>
+// 				<span className="hidden sm:block text-gray-500">|</span>
 
 // 				{/* Email */}
 // 				<div className="flex items-center">
@@ -58,7 +58,7 @@ export default Contact;
 // 				</div>
 
 // 				{/* Divider for separation on larger screens */}
-// 				<span className="hidden sm:block text-gray-400">|</span>
+// 				<span className="hidden sm:block text-gray-500">|</span>
 
 // 				{/* Dwonload Resume */}
 // 				<div className="flex items-center">
