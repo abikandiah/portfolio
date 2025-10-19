@@ -1,5 +1,6 @@
 import { BriefcaseBusiness, Download } from "lucide-react"
 import { Card, CardH2Header } from "../ui/card"
+import { Button } from "../ui/button"
 
 
 function WorkExperience() {
@@ -63,13 +64,14 @@ function WorkExperienceRow({ companyName, role, duration, logoSrc }: WorkExperie
 
 function DownloadResume() {
     return (
-        <a href={"/src/assets/Abilaesh Kandiah - Resume.pdf"} download
-            className="flex items-center justify-center mx-auto
-                px-3 py-2 rounded-md"
-        >
-            <span className="mr-2 font-medium">Download CV</span>
-            <Download />
-        </a>
+        <Button asChild className="">
+            <a href={"/src/assets/Abilaesh Kandiah - Resume.pdf"} download
+                className="flex items-center gap-2"
+            >
+                <span className="font-medium">Download CV</span>
+                <Download />
+            </a>
+        </Button>
     )
 }
 

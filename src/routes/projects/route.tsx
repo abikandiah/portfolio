@@ -15,7 +15,9 @@ export const Route = createFileRoute('/projects')({
 
 function RouteComponent() {
 	return (
-		<CarouselDemo />
+		<div className="flex flex-col">
+			<CarouselDemo />
+		</div>
 	)
 }
 
