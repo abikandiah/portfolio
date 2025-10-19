@@ -7,24 +7,17 @@
 	@apply text-card-foreground flex flex-col gap-6 p-6 rounded-md bg-card border-stone-300/80 border;
 }
 
-.nav-link {
-	display: inline-flex;
-	align-items: center;
-	flex-direction: column;
+.header-card {
+	@apply flex justify-between rounded-b-md text-card-foreground bg-card border border-stone-300/80 pl-3
 }
 
-.nav-link::after {
-	content: attr(data-text);
-	font-weight: 500;
-	opacity: 0;
-	height: 0;
-	pointer-events: none;
+.nav-link {
+	@apply relative block px-3 py-2 transition text-gray-600 hover:text-gray-950
 }
 
 .nav-link:hover,
 .nav-link-active {
-	@apply transition duration-200;
-	font-weight: 500;
+	@apply text-gray-950 transition duration-200;
 }
 
 body {

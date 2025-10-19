@@ -62,15 +62,15 @@ function WorkExperienceRow({ companyName, role, duration, logoSrc }: WorkExperie
 }
 
 function DownloadResume() {
-	return (
-		<a href={"/src/assets/Abilaesh Kandiah - Resume.pdf"} download
-			className="flex items-center mx-auto"
-			title="Download CV"
-		>
-			<span className="mr-2 font-medium">Download CV</span>
-			<Download />
-		</a>
-	)
+    return (
+        <a href={"/src/assets/Abilaesh Kandiah - Resume.pdf"} download
+            className="flex items-center justify-center mx-auto
+                px-3 py-2 rounded-md"
+        >
+            <span className="mr-2 font-medium">Download CV</span>
+            <Download />
+        </a>
+    )
 }
 
 export default WorkExperience;

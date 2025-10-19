@@ -1,39 +1,46 @@
 import { Link } from "@tanstack/react-router";
+import { Button } from "./ui/button";
 
 
 function Header() {
     return (
-        <header className="relative top-0 z-50 h-32">
-            <div className="relative top-0 z-10 h-16 pt-12">
+        <header className="max-w-screen-xl mx-auto px-8 pb-16">
 
-                <div className="flex flex-1 justify-end md:justify-center">
-                    <div className="md:hidden">
-                        HAMBURGER FOR SMALL PHONE!
-                    </div>
+            <div className="header-card">
+                <Link to={"/"}>
+                    <img
+                        className="h-8 w-8"
+                        src="/src/assets/bee.svg"
+                        alt="Home Bee"
+                    />
+                </Link>
 
-                    <nav className="hidden md:block">
-                        <ul className="
-                            flex rounded-full bg-card px-3 text-sm font-medium text-gray-800 
-                            shadow-md ring-1 shadow-stone-800/5 ring-stone-900/5 backdrop-blur-sm"
-                        >
-                            <li>
-                                <NavLink to="/" text={'Home'} />
-                            </li>
-                            <li>
-                                <NavLink to="/projects" text={'Projects'} />
-                            </li>
-                        </ul>
-                    </nav>
+                <div className="md:hidden">
+                    <Button />
                 </div>
+
+                <nav className="hidden md:block">
+                    <ul className="flex rounded-md px-3 text-sm font-medium"
+                    >
+                        <li>
+                            <NavLink to="/" text={'Home'} />
+                        </li>
+                        <li>
+                            <NavLink to="/projects" text={'Projects'} />
+                        </li>
+                        <li>
+                            <NavLink to="/play" text={'Playground'} />
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </header>
     );
 }
 
 function NavLink({ to, text }: { to: string; text: string }) {
-    // MAKE ACTIVE TEXT COLOR!?!
     return (
-        <Link className="relative block px-3 py-2 transition hover:text-teal-500"
+        <Link className="nav-link"
             to={to} data-text={text}
             activeProps={{ className: 'nav-link-active' }}
         >
@@ -41,6 +48,9 @@ function NavLink({ to, text }: { to: string; text: string }) {
         </Link>
     );
 }
+
+<span className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0
+ dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0"></span>
 
 export default Header;
 
