@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 import {
 	Carousel,
@@ -9,7 +9,7 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel"
 
-export const Route = createFileRoute('/projects/')({
+export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
 })
 
@@ -27,6 +27,8 @@ function CarouselDemo() {
 					<CarouselItem key={index}>
 						<div className="p-1">
 							<Card>
+								<Outlet />
+
 								<CardContent className="flex aspect-square items-center justify-center p-6">
 									<span className="text-4xl font-semibold">{index + 1}</span>
 								</CardContent>
