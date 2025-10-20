@@ -41,7 +41,7 @@ function ProjectSideBar() {
 				{Object.keys(projectsByType).map(type => {
 					const projects = projectsByType[type];
 					return (
-						<ProjectsGroup type={type} projects={projects} />
+						<ProjectsGroup key={type} type={type} projects={projects} />
 					)
 				})}
 			</SidebarContent>

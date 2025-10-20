@@ -1,10 +1,11 @@
-import { languageType, projectType, techType, type ProjectProps } from "@/types/ProjectTypes";
+import { projectType, type ProjectProps } from "@/types/ProjectTypes";
+import { techType } from "@/types/TechTypes";
 
 export const dataUploadProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Data Upload',
     duration: '2021',
     description: '',
-    languages: [languageType.Java, languageType.JavaScript, languageType.SASS, languageType.JSX],
-    tech: [techType.React, techType.Dropwizard, techType.RestAPI, techType.OpenSource, techType.TusProtocol]
+    tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX,
+    techType.React, techType.Dropwizard, techType.RestAPI, techType.OpenSource, techType.TusProtocol]
 };

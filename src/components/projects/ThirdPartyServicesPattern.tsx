@@ -1,5 +1,6 @@
 import { LoremIpsumAlt2 } from "@/constants/LoremIpsum";
-import { languageType, projectType, techType, type ProjectProps } from "@/types/ProjectTypes";
+import { projectType, type ProjectProps } from "@/types/ProjectTypes";
+import { techType } from "@/types/TechTypes";
 
 
 export const thirdPartyServicesProject: ProjectProps = {
@@ -7,8 +8,7 @@ export const thirdPartyServicesProject: ProjectProps = {
     name: 'Third-Party Services Pattern',
     duration: '2024',
     description: 'A pattern of abstract classes used to provide third-party service connector implementations, from back-end storage to front-end form submission and authentication.',
-    languages: [languageType.Java, languageType.JavaScript, languageType.JSX],
-    tech: [techType.React, techType.Dropwizard, techType.RDBMS],
+    tech: [techType.Java, techType.JavaScript, techType.JSX, techType.React, techType.Dropwizard, techType.RDBMS],
     sections: [
         { title: 'Back-end Implementation', body: BackEndProjectSection },
     ]

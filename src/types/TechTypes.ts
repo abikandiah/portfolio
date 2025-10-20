@@ -1,0 +1,70 @@
+
+const techType = {
+    TypeScript: 'TypeScript',
+    JavaScript: 'JavaScript',
+    Java: 'Java',
+    Ruby: 'Ruby',
+    Python: 'Python',
+    CSharp: 'C#',
+    Go: 'Go',
+    CSS: 'CSS',
+    HTML: 'HTML',
+    SASS: 'SASS / CSS',
+    JSX: 'JSX / HTML',
+    TSX: 'TSX / HTML',
+    React: 'React',
+    ReactRedux: 'React-Redux',
+    ReduxSagas: 'Redux-Sagas',
+    Axios: 'Axios',
+    ReactRouter: 'React Router',
+    TanstackRouter: 'Tanstack Router',
+    TailwindCSS: 'Tailwind CSS',
+    Dropwizard: 'Dropwizard',
+    OIDC: 'OIDC Authentication',
+    RestAPI: 'REST API',
+    GoogleCloud: 'Google Cloud',
+    GoogleVault: 'Google Vault',
+    AzureAD: 'Azure AD',
+    MicrosoftEDiscovery: 'Microsoft eDiscovery',
+    JavaAnnotations: 'Java Annotations',
+    JavaReflections: 'Java Reflections',
+    OpenSource: 'Open Source',
+    TusProtocol: 'TUS Upload Protocol',
+    RDBMS: 'RDBMS SQL',
+    ThreadPools: 'Thread Pools',
+    Concurrency: 'Concurrency and Synchronization',
+    WebWorkers: 'Web Workers',
+    SSOLinks: 'SSO Links',
+    SMTP: 'SMTP',
+    LDAP: 'LDAP',
+    Node: 'Node',
+    Express: 'Express',
+    MongoDB: 'MongoDb',
+    PostgreSQL: 'PostgreSQL',
+    Docker: 'Docker',
+    AWS: 'AWS'
+} as const;
+
+type TTech = (typeof techType)[keyof typeof techType];
+
+const techColorMap: { [key: string]: string } = {
+    [techType.JavaScript]: 'bg-yellow-100 text-yellow-800 border-yellow-500',
+    [techType.TypeScript]: 'bg-blue-100 text-blue-800 border-blue-500',
+    [techType.Python]: 'bg-blue-600 text-white border-blue-600',
+    [techType.Java]: 'bg-red-100 text-red-800 border-red-500',
+    [techType.CSharp]: 'bg-purple-100 text-purple-800 border-purple-500',
+    [techType.Go]: 'bg-cyan-100 text-cyan-800 border-cyan-500',
+    [techType.React]: 'bg-cyan-100 text-cyan-800 border-cyan-500',
+    [techType.TailwindCSS]: 'bg-sky-100 text-sky-800 border-sky-500',
+    [techType.Node]: 'bg-green-100 text-green-800 border-green-500',
+    [techType.Express]: 'bg-gray-700 text-white border-gray-700',
+    [techType.MongoDB]: 'bg-green-700 text-white border-green-700',
+    [techType.PostgreSQL]: 'bg-blue-700 text-white border-blue-700',
+    [techType.Docker]: 'bg-blue-100 text-blue-800 border-blue-500',
+    [techType.AWS]: 'bg-orange-100 text-orange-800 border-orange-500',
+    default: 'bg-gray-200 text-gray-800 border-gray-900',
+};
+
+export { techColorMap, techType };
+export type { TTech };
+

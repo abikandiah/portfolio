@@ -1,4 +1,5 @@
 import type { ElementType, JSX } from "react";
+import { techColorMap, type TTech } from "./TechTypes";
 
 const projectType = {
     NuixRampiva: 'Nuix / Rampiva',
@@ -6,52 +7,6 @@ const projectType = {
 } as const;
 
 type TProjectType = (typeof projectType)[keyof typeof projectType];
-
-const languageType = {
-    TypeScript: 'TypeScript',
-    JavaScript: 'JavaScript',
-    Java: 'Java',
-    Ruby: 'Ruby',
-    Python: 'Python',
-    CSS: 'CSS',
-    HTML: 'HTML',
-    SASS: 'SASS / CSS',
-    JSX: 'JSX / HTML',
-    TSX: 'TSX / HTML'
-} as const;
-
-type TLanguage = (typeof languageType)[keyof typeof languageType];
-
-const techType = {
-    React: 'React',
-    ReactRedux: 'React-Redux',
-    ReduxSagas: 'Redux-Sagas',
-    Axios: 'Axios',
-    ReactRouter: 'React Router',
-    TanstackRouter: 'Tanstack Router',
-    TailwindCss: 'Tailwind CSS',
-    Dropwizard: 'Dropwizard',
-    OIDC: 'OIDC Authentication',
-    RestAPI: 'REST API',
-    GoogleCloud: 'Google Cloud',
-    GoogleVault: 'Google Vault',
-    AzureAD: 'Azure AD',
-    MicrosoftEDiscovery: 'Microsoft eDiscovery',
-    JavaAnnotations: 'Java Annotations',
-    JavaReflections: 'Java Reflections',
-    OpenSource: 'Open Source',
-    TusProtocol: 'TUS Upload Protocol',
-    RDBMS: 'RDBMS SQL',
-    ThreadPools: 'Thread Pools',
-    Concurrency: 'Concurrency and Synchronization',
-    WebWorkers: 'Web Workers',
-    SSOLinks: 'SSO Links',
-    SMTP: 'SMTP',
-    LDAP: 'LDAP'
-} as const;
-
-type TTech = (typeof techType)[keyof typeof techType];
-
 
 interface ProjectSectionProps {
     title: string;
@@ -64,15 +19,12 @@ interface ProjectProps {
     name: string;
     description: string;
     duration: string;
-
-    languages: TLanguage[];
     tech: TTech[];
 
     pathname?: string;
     icon?: ElementType<any, keyof JSX.IntrinsicElements> | undefined;
     sections?: ProjectSectionProps[] | undefined;
 }
-
 
 class ProjectSection implements ProjectSectionProps {
     title: string;
@@ -92,10 +44,9 @@ class Project implements ProjectProps {
     description: string;
     duration: string;
 
-    languages: TLanguage[];
     tech: TTech[];
-
     pathname: string;
+
     icon?: ElementType<any, keyof JSX.IntrinsicElements> | undefined;
     sections?: ProjectSection[] | undefined;
 
@@ -105,9 +56,7 @@ class Project implements ProjectProps {
         this.description = props.description;
         this.duration = props.duration;
 
-        this.languages = props.languages?.sort();
-        this.tech = props.tech?.sort();
-
+        this.tech = props.tech?.sort(sortTech);
         this.pathname = toUrl(this.name);
 
         if (Array.isArray(props.sections)) {
@@ -116,10 +65,23 @@ class Project implements ProjectProps {
     }
 }
 
+function sortTech(a: string, b: string): number {
+    const colorA = techColorMap[a];
+    const colorB = techColorMap[b];
+
+    if (colorA == null && colorB != null) {
+        return 1;
+    }
+    if (colorA != null && colorB == null) {
+        return -1;
+    }
+    return a.localeCompare(b);
+}
+
 function toUrl(str: string): string {
     return str.toLowerCase().replaceAll(' ', '-');
 }
 
-export { languageType, Project, ProjectSection, projectType, techType };
-export type { ProjectProps, ProjectSectionProps, TProjectType };
+export { Project, ProjectSection, projectType };
+export type { ProjectProps, ProjectSectionProps };
 

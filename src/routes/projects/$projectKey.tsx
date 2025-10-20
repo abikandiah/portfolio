@@ -1,3 +1,4 @@
+import { BadgeContainer, TechBadge } from '@/components/ui/badge';
 import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
@@ -45,6 +46,12 @@ function ProjectHeader({ proj }: { proj: Project }) {
 			<p className="mt-1 font-light text-gray-700 text-lg">
 				{proj.description}
 			</p>
+
+			<BadgeContainer className="mt-4">
+				{proj.tech?.map(tech => (
+					<TechBadge key={tech} value={tech} />
+				))}
+			</BadgeContainer>
 		</div>
 	)
 }
