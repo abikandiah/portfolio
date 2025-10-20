@@ -1,5 +1,4 @@
-import type Project from "@/constants/project";
-import { projects } from "@/constants/project";
+import { Project, projects } from "@/constants/project";
 import { Link } from "@tanstack/react-router";
 import { FolderCode } from "lucide-react";
 import { Card, CardContent, CardH2Header } from "../ui/card";

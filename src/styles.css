@@ -7,6 +7,10 @@
 	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border-stone-300/80 border;
 }
 
+.sidebar {
+	@apply text-sidebar-foreground
+}
+
 .header-card {
 	@apply flex justify-between rounded-b text-card-foreground bg-card border border-stone-300/80 pl-3
 }
