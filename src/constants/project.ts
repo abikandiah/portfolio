@@ -1,3 +1,4 @@
+import LoremIpsum, { LoremIpsumAlt1, LoremIpsumAlt2 } from "./LoremIpsum";
 
 interface ProjectSectionProps {
     title?: string;
@@ -61,13 +62,24 @@ addProject({
     duration: '2023',
     description: 'A React form generator for backend Java classes. Removes front-end development time by allowing back-end devs to describe form configurations directly on the Java class with annotations.',
     sections: [
-        { title: 'Back-end Implementation', body: '' }
+        { body: LoremIpsumAlt1 },
+        { title: 'Back-end Implementation', body: LoremIpsum },
+        { body: LoremIpsumAlt1 },
+        { title: 'Back-end Implementation', body: LoremIpsumAlt2 },
+        { title: 'Back-end Implementation', body: LoremIpsum },
+        { body: LoremIpsumAlt1 },
+        { body: LoremIpsumAlt2 },
     ]
 });
 addProject({
     name: 'Google Vault Collector',
     duration: '2024',
-    description: 'A third-party connector to the Google Vault eDiscovery tool. Allows users to customize and run end-to-end data collection workflows within their Google Workspace environment'
+    description: 'A third-party connector to the Google Vault eDiscovery tool. Allows users to customize and run end-to-end data collection workflows within their Google Workspace environment',
+    sections: [
+        { title: 'Back-end Implementation', body: LoremIpsumAlt1 },
+        { body: LoremIpsumAlt2 },
+        { title: 'Front-end Implementation', body: LoremIpsum },
+    ]
 });
 addProject({
     name: 'Third-Party Services Pattern',
