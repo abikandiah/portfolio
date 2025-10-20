@@ -28,9 +28,6 @@ function Header() {
                         <li>
                             <NavLink to="/projects" text={'Projects'} />
                         </li>
-                        <li>
-                            <NavLink to="/play" text={'Playground'} />
-                        </li>
                     </ul>
                 </nav>
             </div>

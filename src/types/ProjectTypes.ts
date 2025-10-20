@@ -19,7 +19,7 @@ class ProjectSection implements ProjectSectionProps {
 }
 
 const projectType = {
-    Work: 'Work',
+    NuixRampiva: 'Nuix / Rampiva',
     Personal: 'Personal'
 } as const;
 
@@ -30,9 +30,9 @@ interface ProjectProps {
     name: string;
     description: string;
     duration: string;
-    pathname?: string;
+    // tech: string[];
 
-    order?: number | undefined;
+    pathname?: string;
     icon?: ElementType<any, keyof JSX.IntrinsicElements> | undefined;
     sections?: ProjectSectionProps[] | undefined;
 }
@@ -42,9 +42,9 @@ class Project implements ProjectProps {
     name: string;
     description: string;
     duration: string;
+    // tech: string[];
     pathname: string;
 
-    order?: number | undefined;
     icon?: ElementType<any, keyof JSX.IntrinsicElements> | undefined;
     sections?: ProjectSection[] | undefined;
 
@@ -53,9 +53,9 @@ class Project implements ProjectProps {
         this.name = props.name;
         this.description = props.description;
         this.duration = props.duration;
+        // this.tech = props.tech;
         this.pathname = toUrl(this.name);
 
-        this.order = props.order;
         if (Array.isArray(props.sections)) {
             this.sections = props.sections.map(section => new ProjectSection(section));
         }

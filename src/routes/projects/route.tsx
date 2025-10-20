@@ -1,8 +1,10 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
 import { projects } from '@/constants/project'
-import { Project, projectType } from '@/types/ProjectTypes'
+import { Project } from '@/types/ProjectTypes'
+import { ChevronDown } from 'lucide-react'
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
@@ -19,42 +21,44 @@ function RouteComponent() {
 	)
 }
 
+interface ProjectMap {
+	[key: string]: Project[];
+}
+
+const projectsByType: ProjectMap = projects.reduce((prev, curr) => {
+	if (prev[curr.type] == null) {
+		prev[curr.type] = [];
+	}
+	prev[curr.type].push(curr);
+	return prev;
+}, {} as ProjectMap);
+
+
 function ProjectSideBar() {
 	return (
 		<Sidebar>
 			<SidebarContent>
-				<WorkProjectsGroup />
-				<PersonalProjectsGroup />
+				{Object.keys(projectsByType).map(type => {
+					const projects = projectsByType[type];
+					return (
+						<ProjectsGroup type={type} projects={projects} />
+					)
+				})}
 			</SidebarContent>
 		</Sidebar >
 	)
 }
 
-function PersonalProjectsGroup() {
-	const personalProjects = projects.filter(proj => proj.type == projectType.Personal);
+function ProjectsGroup({ type, projects }: { type: string, projects: Project[] }) {
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Personal Projects</SidebarGroupLabel>
-			<SidebarGroupContent>
-				<SidebarMenu>
-					{personalProjects.map((proj) => (
-						<SidebarMenuLink key={proj.name}
-							proj={proj} />
-					))}
-				</SidebarMenu>
-			</SidebarGroupContent>
-		</SidebarGroup>
-	)
-}
+			<SidebarGroupLabel>
+				{type}
+			</SidebarGroupLabel>
 
-function WorkProjectsGroup() {
-	const workProjects = projects.filter(proj => proj.type == projectType.Work);
-	return (
-		<SidebarGroup>
-			<SidebarGroupLabel>Work Projects</SidebarGroupLabel>
 			<SidebarGroupContent>
 				<SidebarMenu>
-					{workProjects.map((proj) => (
+					{projects.map((proj) => (
 						<SidebarMenuLink key={proj.name}
 							proj={proj} />
 					))}
@@ -78,3 +82,28 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 	)
 }
 
+function CollapsibleProjectsGroup({ type, projects }: { type: string, projects: Project[] }) {
+	return (
+		<Collapsible defaultOpen className="group/collapsible">
+			<SidebarGroup>
+				<SidebarGroupLabel asChild>
+					<CollapsibleTrigger>
+						{type}
+						<ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+					</CollapsibleTrigger>
+				</SidebarGroupLabel>
+
+				<CollapsibleContent>
+					<SidebarGroupContent>
+						<SidebarMenu>
+							{projects.map((proj) => (
+								<SidebarMenuLink key={proj.name}
+									proj={proj} />
+							))}
+						</SidebarMenu>
+					</SidebarGroupContent>
+				</CollapsibleContent>
+			</SidebarGroup>
+		</Collapsible>
+	)
+}

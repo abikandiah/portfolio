@@ -2,7 +2,7 @@ import { LoremIpsumAlt2 } from "@/constants/LoremIpsum";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 
 export const microsoftEDiscoveryProject: ProjectProps = {
-    type: projectType.Work,
+    type: projectType.NuixRampiva,
     name: 'Microsoft eDiscovery Collector',
     duration: '2022',
     description: 'A third-party connector to the Microsoft eDiscovery tool. Allows users to customize and run end-to-end data collection workflows within their E365 environment.',
