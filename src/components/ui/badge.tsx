@@ -15,7 +15,7 @@ function TechBadge({ value }: { value: string }) {
     const techBadgeClass = techColorMap[value] || techColorMap.default;
 
     return (
-        <span className={cn("inline-flex items-center rounded-full border px-3 py-0.5 text-sm font-medium", techBadgeClass)}>
+        <span className={cn("inline-flex items-center rounded border px-3 py-1 text-sm font-light", techBadgeClass)}>
             {value}
         </span>
     )
