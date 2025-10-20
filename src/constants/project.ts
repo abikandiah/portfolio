@@ -27,7 +27,7 @@ class Project implements ProjectProps {
     name: string;
     duration: string;
     description: string;
-    url: string;
+    pathname: string;
 
     icon?: React.ElementType;
     sections?: ProjectSection[];
@@ -38,7 +38,7 @@ class Project implements ProjectProps {
         this.description = description;
         this.icon = icon;
         this.sections = sections?.map(props => new ProjectSection(props));
-        this.url = toUrl(this.name);
+        this.pathname = toUrl(this.name);
     }
 }
 
@@ -50,7 +50,7 @@ const projectsMap: Map<string, Project> = new Map();
 
 function addProject(props: ProjectProps) {
     const proj = new Project(props);
-    projectsMap.set(proj.url, proj);
+    projectsMap.set(proj.pathname, proj);
 }
 
 addProject({

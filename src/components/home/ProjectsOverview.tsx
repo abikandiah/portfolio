@@ -23,7 +23,7 @@ function ProjectsOverview() {
 function ProjectOverview({ proj }: { proj: Project }) {
     const { name, duration, description } = proj;
 
-    const url = `/projects/${proj.url}`;
+    const url = `/projects/${proj.pathname}`;
 
     return (
         <div className="">

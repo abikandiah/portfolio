@@ -7,6 +7,6 @@ export const Route = createFileRoute('/projects/')({
 
 function RouteComponent() {
 	return (
-		<Navigate to={projects[0].url} replace />
+		<Navigate to={projects[0].pathname} replace />
 	)
 }
