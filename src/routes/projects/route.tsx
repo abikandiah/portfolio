@@ -1,13 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from "@/components/ui/carousel"
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
+import { projects } from '@/constants/project'
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
@@ -15,32 +9,37 @@ export const Route = createFileRoute('/projects')({
 
 function RouteComponent() {
 	return (
-		<div className="flex flex-col">
-			<CarouselDemo />
-		</div>
+		<SidebarProvider>
+			<ProjectSideBar />
+			<div className="flex flex-col">
+				<Outlet />
+			</div>
+		</SidebarProvider>
 	)
 }
 
-function CarouselDemo() {
+function ProjectSideBar() {
 	return (
-		<Carousel className="w-full max-w-xs">
-			<CarouselContent>
-				{Array.from({ length: 5 }).map((_, index) => (
-					<CarouselItem key={index}>
-						<div className="p-1">
-							<Card>
-								<Outlet />
-
-								<CardContent className="flex aspect-square items-center justify-center p-6">
-									<span className="text-4xl font-semibold">{index + 1}</span>
-								</CardContent>
-							</Card>
-						</div>
-					</CarouselItem>
-				))}
-			</CarouselContent>
-			<CarouselPrevious />
-			<CarouselNext />
-		</Carousel>
+		<Sidebar>
+			<SidebarContent>
+				<SidebarGroup>
+					<SidebarGroupLabel>Projects</SidebarGroupLabel>
+					<SidebarGroupContent>
+						<SidebarMenu>
+							{projects.map((proj) => (
+								<SidebarMenuItem key={proj.name}>
+									<SidebarMenuButton asChild>
+										<Link to={'/projects/' + proj.url}>
+											{/* <item.icon /> */}
+											<span>{proj.name}</span>
+										</Link>
+									</SidebarMenuButton>
+								</SidebarMenuItem>
+							))}
+						</SidebarMenu>
+					</SidebarGroupContent>
+				</SidebarGroup>
+			</SidebarContent>
+		</Sidebar>
 	)
 }

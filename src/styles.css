@@ -4,11 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 .card {
-	@apply text-card-foreground flex flex-col gap-6 p-6 rounded-md bg-card border-stone-300/80 border;
+	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border-stone-300/80 border;
 }
 
 .header-card {
-	@apply flex justify-between rounded-b-md text-card-foreground bg-card border border-stone-300/80 pl-3
+	@apply flex justify-between rounded-b text-card-foreground bg-card border border-stone-300/80 pl-3
 }
 
 .nav-link {
@@ -38,7 +38,7 @@ code {
 :root {
 	--background: oklch(0.95 0.005 80);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.25);
+	--card: oklch(1 0 0 / 0.3);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);
@@ -61,7 +61,7 @@ code {
 	--chart-4: oklch(0.828 0.189 84.429);
 	--chart-5: oklch(0.769 0.188 70.08);
 	--radius: 0.625rem;
-	--sidebar: oklch(0.985 0 0);
+	--sidebar: var(--card);
 	--sidebar-foreground: oklch(0.141 0.005 285.823);
 	--sidebar-primary: oklch(0.21 0.006 285.885);
 	--sidebar-primary-foreground: oklch(0.985 0 0);

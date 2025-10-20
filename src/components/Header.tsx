@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 function Header() {
     return (
-        <header className="max-w-screen-xl mx-auto px-8 pb-12">
+        <header className="max-w-screen-xl mx-auto px-8 pb-12 z-50 relative top-0">
 
             <div className="header-card">
                 <Link to={"/"}>
@@ -20,7 +20,7 @@ function Header() {
                 </div>
 
                 <nav className="hidden md:block">
-                    <ul className="flex rounded-md px-3 text-sm font-medium"
+                    <ul className="flex rounded px-3 text-sm font-medium"
                     >
                         <li>
                             <NavLink to="/" text={'Home'} />

@@ -14,7 +14,7 @@ function ProjectsOverview() {
 
             <CardContent className="space-y-4">
                 {projects.map(proj =>
-                    <ProjectOverview proj={proj} />
+                    <ProjectOverview key={proj.name} proj={proj} />
                 )}
             </CardContent>
         </Card>
@@ -24,7 +24,7 @@ function ProjectsOverview() {
 function ProjectOverview({ proj }: { proj: Project }) {
     const { name, duration, description } = proj;
 
-    const url = `/projects/${proj.getUrl()}`;
+    const url = `/projects/${proj.url}`;
 
     return (
         <div className="">
