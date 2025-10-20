@@ -1,8 +1,9 @@
 import LoremIpsum, { LoremIpsumAlt1 } from "@/constants/LoremIpsum";
-import type { ProjectProps } from "@/constants/project";
+import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 
 
 export const googleVaultProject: ProjectProps = {
+    type: projectType.Work,
     name: 'Google Vault Collector',
     duration: '2024',
     description: 'A third-party connector to the Google Vault eDiscovery tool. Allows users to customize and run end-to-end data collection workflows within their Google Workspace environment',

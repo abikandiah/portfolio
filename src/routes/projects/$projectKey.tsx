@@ -1,5 +1,6 @@
-import { projectsMap, type Project, type ProjectSection } from '@/constants/project';
+import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
+import type { Project, ProjectSection } from '@/types/ProjectTypes';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/projects/$projectKey')({

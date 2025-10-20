@@ -1,8 +1,9 @@
 import LoremIpsum from "@/constants/LoremIpsum";
-import type { ProjectProps } from "@/constants/project";
+import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 
 
 export const javaToReactFormBuilderProject: ProjectProps = {
+    type: projectType.Work,
     name: 'Java-To-React Form Builder',
     duration: '2023',
     description: 'A React form generator for backend Java classes. Removes front-end development time by allowing back-end devs to describe form configurations directly on the Java class with annotations.',
