@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
-import { Project, projects } from '@/constants/project'
+import { projects, Project } from '@/constants/project'
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
@@ -48,30 +48,7 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 					</SidebarMenuButton>
 				)}
 			</Link>
-
-			{/* {Array.isArray(proj.sections) && proj.sections.length > 0 && (
-				<SidebarMenuSub>
-					{proj.sections.map(section => (
-						<SidebarMenuSubLink key={section.pathname}
-							parentTo={to} section={section} href={href} />
-					))}
-				</SidebarMenuSub>
-			)} */}
-
 		</SidebarMenuItem>
 	)
 }
 
-// function SidebarMenuSubLink({ parentTo, section, href }: { parentTo: string; section: ProjectSection; href: string }) {
-// 	const to = parentTo + '#' + section.pathname;
-
-// 	return (
-// 		<SidebarMenuSubItem>
-// 			<SidebarMenuSubButton asChild isActive={to === href}>
-// 				<Link to={to}>
-// 					<span>{section.title}</span>
-// 				</Link>
-// 			</SidebarMenuSubButton>
-// 		</SidebarMenuSubItem>
-// 	)
-// }

@@ -1,4 +1,4 @@
-import { Project, ProjectSection, projectsMap } from '@/constants/project';
+import { projectsMap, type Project, type ProjectSection } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -36,7 +36,7 @@ function ProjectHeader({ proj }: { proj: Project }) {
 					{proj.name}
 				</h1>
 
-				<span className="ml-auto text-sm leading-5 text-gray-500">
+				<span className="ml-auto text leading-5 text-gray-500">
 					{proj.duration}
 				</span>
 			</div>
@@ -75,9 +75,7 @@ function ProjectBodySection({ section }: { section: ProjectSection }) {
 				</h2>
 			}
 
-			<p>
-				{section.body}
-			</p>
+			{section.body && <section.body />}
 		</section>
 	)
 }
