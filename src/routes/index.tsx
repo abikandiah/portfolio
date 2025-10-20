@@ -11,13 +11,11 @@ export const Route = createFileRoute('/')({
 
 function App() {
 	return (
-		<>
-			<div className="flex flex-col">
-				<ProfileHeader />
-				<ProfileSummary />
-				<MainContent />
-			</div>
-		</>
+		<div className="flex flex-col">
+			<ProfileHeader />
+			<ProfileSummary />
+			<MainContent />
+		</div>
 	)
 }
 
@@ -43,9 +41,9 @@ function ProfileHeader() {
 
 function ProfileSummary() {
 	return (
-		<section className='card mt-6'>
+		<section className='flex flex-col gap-4 p-6'>
 
-			<p className="leading-relaxed text-base">
+			<p className="leading-relaxed text-gray-700">
 				<span className="font-semibold">Full-Stack Developer</span> with
 				<span className="font-semibold"> 7+ years of experience</span> specializing in building innovative, quality full-stack solutions from the ground up, culminating
 				in a <span className="font-semibold">successful company acquisition</span>.
@@ -79,7 +77,7 @@ function ProfileSummary() {
 
 function MainContent() {
 	return (
-		<div className="grid grid-cols-1 gap-y-4 lg:grid-cols-2 mt-4">
+		<div className="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
 			<div className="flex flex-col">
 				<ProjectsOverview />
 			</div>

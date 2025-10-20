@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 .card {
-	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border-stone-300/80 border;
+	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border border-stone-300/80;
 }
 
 .sidebar {
@@ -42,7 +42,7 @@ code {
 :root {
 	--background: oklch(0.95 0.005 80);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.3);
+	--card: oklch(1 0 0 / 0.25);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);

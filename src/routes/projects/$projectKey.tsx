@@ -9,7 +9,6 @@ export const Route = createFileRoute('/projects/$projectKey')({
 })
 
 function RouteComponent() {
-
 	const { projectKey } = Route.useParams();
 	const proj = projectsMap.get(projectKey);
 
