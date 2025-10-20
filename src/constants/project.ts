@@ -39,8 +39,6 @@ class Project implements ProjectProps {
         this.icon = icon;
         this.sections = sections?.map(props => new ProjectSection(props));
         this.url = toUrl(this.name);
-
-        console.log(this.sections)
     }
 }
 
