@@ -20,8 +20,8 @@ function RouteComponent() {
 			<ProjectHeader proj={proj} />
 
 			<ProjectBody>
-				{Array.isArray(proj.sections) && proj.sections.map(section => (
-					<ProjectBodySection key={section.pathname} section={section} />
+				{Array.isArray(proj.sections) && proj.sections.map((section, index) => (
+					<ProjectBodySection key={index} section={section} />
 				))}
 			</ProjectBody>
 		</ProjectContainer>
@@ -69,9 +69,15 @@ function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 function ProjectBodySection({ section }: { section: ProjectSection }) {
 	return (
 		<section>
-			<h2 id={section.pathname} className="font-semibold text-lg text-gray-900 tracking-tight">
-				{section.title}
-			</h2>
+			{section.title &&
+				<h2 id={section.pathname} className="font-semibold text-lg text-gray-900 tracking-tight">
+					{section.title}
+				</h2>
+			}
+
+			<p>
+				{section.body}
+			</p>
 		</section>
 	)
 }

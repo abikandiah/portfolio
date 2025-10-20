@@ -1,17 +1,20 @@
+
 interface ProjectSectionProps {
-    title: string;
+    title?: string;
     body: string;
 }
 
 class ProjectSection {
-    title: string;
+    title?: string;
     body: string;
-    pathname: string;
+    pathname?: string;
 
     constructor({ title, body }: ProjectSectionProps) {
         this.title = title;
         this.body = body;
-        this.pathname = toUrl(title);
+        if (title != null) {
+            this.pathname = toUrl(title);
+        }
     }
 }
 
