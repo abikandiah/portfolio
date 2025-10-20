@@ -1,9 +1,9 @@
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
 import WorkExperience from '@/components/home/WorkExperience'
-import { ExternalSite, SendEmail } from '@/components/misc'
 import { githubUrl, linkedinUrl, personalEmail } from '@/constants'
 import { createFileRoute } from '@tanstack/react-router'
+import { Mail } from 'lucide-react'
 
 export const Route = createFileRoute('/')({
 	component: App,
@@ -89,6 +89,36 @@ function MainContent() {
 				<WorkExperience />
 			</div>
 		</div>
+	)
+}
+
+function SendEmail({ email, showText }: { email: string; showText?: boolean }) {
+	return (
+		<a
+			className="flex items-center action-hover"
+			title="Send me an email"
+			href={`mailto:${email}?subject=Hello From Your Website!&body=I wanted to reach out to you regarding...`}
+		>
+			<Mail />
+			{showText && <span className="ml-2 font-medium">{email}</span>}
+		</a>
+	)
+}
+
+interface ExternalSiteProps {
+	url: string;
+	src: string;
+	alt: string;
+}
+export function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & React.ComponentProps<"a">) {
+	return (
+		<a href={url} target="_blank" rel="noopener noreferrer" {...rest}>
+			<img
+				src={src}
+				alt={alt}
+				className="h-6 w-6"
+			/>
+		</a>
 	)
 }
 
