@@ -72,7 +72,7 @@ function Banner({ type = bannerType.Note, title, message, className, ...props }:
 
     return (
         <div
-            className={cn(`p-4 border-l-4 rounded-md shadow-md mb-4`, containerClass, className)}
+            className={cn(`p-3 border-l-4 rounded`, containerClass, className)}
             role="alert"
             {...props}
         >
@@ -83,7 +83,7 @@ function Banner({ type = bannerType.Note, title, message, className, ...props }:
                 <div>
                     {/* Title is optional but recommended */}
                     {title && (
-                        <p className={`text-lg font-bold ${titleClass}`}>
+                        <p className={`font-bold ${titleClass}`}>
                             {title}
                         </p>
                     )}

@@ -1,9 +1,10 @@
+import { NotFound } from '@/components/NotFound';
 import { BadgeContainer, TechBadge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
-import { createFileRoute, Navigate } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/projects/$projectKey')({
 	component: RouteComponent,
@@ -14,7 +15,9 @@ function RouteComponent() {
 	const proj = projectsMap.get(projectKey);
 
 	if (proj == null) {
-		return <Navigate to={"/projects"} replace />;
+		return (
+			<NotFound />
+		)
 	}
 
 	return (
@@ -25,7 +28,7 @@ function RouteComponent() {
 				{Array.isArray(proj.sections) && proj.sections.map((section, index) => (
 					<>
 						{index > 0 &&
-							<Separator className="mt-6"/>
+							<Separator className="mt-6" />
 						}
 						<ProjectBodySection key={index} section={section} />
 					</>
