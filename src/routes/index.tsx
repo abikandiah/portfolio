@@ -32,7 +32,7 @@ function ProfileHeader() {
 				Abilaesh Kandiah
 			</h1>
 
-			<h2 className="mt-1 text-gray-600 sm:text-2xl text-xl">
+			<h2 className="mt-1 text-gray-700 sm:text-2xl text-xl">
 				Full-Stack Developer
 			</h2>
 		</div>
@@ -41,15 +41,16 @@ function ProfileHeader() {
 
 function ProfileSummary() {
 	return (
-		<section className='flex flex-col gap-4 p-6'>
+		<section className='flex flex-col gap-4 p-6 mt-2'>
 
 			<p className="p-text">
-				<span className="font-semibold">Full-Stack Developer</span> with
-				<span className="font-semibold"> 7+ years of experience</span> specializing in building innovative, quality full-stack solutions from the ground up, culminating
-				in a <span className="font-semibold">successful company acquisition</span>.
-
-				Expert in <span className="font-semibold">Java, JavaScript, and React</span>, with a deep understanding of software development and system design principles.
-				Seeking a challenging role to leverage my skills in producing high-quality software solutions, while continuously expanding my technical expertise.
+				Welcome, I'm Abi, a Full-Stack Developer and general enthusiast.
+				I enjoy learning about most things to a general level, and I also enjoy building and crafting quality software solutions.
+				Learning whatever is needed in order to get the job done the best way it can be done.
+				I mostly prefer back-end work but can dabble in front-end as well.
+				I've primarily used React with JavaScript for the front-end (with this site being my first TypeScript)
+				and Java with Dropwizard for the back-end. I've over 7 years of experience in building full-stack projects from the ground up,
+				and I'm looking for more opportunities to extend.
 			</p>
 
 			<div className="flex items-center gap-4">

@@ -11,15 +11,27 @@ export const automateWebUIProject: ProjectProps = {
     techType.ReduxSagas, techType.ReactRouter, techType.RestAPI, techType.OIDC, techType.Axios, techType.WebWorkers],
 
     sections: [
-        { body: Introduction }
+        { title: 'Chapter One: The Beginning', body: Introduction }
     ]
 };
 
 function Introduction() {
     return (
-        <p>The web UI was built with a set of four main libraries: React, React-Redux, Redux-Sagas and React-Router.</p>
+        <>
+            <p>
+                The web UI was built with a set of four main libraries: <span className="font-semibold">React</span>
+                , <span className="font-semibold">React-Redux</span>
+                , and <span className="font-semibold">Redux-Sagas</span>.
+                React is used for all things components and styling, with SASS as the pre-processor for CSS.
+                React-Redux for the global app state and for its middleware feature,
+                allowing Redux-Sagas for asynchronous action handling.
+            </p>
+
+            <p>
+                The three were used to create a framework for application startup, querying and caching API objects
+                , defining back-end corresponding classes for APIs and CRUD actions.
+            </p>
+        </>
     )
 }
-
-
 

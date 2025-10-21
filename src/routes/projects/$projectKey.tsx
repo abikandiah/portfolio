@@ -42,7 +42,7 @@ function ProjectHeader({ proj }: { proj: Project }) {
 				</span>
 			</div>
 
-			<p className="mt-1 text-gray-600 text-lg">
+			<p className="mt-1 text-gray-700 text-lg">
 				{proj.description}
 			</p>
 
@@ -75,9 +75,9 @@ function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 
 function ProjectBodySection({ section }: { section: ProjectSection }) {
 	return (
-		<section className="p-text">
+		<section className="p-text space-y-2">
 			{section.title &&
-				<h2 id={section.pathname} className="font-semibold text-lg text-gray-900 tracking-tight">
+				<h2 id={section.pathname} className="font-semibold text-lg text-gray-900">
 					{section.title}
 				</h2>
 			}

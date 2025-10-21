@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+	/*
+    This defines the utility class 'list-square'
+    which maps to the CSS property value 'square'.
+  */
+	--list-style-type-square: square;
+}
+
 .card {
 	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border border-stone-300/80;
 }
@@ -16,11 +24,11 @@
 }
 
 .nav-link {
-	@apply relative block px-3 py-2 transition text-gray-600 hover:text-gray-950
+	@apply relative block px-3 py-2 transition text-gray-700 hover:text-gray-950
 }
 
 .p-text {
-	@apply leading-relaxed text-gray-600
+	@apply leading-relaxed text-gray-700
 }
 
 .nav-link:hover,
@@ -46,7 +54,7 @@ code {
 :root {
 	--background: oklch(0.95 0.005 80);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.25);
+	--card: oklch(1 0 0 / 0.3);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);
