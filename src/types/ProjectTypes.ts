@@ -1,4 +1,4 @@
-import type { ElementType, JSX } from "react";
+import type { ComponentType } from "react";
 import { type TTech } from "./TechTypes";
 
 const projectType = {
@@ -9,8 +9,8 @@ const projectType = {
 type TProjectType = (typeof projectType)[keyof typeof projectType];
 
 interface ProjectSectionProps {
-    title: string;
-    body: ElementType<any, keyof JSX.IntrinsicElements>
+    title?: string;
+    body: React.ElementType;
     pathname?: string;
 }
 
@@ -22,19 +22,22 @@ interface ProjectProps {
     tech: TTech[];
 
     pathname?: string;
-    icon?: ElementType<any, keyof JSX.IntrinsicElements> | undefined;
+    icon?: ComponentType<any> | undefined;
     sections?: ProjectSectionProps[] | undefined;
 }
 
 class ProjectSection implements ProjectSectionProps {
-    title: string;
-    pathname: string;
-    body: ElementType<any, keyof JSX.IntrinsicElements>;
+    title?: string;
+    pathname?: string;
+    body: React.ElementType;
 
     constructor(props: ProjectSectionProps) {
         this.title = props.title;
         this.body = props.body;
-        this.pathname = toUrl(this.title);
+
+        if (this.title != null) {
+            this.pathname = toUrl(this.title);
+        }
     }
 }
 
@@ -47,7 +50,7 @@ class Project implements ProjectProps {
     tech: TTech[];
     pathname: string;
 
-    icon?: ElementType<any, keyof JSX.IntrinsicElements> | undefined;
+    icon?: ComponentType<any> | undefined;
     sections?: ProjectSection[] | undefined;
 
     constructor(props: ProjectProps) {
