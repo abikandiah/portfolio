@@ -84,7 +84,7 @@ function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 
 function ProjectBodySection({ section }: { section: ProjectSection }) {
 	return (
-		<section className="p-text space-y-2">
+		<section className="p-text space-y-4">
 			{section.title &&
 				<h2 id={section.pathname} className="font-semibold text-lg text-gray-900 mb-1">
 					{section.title}

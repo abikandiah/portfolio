@@ -33,11 +33,16 @@ function Overview() {
                 <li>Manage users, roles and third-party services.</li>
             </UnorderedList>
             <p>
-                It was designed as a framework that abstracts all common data state management, operations and components, so to reduce the amount of work required to scale and extend. Allowing the platform to grow from supporting fewer than 10 back-end data models to well over 30.
-
-                The application was built with it's own hand crafted component library and styles. Components were built as needed and made as generic as possible for greater reusability. Similarly, the application also contained a set of generic hooks and helper functions.
-
-                In sum, this front-end web application was successfuly designed to enable management of the Automate platform, and to readily scale as the platform scales with more features and integrations.
+                The application was designed as a framework that abstracts all common data state management, operations and components, so to reduce the amount of work required to scale and extend. Allowing the platform to grow from supporting fewer than 10 back-end data models to well over 30.
+            </p>
+            <p>
+                It was built with a custom component library. The library began with the application and components were built as needed and made generic for greater reusability. Custom hooks and helper functions were also defined as needed, to help with generic component lifecycles,  behaviours and state management.
+            </p>
+            <p>
+                It defines a data model pattern to simplify adding data models in the front-end. Including generic support for CRUD operations, polling and caching, and other coordinated flows.
+            </p>
+            <p>
+                All in all, to provide a robust user interface for the Automate platform. To give a good user experience and a good development experience; easy to maintain and ready to scale.
             </p>
         </>
     )
