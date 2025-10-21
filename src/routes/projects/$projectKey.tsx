@@ -28,13 +28,22 @@ function RouteComponent() {
 				{Array.isArray(proj.sections) && proj.sections.map((section, index) => (
 					<>
 						{index > 0 &&
-							<Separator className="mt-6" />
+							<Separator />
 						}
 						<ProjectBodySection key={index} section={section} />
 					</>
 				))}
 			</ProjectBody>
 		</ProjectContainer>
+	)
+}
+
+function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) {
+	return (
+		<div
+			className={cn('ml-8', className)}
+			{...props}
+		/>
 	)
 }
 
@@ -61,15 +70,6 @@ function ProjectHeader({ proj }: { proj: Project }) {
 				))}
 			</BadgeContainer>
 		</div>
-	)
-}
-
-function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) {
-	return (
-		<div
-			className={cn('ml-8', className)}
-			{...props}
-		/>
 	)
 }
 

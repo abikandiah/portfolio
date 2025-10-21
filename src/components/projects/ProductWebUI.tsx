@@ -1,12 +1,13 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { CodeDisplay } from "../ui/code";
+import { UnorderedList } from "../ui/list";
 
-export const automateWebUIProject: ProjectProps = {
+export const automateWebApplicationProject: ProjectProps = {
     type: projectType.NuixRampiva,
-    name: 'Product Web UI',
+    name: 'Automate Web Application',
     duration: '2018 - 2025',
-    description: 'The core React web application for the Nuix Automate product, providing users with a unified user interface for\
+    description: 'The core React web application for the Automate product, providing users with a unified user interface for\
      configuration, job scheduling and result analysis. Developed with React, React Redux, Redux Sagas, React Router and a custom-built component library.',
     tech: [techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.ReactRedux,
     techType.ReduxSagas, techType.ReactRouter, techType.RestAPI, techType.OIDC, techType.Axios, techType.WebWorkers],
@@ -22,7 +23,21 @@ function Overview() {
     return (
         <>
             <p>
+                This web application is the <span className="font-semibold">central management console</span> for the Automate platform. It is a React single-page application (SPA) created using the deprecated <code className="code">create-react-app</code> build setup. It provides a user interface for end-to-end management, enabling users to:
+            </p>
+            <UnorderedList>
+                <li>Design and build custom workflows;</li>
+                <li>Submit, schedule, and view workflow executions;</li>
+                <li>Track and manage clients and matters;</li>
+                <li>Configure platform settings and infrastructure;</li>
+                <li>Manage users, roles and third-party services.</li>
+            </UnorderedList>
+            <p>
+                It was designed as a framework that abstracts all common data state management, operations and components, so to reduce the amount of work required to scale and extend. Allowing the platform to grow from supporting fewer than 10 back-end data models to well over 30.
 
+                The application was built with it's own hand crafted component library and styles. Components were built as needed and made as generic as possible for greater reusability. Similarly, the application also contained a set of generic hooks and helper functions.
+
+                In sum, this front-end web application was successfuly designed to enable management of the Automate platform, and to readily scale as the platform scales with more features and integrations.
             </p>
         </>
     )
@@ -35,7 +50,7 @@ function TheBeginning() {
                 The web UI was built with a set of four main libraries: <span className="font-semibold">React</span>, <span className="font-semibold">React-Redux</span> and <span className="font-semibold">Redux-Sagas</span>. React is used for all things components and styling, with SASS used as the pre-processor for CSS. React-Redux paired with Redux-Sagas for global app state management and asynchronous front-end business logic.
             </p>
             <p>
-                The three were used to create a framework for application startup, authentication, queries and polling, CRUD operations for API classes, and UI component building.
+                The three were used to create a framework for application startup, authentication, data fetching, CRUD operations for API models, dialogs and alerts, and UI component building.
             </p>
 
             <h3 className="sub-heading">Model Class</h3>

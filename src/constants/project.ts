@@ -3,7 +3,7 @@ import { dataUploadProject } from "@/components/projects/DataUpload";
 import { googleVaultProject } from "@/components/projects/GoogleVaultCollector";
 import { legalHoldNotificationsProject } from "@/components/projects/LegalHoldNotifications";
 import { microsoftEDiscoveryProject } from "@/components/projects/MicrosoftEDiscoveryCollector";
-import { automateWebUIProject } from "@/components/projects/ProductWebUI";
+import { automateWebApplicationProject } from "@/components/projects/ProductWebUI";
 import { javaToReactFormBuilderProject } from "@/components/projects/ReactFormBuilder";
 import { selenumE2ETestSuiteProject } from "@/components/projects/SeleniumE2ETestSuite";
 import { thirdPartyServicesProject } from "@/components/projects/ThirdPartyServicesPattern";
@@ -17,7 +17,7 @@ function addProject(props: ProjectProps): Project {
     return proj;
 }
 
-addProject(automateWebUIProject);
+addProject(automateWebApplicationProject);
 addProject(legalHoldNotificationsProject);
 addProject(javaToReactFormBuilderProject);
 addProject(thirdPartyServicesProject);
