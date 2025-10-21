@@ -1,4 +1,5 @@
 import { BadgeContainer, TechBadge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
@@ -22,7 +23,12 @@ function RouteComponent() {
 
 			<ProjectBody>
 				{Array.isArray(proj.sections) && proj.sections.map((section, index) => (
-					<ProjectBodySection key={index} section={section} />
+					<>
+						{index > 0 &&
+							<Separator className="mt-6"/>
+						}
+						<ProjectBodySection key={index} section={section} />
+					</>
 				))}
 			</ProjectBody>
 		</ProjectContainer>
@@ -67,7 +73,7 @@ function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) 
 function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={cn('card pr-3 mt-8 space-y-12', className)}
+			className={cn('card pr-3 mt-8', className)}
 			{...props}
 		/>
 	)
@@ -77,7 +83,7 @@ function ProjectBodySection({ section }: { section: ProjectSection }) {
 	return (
 		<section className="p-text space-y-2">
 			{section.title &&
-				<h2 id={section.pathname} className="font-semibold text-lg text-gray-900">
+				<h2 id={section.pathname} className="font-semibold text-lg text-gray-900 mb-1">
 					{section.title}
 				</h2>
 			}

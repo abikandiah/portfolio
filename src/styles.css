@@ -24,7 +24,7 @@
 }
 
 .sub-heading {
-	@apply mt-8 font-semibold text-gray-900
+	@apply mt-8 mb-1 font-semibold text-gray-900
 }
 
 .nav-link {
