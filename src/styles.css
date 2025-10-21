@@ -23,6 +23,10 @@
 	@apply flex justify-between rounded-b text-card-foreground bg-card border border-stone-300/80 pl-3
 }
 
+.sub-heading {
+	@apply mt-12 font-semibold text-gray-900
+}
+
 .nav-link {
 	@apply relative block px-3 py-2 transition text-gray-700 hover:text-gray-950
 }
