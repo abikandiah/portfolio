@@ -14,7 +14,7 @@ export const automateWebApplicationProject: ProjectProps = {
 
     sections: [
         { title: 'Overview', body: Overview },
-        { title: 'Chapter One: The Beginning', body: TheBeginning },
+        { title: 'The Framework', body: Framework },
         { title: 'Next, The Internals', body: Internals }
     ]
 };
@@ -33,29 +33,29 @@ function Overview() {
                 <li>Manage users, roles and third-party services.</li>
             </UnorderedList>
             <p>
-                The application was designed as a framework that abstracts all common data state management, operations and components, so to reduce the amount of work required to scale and extend. Allowing the platform to grow from supporting fewer than 10 back-end data models to well over 30.
+                The application was designed as a framework that includes all common data state management, operations and components, so to reduce the amount of work required to scale and extend, allowing the platform to grow from supporting fewer than 10 back-end data models to well over 30.
             </p>
             <p>
-                It was built with a custom component library. The library began with the application and components were built as needed and made generic for greater reusability. Custom hooks and helper functions were also defined as needed, to help with generic component lifecycles,  behaviours and state management.
+                It was built with a custom component library. The library began with the application and components were built as needed. Components were always built to be reusable. Custom hooks and helper functions were also defined as needed, to help with component lifecycles,  behaviours and state management.
             </p>
             <p>
-                It defines a data model pattern to simplify adding data models in the front-end. Including generic support for CRUD operations, polling and caching, and other coordinated flows.
-            </p>
-            <p>
-                All in all, to provide a robust user interface for the Automate platform. To give a good user experience and a good development experience; easy to maintain and ready to scale.
+                The framework uses an implementation pattern for integrating back-end data models in the front-end; including support for CRUD operations, polling and caching, and other coordinated flows.
             </p>
         </>
     )
 }
 
-function TheBeginning() {
+function Framework() {
     return (
         <>
             <p>
-                The web UI was built with a set of four main libraries: <span className="font-semibold">React</span>, <span className="font-semibold">React-Redux</span> and <span className="font-semibold">Redux-Sagas</span>. React is used for all things components and styling, with SASS used as the pre-processor for CSS. React-Redux paired with Redux-Sagas for global app state management and asynchronous front-end business logic.
+                The web UI was built with a set of three main libraries: <span className="font-semibold">React</span>, <span className="font-semibold">React-Redux</span> and <span className="font-semibold">Redux-Sagas</span>. React is used for all things components and styling, with SASS used as the pre-processor for CSS. React-Redux paired with Redux-Sagas for global app state management and asynchronous front-end logic.
             </p>
             <p>
-                The three were used to create a framework for application startup, authentication, data fetching, CRUD operations for API models, dialogs and alerts, and UI component building.
+                The three were used to create a framework for implementing data model operations, application state management, authentication, error handling, data fetching and polling, and UI component building.
+            </p>
+            <p>
+                It consisted of two abstract classes for data model implementation: The <span className="font-semibold">Model</span> class and the <span className="font-semibold">ModelSaga</span> class. For UI building it had a suite of generic components as well as components to help compose Forms, Views and Tables.
             </p>
 
             <h3 className="sub-heading">Model Class</h3>
@@ -87,7 +87,7 @@ function TheBeginning() {
                 A model's Saga class contains all the asynchronous action handlers for when more than global state change is needed. It includes functions for making queries, validations, polling, submitting and editing forms, managing API objects, and others such as starting a guided job submission.
             </p>
 
-            <CodeDisplay code={`class Saga extends BaseSaga {
+            <CodeDisplay code={`class ModelSaga extends BaseSaga {
     *submit();
     *edit();
     *delete();

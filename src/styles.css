@@ -16,7 +16,7 @@
 }
 
 .code {
-	@apply text-sm px-1 bg-background rounded
+	@apply text-sm px-1 bg-background rounded border border-stone-300/80
 }
 
 .sidebar {
