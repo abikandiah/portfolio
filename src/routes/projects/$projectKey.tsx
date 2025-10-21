@@ -13,7 +13,7 @@ function RouteComponent() {
 	const proj = projectsMap.get(projectKey);
 
 	if (proj == null) {
-		return <Navigate to={"/projects"} replace/>;
+		return <Navigate to={"/projects"} replace />;
 	}
 
 	return (
@@ -31,18 +31,18 @@ function RouteComponent() {
 
 function ProjectHeader({ proj }: { proj: Project }) {
 	return (
-		<div>
+		<div className="pr-3">
 			<div className="flex">
 				<h1 className="font-bold tracking-tight text-gray-900 text-2xl">
 					{proj.name}
 				</h1>
 
-				<span className="ml-auto text leading-5 text-gray-500">
+				<span className="ml-auto leading-5 text-gray-500">
 					{proj.duration}
 				</span>
 			</div>
 
-			<p className="mt-1 font-light text-gray-700 text-lg">
+			<p className="mt-1 text-gray-600 text-lg">
 				{proj.description}
 			</p>
 
@@ -67,7 +67,7 @@ function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) 
 function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={cn('mt-4 pr-3 card', className)}
+			className={cn('card pr-3 mt-12', className)}
 			{...props}
 		/>
 	)
@@ -75,7 +75,7 @@ function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 
 function ProjectBodySection({ section }: { section: ProjectSection }) {
 	return (
-		<section>
+		<section className="p-text">
 			{section.title &&
 				<h2 id={section.pathname} className="font-semibold text-lg text-gray-900 tracking-tight">
 					{section.title}

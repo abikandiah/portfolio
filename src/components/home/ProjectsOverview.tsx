@@ -38,7 +38,7 @@ function ProjectOverview({ proj }: { proj: Project }) {
                 </span>
             </div>
 
-            <p className="font-medium text-sm leading-5 text-gray-600">
+            <p className="text-sm leading-5 text-gray-600">
                 {description}
             </p>
 

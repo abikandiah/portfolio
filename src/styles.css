@@ -19,6 +19,10 @@
 	@apply relative block px-3 py-2 transition text-gray-600 hover:text-gray-950
 }
 
+.p-text {
+	@apply leading-relaxed text-gray-600
+}
+
 .nav-link:hover,
 .nav-link-active {
 	@apply text-gray-950 transition duration-200;

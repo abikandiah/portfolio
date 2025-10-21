@@ -32,7 +32,7 @@ function ProfileHeader() {
 				Abilaesh Kandiah
 			</h1>
 
-			<h2 className="mt-1 font-light text-gray-700 sm:text-2xl text-xl">
+			<h2 className="mt-1 text-gray-600 sm:text-2xl text-xl">
 				Full-Stack Developer
 			</h2>
 		</div>
@@ -43,7 +43,7 @@ function ProfileSummary() {
 	return (
 		<section className='flex flex-col gap-4 p-6'>
 
-			<p className="leading-relaxed text-gray-700">
+			<p className="p-text">
 				<span className="font-semibold">Full-Stack Developer</span> with
 				<span className="font-semibold"> 7+ years of experience</span> specializing in building innovative, quality full-stack solutions from the ground up, culminating
 				in a <span className="font-semibold">successful company acquisition</span>.

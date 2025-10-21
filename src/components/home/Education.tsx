@@ -40,7 +40,7 @@ function EducationRow({ school, degree, duration, logoSrc }: EducationRowProps) 
                     {school}
                 </dd>
                 <dt className='sr-only'>Degree</dt>
-                <dd className="text-xs leading-5 text-gray-500">
+                <dd className="text-xs leading-5 text-gray-600">
                     {degree}
                 </dd>
                 <dt className='sr-only'>Duration</dt>

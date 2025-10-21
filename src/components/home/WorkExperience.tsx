@@ -50,7 +50,7 @@ function WorkExperienceRow({ companyName, role, duration, logoSrc }: WorkExperie
                     {companyName}
                 </dd>
                 <dt className='sr-only'>Role</dt>
-                <dd className="text-xs leading-5 text-gray-500">
+                <dd className="text-xs leading-5 text-gray-600">
                     {role}
                 </dd>
                 <dt className='sr-only'>Duration</dt>
