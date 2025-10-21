@@ -12,7 +12,8 @@ export const automateWebUIProject: ProjectProps = {
     techType.ReduxSagas, techType.ReactRouter, techType.RestAPI, techType.OIDC, techType.Axios, techType.WebWorkers],
 
     sections: [
-        { title: 'Chapter One: The Beginning', body: TheBeginning }
+        { title: 'Chapter One: The Beginning', body: TheBeginning },
+        { title: 'Next, The Internals', body: Internals }
     ]
 };
 
@@ -26,15 +27,16 @@ function TheBeginning() {
                 The three were used to create a framework for application startup, authentication, queries and polling, CRUD operations for API classes, and UI component building.
             </p>
 
-            <h3 className="sub-heading">The Model Class</h3>
+            <h3 className="sub-heading">Model Class</h3>
             <p>
-                A Model class describes the front-end equivalent for a back-end resource, including the class structure, the list of available endpoints, and any front-end user action to help user flows.
+                A Model class describes the front-end equivalent for a back-end resource, including the class structure, Redux state management, the list of available endpoints, and any front-end user action to help user flows.
             </p>
 
             <CodeDisplay code={`class Model {
     static actions = {};
     static actionCreators = {};
-    static endpoints = {};    
+    static endpoints = {};
+    static reducer();
 
     id: string;
     name: string;
@@ -48,7 +50,7 @@ function TheBeginning() {
 }`
             } />
 
-            <h3 className="sub-heading">The Saga Class</h3>
+            <h3 className="sub-heading">Saga Class</h3>
             <p>
                 A Saga class contains all the asynchronous action handlers for when more than global state change is needed. It includes functions for making queries, validations, polling, submitting and editing forms, managing API objects, and others such as starting a guided job submission.
             </p>
@@ -63,6 +65,62 @@ function TheBeginning() {
     validateForm();
 }`
             } />
+
+            <p>
+                Sagas are used as callbacks in action listeners. Actions are performed by users or code wishing to execute an asynchronous action.
+            </p>
+
+            <h3 className="sub-heading">Forms and Views</h3>
+            <p>
+                Forms, Views, Templates and others are composed with custom and generic React components. Styled as desired.
+            </p>
+            <CodeDisplay code={`function SampleForm() {
+    const state = useState(initialState);
+    function inputHandler();
+    function submit();
+
+    return (
+        <Form>
+            <FormHeader/>
+            <FormBody>
+                <Dropdown />
+                <Input />
+                <TextArea />
+                <Checkbox />
+            </FormBody>
+            <FormFooter/>
+        </Form>
+    )
+}`
+            } />
+        </>
+    )
+}
+
+function Internals() {
+    return (
+        <>
+            <p>
+                <span className="font-semibold">React-Router</span> was used for SPA page navigation, <span className="font-semibold">Axios</span> and a <span className="font-semibold">web worker</span> for API requests, and custom hooks, functions and components for the UI / UX.
+            </p>
+
+            <h3 className="sub-heading">Component Library</h3>
+            <p>
+                The component library consists of generic re-usable form, view and template components. More complex and specific components were added as needed. Such as, tables with custom cells supporting inputs and dropdowns, and containers for switching items around.
+            </p>
+            <p>
+                Custom hooks for any repeatable component internal action were created and re-used. Similarly for helper functions and constants.
+            </p>
+
+            <h3 className="sub-heading">Authentication</h3>
+            <p>
+                Authentication was handled with session tokens generated after login with the back-end server. Authenticating could be done with a username / password form or through configured third-party <span className="font-semibold">OIDC</span> providers.
+            </p>
+
+            <h3 className="sub-heading">API Requests</h3>
+            <p>
+                
+            </p>
         </>
     )
 }

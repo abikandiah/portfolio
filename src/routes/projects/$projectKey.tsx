@@ -67,7 +67,7 @@ function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) 
 function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={cn('card pr-3 mt-8', className)}
+			className={cn('card pr-3 mt-8 space-y-12', className)}
 			{...props}
 		/>
 	)

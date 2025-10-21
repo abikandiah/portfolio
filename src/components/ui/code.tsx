@@ -16,7 +16,7 @@ interface Props {
 function CodeDisplay({ code, language, title, className, ...props }: Props & React.ComponentProps<"div">) {
     return (
         <div
-            className={cn("bg-background rounded border border-stone-300/80 text-sm overflow-hidden", className)}
+            className={cn("bg-background rounded border border-stone-300/80 text-sm overflow-hidden my-4", className)}
             {...props}
         >
 
@@ -31,7 +31,7 @@ function CodeDisplay({ code, language, title, className, ...props }: Props & Rea
             }
 
             {/* Code Content Area */}
-            <div className="p-4 overflow-auto max-h-96">
+            <div className="p-4 overflow-auto max-h-256">
                 <pre className="m-0 p-0 whitespace-pre-wrap">
                     <code>
                         {code}
