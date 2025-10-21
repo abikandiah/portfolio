@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 function Header() {
     return (
-        <header className="max-w-screen-xl mx-auto px-8 pb-8 z-50 sticky top-0">
+        <header className="max-w-screen-xl mx-auto px-8 z-50 sticky top-0">
 
             <div className="header-card">
                 <Link to={"/"}>

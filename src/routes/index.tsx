@@ -20,11 +20,14 @@ function App() {
 }
 
 function ProfileHeader() {
+	// const photoSrc = "profile-photo.jpg";
+	const photoSrc = "face.svg";
+
 	return (
 		<div className="flex flex-col items-center justify-center mx-auto">
 			<img
 				className="sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg"
-				src="/src/assets/profile-photo.jpg"
+				src={`/src/assets/${photoSrc}`}
 				alt="Abilaesh Kandiah's Profile Photo"
 			/>
 

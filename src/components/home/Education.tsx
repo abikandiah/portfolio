@@ -9,7 +9,7 @@ function Education() {
             />
 
             <ol className="space-y-4">
-                <EducationRow school='Toronto Metropolitan University' degree='B.Eng, Computer Engineering' duration='2014 - 2018'
+                <EducationRow school='Toronto Metropolitan University' degree='Computer Engineering' duration='2014 - 2018'
                     logoSrc='/src/assets/tmu.svg' />
             </ol>
         </Card>
