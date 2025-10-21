@@ -1,6 +1,5 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
-import { Banner } from "../ui/banner";
 import { CodeDisplay } from "../ui/code";
 
 export const automateWebUIProject: ProjectProps = {
@@ -80,42 +79,10 @@ function TheBeginning() {
             } />
 
             <p>
-                Saga functions are provided as callbacks for action listeners. When an action is dispatched the sagas middleware will trigger all sagas that are listening for it. From a triggered saga, any other code can be executed, including dispatching further actions and redux state changes.
+                Saga functions are provided as callbacks for action listeners. When an action is dispatched the sagas middleware will trigger all sagas that are listening for it. From a triggered saga, any other code can be executed, including dispatching further actions and Redux state changes.
             </p>
             <p>
                 Actions can be dispatched from user actions or by any other code elsewhere in the app. They can be handled by either one ore more redux state reducers or by one or more saga functions.
-            </p>
-
-            {/* Tip Example (Blue/Lightbulb) */}
-            <Banner
-                type="info"
-                title="Pro Tip: Use Context API"
-                message="For state that needs to be accessed by many components, consider using React's Context API to avoid prop drilling."
-            />
-
-            {/* Note Example (Green/Info) */}
-            <Banner
-                type="note"
-                title="Project Note"
-                message="The deployment date has been moved up to next Friday. Please finalize all outstanding features by then."
-            />
-
-            {/* Warning Example (Yellow/Alert) */}
-            <Banner
-                type="warning"
-                title="Low Disk Space"
-                message="Your local development environment is running low on disk space. This may impact compilation speed."
-            />
-
-            {/* Alert/Error Example (Red/Error) */}
-            <Banner
-                type="alert"
-                title="Critical Error: API Unavailable"
-                message="The primary backend API is currently down. Contact the DevOps team immediately for resolution."
-            />
-
-            <p>
-                The benefit of using Redux-Sagas comes from its natural asynchronous behavior with generator functions.
             </p>
 
             <h3 className="sub-heading">Forms and Views</h3>
