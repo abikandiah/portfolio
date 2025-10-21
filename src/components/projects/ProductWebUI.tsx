@@ -1,7 +1,7 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 
-export const productWebUIProject: ProjectProps = {
+export const automateWebUIProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Product Web UI',
     duration: '2018 - 2025',

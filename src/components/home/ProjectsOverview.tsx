@@ -13,7 +13,7 @@ function ProjectsOverview() {
 
 
             <CardContent className="space-y-4">
-                {projects.map(proj =>
+                {projects.slice(0, 5).map(proj =>
                     <ProjectOverview key={proj.name} proj={proj} />
                 )}
             </CardContent>

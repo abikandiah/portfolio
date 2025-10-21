@@ -2,7 +2,7 @@ import { BadgeContainer, TechBadge } from '@/components/ui/badge';
 import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Navigate } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/projects/$projectKey')({
 	component: RouteComponent,
@@ -13,7 +13,7 @@ function RouteComponent() {
 	const proj = projectsMap.get(projectKey);
 
 	if (proj == null) {
-		return null;
+		return <Navigate to={"/projects"} replace/>;
 	}
 
 	return (

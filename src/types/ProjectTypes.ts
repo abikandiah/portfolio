@@ -1,5 +1,5 @@
 import type { ElementType, JSX } from "react";
-import { techColorMap, type TTech } from "./TechTypes";
+import { type TTech } from "./TechTypes";
 
 const projectType = {
     NuixRampiva: 'Nuix / Rampiva',
@@ -56,26 +56,13 @@ class Project implements ProjectProps {
         this.description = props.description;
         this.duration = props.duration;
 
-        this.tech = props.tech?.sort(sortTech);
+        this.tech = props.tech;
         this.pathname = toUrl(this.name);
 
         if (Array.isArray(props.sections)) {
             this.sections = props.sections.map(section => new ProjectSection(section));
         }
     }
-}
-
-function sortTech(a: string, b: string): number {
-    const colorA = techColorMap[a];
-    const colorB = techColorMap[b];
-
-    if (colorA == null && colorB != null) {
-        return 1;
-    }
-    if (colorA != null && colorB == null) {
-        return -1;
-    }
-    return a.localeCompare(b);
 }
 
 function toUrl(str: string): string {

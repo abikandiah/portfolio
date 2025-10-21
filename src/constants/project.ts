@@ -1,9 +1,11 @@
+import { automatedTranslationsProject } from "@/components/projects/AutomatedTranslations";
 import { dataUploadProject } from "@/components/projects/DataUpload";
 import { googleVaultProject } from "@/components/projects/GoogleVaultCollector";
 import { legalHoldNotificationsProject } from "@/components/projects/LegalHoldNotifications";
 import { microsoftEDiscoveryProject } from "@/components/projects/MicrosoftEDiscoveryCollector";
-import { productWebUIProject } from "@/components/projects/ProductWebUI";
+import { automateWebUIProject } from "@/components/projects/ProductWebUI";
 import { javaToReactFormBuilderProject } from "@/components/projects/ReactFormBuilder";
+import { selenumE2ETestSuiteProject } from "@/components/projects/SeleniumE2ETestSuite";
 import { thirdPartyServicesProject } from "@/components/projects/ThirdPartyServicesPattern";
 import { Project, type ProjectProps } from "@/types/ProjectTypes";
 
@@ -15,13 +17,15 @@ function addProject(props: ProjectProps): Project {
     return proj;
 }
 
-addProject(productWebUIProject);
+addProject(automateWebUIProject);
+addProject(legalHoldNotificationsProject);
 addProject(javaToReactFormBuilderProject);
 addProject(thirdPartyServicesProject);
 addProject(googleVaultProject);
 addProject(microsoftEDiscoveryProject);
-addProject(legalHoldNotificationsProject);
 addProject(dataUploadProject);
+addProject(selenumE2ETestSuiteProject);
+addProject(automatedTranslationsProject);
 
 
 const projects = Array.from(projectsMap.values());
