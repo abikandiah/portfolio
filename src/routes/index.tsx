@@ -11,7 +11,7 @@ export const Route = createFileRoute('/')({
 
 function App() {
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col pt-12">
 			<ProfileHeader />
 			<ProfileSummary />
 			<MainContent />
@@ -47,13 +47,10 @@ function ProfileSummary() {
 		<section className='flex flex-col gap-4 p-6 mt-2'>
 
 			<p className="p-text">
-				Welcome, I'm Abi, a Full-Stack Developer and general enthusiast.
-				I enjoy learning about most things to a general level, and I also enjoy building and crafting quality software solutions.
-				Learning whatever is needed in order to get the job done the best way it can be done.
-				I mostly prefer back-end work but can dabble in front-end as well.
-				I've primarily used React with JavaScript for the front-end (with this site being my first TypeScript)
-				and Java with Dropwizard for the back-end. I've over 7 years of experience in building full-stack projects from the ground up,
-				and I'm looking for more opportunities to extend.
+				Hello, I'm Abi, a full-stack developer and general enthusiast. I enjoy learning and figuring things out and I've turned that joy towards designing and crafting quality software solutions. Learning whatever is needed to get the job done the best way it can be done. I've always thought of it like solving a puzzle and building legos.
+			</p>
+			<p className="p-text">
+				I've built web applications with React and Redux, both in JavaScript and TypeScript, back-end servers with Java Dropwizard and Express. I've over 7 years of experience building full-stack projects from the ground up, and I'm looking for opportunities to extend, whether it be contract or permanent.
 			</p>
 
 			<div className="flex items-center gap-4">
