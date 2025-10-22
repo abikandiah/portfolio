@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
  * @param {string} title A descriptive title for the code block.
  */
 interface Props {
-    code: string;
+    code?: string;
     language?: string;
     title?: string;
 }
 
-function CodeDisplay({ code, language, title, className, ...props }: Props & React.ComponentProps<"div">) {
+function CodeDisplay({ code, language, title, className, children, ...props }: Props & React.ComponentProps<"div">) {
     return (
         <div
             className={cn("bg-background rounded border border-stone-300/80 text-sm overflow-hidden my-4", className)}
@@ -34,7 +34,7 @@ function CodeDisplay({ code, language, title, className, ...props }: Props & Rea
             <div className="p-4 overflow-auto max-h-256">
                 <pre className="m-0 p-0 whitespace-pre-wrap">
                     <code>
-                        {code}
+                        {code || children}
                     </code>
                 </pre>
             </div>

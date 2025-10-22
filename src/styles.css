@@ -62,7 +62,7 @@ code {
 :root {
 	--background: oklch(0.95 0.005 80);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.75);
+	--card: oklch(1 0 0 / 0.5);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);
