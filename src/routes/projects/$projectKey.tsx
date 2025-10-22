@@ -5,6 +5,7 @@ import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
 import { createFileRoute } from '@tanstack/react-router';
+import { Fragment } from 'react/jsx-runtime';
 
 export const Route = createFileRoute('/projects/$projectKey')({
 	component: RouteComponent,
@@ -26,12 +27,12 @@ function RouteComponent() {
 
 			<ProjectBody>
 				{Array.isArray(proj.sections) && proj.sections.map((section, index) => (
-					<>
+					<Fragment key={index}>
 						{index > 0 &&
 							<Separator />
 						}
 						<ProjectBodySection key={index} section={section} />
-					</>
+					</Fragment>
 				))}
 			</ProjectBody>
 		</ProjectContainer>

@@ -5,7 +5,7 @@ import { techColorMap } from "@/types/TechTypes";
 function BadgeContainer({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
-            className={cn("flex flex-wrap gap-2", className)}
+            className={cn("flex flex-wrap bg gap-2", className)}
             {...props}
         />
     )
