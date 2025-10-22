@@ -35,7 +35,7 @@ const styleColor: Record<TBannerType, string> = {
  */
 interface BannerProps {
     type: TBannerType;
-    title: string;
+    title?: string;
     message: string;
 }
 
