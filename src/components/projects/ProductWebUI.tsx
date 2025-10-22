@@ -136,17 +136,17 @@ function Internals() {
                 The component library consists of reusable building blocks to help build pages, tables, views, forms, dialogs and more. Components were added as needed and would vary in complexity. Such as guided job form submissions and containers for switching items around.
             </p>
             <p>
-                Customs hooks were created for generic component behaviours, similarly for helper functions and constants.
+                Customs hooks were created for generic component behaviours. Similarly for helper functions and constants.
             </p>
 
             <h3 className="sub-heading">Authentication</h3>
             <p>
-                Authentication was handled with session tokens obtained after login with the back-end server. Authenticating could be done with a username / password form or through configured third-party <span className="font-semibold">OIDC</span> providers.
+                Authentication was handled with session tokens obtained after login with the back-end server. Authenticating could be done with a username / password form or through configured third-party <span className="font-semibold">OIDC</span> providers. An interval would run to refresh tokens at their half life.
             </p>
 
             <h3 className="sub-heading">API Requests</h3>
             <p>
-                API requests were made with Axios. An interval would run to refresh tokens at their half life. All requests were proxied through a web worker that acted as a separate service to send requests; in order to seperate token storage from application code. We did not use cookies for authentication.
+                API requests were made with Axios. All requests were proxied through a web worker that acted as a separate service to send requests; in order to seperate token storage from the application. No cookies for authentication.
             </p>
         </>
     )
