@@ -56,9 +56,9 @@ function ProjectHeader({ proj }: { proj: Project }) {
 					{proj.name}
 				</h1>
 
-				<span className="ml-auto leading-5 text-gray-500">
+				{/* <span className="ml-auto leading-5 text-gray-500">
 					{proj.duration}
-				</span>
+				</span> */}
 			</div>
 
 			<p className="mt-1 text-gray-700 text-lg">

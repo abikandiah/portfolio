@@ -1,4 +1,3 @@
-import LoremIpsum from "@/constants/LoremIpsum";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 
@@ -7,19 +6,22 @@ export const javaToReactFormBuilderProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Java-To-React Form Builder',
     duration: '2023',
-    description: 'A React form generator for backend Java classes. Removes front-end development time by allowing back-end devs to describe form configurations directly on the Java class with annotations.',
+    description: `A React form builder for Java classes. Describes forms with Java annotations and creates them with a Form Builder component. Greatly reduces front-end development time.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.Dropwizard,
     techType.RestAPI, techType.JavaAnnotations, techType.JavaReflections],
     sections: [
-        { title: 'Back-end Implementation', body: BackEndProjectSection },
+        { title: 'Overview', body: Overview },
     ]
 };
 
-function BackEndProjectSection() {
+function Overview() {
     return (
         <>
             <p>
-                {LoremIpsum}
+                A React form builder for Java classes. Helps automating form creation for back-end data models used in the front-end. Primarily used for workflow operation forms in the Workflow Builder component.
+            </p>
+            <p>
+                Capable of grouping form components in a row, table or group, and supports form validation settings.
             </p>
         </>
     )
