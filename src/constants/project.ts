@@ -4,7 +4,7 @@ import { googleVaultProject } from "@/components/projects/GoogleVaultCollector";
 import { legalHoldNotificationsProject } from "@/components/projects/LegalHoldNotifications";
 import { microsoftEDiscoveryProject } from "@/components/projects/MicrosoftEDiscoveryCollector";
 import { automateWebApplicationProject } from "@/components/projects/ProductWebUI";
-import { javaToReactFormBuilderProject } from "@/components/projects/ReactFormBuilder";
+import { javaToReactFormBuilderProject } from "@/components/projects/form-builder/ReactFormBuilder";
 import { selenumE2ETestSuiteProject } from "@/components/projects/SeleniumE2ETestSuite";
 import { thirdPartyServicesProject } from "@/components/projects/ThirdPartyServicesPattern";
 import { Project, type ProjectProps } from "@/types/ProjectTypes";

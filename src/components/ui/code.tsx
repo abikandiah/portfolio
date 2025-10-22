@@ -16,7 +16,7 @@ interface Props {
 function CodeDisplay({ code, language, title, className, children, ...props }: Props & React.ComponentProps<"div">) {
     return (
         <div
-            className={cn("bg-background rounded border border-stone-300/80 text-sm overflow-hidden my-4", className)}
+            className={cn("bg-background rounded border-container text-sm overflow-hidden my-4", className)}
             {...props}
         >
 

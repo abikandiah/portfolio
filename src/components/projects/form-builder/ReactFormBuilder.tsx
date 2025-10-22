@@ -1,6 +1,6 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
-import { CodeDisplay } from "../ui/code";
+import { CodeDisplay } from "../../ui/code";
 
 
 export const javaToReactFormBuilderProject: ProjectProps = {
@@ -68,8 +68,8 @@ class Something {
     @FormField
     String name;
 
-    @FormField(type=DROPDOWN, values=["a", "ab", "ba", "a"])
-    String value;
+    @FormField(values=["a", "ab", "ba"])
+    Enum type;
 
     @FormField
     Boolean checked;
@@ -109,6 +109,8 @@ function FormBuilder() {
             <p>
                 This feature was built for a workflow builder consisting of nearly 200 operations. Each operation needed a form and new operations were always being created, so we needed a way to automate form creation.
             </p>
+
+            {/* <SampleForm /> */}
         </>
     )
 }
