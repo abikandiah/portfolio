@@ -51,7 +51,7 @@
 }
 
 .sidebar {
-	@apply text-sidebar-foreground
+	@apply text-sidebar-foreground bg-card border-container rounded
 }
 
 .header-card {
