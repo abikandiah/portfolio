@@ -23,26 +23,13 @@
 	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border-container;
 }
 
-.main-background {
-	
-}
+.main-background {}
 
-.image-background::before {
-	/* The pseudo-element covers the entire container */
-	content: '';
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-
-	/* Apply the background image */
-	background-image: url('/src//assets//background-green.svg');
-	background-size: cover;
-	background-position: center;
-	opacity: 0.75;
-
-	/* Push the pseudo-element behind the content */
+.image-background {
+	@apply w-full h-32 bg-cover bg-center relative bg-blend-overlay bg-stone-300/20;
+	background-image: url('/src//assets//background-image.svg');
+	margin-top: calc(var(--spacing) * -8);
+	margin-bottom: calc(var(--spacing) * -12);
 	z-index: -1;
 }
 
