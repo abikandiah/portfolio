@@ -1,4 +1,3 @@
-import { LoremIpsumAlt2 } from "@/constants/LoremIpsum";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 
@@ -9,17 +8,16 @@ export const thirdPartyServicesProject: ProjectProps = {
     duration: '2024',
     description: 'A pattern of abstract classes used to provide third-party service connector implementations, from back-end storage to front-end form submission and authentication.',
     tech: [techType.Java, techType.JavaScript, techType.JSX, techType.React, techType.Dropwizard, techType.RDBMS],
-    
+
     sections: [
-        { title: 'Back-end Implementation', body: BackEndProjectSection },
+        { title: 'Overview', body: Overview },
     ]
 };
 
-function BackEndProjectSection() {
+function Overview() {
     return (
         <>
             <p>
-                {LoremIpsumAlt2}
             </p>
         </>
     )

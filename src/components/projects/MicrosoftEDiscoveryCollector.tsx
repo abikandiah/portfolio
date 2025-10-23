@@ -19,7 +19,6 @@ function Overview() {
     return (
         <>
             <p>
-                {LoremIpsumAlt2}
             </p>
         </>
     )

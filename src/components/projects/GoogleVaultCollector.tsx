@@ -1,4 +1,3 @@
-import LoremIpsum, { LoremIpsumAlt1 } from "@/constants/LoremIpsum";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 
@@ -10,29 +9,16 @@ export const googleVaultProject: ProjectProps = {
     description: 'A third-party connector to the Google Vault eDiscovery tool. To let users customize and run end-to-end data collection workflows for their Google Workspace environment',
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React,
     techType.Dropwizard, techType.RestAPI, techType.GoogleCloud, techType.GoogleVault, techType.OIDC],
-    
+
     sections: [
-        { title: 'Back-end Implementation', body: BackEndProjectSection },
-        { title: 'Job Submission Wizard', body: JobSubmissionWizard },
+        { title: 'Overview', body: Overview },
     ]
 };
 
-function BackEndProjectSection() {
+function Overview() {
     return (
         <>
             <p>
-                {LoremIpsum}
-            </p>
-        </>
-    )
-}
-
-
-function JobSubmissionWizard() {
-    return (
-        <>
-            <p>
-                {LoremIpsumAlt1}
             </p>
         </>
     )
