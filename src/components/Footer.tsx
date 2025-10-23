@@ -1,7 +1,7 @@
 
 function Footer() {
     return (
-        <footer className="mx-auto max-w-screen-xl px-8 mt-32">
+        <footer className="mx-auto max-w-screen-xl px-8 mt-auto">
             <div className="py-16 px-3">
                 <div className="flex md:justify-end justify-center">
                     <p className="text-sm text-gray-500">

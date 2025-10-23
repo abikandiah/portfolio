@@ -15,8 +15,35 @@
 	@apply border border-stone-300/80;
 }
 
+@utility random-rotation {
+	transform: rotate(var(--random-rotation, 0deg));
+}
+
 .card {
 	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border-container;
+}
+
+.profile-background::before {
+	/* The pseudo-element covers the entire container */
+	content: '';
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	/* Apply the background image */
+	background-image: url('/src//assets//sun-tree-green-background.svg');
+	background-size: cover;
+	background-position: center;
+	opacity: 0.9;
+	
+	/* Push the pseudo-element behind the content */
+	z-index: -1;
+}
+
+.profile-background.water-theme::before {
+	background-image: url('/src//assets//tree-water-background.svg');
 }
 
 .code {
@@ -66,7 +93,7 @@ code {
 :root {
 	--background: oklch(0.95 0.005 80);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.5);
+	--card: oklch(1 0 0 / 0.9);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);

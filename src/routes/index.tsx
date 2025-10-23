@@ -1,9 +1,11 @@
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
 import WorkExperience from '@/components/home/WorkExperience'
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from '@/components/ui/context-menu'
 import { githubUrl, linkedinUrl, personalEmail } from '@/constants'
 import { createFileRoute } from '@tanstack/react-router'
 import { Mail } from 'lucide-react'
+import { useState } from 'react'
 
 export const Route = createFileRoute('/')({
 	component: App,
@@ -25,11 +27,7 @@ function ProfileHeader() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mx-auto">
-			<img
-				className="sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg"
-				src={`/src/assets/${photoSrc}`}
-				alt="Abilaesh Kandiah's Profile Photo"
-			/>
+			<FaceContextMenu src={photoSrc} />
 
 			<h1 className="font-bold tracking-tight text-gray-900 sm:text-4xl text-3xl mt-6">
 				Abilaesh Kandiah
@@ -47,7 +45,7 @@ function ProfileSummary() {
 		<section className='flex flex-col gap-4 p-6 mt-2'>
 
 			<p className="p-text">
-				Hello, I'm Abi, a full-stack developer and general enthusiast. I enjoy learning and figuring things out and I've turned that joy towards designing and crafting quality software solutions. Learning whatever is needed to get the job done the best way it can be done. I've always thought of it like solving a puzzle and building legos.
+				I'm Abi, a full-stack developer and general enthusiast. I enjoy learning and figuring things out and I've turned that joy towards designing and crafting quality software solutions. Learning whatever is needed to get the job done the best way it can be done. I've always thought of it like solving a puzzle and building legos.
 			</p>
 			<p className="p-text">
 				I've built web applications with React and Redux, both in JavaScript and TypeScript, back-end servers with Java Dropwizard and Express. I've over 7 years of experience building full-stack projects from the ground up, and I'm looking for opportunities to extend, whether it be contract or permanent.
@@ -73,7 +71,7 @@ function ProfileSummary() {
 				/>
 			</div>
 		</section>
-	);
+	)
 }
 
 function MainContent() {
@@ -109,7 +107,8 @@ interface ExternalSiteProps {
 	src: string;
 	alt: string;
 }
-export function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & React.ComponentProps<"a">) {
+
+function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & React.ComponentProps<"a">) {
 	return (
 		<a href={url} target="_blank" rel="noopener noreferrer" {...rest}>
 			<img
@@ -119,5 +118,51 @@ export function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & Rea
 			/>
 		</a>
 	)
+}
+
+function FaceContextMenu({ src }: { src: string }) {
+
+	const [state, setState] = useState({ degree: 0, duration: 500 });
+
+	function spin() {
+		const rand = getRandomIntUpTo(3600);
+		const diff = Math.abs(state.degree - rand);
+		setState({
+			degree: rand,
+			duration: Math.max(diff * 2, 500)
+		});
+	}
+
+	const rotationClass = `transition-transform duration-500 rotate-[var(--random-rotation)]`;
+	const customStyles = {
+		// Use the CSS variable syntax for custom properties
+		'--random-rotation': `${state.degree}deg`,
+		'transitionDuration': `${state.duration}ms`,
+	};
+
+	return (
+		<ContextMenu>
+			<ContextMenuTrigger>
+				<img onClick={spin}
+					className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg ${rotationClass}`}
+					src={`/src/assets/${src}`}
+					alt="Abilaesh Kandiah's Profile Photo"
+					style={customStyles}
+				/>
+			</ContextMenuTrigger>
+			<ContextMenuContent>
+				<ContextMenuItem onSelect={spin}>Spin</ContextMenuItem>
+			</ContextMenuContent>
+		</ContextMenu>
+	)
+}
+
+/**
+ * Returns a random integer between 0 and max, inclusive.
+ * @param {number} max - The maximum possible number (inclusive).
+ */
+function getRandomIntUpTo(max: number) {
+	// We use (max + 1) to make 'max' inclusive after Math.floor()
+	return Math.floor(Math.random() * (max + 1));
 }
 

@@ -9,14 +9,14 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	component: () => (
-		<>
+		<div className="">
 			<Header />
 			
-			<main className="max-w-screen-xl mx-auto p-8">
+			<main className="max-w-screen-xl mx-auto p-8 profile-background">
 				<Outlet />
 			</main>
 
 			<Footer />
-		</>
+		</div>
 	)
 })
