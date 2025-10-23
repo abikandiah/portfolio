@@ -74,7 +74,7 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 			<Link to={'/projects/' + proj.pathname}>
 				{({ isActive }) => (
 					<SidebarMenuButton asChild isActive={isActive}>
-						<span>{proj.name}</span>
+						<span className="text-gray-700">{proj.name}</span>
 					</SidebarMenuButton>
 				)}
 			</Link>

@@ -67,7 +67,7 @@
 }
 
 .p-text {
-	@apply leading-relaxed text-gray-700
+	@apply leading-relaxed text-gray-900
 }
 
 .nav-link:hover,

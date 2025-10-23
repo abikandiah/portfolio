@@ -55,10 +55,6 @@ function ProjectHeader({ proj }: { proj: Project }) {
 				<h1 className="font-bold tracking-tight text-gray-900 text-2xl">
 					{proj.name}
 				</h1>
-
-				{/* <span className="ml-auto leading-5 text-gray-500">
-					{proj.duration}
-				</span> */}
 			</div>
 
 			<p className="mt-1 text-gray-700 text-lg">
