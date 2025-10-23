@@ -1,12 +1,13 @@
 import { automatedTranslationsProject } from "@/components/projects/AutomatedTranslations";
 import { dataUploadProject } from "@/components/projects/DataUpload";
+import { javaToReactFormBuilderProject } from "@/components/projects/form-builder/ReactFormBuilder";
 import { googleVaultProject } from "@/components/projects/GoogleVaultCollector";
 import { legalHoldNotificationsProject } from "@/components/projects/LegalHoldNotifications";
 import { microsoftEDiscoveryProject } from "@/components/projects/MicrosoftEDiscoveryCollector";
 import { automateWebApplicationProject } from "@/components/projects/ProductWebUI";
-import { javaToReactFormBuilderProject } from "@/components/projects/form-builder/ReactFormBuilder";
 import { selenumE2ETestSuiteProject } from "@/components/projects/SeleniumE2ETestSuite";
 import { thirdPartyServicesProject } from "@/components/projects/ThirdPartyServicesPattern";
+import { webPortfolioProject } from "@/components/projects/WebPortfolio";
 import { Project, type ProjectProps } from "@/types/ProjectTypes";
 
 const projectsMap: Map<string, Project> = new Map();
@@ -26,6 +27,7 @@ addProject(microsoftEDiscoveryProject);
 addProject(dataUploadProject);
 addProject(selenumE2ETestSuiteProject);
 addProject(automatedTranslationsProject);
+addProject(webPortfolioProject);
 
 
 const projects = Array.from(projectsMap.values());

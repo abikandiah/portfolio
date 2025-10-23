@@ -12,7 +12,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 		<div className="flex flex-col h-full mx-auto max-w-screen-xl gap-8">
 			<Header />
 			
-			<main className="w-full profile-background water-them">
+			<main className="w-full profile-background water-themse">
 				<Outlet />
 			</main>
 

@@ -37,7 +37,7 @@
 	background-size: cover;
 	background-position: center;
 	opacity: 0.75;
-	
+
 	/* Push the pseudo-element behind the content */
 	z-index: -1;
 }
@@ -51,7 +51,7 @@
 }
 
 .sidebar {
-	@apply text-sidebar-foreground bg-card border-container rounded
+	@apply text-sidebar-foreground border-container rounded bg-card
 }
 
 .header-card {
@@ -93,7 +93,7 @@ code {
 :root {
 	--background: oklch(0.95 0.005 80);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.9);
+	--card: oklch(1 0 0 / 0.95);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);
@@ -120,7 +120,7 @@ code {
 	--sidebar-foreground: oklch(0.141 0.005 285.823);
 	--sidebar-primary: oklch(0.21 0.006 285.885);
 	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.967 0.001 286.375);
+	--sidebar-accent: var(--background);
 	--sidebar-accent-foreground: oklch(0.21 0.006 285.885);
 	--sidebar-border: oklch(0.92 0.004 286.32);
 	--sidebar-ring: oklch(0.871 0.006 286.286);
