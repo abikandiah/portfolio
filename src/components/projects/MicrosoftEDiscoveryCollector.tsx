@@ -10,7 +10,8 @@ export const microsoftEDiscoveryProject: ProjectProps = {
     techType.Dropwizard, techType.RestAPI, techType.AzureAD, techType.MicrosoftEDiscovery, techType.OIDC],
 
     sections: [
-        { title: 'Overview', body: Overview }
+        { title: 'Overview', body: Overview },
+        { title: 'Architecture', body: Architecture }
     ]
 };
 
@@ -18,6 +19,16 @@ function Overview() {
     return (
         <>
             <p>
+            </p>
+        </>
+    )
+}
+
+function Architecture() {
+    return (
+        <>
+            <p>
+
             </p>
         </>
     )
