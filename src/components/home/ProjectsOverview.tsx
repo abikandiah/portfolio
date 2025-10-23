@@ -1,7 +1,7 @@
 import { projects } from "@/constants/project";
 import type { Project } from "@/types/ProjectTypes";
-import { Link } from "@tanstack/react-router";
 import { FolderCode } from "lucide-react";
+import { TextLink } from "../ui";
 import { Card, CardContent, CardH2Header } from "../ui/card";
 
 function ProjectsOverview() {
@@ -24,8 +24,6 @@ function ProjectsOverview() {
 function ProjectOverview({ proj }: { proj: Project }) {
     const { name, duration, description } = proj;
 
-    const url = `/projects/${proj.pathname}`;
-
     return (
         <div className="">
             <div className="flex flex-auto">
@@ -42,10 +40,13 @@ function ProjectOverview({ proj }: { proj: Project }) {
                 {description}
             </p>
 
-            <Link to={url}
-                className="text-xs text-blue-600 hover:text-blue-800 visited:text-blue-900">
+            <TextLink
+                to="/projects/$projectKey"
+                params={{ projectKey: proj.pathname }}
+                className="text-xs"
+            >
                 View Project
-            </Link>
+            </TextLink>
 
         </div>
     )

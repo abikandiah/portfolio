@@ -12,10 +12,10 @@ import { Project, type ProjectProps } from "@/types/ProjectTypes";
 
 const projectsMap: Map<string, Project> = new Map();
 
-function addProject(props: ProjectProps): Project {
+function addProject(props: ProjectProps) {
     const proj = new Project(props);
     projectsMap.set(proj.pathname, proj);
-    return proj;
+    props.pathname = proj.pathname;
 }
 
 addProject(automateWebApplicationProject);

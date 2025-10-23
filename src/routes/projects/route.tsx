@@ -71,7 +71,9 @@ function ProjectsGroup({ type, projects }: { type: string, projects: Project[] }
 function SidebarMenuLink({ proj }: { proj: Project }) {
 	return (
 		<SidebarMenuItem>
-			<Link to={'/projects/' + proj.pathname}>
+			<Link to="/projects/$projectKey"
+				params={{ projectKey: proj.pathname }}
+			>
 				{({ isActive }) => (
 					<SidebarMenuButton asChild isActive={isActive}>
 						<span className="text-gray-700">{proj.name}</span>

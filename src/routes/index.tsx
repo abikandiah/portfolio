@@ -159,7 +159,7 @@ function FaceContextMenu({ src }: { src: string }) {
 function LandscapeContainer() {
 	return (
 		<div className="image-background">
-			{/* <div className="absolute inset-0 bg-gradient-to-t from-stone/300 to-stone/900"></div> */}
+			{/* <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent"></div> */}
 		</div>
 	);
 }
