@@ -1,11 +1,10 @@
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
 import WorkExperience from '@/components/home/WorkExperience'
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from '@/components/ui/context-menu'
 import { githubUrl, linkedinUrl, personalEmail } from '@/constants'
 import { createFileRoute } from '@tanstack/react-router'
 import { Mail } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export const Route = createFileRoute('/')({
 	component: App,
@@ -123,13 +122,18 @@ function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & React.Comp
 function FaceContextMenu({ src }: { src: string }) {
 
 	const [state, setState] = useState({ degree: 0, duration: 500 });
+	const downTime = useRef(0);
 
-	function spin() {
-		const rand = getRandomIntUpTo(3600);
-		const diff = Math.abs(state.degree - rand);
+	function onMouseDown(event: Event) {
+		downTime.current = event.timeStamp;
+	}
+
+	function onMouseUp(event: MouseEvent) {
+		const additionalDegrees = (event.timeStamp - downTime.current);
+
 		setState({
-			degree: rand,
-			duration: Math.max(diff * 2, 500)
+			degree: state.degree + additionalDegrees,
+			duration: Math.max(additionalDegrees * 2, 500)
 		});
 	}
 
@@ -141,19 +145,12 @@ function FaceContextMenu({ src }: { src: string }) {
 	};
 
 	return (
-		<ContextMenu>
-			<ContextMenuTrigger>
-				<img onClick={spin}
-					className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg ${rotationClass}`}
-					src={`/src/assets/${src}`}
-					alt="Abilaesh Kandiah's Profile Photo"
-					style={customStyles}
-				/>
-			</ContextMenuTrigger>
-			<ContextMenuContent>
-				<ContextMenuItem onSelect={spin}>Spin</ContextMenuItem>
-			</ContextMenuContent>
-		</ContextMenu>
+		<img onMouseDown={onMouseDown} onMouseUp={onMouseUp}
+			className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg ${rotationClass}`}
+			src={`/src/assets/${src}`}
+			alt="Abilaesh Kandiah's Profile Photo"
+			style={customStyles}
+		/>
 	)
 }
 
