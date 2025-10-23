@@ -36,7 +36,7 @@
 	background-image: url('/src//assets//sun-tree-green-background.svg');
 	background-size: cover;
 	background-position: center;
-	opacity: 0.9;
+	opacity: 0.75;
 	
 	/* Push the pseudo-element behind the content */
 	z-index: -1;
