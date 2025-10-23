@@ -10,6 +10,7 @@ export const javaToReactFormBuilderProject: ProjectProps = {
     description: `A React form builder and a Java form blueprint. Generating forms based on Java class and field annotations, reducing front-end development time.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.Dropwizard,
     techType.RestAPI, techType.JavaAnnotations, techType.JavaReflections],
+    
     sections: [
         { title: 'Overview', body: Overview },
         { title: 'Java Form Blueprint', body: FormBlueprint },
@@ -102,7 +103,7 @@ function FormBuilder() {
                 If a class contains another class, both of which are described by form annotations, then the containing class will also include the form for the containee. It would appear as a nested form, and can be crafted to appear as a list or table of objects, or as a popup form.
             </p>
             <p>
-                The Field component renders and manages the object field.
+                The Field component renders and manages an object's field.
             </p>
 
             <h3 className="sub-heading">Workflow Builder</h3>

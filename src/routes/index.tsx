@@ -45,10 +45,10 @@ function ProfileSummary() {
 		<section className='flex flex-col gap-4 p-6 mt-2'>
 
 			<p className="p-text">
-				I'm Abi, a full-stack developer and general enthusiast. I enjoy learning and figuring things out and I've turned that joy towards designing and crafting quality software solutions. Learning whatever is needed to get the job done the best way it can be done. I've always thought of it like solving a puzzle and building legos.
+				I'm Abi, a full-stack developer and general enthusiast. I enjoy learning and figuring things out and I've turned that joy towards designing and crafting software. Learning whatever is needed to get the job done the best way it can be done. I've always thought of it like solving a puzzle and building blocks.
 			</p>
 			<p className="p-text">
-				I've built web applications with React and Redux, both in JavaScript and TypeScript, back-end servers with Java Dropwizard and Express. I've over 7 years of experience building full-stack projects from the ground up, and I'm looking for opportunities to extend, whether it be contract or permanent.
+				I've built web applications with React and Redux and back-end servers with Java Dropwizard and Express. I've made third-party service integrations, database schemas, end-to-end tests, and regular day-to-day scripts. I've over 7 years of experience and I'm always looking to extend.
 			</p>
 
 			<div className="flex items-center gap-4">

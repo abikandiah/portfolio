@@ -23,7 +23,11 @@
 	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border-container;
 }
 
-.profile-background::before {
+.main-background {
+	
+}
+
+.image-background::before {
 	/* The pseudo-element covers the entire container */
 	content: '';
 	position: fixed;
@@ -33,17 +37,13 @@
 	left: 0;
 
 	/* Apply the background image */
-	background-image: url('/src//assets//sun-tree-green-background.svg');
+	background-image: url('/src//assets//background-green.svg');
 	background-size: cover;
 	background-position: center;
 	opacity: 0.75;
 
 	/* Push the pseudo-element behind the content */
 	z-index: -1;
-}
-
-.profile-background.water-theme::before {
-	background-image: url('/src//assets//tree-water-background.svg');
 }
 
 .code {
@@ -91,9 +91,9 @@ code {
 }
 
 :root {
-	--background: oklch(0.95 0.005 80);
+	--background: oklch(0.95 0.005 95);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.95);
+	--card: oklch(1 0 0 / 0.9);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);

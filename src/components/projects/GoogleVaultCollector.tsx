@@ -10,6 +10,7 @@ export const googleVaultProject: ProjectProps = {
     description: 'A third-party connector to the Google Vault eDiscovery tool. To let users customize and run end-to-end data collection workflows for their Google Workspace environment',
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React,
     techType.Dropwizard, techType.RestAPI, techType.GoogleCloud, techType.GoogleVault, techType.OIDC],
+    
     sections: [
         { title: 'Back-end Implementation', body: BackEndProjectSection },
         { title: 'Job Submission Wizard', body: JobSubmissionWizard },

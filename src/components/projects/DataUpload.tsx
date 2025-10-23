@@ -7,5 +7,19 @@ export const dataUploadProject: ProjectProps = {
     duration: '2020',
     description: 'A resumable file upload feature to upload data from the web UI to a set of user-defined servers. Implements the tus resumable file upload protocol and integrates two open source projects.',
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX,
-    techType.React, techType.Dropwizard, techType.RestAPI, techType.OpenSource, techType.TusProtocol]
+    techType.React, techType.Dropwizard, techType.RestAPI, techType.OpenSource, techType.TusProtocol],
+
+    sections: [
+        { title: 'Overview', body: Overview }
+    ]
 };
+
+function Overview() {
+    return (
+        <>
+            <p>
+
+            </p>
+        </>
+    )
+}
