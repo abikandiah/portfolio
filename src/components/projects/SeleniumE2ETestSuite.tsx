@@ -5,6 +5,20 @@ export const selenumE2ETestSuiteProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Selenium E2E Test Suite',
     duration: '2019 - 2025',
-    description: 'A test suite built with Selenium and Java to automate end-to-end user actions in the Product Web UI. Used in the test stage during the build pipeline with Jenkins.',
-    tech: [techType.Java, techType.XPath, techType.Selenium, techType.Jenkins]
+    description: `A test suite built with Selenium and Java to automate end-to-end user actions in the front-end.`,
+    tech: [techType.Java, techType.XPath, techType.Selenium, techType.Jenkins],
+
+    sections: [
+        { title: 'Overview', body: Overview }
+    ]
 };
+
+function Overview() {
+    return (
+        <>
+            <p>
+
+            </p>
+        </>
+    )
+}

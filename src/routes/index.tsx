@@ -124,11 +124,11 @@ function FaceContextMenu({ src }: { src: string }) {
 	const [state, setState] = useState({ degree: 0, duration: 500 });
 	const downTime = useRef(0);
 
-	function onMouseDown(event: Event) {
+	function onMouseDown(event: React.MouseEvent<HTMLImageElement>) {
 		downTime.current = event.timeStamp;
 	}
 
-	function onMouseUp(event: MouseEvent) {
+	function onMouseUp(event: React.MouseEvent<HTMLImageElement>) {
 		const additionalDegrees = (event.timeStamp - downTime.current);
 
 		setState({
@@ -152,14 +152,5 @@ function FaceContextMenu({ src }: { src: string }) {
 			style={customStyles}
 		/>
 	)
-}
-
-/**
- * Returns a random integer between 0 and max, inclusive.
- * @param {number} max - The maximum possible number (inclusive).
- */
-function getRandomIntUpTo(max: number) {
-	// We use (max + 1) to make 'max' inclusive after Math.floor()
-	return Math.floor(Math.random() * (max + 1));
 }
 
