@@ -10,7 +10,7 @@ export const googleVaultProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Google Vault Collector',
     duration: '2024',
-    description: `An integration of Google Vault with our workflow automation platform, enabling users to run end-to-end Google Vault collections from our platform.`,
+    description: `An integration of Google Vault with our workflow automation platform, enabling users to perform Google Vault operations from our plaform.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React,
     techType.Dropwizard, techType.RestAPI, techType.GoogleCloud, techType.GoogleVault, techType.OIDC],
 
@@ -27,7 +27,7 @@ function Overview() {
                 <span className="font-semibold">Google Vault</span> is an eDiscovery tool for Google Workspace. Vault admins can use it to search, review and export data from their Workspace.
             </p>
             <p>
-                We added this feature to connect Google Vault to the rest of our platform, enabling users to perform Google Vault operations as part of their automated workflows. For example, a user could search for and export data from Google Vault, then ingest, process it with processing operations, and then upload it for review to a supported review platform.
+                This integration connects Google Vault to the rest of our platform, enabling users to perform Google Vault operations as part of their automated workflows. For example, a user could search for and export data from Google Vault, then ingest, process it with processing operations, and then upload it for review to a supported review platform.
             </p>
         </>
     )
@@ -66,7 +66,7 @@ function Architecture() {
                 For every possible API operation exposed by Google Vault, we created a sensible and configurable operation to represent it, taking user experience and flow into account.
             </p>
             <p>
-                For example, the <code className="code">Select Matter</code> operation combines the creating and selecting a Vault Matter into one. If the Matter to select doesn't exist, the operation will either attempt to create it or fail, depending on the <code className="code">create if doesn't exist</code> option. If the Matter does exist, the operation will select it. Once created or selected, the operation sets the Matter as a global variable accessible by all future operations, enabling them to perform work on that selected Matter.
+                For example, the <code className="code">Set Vault Matter</code> operation combines the creating and selecting a Vault Matter into one. If the Matter to select doesn't exist, the operation will either attempt to create it or fail, depending on the <code className="code">create if doesn't exist</code> option. If the Matter does exist, the operation will select it. Once created or selected, the operation sets the Matter as a global variable accessible by all future operations, enabling them to perform work on that selected Matter.
             </p>
 
             <h3 className="sub-heading">REST Client</h3>
@@ -84,7 +84,7 @@ function Architecture() {
 
             <h3 className="sub-heading">Job Wizard</h3>
             <p>
-                The guided job wizard lives in the front-end and helps users fill in key operation details when submitting a Google Vault workflow for execution. For example, details such as the matter, the data sources, the queries, and the export location.
+                The guided job wizard lives in the front-end and helps users fill in key operation details when submitting a Google Vault workflow. For example, details such as the matter, the data sources, the queries, and the export download location.
             </p>
             <Banner type="note"
                 message="Workflows can be customized with both hard-coded settings and execution-time settings, such as the location of source data or the name of the case to work with."
