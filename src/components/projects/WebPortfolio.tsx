@@ -7,7 +7,7 @@ export const webPortfolioProject: ProjectProps = {
     type: projectType.Personal,
     name: 'Web Portfolio',
     duration: '2025',
-    description: `A website to showcase my experience as a developer, built with Typescript, React, Tailwind CSS, Shadcn-UI, and Vite.`,
+    description: `A website to showcase my experience as a developer, built with Typescript, React, Tailwind CSS, Shadcn-UI, and Vite. Hosted on Cloudflare as a static HTML Page.`,
     tech: [techType.TypeScript, techType.React, techType.TailwindCSS, techType.TanstackRouter],
 
     sections: [
@@ -61,6 +61,8 @@ function Goals() {
                         <li>General application development.</li>
                     </InnerUnorderedList>
                 </li>
+                <li>Learn more about distributed and data-intensive applications.</li>
+                <li>Learn all things AI and machine learning.</li>
                 <li>Learn Linux to the max.</li>
                 <li>Get comfortable with building full-stack applications from the ground-up.</li>
             </UnorderedList>
@@ -75,7 +77,7 @@ function Goals() {
 
             <h3 className="sub-heading">Personal Projects</h3>
             <p>
-                My goal with these personal projects is to learn and learn as much as I can. This website was the first in my journey and it satisfied a lot to do with modernizing my front-end tech stack. It is themed, responsive and accessible, and all built with a modern tech stack including TypeScript, React, Tanstack Router, Tailwind CSS, Shadcn-UI and Vite.
+                My goal with these personal projects is to learn and learn as much as I can. This website was the first in my journey and it satisfied a lot to do with modernizing my front-end tech stack. It is themed, responsive and accessible, and all built with a modern tech stack including TypeScript, React, Tanstack Router, Tailwind CSS, Shadcn-UI and Vite. It is also hosted on Cloudflare as a Page.
             </p>
             <p>
                 The rest of my projects will be more heavily focused on building full-stack solutions from the ground-up. Solutions involving Java and Node back-ends, SQL and NoSQL databases, password and OIDC authentication, containerization with Docker and Kubernetes, and working with cloud providers such as AWS and Cloudflare.
