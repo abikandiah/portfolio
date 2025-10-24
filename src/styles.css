@@ -9,6 +9,7 @@
     which maps to the CSS property value 'square'.
   */
 	--list-style-type-square: square;
+	--list-style-type-circle: circle;
 }
 
 @utility border-container {
@@ -78,7 +79,7 @@ code {
 }
 
 :root {
-	--background: oklch(0.98 0.005 125);
+	--background: oklch(0.98 0.005 100);
 	--foreground: oklch(0.141 0.005 285.823);
 	--card: oklch(1 0 0 / 0.9);
 	--card-foreground: oklch(0.141 0.005 285.823);

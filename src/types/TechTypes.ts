@@ -41,6 +41,7 @@ const techType = {
     Express: 'Express',
     MongoDB: 'MongoDb',
     PostgreSQL: 'PostgreSQL',
+    SQLite: 'SQLite',
     Docker: 'Docker',
     AWS: 'AWS',
     Jenkins: 'Jenkins',
@@ -152,6 +153,7 @@ const compressedTechColorMap: { [colorClasses: string]: TTech[] } = {
     'bg-lime-100 text-lime-800 border-lime-400': [
         techType.WebWorkers,
         techType.Selenium,
+        techType.SQLite
     ],
 
     // --- GRAY Scheme (bg-gray-100, text-gray-800, border-gray-400) (Includes Default) ---

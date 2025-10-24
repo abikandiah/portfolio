@@ -11,7 +11,7 @@ export const dataUploadProject: ProjectProps = {
 
     sections: [
         { title: 'Overview', body: Overview },
-        { title: 'Internals', body: Internals }
+        { title: 'Architecture', body: Architecture }
     ]
 };
 
@@ -31,7 +31,7 @@ function Overview() {
     )
 }
 
-function Internals() {
+function Architecture() {
     return (
         <>
             <p>
