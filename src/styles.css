@@ -79,9 +79,9 @@ code {
 }
 
 :root {
-	--background: oklch(0.98 0.005 100);
+	--background: oklch(0.98 0.005 105);
 	--foreground: oklch(0.141 0.005 285.823);
-	--card: oklch(1 0 0 / 0.9);
+	--card: oklch(1 0 0 / 0.75);
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);
