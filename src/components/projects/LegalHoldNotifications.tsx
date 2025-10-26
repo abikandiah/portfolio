@@ -162,7 +162,7 @@ function Architecture() {
                 message="On system restart, the cached SSO links are lost and they all become expired, but they can still be refreshed."
             />
             <Banner type="info"
-                message="SSO links are an optional feature of legal holds. They can be disabled, requiring custodians and administrators to always manually sign-on." />
+                message="SSO links are an optional feature of legal holds. They can be disabled, requiring custodians and administrators to manually sign-on." />
 
             <h3 className="sub-heading">Workflow Triggers</h3>
             <p>

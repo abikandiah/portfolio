@@ -8,7 +8,7 @@ export const thirdPartyServicesProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Third-Party Services Framework',
     duration: '2024',
-    description: 'A full-stack framework to build connectors to third-party services and APIs.',
+    description: 'A full-stack framework to build connectors to third-party services.',
     tech: [techType.Java, techType.JavaScript, techType.JSX, techType.React, techType.Dropwizard, techType.RDBMS],
 
     sections: [
@@ -21,10 +21,22 @@ function Overview() {
     return (
         <>
             <p>
-                Our automation platform is a giant integration of many third-party services, such as Google and Microsoft. A lot of the boilerplate for establishing, managing and using the third-party services followed a similar pattern. Recognizing this, as well as the need for more third-party services, we decided it'd be best to create a framework for integrating them.
+                This is a framework for integrating third-party services into our platform. We regularly work with and integrate third-party services, and all the setup and boilerplate is essentially the same, so we decided it'd be best to create a generic implementation pattern to help ease our lives.
             </p>
             <p>
-                This framework consisted of the database binding and mapping of objects, the CRUD endpoints and the front-end counterpart, authentication and authorization, a REST client session, and a set of third-party service operations. These were all defined as abstract and generic classes that needed to be extended and implemented.
+                Normally when integrating a third-party service, we'd do it cut-and-dry without any abstraction and be very specific to the third-party service that we're integrating. However, when you look at it from afar, a visible boilerplate pattern could be seen. It just needed to be abstracted out and argued into a generic, repeatable and efficient pattern.
+            </p>
+            <p>
+                That's where this framework came in; as a solution to the generic, repeatable pattern. This framework consists of the following:
+            </p>
+            <UnorderedList>
+                <li>Generic database models and tables where everything references abstract classes but stores the implementation classes</li>
+                <li>Generic API resources where everything references abstract classes but operates on the implementation classes</li>
+                <li>Generic front-end components for building type-specific forms, views, tables, and for completing the OIDC login flow</li>
+                <li>Abstract classes used to implement the third-party service configuration and REST client</li>
+            </UnorderedList>
+            <p>
+                This framework uses polymorphism to create a boilerplate out of all the common behaviours of a third-party service integration.
             </p>
         </>
     )
