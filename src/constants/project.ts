@@ -6,7 +6,7 @@ import { legalHoldNotificationsProject } from "@/components/projects/LegalHoldNo
 import { microsoftEDiscoveryProject } from "@/components/projects/MicrosoftEDiscoveryCollector";
 import { automateWebApplicationProject } from "@/components/projects/ProductWebUI";
 import { selenumE2ETestSuiteProject } from "@/components/projects/SeleniumE2ETestSuite";
-import { thirdPartyServicesProject } from "@/components/projects/ThirdPartyServicesPattern";
+import { thirdPartyServicesProject } from "@/components/projects/ThirdPartyServicesFramework";
 import { webPortfolioProject } from "@/components/projects/WebPortfolio";
 import { Project, type ProjectProps } from "@/types/ProjectTypes";
 

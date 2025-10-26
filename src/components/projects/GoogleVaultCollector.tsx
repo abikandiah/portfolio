@@ -3,14 +3,14 @@ import { techType } from "@/types/TechTypes";
 import { TextLink } from "../ui";
 import { Banner } from "../ui/banner";
 import { UnorderedList } from "../ui/list";
-import { thirdPartyServicesProject } from "./ThirdPartyServicesPattern";
+import { thirdPartyServicesProject } from "./ThirdPartyServicesFramework";
 
 
 export const googleVaultProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Google Vault Collector',
     duration: '2024',
-    description: `An integration of Google Vault with our workflow automation platform, enabling users to perform Google Vault operations from our plaform.`,
+    description: `A set of guided operations to help manage and use Google Vault.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React,
     techType.Dropwizard, techType.RestAPI, techType.GoogleCloud, techType.GoogleVault, techType.OIDC],
 

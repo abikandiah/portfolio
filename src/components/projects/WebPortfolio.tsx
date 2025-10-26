@@ -66,7 +66,7 @@ function Goals() {
                 <li>Learn Linux to the max.</li>
                 <li>Get comfortable with building full-stack applications from the ground-up.</li>
             </UnorderedList>
-            z
+
             <h3 className="sub-heading">From the Ground Up</h3>
             <p>
                 One of my major goals is to become comfortable with building entire full-stack applications from the ground up within minutes. Right now, I'd have to heavily rely on Google and AI prompts. I'd still be able to do it, but I'm not experienced enough to be able to instantly know how to connect everything. I'm nearly there, I'm simply missing the last piece of the experience in building applications from 0 to 1, where all the component setup takes place.
