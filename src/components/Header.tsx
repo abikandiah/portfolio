@@ -25,6 +25,9 @@ function Header() {
                         <li>
                             <NavLink to="/" text={'Home'} />
                         </li>
+                        {/* <li>
+                            <NavLink to="/about" text={'About'} />
+                        </li> */}
                         <li>
                             <NavLink to="/projects" text={'Projects'} />
                         </li>
@@ -41,7 +44,7 @@ function NavLink({ to, text }: { to: string; text: string }) {
             to={to} data-text={text}
             activeProps={{ className: 'nav-link-active' }}
         >
-            {({ isActive }: { isActive: boolean}) => {
+            {({ isActive }: { isActive: boolean }) => {
                 return (
                     <>
                         {isActive && (

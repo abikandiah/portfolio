@@ -50,12 +50,12 @@
 	@apply mt-8 mb-1 font-semibold text-gray-900
 }
 
-.nav-link {
-	@apply relative block px-3 py-2 transition text-gray-700 hover:text-gray-950
-}
-
 .p-text {
 	@apply leading-relaxed text-gray-900
+}
+
+.nav-link {
+	@apply relative block px-3 py-2 transition text-gray-700 hover:text-gray-950
 }
 
 .nav-link:hover,

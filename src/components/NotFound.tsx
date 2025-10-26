@@ -6,14 +6,14 @@ import {
     EmptyHeader,
     EmptyTitle,
 } from "@/components/ui/empty";
-import { Link } from "@tanstack/react-router";
 import { FileQuestionMark } from "lucide-react";
+import { TextLink } from "./ui";
 
 function NotFound() {
     return (
         <Empty>
             <EmptyHeader>
-                <FileQuestionMark size="128" className="mb-2"/>
+                <FileQuestionMark size="128" className="mb-2" />
                 <EmptyTitle className="text-3xl">404 - Not Found</EmptyTitle>
                 <EmptyDescription className="text-lg">
                     The page you were looking for was not found.
@@ -21,9 +21,9 @@ function NotFound() {
             </EmptyHeader>
             <EmptyContent>
                 <EmptyDescription>
-                    <Link to="/">
+                    <TextLink to="/">
                         Return home
-                    </Link>
+                    </TextLink>
                 </EmptyDescription>
             </EmptyContent>
         </Empty>

@@ -21,7 +21,6 @@ function App() {
 }
 
 function ProfileHeader() {
-	// const photoSrc = "profile-photo.jpg";
 	const photoSrc = "face.svg";
 
 	return (
