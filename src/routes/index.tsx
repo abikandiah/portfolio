@@ -14,7 +14,7 @@ function App() {
 	return (
 		<>
 			<LandscapeContainer />
-			<div className="flex flex-col px-3">
+			<div className="flex flex-col px-3 xl:px-0">
 				<ProfileHeader />
 				<ProfileSummary />
 				<MainContent />
