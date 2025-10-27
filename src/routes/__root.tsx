@@ -9,16 +9,24 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	component: () => (
-		<div className="main-background h-full">
-			<div className="flex flex-col h-full mx-auto max-w-screen-xl gap-8">
-				<Header />
+		<div className="flex flex-col h-full mx-auto max-w-screen-xl gap-8">
+			<Header />
 
-				<main className="w-full">
-					<Outlet />
-				</main>
+			<main className="w-full">
+				<LandscapeContainer />
+				<Outlet />
+			</main>
 
-				<Footer />
-			</div>
+			<Footer />
 		</div>
 	)
 })
+
+function LandscapeContainer() {
+	return (
+		<div className="image-background">
+			{/* <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent"></div> */}
+		</div>
+	);
+}
+

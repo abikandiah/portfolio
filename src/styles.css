@@ -24,13 +24,9 @@
 	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border-container;
 }
 
-.main-background {}
-
 .image-background {
-	@apply w-full h-38 bg-cover bg-center relative bg-blend-overlay bg-stone-300/20 inset-0 rounded-b;
+	@apply w-full h-38 bg-cover bg-center relative bg-blend-overlay bg-stone-300/20 inset-0 rounded-b -mt-8 sm:-mb-16 -mb-10;
 	background-image: url('/src//assets//background-image.svg');
-	margin-top: calc(var(--spacing) * -8);
-	margin-bottom: calc(var(--spacing) * -16);
 	z-index: -1;
 }
 
