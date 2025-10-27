@@ -12,11 +12,14 @@ export const Route = createFileRoute('/')({
 
 function App() {
 	return (
-		<div className="flex flex-col px-3">
-			<ProfileHeader />
-			<ProfileSummary />
-			<MainContent />
-		</div>
+		<>
+			<LandscapeContainer />
+			<div className="flex flex-col px-3">
+				<ProfileHeader />
+				<ProfileSummary />
+				<MainContent />
+			</div>
+		</>
 	)
 }
 
@@ -152,3 +155,12 @@ function FaceContextMenu({ src }: { src: string }) {
 		/>
 	)
 }
+
+function LandscapeContainer() {
+	return (
+		<div className="image-background">
+			{/* <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent"></div> */}
+		</div>
+	);
+}
+

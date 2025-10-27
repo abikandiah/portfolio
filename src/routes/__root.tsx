@@ -13,7 +13,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			<Header />
 
 			<main className="w-full">
-				<LandscapeContainer />
 				<Outlet />
 			</main>
 
@@ -21,12 +20,4 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 		</div>
 	)
 })
-
-function LandscapeContainer() {
-	return (
-		<div className="image-background">
-			{/* <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent"></div> */}
-		</div>
-	);
-}
 
