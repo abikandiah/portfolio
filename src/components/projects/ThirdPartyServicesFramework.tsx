@@ -109,18 +109,29 @@ function Framework() {
                 message="To use a third-party service operation in a workflow, the corresponding service configuration and credential need to be defined." />
 
 
+            <h3 className="sub-heading">Generic Database ORM (Object-Relational Mapping)</h3>
+            <p>
+                The database binding and mapping of implementation classes to the database model and vice-versa is done mostly with the power of GSON and it's ability to understand the polymorphic types. The binding and mapping were defined on the abstract type but by letting GSON know about the implementation types (every time a third-party service is integrated we need to let GSON know) it is able to deduce type-specific serialization and deserialization.
+            </p>
+            <p>
+                There is also one hack required. The database schema did not consist of columns for all the class fields; instead, only relevant and abstract class fields, such as the ID and active state, were stored as columns, while the rest were shoved into a JSON column as a single serialized JSON object. This allowed the sharing of database tables and schemas for all the third-party service types.
+            </p>
 
-            <h3 className="sub-heading">API Resource</h3>
-            <h3 className="sub-heading">Database ORM (Object-Relational Mapping)</h3>
+            <h3 className="sub-heading">Generic API Resource</h3>
+            <p>
+                The generic API resource also made excellent use of GSON's power, defining all endpoints to work with abstract types and leaving GSON to handle serializing and deserializing objects into the correct implementation type. This worked perfectly; all that was required was telling GSON the list of implementation types.
+            </p>
+            <p>
+                When an implementation type needs a specific endpoint or behaviour, it is not added as a type-specific endpoint in the generic API resource, instead it is exposed through a generic proxy endpoint which in turns calls a <span className="font-semibold">proxy abstract method</span> defined in the third-party service REST session and client. This is done to always maintain generic and polymorphic behaviour.
+            </p>
+            <p>
+                The generic API endpoints support endpoints for CRUD (create-read-update-delete), proxying requests and for querying list of objects from the third-party service. Further generic endpoints are added as needed.
+            </p>
 
             <h3 className="sub-heading">Front-End Implementation</h3>
             <p>
-                The front-end consisted of generic building-block components to put together third-party service implementations. This included forms, tables and views, as well as the necessary authentication forms for username/pass, secret keys and the whole OAuth and OIDC login flow for access and refresh tokens.
+                The front-end consisted of generic building-block components to put together the third-party service implementations. This included forms, tables, views, and the necessary authentication forms for the various authentication methods (username and pass, secret key and the OIDC login flow). It also consists of the view for the third-party serive session.
             </p>
-            <p>
-                The implemented third-party services are separated in their own section and have a view to their REST client session. From there, the client status and logs can be viewed.
-            </p>
-            <p>Can also be reset and logged out and logged in, etc.</p>
         </>
     )
 }
