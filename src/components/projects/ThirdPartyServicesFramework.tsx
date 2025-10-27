@@ -21,23 +21,24 @@ function Overview() {
     return (
         <>
             <p>
-                This is a framework for integrating third-party services into our platform. We regularly work with and integrate third-party services, and all the setup and boilerplate is essentially the same, so we decided it'd be best to create a generic implementation pattern to help ease our lives.
+                This is a framework for integrating third-party services into our platform. We regularly work with and integrate third-party services, and all the setup and boilerplate is very similar, so we decided it'd be best to create a generic implementation pattern to help ease our lives.
             </p>
             <p>
-                Normally when integrating a third-party service, we'd do it cut-and-dry without any abstraction and be very specific to the third-party service that we're integrating. However, when you look at it from afar, a visible boilerplate pattern could be seen. It just needed to be abstracted out and argued into a generic, repeatable and efficient pattern.
+                Normally when integrating a third-party service, we'd do it cut-and-dry without any abstraction and be very specific to the third-party service we're integrating. However, when you look at it from afar, a visible boilerplate pattern can be seen. It just needed to be abstracted out and argued into a generic, repeatable and efficient pattern.
             </p>
             <p>
                 That's where this framework came in; as a solution to the generic, repeatable pattern. This framework consists of the following:
             </p>
             <UnorderedList>
-                <li>Generic database models and tables where everything references abstract classes but stores the implementation classes</li>
-                <li>Generic API resources where everything references abstract classes but operates on the implementation classes</li>
+                <li>Generic database models and tables where everything references abstract types but stores the implementation types</li>
+                <li>Generic API resources where everything references abstract types but operates on the implementation types</li>
                 <li>Generic front-end components for building type-specific forms, views, tables, and for completing the OIDC login flow</li>
-                <li>Abstract classes used to implement the third-party service configuration and REST client</li>
+                <li>Abstract classes used to implement the third-party service configuration, credentials and REST client</li>
             </UnorderedList>
-            <p>
-                This framework uses polymorphism to create a boilerplate out of all the common behaviours of a third-party service integration.
-            </p>
+
+            <Banner type="note"
+                message="This framework uses polymorphism to create a boilerplate out of all the common behaviours of third-party service integrations."
+            />
         </>
     )
 }
@@ -46,42 +47,68 @@ function Framework() {
     return (
         <>
             <p>
-                To integrate a third-party service, a set of abstract classes needed to be implemented. One for the configuration details of the service, another for the credential storage and a final for the REST client session.
+                To implement this framework, a set of third-party service abstract classes need to be implemented. One for the service configuration, another for the credentials, one more for the REST client and a final one for the service session.
             </p>
-            <Banner type="info"
-                message="The implemented classes needed to be tracked by GSON (Java-to-JSON serializer/deserializer) so that it can properly serialize and deserialize the implementation types when dealing with the generic database storage and CRUD endpoints; which would only reference the abstract type."
-            />
 
             <h3 className="sub-heading">Third-Party Service</h3>
             <p>
-                The Third-Party Service class was used to describe all the configuration details for a third-party service. It contained the basic information such as the name, description, active state, and etc. It would also contain service specific information such as the client ID, hostname, port, and others.
+                The first abstract class to implement is the Third-Party Service class is used to describe all the configuration details for a third-party service. It contains common info such as the name, description and active state. It also contains type-specific info such as the client ID, hostname, port and others. These type-specific fields are added with the type-specific implementations while the common info are present in the abstract classes (hence why they're common).
             </p>
             <p>
-                This class also defines the validation and update methods used by the generic CRUD endpoints. The CRUD endpoints operate on the abstract class rather than implementations, so this is how type-specific validations and updates are handled.
+                The abstract class also contains abstract methods the implementation types need to implement, such as a validation method and an update method. This allows references to abstract types to execute code defined in implementation types due to polymorphism. This is the basis of how the generic API resource and database ORM (object-relational mapping) operate.
             </p>
-            <Banner type="info"
-                message="The CRUD endpoints and the database storage ORM (object-relational mapping) only ever reference the abstract types. All type-specific behaviour would be handled with abstract method implementations, such as the case for validation and object updates. This allowed all third-party service implementations to be handled by a single database table and a single set of CRUD endpoints, because they would only ever work with the single abstract type."
-            />
 
             <h3 className="sub-heading">Third-Party Credential</h3>
             <p>
-                The Third-Party Credential class was used to store and encrypt access credentials relating to the third-party service, such as access and refresh tokens.
+                The next abstract class to implement is the Third-Party Credential class. This class is used to store all the details regarding service credentials, such as the username, access token, refresh token and relevant dates. All tokens and passwords present in this class are encrypted for security.
             </p>
             <p>
-                Multiple modes of authentication were supported, such as token, secret key, username/pass, and none. Implementation specifics included setting the available modes of authentication for a service.
-            </p>
-            <p>
-                Credentials had one of two scopes:
+                There is less implementation involved here when implementing the type-specific credential classes, only need to specify the supported authentication methods. This framework supports three common auth methods:
             </p>
             <UnorderedList>
-                <li>Service-level: There is only one credential for the third-party service and all users make requests with the one credential.</li>
-                <li>User-level: Each user needs their own credential when making requests to the third-party service.</li>
+                <li>Username and password authentication</li>
+                <li>Secret key authentication</li>
+                <li>OIDC authentication</li>
             </UnorderedList>
 
-            <h3 className="sub-heading">Third-Party REST Session</h3>
+            <Banner type="note"
+                message="Credentials can be tracked on a per-service level or on a per-user level. Per-service level shares a single credential for all users of the service while per-user requires each user to obtain their own credential. Per-service may sound fishy at first but our platform had further authorization rules that could limit the users who had access to a service, thus still allowing finer control for who can use the credential."
+            />
+            <Banner type="info"
+                message="Credential tokens, keys or passwords are never exposed, they are only used internally by the REST client when making API requests."
+            />
+
             <p>
-                The Third-Party REST Session contained everything to do with making API requests to a third-party service. This was a highly implementation-specific class and would mirror the available API endpoints of the third-party service. The abstract class would implement the boilerplate involved with creating and managing the REST client as well as the fault tolerance of it all. It came pre-built with an exponential backoff and in-depth metadata logging of the requests and responses.
+                Each authentication method has it's own front-end flow for obtaining a service credential. Once saved, the service REST client can use it to make API requests. Credentials can be removed at any time. Tokens are also periodically refreshed if a corresponding refresh token was obtained when completing the OIDC login flow (not all flows return refresh tokens).
             </p>
+
+            <h3 className="sub-heading">Third-Party REST Client</h3>
+            <p>
+                The third abstract class to implement is the Third-Part REST client. This is the class used to make API requests to the third-party service. It uses the service configuration and the service credentials to connect to and speak with the third-party service.
+            </p>
+            <p>
+                The REST client requires implementing abstract methods for testing and validation, but it is mostly implementation-focused. It comes with built-in methods for making REST API calls and supports tolerating rate-limiters and unexpected failures via exponential back-off and response code-checking.
+            </p>
+
+            <h3 className="sub-heading">Third-Party Session</h3>
+            <p>
+                The final abstract class is the Third-Party Session class. This class integrates the three previous classes and provides additional session-tracking logic, such as request and response metadata, application logging and errors if any. It behaves as a container and access point for the whole third-party service integration.
+            </p>
+            <Banner type="info"
+                message="The third-party session only lives in memory and is never written to the database. It is short-lived and is evicted after a period of inactivity. Each user has their own session object and uses it when working with a third-party service." />
+
+
+            <h3 className="sub-heading">Third-Party Service Operations</h3>
+            <p>
+                The real final piece to the puzzle; why we even have third-party integrations to begin with. We integrate with so many third-party services because we provide workflow operations to perform work with those third-party services, such as performing work with Google Vault, Microsoft Purview eDiscovery, Nuix Discover or Relativity.
+            </p>
+            <p>
+                This framework provides the third-party service configurations, credentials, REST client, and session that these operations consume. We then build workflows with them to interact with third-party services.
+            </p>
+            <Banner type="info"
+                message="To use a third-party service operation in a workflow, the corresponding service configuration and credential need to be defined." />
+
+
 
             <h3 className="sub-heading">API Resource</h3>
             <h3 className="sub-heading">Database ORM (Object-Relational Mapping)</h3>
