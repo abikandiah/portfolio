@@ -25,9 +25,9 @@ function Header() {
                         <li>
                             <NavLink to="/" text={'Home'} />
                         </li>
-                        {/* <li>
-                            <NavLink to="/about" text={'About'} />
-                        </li> */}
+                        <li>
+                            <NavLink to="/goals" text={'Goals'} />
+                        </li>
                         <li>
                             <NavLink to="/projects" text={'Projects'} />
                         </li>

@@ -1,10 +1,8 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
 import { projects } from '@/constants/project'
 import { Project } from '@/types/ProjectTypes'
-import { ChevronDown } from 'lucide-react'
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
@@ -81,31 +79,5 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 				)}
 			</Link>
 		</SidebarMenuItem>
-	)
-}
-
-function CollapsibleProjectsGroup({ type, projects }: { type: string, projects: Project[] }) {
-	return (
-		<Collapsible defaultOpen className="group/collapsible">
-			<SidebarGroup>
-				<SidebarGroupLabel asChild>
-					<CollapsibleTrigger>
-						{type}
-						<ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-					</CollapsibleTrigger>
-				</SidebarGroupLabel>
-
-				<CollapsibleContent>
-					<SidebarGroupContent>
-						<SidebarMenu>
-							{projects.map((proj) => (
-								<SidebarMenuLink key={proj.name}
-									proj={proj} />
-							))}
-						</SidebarMenu>
-					</SidebarGroupContent>
-				</CollapsibleContent>
-			</SidebarGroup>
-		</Collapsible>
 	)
 }
