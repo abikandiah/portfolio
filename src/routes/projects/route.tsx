@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
-import { projects } from '@/constants/project'
+import { projectsByType } from '@/constants/project'
 import { Project } from '@/types/ProjectTypes'
 
 export const Route = createFileRoute('/projects')({
@@ -10,7 +10,7 @@ export const Route = createFileRoute('/projects')({
 
 function RouteComponent() {
 	return (
-		<SidebarProvider>
+		<SidebarProvider className='pr-3 xl:px-0'>
 			<ProjectSideBar />
 			<div className="flex flex-col w-full">
 				<Outlet />
@@ -18,19 +18,6 @@ function RouteComponent() {
 		</SidebarProvider>
 	)
 }
-
-interface ProjectMap {
-	[key: string]: Project[];
-}
-
-const projectsByType: ProjectMap = projects.reduce((prev, curr) => {
-	if (prev[curr.type] == null) {
-		prev[curr.type] = [];
-	}
-	prev[curr.type].push(curr);
-	return prev;
-}, {} as ProjectMap);
-
 
 function ProjectSideBar() {
 	return (

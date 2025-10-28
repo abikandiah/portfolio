@@ -20,6 +20,13 @@
 	transform: rotate(var(--random-rotation, 0deg));
 }
 
+@layer base {
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
+}
+
 .card {
 	@apply text-card-foreground flex flex-col gap-6 p-6 rounded bg-card border-container;
 }
@@ -28,6 +35,10 @@
 	@apply w-full h-38 bg-cover bg-center relative bg-blend-overlay bg-stone-300/20 inset-0 rounded-b -mt-8 sm:-mb-16 -mb-10;
 	background-image: url('/src//assets//background-image.svg');
 	z-index: -1;
+}
+
+.sidebar-text {
+	@apply text-sidebar-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded px-2 text-xs font-medium
 }
 
 .code {

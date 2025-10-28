@@ -32,5 +32,17 @@ addProject(webPortfolioProject);
 
 const projects = Array.from(projectsMap.values());
 
-export { projects, projectsMap };
+interface ProjectMap {
+    [key: string]: Project[];
+}
+
+const projectsByType: ProjectMap = projects.reduce((prev, curr) => {
+    if (prev[curr.type] == null) {
+        prev[curr.type] = [];
+    }
+    prev[curr.type].push(curr);
+    return prev;
+}, {} as ProjectMap);
+
+export { projects, projectsByType, projectsMap };
 
