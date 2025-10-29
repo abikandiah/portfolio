@@ -1,6 +1,7 @@
 import { NotFound } from '@/components/NotFound';
 import { BadgeContainer, TechBadge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
@@ -51,7 +52,9 @@ function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) 
 function ProjectHeader({ proj }: { proj: Project }) {
 	return (
 		<div className="pr-3">
-			<div className="flex">
+			<div className="flex items-center">
+				<SidebarTrigger className="mr-1 -ml-1.5"/>
+
 				<h1 className="font-bold tracking-tight text-gray-900 text-2xl">
 					{proj.name}
 				</h1>
