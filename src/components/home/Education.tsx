@@ -1,3 +1,4 @@
+import tmuLogo from "@/assets/tmu.svg";
 import { University } from "lucide-react";
 import { Card, CardH2Header } from "../ui/card";
 
@@ -10,7 +11,7 @@ function Education() {
 
             <ol className="space-y-4">
                 <EducationRow school='Toronto Metropolitan University' degree='Computer Engineering' duration='2014 - 2018'
-                    logoSrc='/src/assets/tmu.svg' />
+                    logoSrc={tmuLogo} />
             </ol>
         </Card>
     )

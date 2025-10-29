@@ -1,7 +1,11 @@
 import AbiResume from "@/assets/Abilaesh Kandiah - Resume.pdf";
+import bee from "@/assets/bee.svg";
+import nuixLogo from "@/assets/nuix.png";
+import rampivaLogo from "@/assets/rampiva.png";
 import { BriefcaseBusiness, Download } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card, CardH2Header } from "../ui/card";
+
 
 function WorkExperience() {
     return (
@@ -12,13 +16,13 @@ function WorkExperience() {
 
             <ol className="space-y-4">
                 <WorkExperienceRow companyName='Free Man' role='Individual Contributor' duration='2025 - Present'
-                    logoSrc='/src/assets/bee.svg' />
+                    logoSrc={bee} />
 
                 <WorkExperienceRow companyName='Nuix' role='Senior Software Engineer' duration='2023 - 2025'
-                    logoSrc='/src/assets/nuix.png' />
+                    logoSrc={nuixLogo} />
 
                 <WorkExperienceRow companyName='Rampiva' role='Software Developer' duration='2018 - 2023'
-                    logoSrc='/src/assets/rampiva.png' />
+                    logoSrc={rampivaLogo} />
             </ol>
 
             <DownloadResume />
