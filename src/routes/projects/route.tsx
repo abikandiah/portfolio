@@ -10,7 +10,7 @@ export const Route = createFileRoute('/projects')({
 
 function RouteComponent() {
 	return (
-		<SidebarProvider className='px-3 xl:px-0'>
+		<SidebarProvider className='px-3 xl:px-0 mt-8'>
 			<ProjectSideBar />
 			<div className="flex flex-col w-full">
 				<Outlet />

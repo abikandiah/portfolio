@@ -32,7 +32,7 @@
 }
 
 .image-background {
-	@apply w-full h-38 bg-cover bg-center relative bg-blend-overlay bg-stone-300/20 inset-0 rounded-b -mt-8 sm:-mb-16 -mb-10;
+	@apply w-full h-38 bg-cover bg-center relative bg-blend-overlay bg-stone-300/20 inset-0 rounded-b sm:-mb-16 -mb-10;
 	background-image: url('/src//assets//background-image.svg');
 	z-index: -1;
 }
@@ -50,7 +50,7 @@
 }
 
 .header-card {
-	@apply flex justify-between rounded-b text-card-foreground bg-card border-container pl-3
+	@apply flex justify-between rounded-b text-card-foreground bg-card border-container pl-3 items-center
 }
 
 .sub-heading {

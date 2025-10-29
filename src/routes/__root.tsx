@@ -9,10 +9,10 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	component: () => (
-		<div className="flex flex-col h-full mx-auto max-w-screen-xl gap-8">
+		<div className="flex flex-col h-full mx-auto max-w-screen-xl">
 			<Header />
 
-			<main className="w-full">
+			<main className="w-full mt-10">
 				<Outlet />
 			</main>
 

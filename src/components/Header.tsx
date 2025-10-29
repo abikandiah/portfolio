@@ -9,26 +9,27 @@ import { Separator } from "./ui/separator";
 
 function Header() {
     return (
-        <header className="z-50 sticky top-0">
+        <>
+            <header className="z-50 fixed w-full max-w-screen-xl top-0">
+                <div className="header-card h-10">
+                    <Link to={"/"}>
+                        <img
+                            className="h-8 w-8"
+                            src="/src/assets/bee.svg"
+                            alt="Home Bee"
+                        />
+                    </Link>
 
-            <div className="header-card">
-                <Link to={"/"}>
-                    <img
-                        className="h-8 w-8"
-                        src="/src/assets/bee.svg"
-                        alt="Home Bee"
-                    />
-                </Link>
+                    <div className="md:hidden flex my-1.5">
+                        <HamburgerMenu />
+                    </div>
 
-                <div className="md:hidden flex my-1.5">
-                    <HamburgerMenu />
+                    <nav className="hidden md:block">
+                        <RouteLinks className="flex" />
+                    </nav>
                 </div>
-
-                <nav className="hidden md:block">
-                    <RouteLinks className="flex" />
-                </nav>
-            </div>
-        </header>
+            </header>
+        </>
     );
 }
 
