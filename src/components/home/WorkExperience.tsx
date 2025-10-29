@@ -1,7 +1,7 @@
-import { BriefcaseBusiness, Download } from "lucide-react"
-import { Card, CardH2Header } from "../ui/card"
-import { Button } from "../ui/button"
-
+import AbiResume from "@/assets/Abilaesh Kandiah - Resume.pdf";
+import { BriefcaseBusiness, Download } from "lucide-react";
+import { Button } from "../ui/button";
+import { Card, CardH2Header } from "../ui/card";
 
 function WorkExperience() {
     return (
@@ -65,7 +65,7 @@ function WorkExperienceRow({ companyName, role, duration, logoSrc }: WorkExperie
 function DownloadResume() {
     return (
         <Button asChild className="">
-            <a href={"/src/assets/Abilaesh Kandiah - Resume.pdf"} download
+            <a href={AbiResume} download
                 className="flex items-center gap-2"
             >
                 <span className="font-medium">Download CV</span>

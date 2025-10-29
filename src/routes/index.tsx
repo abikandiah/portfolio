@@ -1,10 +1,13 @@
-import Education from '@/components/home/Education'
-import ProjectsOverview from '@/components/home/ProjectsOverview'
-import WorkExperience from '@/components/home/WorkExperience'
-import { githubUrl, linkedinUrl, personalEmail } from '@/constants'
-import { createFileRoute } from '@tanstack/react-router'
-import { Mail } from 'lucide-react'
-import { useRef, useState } from 'react'
+import profilePhoto from "@/assets/face.svg";
+import github from "@/assets/github.svg";
+import linkedinBlack from "@/assets/linkedin-black.png";
+import Education from '@/components/home/Education';
+import ProjectsOverview from '@/components/home/ProjectsOverview';
+import WorkExperience from '@/components/home/WorkExperience';
+import { githubUrl, linkedinUrl, personalEmail } from '@/constants';
+import { createFileRoute } from '@tanstack/react-router';
+import { Mail } from 'lucide-react';
+import { useRef, useState } from 'react';
 
 export const Route = createFileRoute('/')({
 	component: App,
@@ -24,11 +27,9 @@ function App() {
 }
 
 function ProfileHeader() {
-	const photoSrc = "face.svg";
-
 	return (
 		<div className="flex flex-col items-center justify-center">
-			<FaceContextMenu src={photoSrc} />
+			<FaceContextMenu src={profilePhoto} />
 
 			<h1 className="font-bold tracking-tight text-gray-900 sm:text-4xl text-3xl mt-6">
 				Abilaesh Kandiah
@@ -57,7 +58,7 @@ function ProfileSummary() {
 
 				<ExternalSite
 					url={githubUrl}
-					src="/src/assets/github.svg"
+					src={github}
 					alt="GitHub Logo"
 					aria-label="Github Profile"
 					title="Visit my Github"
@@ -65,7 +66,7 @@ function ProfileSummary() {
 
 				<ExternalSite
 					url={linkedinUrl}
-					src="/src/assets/linkedin-black.png"
+					src={linkedinBlack}
 					alt="LinkedIn Logo"
 					aria-label="LinkedIn Profile"
 					title="Check out my LinkedIn"
@@ -149,7 +150,7 @@ function FaceContextMenu({ src }: { src: string }) {
 	return (
 		<img onMouseDown={onMouseDown} onMouseUp={onMouseUp}
 			className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg ${rotationClass}`}
-			src={`/src/assets/${src}`}
+			src={src}
 			alt="Abilaesh Kandiah's Profile Photo"
 			style={customStyles}
 		/>

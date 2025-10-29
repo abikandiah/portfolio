@@ -1,3 +1,4 @@
+import bee from "@/assets/bee.svg";
 import { projects } from "@/constants/project";
 import { cn } from "@/lib/utils";
 import { Link, type LinkComponentProps } from "@tanstack/react-router";
@@ -15,7 +16,7 @@ function Header() {
                     <Link to={"/"}>
                         <img
                             className="h-8 w-8"
-                            src="/src/assets/bee.svg"
+                            src={bee}
                             alt="Home Bee"
                         />
                     </Link>

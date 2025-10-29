@@ -1,3 +1,4 @@
+import legalHoldDbSchema from "@/assets/legal-hold-schema.svg";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { Banner } from "../ui/banner";
@@ -74,7 +75,7 @@ function LegalHold() {
             </p>
             <img
                 className="object-cover mx-auto my-6"
-                src="/src/assets/legal-hold-schema.svg"
+                src={legalHoldDbSchema}
                 alt="Legal Hold Database Schema"
             />
             <UnorderedList>
