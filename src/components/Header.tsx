@@ -79,8 +79,8 @@ function RouteLinks({ className, ...props }: React.ComponentProps<"ul">) {
             {...props}
         >
             <ListNavLink to="/" text={'Home'} />
-            <ListNavLink to="/goals" text={'Goals'} />
             <ListNavLink to="/projects" text={'Projects'} />
+            {/* <ListNavLink to="/goals" text={'Goals'} /> */}
         </ul>
     )
 }
