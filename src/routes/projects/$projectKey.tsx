@@ -42,7 +42,7 @@ function RouteComponent() {
 function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={cn('md:ml-4 pl-3', className)}
+			className={cn("", className)}
 			{...props}
 		/>
 	)
