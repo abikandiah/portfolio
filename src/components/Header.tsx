@@ -50,7 +50,7 @@ function HamburgerMenu() {
             <PopoverContent className="mx-3 w-64 p-0 mt-2">
                 <ul className="rounded text-sm font-medium">
                     <ListNavLink to="/" text={'Home'} onClick={closeMenu} />
-                    <ListNavLink to="/goals" text={'Goals'} onClick={closeMenu} />
+                    <ListNavLink to="/about" text={'About'} onClick={closeMenu} />
 
                     <li className="mb-1">
                         <Separator className="mb-3" />
