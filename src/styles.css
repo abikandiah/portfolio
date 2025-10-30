@@ -54,23 +54,23 @@
 @keyframes slide-right-return {
 
 	0% {
-		transform: translateX(-80%) scaleX(1);
+		transform: translateX(-50%) scaleX(1);
 	}
 
 	50% {
-		transform: translateX(80%);
+		transform: translateX(50%);
 	}
 
-	58% {
-		transform: translateX(80%) scaleX(-1);
+	55% {
+		transform: translateX(50%) scaleX(-1);
 	}
 
-	92% {
-		transform: translateX(-80%) scaleX(-1);
+	95% {
+		transform: translateX(-50%) scaleX(-1);
 	}
 
 	100% {
-		transform: translateX(-80%) scaleX(1);
+		transform: translateX(-50%) scaleX(1);
 	}
 }
 
