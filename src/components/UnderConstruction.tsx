@@ -1,4 +1,4 @@
-import CraneLift from "@/assets/construction/crane-lift.svg";
+import Crane from "@/assets/construction/crane.svg";
 import { cn } from "@/lib/utils";
 
 
@@ -16,11 +16,10 @@ function UnderConstruction() {
 
             <div className="mb-6">
 
-                <div className="flex animate-slide-right-return">
+                <div className="flex">
                     <ConstructionImage
-                        className="animate-rumble"
-                        src={CraneLift}
-                        alt="Construction Crane Lift"
+                        src={Crane}
+                        alt="Construction Crane"
                     />
                 </div>
             </div>

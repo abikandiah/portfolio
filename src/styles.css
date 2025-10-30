@@ -34,19 +34,19 @@
 		transform: translateY(0) rotate(0deg);
 	}
 
-	25% {
+	2.5% {
 		transform: translateY(-1px) rotate(-0.25deg);
 	}
 
-	50% {
+	5% {
 		transform: translateY(0) rotate(0deg);
 	}
 
-	75% {
+	7.5% {
 		transform: translateY(1px) rotate(0.25deg);
 	}
 
-	100% {
+	10% {
 		transform: translateY(0) rotate(0deg);
 	}
 }
@@ -75,7 +75,7 @@
 }
 
 .animate-rumble {
-	animation: rumble 0.2s ease-in-out infinite alternate;
+	animation: rumble 2s ease-in-out infinite alternate;
 	display: block;
 
 	/* Performance optimization */
