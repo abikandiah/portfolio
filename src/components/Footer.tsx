@@ -1,7 +1,7 @@
 
 function Footer() {
     return (
-        <footer className="justfy-end mt-auto px-3 xl:px-0">
+        <footer className="mt-auto px-3 xl:px-0">
             <div className="py-16 px-3">
                 <div className="flex md:justify-end justify-center">
                     <p className="text-sm text-gray-500">
@@ -16,3 +16,4 @@ function Footer() {
 }
 
 export default Footer;
+

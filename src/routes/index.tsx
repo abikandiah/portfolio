@@ -127,11 +127,11 @@ function FaceContextMenu({ src }: { src: string }) {
 	const [state, setState] = useState({ degree: 0, duration: 500 });
 	const downTime = useRef(0);
 
-	function onMouseDown(event: React.MouseEvent<HTMLImageElement>) {
+	function onPointerDown(event: React.PointerEvent<HTMLImageElement>) {
 		downTime.current = event.timeStamp;
 	}
 
-	function onMouseUp(event: React.MouseEvent<HTMLImageElement>) {
+	function onPointerUp(event: React.PointerEvent<HTMLImageElement>) {
 		const additionalDegrees = (event.timeStamp - downTime.current);
 
 		setState({
@@ -148,7 +148,7 @@ function FaceContextMenu({ src }: { src: string }) {
 	};
 
 	return (
-		<img onMouseDown={onMouseDown} onMouseUp={onMouseUp}
+		<img onPointerDown={onPointerDown} onPointerUp={onPointerUp}
 			className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg ${rotationClass}`}
 			src={src}
 			alt="Abilaesh Kandiah's Profile Photo"
