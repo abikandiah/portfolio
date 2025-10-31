@@ -31,7 +31,7 @@ function Disclaimer() {
 					The content within this portfolio, including all designs, images and descriptive text, is intended solely to showcase my product design vision, problem-solving process, and conceptual abilities.
 				</p>
 
-				<UnorderedList>
+				<UnorderedList variant="outline">
 					<li>
 						<p className='p-text'>
 							<span className='font-semibold'>Conceptual Focus Only</span>: The project overviews represent high-level, abstract design concepts. They focus primarily on the systems and models involved and do not represent actual implementations.

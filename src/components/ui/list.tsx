@@ -1,9 +1,25 @@
 import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
-function UnorderedList({ className, ...props }: React.ComponentProps<"ul">) {
+
+const variants = cva(
+    "list-disc pl-8 pr-2 py-2 my-4 bg-background rounded",
+    {
+        variants: {
+            variant: {
+                default: "border-container",
+                outline: ""
+            },
+        },
+        defaultVariants: {
+            variant: "default",
+        },
+    }
+);
+function UnorderedList({ variant, className, ...props }: React.ComponentProps<"ul"> & VariantProps<typeof variants>) {
     return (
         <ul
-            className={cn("list-disc pl-8 pr-2 py-2 my-4 bg-background border-container rounded", className)}
+            className={cn(variants({ variant, className }))}
             {...props}
         />
     )
