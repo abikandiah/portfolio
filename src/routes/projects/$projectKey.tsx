@@ -56,12 +56,12 @@ function ProjectHeader({ proj }: { proj: Project }) {
 			<div className="flex ">
 				<SidebarTrigger className="mr-1 -ml-1.5 mt-0.2" />
 
-				<PageHeader>
+				<PageHeader size="sm">
 					{proj.name}
 				</PageHeader>
 			</div>
 
-			<PageDescription className="mt-1">
+			<PageDescription size="sm" className="mt-1">
 				{proj.description}
 			</PageDescription>
 

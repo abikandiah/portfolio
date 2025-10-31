@@ -32,11 +32,11 @@ function ProfileHeader() {
 		<div className="flex flex-col items-center justify-center">
 			<FaceContextMenu src={profilePhoto} />
 
-			<PageHeader className="sm:text-4xl text-3xl mt-6">
+			<PageHeader className="mt-6">
 				Abilaesh Kandiah
 			</PageHeader>
 
-			<PageDescription className="sm:text-2xl text-xl mt-1">
+			<PageDescription className="mt-1">
 				Full-Stack Developer
 			</PageDescription>
 		</div>

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Link, type LinkComponentProps } from "@tanstack/react-router";
+import { cva, type VariantProps } from "class-variance-authority";
 
 export function TextLink({ className, ...props }: LinkComponentProps) {
     return (
@@ -28,18 +29,46 @@ export function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & Rea
     )
 }
 
-export function PageHeader({ className, ...props }: React.ComponentProps<"h1">) {
+const pageHeaderVariants = cva(
+    "font-bold tracking-tight text-gray-900",
+    {
+        variants: {
+            size: {
+                default: "sm:text-4xl text-3xl",
+                sm: "sm:text-2xl text-xl"
+            },
+        },
+        defaultVariants: {
+            size: "default",
+        },
+    }
+);
+export function PageHeader({ size, className, ...props }: React.ComponentProps<"h1"> & VariantProps<typeof pageHeaderVariants>) {
     return (
         <h1
-            className={cn("font-bold tracking-tight text-gray-900 text-2xl", className)}
+            className={cn(pageHeaderVariants({ size, className }))}
             {...props} />
     )
 }
 
-export function PageDescription({ className, ...props }: React.ComponentProps<"h1">) {
+const pageDescriptionVariants = cva(
+    "text-gray-700",
+    {
+        variants: {
+            size: {
+                default: "sm:text-2xl text-xl",
+                sm: "sm:text-xl text-lg"
+            },
+        },
+        defaultVariants: {
+            size: "default",
+        },
+    }
+);
+export function PageDescription({ size, className, ...props }: React.ComponentProps<"h2"> & VariantProps<typeof pageDescriptionVariants>) {
     return (
         <h2
-            className={cn("text-gray-700 text-lg", className)}
+            className={cn(pageDescriptionVariants({ size, className }))}
             {...props}
         />
     )
