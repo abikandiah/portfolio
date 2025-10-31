@@ -1,6 +1,6 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
-import { Banner } from "../ui/banner";
+import { MessageBanner } from "../ui/banner";
 import { UnorderedList } from "../ui/list";
 
 
@@ -36,7 +36,7 @@ function Overview() {
                 <li>Abstract classes used to implement the third-party service configuration, credentials and REST client</li>
             </UnorderedList>
 
-            <Banner type="note"
+            <MessageBanner type="note"
                 message="This framework uses polymorphism to create a boilerplate out of all the common behaviours of third-party service integrations."
             />
         </>
@@ -71,10 +71,10 @@ function Framework() {
                 <li>OIDC authentication</li>
             </UnorderedList>
 
-            <Banner type="note"
+            <MessageBanner type="note"
                 message="Credentials can be tracked on a per-service level or on a per-user level. Per-service level shares a single credential for all users of the service while per-user requires each user to obtain their own credential. Per-service may sound fishy at first but our platform had further authorization rules that could limit the users who had access to a service, thus still allowing finer control for who can use the credential."
             />
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="Credential tokens, keys or passwords are never exposed, they are only used internally by the REST client when making API requests."
             />
 
@@ -94,7 +94,7 @@ function Framework() {
             <p>
                 The final abstract class is the Third-Party Session class. This class integrates the three previous classes and provides additional session-tracking logic, such as request and response metadata, application logging and errors if any. It behaves as a container and access point for the whole third-party service integration.
             </p>
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="The third-party session only lives in memory and is never written to the database. It is short-lived and is evicted after a period of inactivity. Each user has their own session object and uses it when working with a third-party service." />
 
 
@@ -105,7 +105,7 @@ function Framework() {
             <p>
                 This framework provides the third-party service configurations, credentials, REST client, and session that these operations consume. We then build workflows with them to interact with third-party services.
             </p>
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="To use a third-party service operation in a workflow, the corresponding service configuration and credential need to be defined." />
 
 

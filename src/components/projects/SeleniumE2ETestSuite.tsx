@@ -1,6 +1,6 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
-import { Banner } from "../ui/banner";
+import { MessageBanner } from "../ui/banner";
 import { UnorderedList } from "../ui/list";
 
 export const selenumE2ETestSuiteProject: ProjectProps = {
@@ -52,7 +52,7 @@ function Architecture() {
                 <li>TestRestClient: A REST client used to make test requests to the platform's back-end.</li>
             </UnorderedList>
 
-            <Banner type="note"
+            <MessageBanner type="note"
                 message="Selenium's ExpectedConditions provide a way to wait for conditions to be true on a web application, such as the visibility of an element or for certain text to appear. We expect them to be true and are simply waiting for them to be true. We need to wait because web apps need time to render after state changes. If after the wait they are still not true, then the expected condition will fail."
             />
 

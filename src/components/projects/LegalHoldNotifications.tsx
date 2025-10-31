@@ -1,7 +1,7 @@
 import legalHoldDbSchema from "@/assets/legal-hold-schema.svg";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
-import { Banner } from "../ui/banner";
+import { MessageBanner } from "../ui/banner";
 import { UnorderedList } from "../ui/list";
 
 export const legalHoldNotificationsProject: ProjectProps = {
@@ -47,7 +47,7 @@ function LegalHold() {
             <p>
                 A Legal Hold is an object that consists of the list of custodians and administrators, the configured notices to be sent, the workflows to be triggered on selected events, the SMTP server to use for emails, and the status of the legal hold.
             </p>
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="Notices and emails can be disabled if all that's needed is a system for tracking custodians. Triggering workflows is also optional."
             />
             <p>
@@ -56,10 +56,10 @@ function LegalHold() {
             <p>
                 Custodians can sign-on manually or via SSO (single-sign on) links and view and respond to their received notices. If the notice has no survey questions then all they can do is view. If custodians have any questions or comments, they can contact administrators via notice comments on their individual notice events.
             </p>
-            <Banner type="note"
+            <MessageBanner type="note"
                 message="Survey questions are optional on notices and any notice can contain surveys. Custodians can only respond to notices with survey questions, otherwise they simply read and view them."
             />
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="Custodians receive notices as Notice Event objects. A notice event tracks the receiving user, sent and view dates, and responses for any survey questions. The parent notice object tracks the message and survey questions."
             />
             <p>
@@ -116,7 +116,7 @@ function Architecture() {
             <p>
                 All custodians and administrators are selected from these sourced users. User synchronization occurs on a periodic basis and can be configured, erased and updated. The list of users are cached within our database.
             </p>
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="In order to send SMTP emails, the list of users must also come with working email addresses for each user."
             />
 
@@ -159,10 +159,10 @@ function Architecture() {
             <p>
                 If the result matches the SSO link signature, then we can be guaranteed that we created the payload for that link. But it may still be invalid due to expiration. For that, we use caching to keep track of active SSO links. The cache assigns a TTL (Time-to-live) to all SSO link entries and treats them as a cache miss if expired. However, SSO links can still be refreshed if expired.
             </p>
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="On system restart, the cached SSO links are lost and they all become expired, but they can still be refreshed."
             />
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="SSO links are an optional feature of legal holds. They can be disabled, requiring custodians and administrators to manually sign-on." />
 
             <h3 className="sub-heading">Workflow Triggers</h3>

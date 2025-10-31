@@ -1,11 +1,12 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
-import { Banner, type BannerProps } from '@/components/ui/banner'
+import { MessageBanner } from '@/components/ui/banner'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
 import { projectsByType } from '@/constants/project'
 import { Project } from '@/types/ProjectTypes'
 import { stringToBoolean } from '@/utils'
 import { useState } from 'react'
+import { DisclaimerBody } from '../disclaimer'
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
@@ -89,16 +90,12 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 	)
 }
 
-function DisclaimerBanner(props: Omit<BannerProps, 'type' | 'message'>) {
+function DisclaimerBanner({ className }: { className: string; }) {
 
 	return (
-		<Banner type="note" title="Portoflio Disclaimer"
-			hideIcon {...props}
-		>
-			<p>
-
-			</p>
-		</Banner>
+		<MessageBanner type="note" hideIcon>
+			<DisclaimerBody />
+		</MessageBanner>
 	)
 }
 

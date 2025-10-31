@@ -1,7 +1,7 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { TextLink } from "../ui";
-import { Banner } from "../ui/banner";
+import { MessageBanner } from "../ui/banner";
 import { UnorderedList } from "../ui/list";
 import { thirdPartyServicesProject } from "./ThirdPartyServicesFramework";
 
@@ -31,7 +31,7 @@ function Overview() {
             <p>
                 A lot of organizations, and our clients, use M365 for their organization environment. Connecting information governance and collection from M365 to our workflow automation platform bridged a gap that most had to deal with on their own. With our feature, clients can now run an entire M365 search, query, export, ingest, process and review workflow all within a single platform. We connected the M365 data collection with our platform.
             </p>
-            <Banner type="note" title="Automation Platform"
+            <MessageBanner type="note" title="Automation Platform"
                 message="The automation platform is truly a mix of many services. We bring together multiple data sources (such as Google Vault and Microsoft Purview eDiscovery), processing platforms (such as Nuix) and review platforms (such as Nuix Discover and Relativity), then build configurable operations for them. These operations are then used to build all sorts of automated workflows."
             />
         </>
@@ -44,7 +44,7 @@ function Architecture() {
             <p>
                 This feature is an implementation of the <TextLink to="/projects/$projectKey" params={{ projectKey: thirdPartyServicesProject.pathname }}>{thirdPartyServicesProject.name}</TextLink>. There are four main parts: The Microsoft Purview eDiscovery <span className="font-semibold">Service Configuration</span>, the set of Microsoft <span className="font-semibold">eDiscovery Operations</span>, the <span className="font-semibold">REST Client</span>, and the guided <span className="font-semibold">Job Wizard</span>.
             </p>
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="This integration is similar to the Google Vault integration. They're both built the same way and only differ in the operations available for their service."
             />
 
@@ -59,7 +59,7 @@ function Architecture() {
                 <li>Per-service: One user signs in to provide the access token for all users of the service.</li>
                 <li>Per-user: Each user signs in to obtain their own access token, without which they cannot perform Vault operations.</li>
             </UnorderedList>
-            <Banner type={"info"}
+            <MessageBanner type={"info"}
                 message={"Access token details are never shared or exposed, they are only used internally by a REST client."}
             />
 
@@ -94,7 +94,7 @@ function Architecture() {
             <p>
                 The guided job wizard lives in the frontend and helps users fill in key operation details when submitting a Microsoft Purview eDiscovery workflow. For example, details such as the case, the data sources, the queries, and the export download location.
             </p>
-            <Banner type="note"
+            <MessageBanner type="note"
                 message="Workflows can be customized with both hard-coded settings and execution-time settings, such as the location of source data or the name of the case to work with."
             />
             <p>

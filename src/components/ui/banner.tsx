@@ -28,28 +28,17 @@ const styleColor: Record<TBannerType, string> = {
     [bannerType.Alert]: 'red',
 };
 
-/**
- * Generic Banner Component for Info, Warnings, Notes, and Alerts.
- *
- * @param {('info'|'warning'|'note'|'alert')} type - The type of message.
- * @param {string} title - The message title.
- * @param {string} message - The message content.
- * 
- */
 
-export interface BannerProps extends React.ComponentProps<"div"> {
-    type: TBannerType;
-    message: string;
-    title?: string;
+interface BannerProps extends Omit<MessageBannerProps, 'title' | 'message'> {
     loading?: boolean;
     hideIcon?: boolean;
-    onClose?: onClickCallback<HTMLButtonElement>;
 }
 
-function Banner({ type = bannerType.Note, title, message, loading, className, hideIcon, onClose, ...props }: BannerProps) {
+function Banner({ type, loading, hideIcon, onClose, children, className, ...props }: BannerProps) {
 
     const color = styleColor[type] || styleColor.note;
     const containerClass = `bg-${color}-${colorWeights[0]} text-${color}-${colorWeights[1]} border-${color}-${colorWeights[2]}`;
+    const Icon = icons[type] || icons.note;
 
     return (
         <div
@@ -61,8 +50,14 @@ function Banner({ type = bannerType.Note, title, message, loading, className, hi
                 {loading ?
                     <BannerLoadingContent />
                     :
-                    <BannerContent title={title} message={message}
-                        color={color} type={type} hideIcon={hideIcon} />
+                    <>
+                        {!hideIcon &&
+                            <div className={`flex-shrink-0 mr-3 text-${color}-${colorWeights[1]}`}>
+                                <Icon />
+                            </div>
+                        }
+                        {children}
+                    </>
                 }
 
                 {onClose &&
@@ -70,24 +65,23 @@ function Banner({ type = bannerType.Note, title, message, loading, className, hi
                 }
             </div>
         </div>
-    );
+    )
 }
 
-type BannerContentProps = Omit<BannerProps, 'loading' | 'onClose'> & {
-    color: string;
+interface MessageBannerProps extends React.ComponentProps<"div"> {
+    type: TBannerType;
+    message: string;
+    title?: string;
+    onClose?: onClickCallback<HTMLButtonElement>;
 }
 
-function BannerContent({ title, message, color, type, hideIcon }: BannerContentProps) {
-    const Icon = icons[type] || icons.note;
+function MessageBanner({ type, title, message, ...props }: MessageBannerProps) {
+
+    const color = styleColor[type] || styleColor.note;
 
     return (
-        <>
-            {!hideIcon && Icon &&
-                <div className={`flex-shrink-0 mr-3 text-${color}-${colorWeights[1]}`}>
-                    <Icon />
-                </div>
-            }
-            <div>
+        <Banner type={type} {...props}>
+            <section>
                 {title && (
                     <p className={`font-bold text-${color}-${colorWeights[1]}`}>
                         {title}
@@ -96,8 +90,8 @@ function BannerContent({ title, message, color, type, hideIcon }: BannerContentP
                 <p className="text-sm">
                     {message}
                 </p>
-            </div>
-        </>
+            </section>
+        </Banner>
     )
 }
 
@@ -127,4 +121,4 @@ function CloseButton(props: React.ComponentProps<"button">) {
     );
 }
 
-export { Banner };
+export { Banner, MessageBanner };

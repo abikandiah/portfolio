@@ -1,6 +1,6 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
-import { Banner } from "../ui/banner";
+import { MessageBanner } from "../ui/banner";
 import { InnerUnorderedList, UnorderedList } from "../ui/list";
 
 export const webPortfolioProject: ProjectProps = {
@@ -86,7 +86,7 @@ function Goals() {
                 I want to reach a continous point where I'm knowledgeable and comfortable with building and deploying software solutions; with general expertise in most stacks and focused expertise in a few.
             </p>
 
-            <Banner type="info"
+            <MessageBanner type="info"
                 message="This was all written as I was wrapping up my work on this portfolio website."
             />
         </>

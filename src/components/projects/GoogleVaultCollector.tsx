@@ -1,7 +1,7 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { TextLink } from "../ui";
-import { Banner } from "../ui/banner";
+import { MessageBanner } from "../ui/banner";
 import { UnorderedList } from "../ui/list";
 import { thirdPartyServicesProject } from "./ThirdPartyServicesFramework";
 
@@ -52,7 +52,7 @@ function Architecture() {
                 <li>Per-service: One user signs in to provide the access token for all users of the service.</li>
                 <li>Per-user: Each user signs in to obtain their own access token, without which they cannot perform Vault operations.</li>
             </UnorderedList>
-            <Banner type={"info"}
+            <MessageBanner type={"info"}
                 message={"Access token details are never shared or exposed, they are only used internally by a REST client."}
             />
 
@@ -86,7 +86,7 @@ function Architecture() {
             <p>
                 The guided job wizard lives in the frontend and helps users fill in key operation details when submitting a Google Vault workflow. For example, details such as the matter, the data sources, the queries, and the export download location.
             </p>
-            <Banner type="note"
+            <MessageBanner type="note"
                 message="Workflows can be customized with both hard-coded settings and execution-time settings, such as the location of source data or the name of the case to work with."
             />
             <p>
