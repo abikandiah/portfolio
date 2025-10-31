@@ -5,7 +5,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 
 // GLOBALS
-const CONSTRUCTION = false;
+const CONSTRUCTION = true;
 
 
 
