@@ -32,7 +32,7 @@ function Overview() {
             <UnorderedList>
                 <li>Generic database models and tables where everything references abstract types but stores the implementation types</li>
                 <li>Generic API resources where everything references abstract types but operates on the implementation types</li>
-                <li>Generic front-end components for building type-specific forms, views, tables, and for completing the OIDC login flow</li>
+                <li>Generic frontend components for building type-specific forms, views, tables, and for completing the OIDC login flow</li>
                 <li>Abstract classes used to implement the third-party service configuration, credentials and REST client</li>
             </UnorderedList>
 
@@ -79,7 +79,7 @@ function Framework() {
             />
 
             <p>
-                Each authentication method has it's own front-end flow for obtaining a service credential. Once saved, the service REST client can use it to make API requests. Credentials can be removed at any time. Tokens are also periodically refreshed if a corresponding refresh token was obtained when completing the OIDC login flow (not all flows return refresh tokens).
+                Each authentication method has it's own frontend flow for obtaining a service credential. Once saved, the service REST client can use it to make API requests. Credentials can be removed at any time. Tokens are also periodically refreshed if a corresponding refresh token was obtained when completing the OIDC login flow (not all flows return refresh tokens).
             </p>
 
             <h3 className="sub-heading">Third-Party REST Client</h3>
@@ -128,9 +128,9 @@ function Framework() {
                 The generic API endpoints support endpoints for CRUD (create-read-update-delete), proxying requests and for querying list of objects from the third-party service. Further generic endpoints are added as needed.
             </p>
 
-            <h3 className="sub-heading">Front-End Implementation</h3>
+            <h3 className="sub-heading">frontend Implementation</h3>
             <p>
-                The front-end consisted of generic building-block components to put together the third-party service implementations. This included forms, tables, views, and the necessary authentication forms for the various authentication methods (username and pass, secret key and the OIDC login flow). It also consists of the view for the third-party serive session.
+                The frontend consisted of generic building-block components to put together the third-party service implementations. This included forms, tables, views, and the necessary authentication forms for the various authentication methods (username and pass, secret key and the OIDC login flow). It also consists of the view for the third-party serive session.
             </p>
         </>
     )

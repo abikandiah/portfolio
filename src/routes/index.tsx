@@ -4,6 +4,7 @@ import linkedinBlack from "@/assets/linkedin-black.png";
 import Education from '@/components/home/Education';
 import ProjectsOverview from '@/components/home/ProjectsOverview';
 import WorkExperience from '@/components/home/WorkExperience';
+import { ExternalSite } from "@/components/ui";
 import { githubUrl, linkedinUrl, personalEmail } from '@/constants';
 import { createFileRoute } from '@tanstack/react-router';
 import { Mail } from 'lucide-react';
@@ -47,10 +48,12 @@ function ProfileSummary() {
 		<section className='flex flex-col gap-4 p-6 mt-2'>
 
 			<p className="p-text">
-				I'm Abi, a full-stack developer and general enthusiast. I enjoy learning and figuring things out and I've turned that joy towards designing and crafting software. Learning whatever is needed to get the job done the best way it can be done. I've always thought of it like solving a puzzle and building blocks.
+				I'm Abi, a full-stack developer and general enthusiast. I design and build software in all fields of need. Working with tools such as React, TypeScrpt, Java, Node and Python. Learning whatever is needed to get the job done the best way it can be done.
 			</p>
 			<p className="p-text">
-				I've built web applications with React and Redux and back-end servers with Java Dropwizard and Express. I've made third-party service integrations, database schemas, end-to-end tests, and regular day-to-day scripts. I've over 7 years of experience and I'm always looking to extend.
+				I do front and backend with most of my experience in ReactJS and Java Dropwizard. I've designed SQL database schemas, frontend styles and components, backend APIs, automated end-to-end tests, authentication and authorization, and entire applications.
+
+				I've over 7 years of technical experience and I'm always looking to extend.
 			</p>
 
 			<div className="flex items-center gap-4">
@@ -96,28 +99,10 @@ function SendEmail({ email, showText }: { email: string; showText?: boolean }) {
 		<a
 			className="flex items-center action-hover"
 			title="Send me an email"
-			href={`mailto:${email}?subject=Hello From Your Website!&body=I wanted to reach out to you regarding...`}
+			href={`mailto:${email}?subject=Hello!&body=I wanted to reach out to you regarding...`}
 		>
 			<Mail />
 			{showText && <span className="ml-2 font-medium">{email}</span>}
-		</a>
-	)
-}
-
-interface ExternalSiteProps {
-	url: string;
-	src: string;
-	alt: string;
-}
-
-function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & React.ComponentProps<"a">) {
-	return (
-		<a href={url} target="_blank" rel="noopener noreferrer" {...rest}>
-			<img
-				src={src}
-				alt={alt}
-				className="h-6 w-6"
-			/>
 		</a>
 	)
 }

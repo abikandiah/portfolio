@@ -8,3 +8,22 @@ export function TextLink({ className, ...props }: LinkComponentProps) {
             className={cn("text-blue-600 hover:text-blue-800 visited:text-blue-900", className)} />
     )
 }
+
+
+interface ExternalSiteProps {
+    url: string;
+    src: string;
+    alt: string;
+}
+
+export function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & React.ComponentProps<"a">) {
+    return (
+        <a href={url} target="_blank" rel="noopener noreferrer" {...rest}>
+            <img
+                src={src}
+                alt={alt}
+                className="h-6 w-6"
+            />
+        </a>
+    )
+}

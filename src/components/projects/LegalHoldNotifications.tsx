@@ -29,7 +29,7 @@ function Overview() {
                 Everything is handled within a single <span className="font-semibold">Legal Hold</span> object. Administrators are added to administrate and manage the hold and custodians are added to be placed on hold with notices and surveys. The list of notices sent are defined here as well, as well as the SMTP server to use for emails and the workflows to submit on an event trigger.
             </p>
             <p>
-                This feature is essentially an entire application on it's own. It has it's own database schema with several normalized tables, it's own front-end for configuring, managing and viewing, it's own back-end for all the API resources, and even it's own authentication mechanism via single-sign on (SSO) links.
+                This feature is essentially an entire application on it's own. It has it's own database schema with several normalized tables, it's own frontend for configuring, managing and viewing, it's own back-end for all the API resources, and even it's own authentication mechanism via single-sign on (SSO) links.
             </p>
             <p>
                 Although it could stand on its own as an application, it was built as a mini-application within our main platform; which allowed it to share several pre-built mechanisms such as user authentication and authorization, as well as all the database, API configurations and even triggering of workflows.
@@ -125,7 +125,7 @@ function Architecture() {
                 Notices are first defined as <span className="font-semibold">Notice Templates</span>. These templates are defined in their own section and are used like stamps to create the notice object used within a legal hold. This is done for re-usability of notices and to separate the logic of defining notices from legal holds. Also, this allows templates to be modified without affecting the notice used within an existing legal hold. All in all for better modularity; once a notice has been created for a legal hold it becomes seperate from its template.
             </p>
             <p>
-                Notice templates have their own front-end and CRUD endpoints. They define the markdown message of the notice, parameters that can be updated when used in a legal hold, and a list of survey questions for the custodian.
+                Notice templates have their own frontend and CRUD endpoints. They define the markdown message of the notice, parameters that can be updated when used in a legal hold, and a list of survey questions for the custodian.
             </p>
 
             <h3 className="sub-heading">Notice Comments</h3>
@@ -138,7 +138,7 @@ function Architecture() {
                 SMTP server configurations define the details for a self-hosted SMTP server. We do not provide SMTP servers and do not run SMTP servers within our platform. This configuration can be used to connect to any SMTP server such as that provided by Google. It requires the connection details such as host, port, username and password. All emails will be seen to be sent from this username.
             </p>
             <p>
-                SMTP server configurations, similar to notice templates, have their own front-end and CRUD endpoints. The back-end for managing emails also includes endpoints to export, archive, retry and purge the email queue.
+                SMTP server configurations, similar to notice templates, have their own frontend and CRUD endpoints. The back-end for managing emails also includes endpoints to export, archive, retry and purge the email queue.
             </p>
             <p>
                 Emails are sent with a threadpool and are queued asynchronously to prevent blocking. There could be as many as 10,000 emails being sent at once and we do not want to wait or handle it synchronously. Emails also have state to track sending progress and errors if any.

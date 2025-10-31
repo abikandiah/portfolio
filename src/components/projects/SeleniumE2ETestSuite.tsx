@@ -41,13 +41,13 @@ function Architecture() {
                 All repeatable and typical user actions were packaged into respective Selenium classes. When it came to test building, only those classes had to be referenced rather than rewriting the same Selenium selector logic over and over. Less XPath and more test path.
             </p>
             <p>
-                This led to a design where actions for front-end components were being packaged and described as classes in the test suite. A front-end dropdown would have a corresponding Selenium dropdown that included all the possible user actions a front-end dropdown could perform, such as opening and selecting an item.
+                This led to a design where actions for frontend components were being packaged and described as classes in the test suite. A frontend dropdown would have a corresponding Selenium dropdown that included all the possible user actions a frontend dropdown could perform, such as opening and selecting an item.
             </p>
             <p>
                 The test suite also had the following helper classes:
             </p>
             <UnorderedList>
-                <li>XPathHelper: Helper to build and combine xpaths for selecting front-end components, elements and text.</li>
+                <li>XPathHelper: Helper to build and combine xpaths for selecting frontend components, elements and text.</li>
                 <li>WaitCondition: A series of selector conditions that extend Selenium's ExpectedConditions, to specify custom selector conditions to wait on.</li>
                 <li>TestRestClient: A REST client used to make test requests to the platform's back-end.</li>
             </UnorderedList>

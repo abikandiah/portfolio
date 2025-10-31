@@ -5,7 +5,7 @@ export const dataUploadProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Data Upload',
     duration: '2020',
-    description: `A data set upload tool for uploading data to admin-defined repositories. Implements the tus resumable file upload protocol with the help of two open source projects; Uppy for the front-end and another for the back-end.`,
+    description: `A data set upload tool for uploading data to admin-defined repositories. Implements the tus resumable file upload protocol with the help of two open source projects; Uppy for the frontend and another for the back-end.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX,
     techType.React, techType.Dropwizard, techType.RestAPI, techType.OpenSource, techType.TusProtocol],
 
@@ -22,7 +22,7 @@ function Overview() {
                 Before processing data, it first needs to be brought in to the processing platform. We created this tool to help bring data in. Users would connect to the platform via the web app and then upload data to data sets. They then submit those data sets with a workflow for processing.
             </p>
             <p>
-                The data upload tool follows the tus resumable file upload protocol and allows pausing and resuming multiple uploads. It was implemented with two open source projects. We started with the open source implementations and then customized them as needed. We used Uppy for the React front-end and a Java implementation for the back-end.
+                The data upload tool follows the tus resumable file upload protocol and allows pausing and resuming multiple uploads. It was implemented with two open source projects. We started with the open source implementations and then customized them as needed. We used Uppy for the React frontend and a Java implementation for the back-end.
             </p>
             <p>
                 The upload speed reached over 500 Mb/s and can be used to upload TBs of data. It has been used to upload data across separate AWS regions.

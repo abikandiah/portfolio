@@ -7,7 +7,7 @@ export const javaToReactFormBuilderProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Java-To-React Form Builder',
     duration: '2023',
-    description: `A React form builder and a Java form blueprint. Generating forms based on Java class and field annotations, reducing front-end development time.`,
+    description: `A React form builder and a Java form blueprint. Generating forms based on Java class and field annotations, reducing frontend development time.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.Dropwizard,
     techType.RestAPI, techType.JavaAnnotations, techType.JavaReflections],
     
@@ -22,7 +22,7 @@ function Overview() {
     return (
         <>
             <p>
-                A React form builder for Java classes. Helps automating form creation for back-end data models used in the front-end. Primarily used for workflow operation forms in the Workflow Builder component. Capable of describing complex forms including rows, tables and groups, as well as performing form validation.
+                A React form builder for Java classes. Helps automating form creation for back-end data models used in the frontend. Primarily used for workflow operation forms in the Workflow Builder component. Capable of describing complex forms including rows, tables and groups, as well as performing form validation.
             </p>
         </>
     )
@@ -32,7 +32,7 @@ function FormBlueprint() {
     return (
         <>
             <p>
-                In the back-end, Java annotations and reflections are used to generate form blueprints from Java classes. Those blueprints are then sent to the front-end via a REST endpoint.
+                In the back-end, Java annotations and reflections are used to generate form blueprints from Java classes. Those blueprints are then sent to the frontend via a REST endpoint.
             </p>
 
             <h3 className="sub-heading">Annotations</h3>
@@ -79,10 +79,10 @@ class Something {
             </CodeDisplay>
 
             <p>
-                The blueprints are then sent to the front-end. The front-end receives them and builds forms with them. The forms are initialized with the default JSON representation of the corresponding Java class.
+                The blueprints are then sent to the frontend. The frontend receives them and builds forms with them. The forms are initialized with the default JSON representation of the corresponding Java class.
             </p>
             <p>
-                Allowing the front-end to easily create and submit JSON representations of a Java class. The back-end receives it and deserializes it into the correct Java class, ensuring it is one of the expected classes.
+                Allowing the frontend to easily create and submit JSON representations of a Java class. The back-end receives it and deserializes it into the correct Java class, ensuring it is one of the expected classes.
             </p>
         </>
     )
@@ -92,7 +92,7 @@ function FormBuilder() {
     return (
         <>
             <p>
-                The front-end consists of a generic React form builder component.
+                The frontend consists of a generic React form builder component.
             </p>
 
             <h3 className="sub-heading">Form Builder</h3>

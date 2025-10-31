@@ -20,7 +20,7 @@ function Overview() {
     return (
         <>
             <p>
-                This was not only a goal to showcase myself but also to learn and upskill myself. I've done a lot of React development in my time but time goes on and things change. I needed to catch up to the latest front-end technologies and trends, as well as familiarize myself with JavaScript's good brother, TypeScript. I've written a lot of JavaScript but not so much TypeScript, so this project was a major step towards that direction.
+                This was not only a goal to showcase myself but also to learn and upskill myself. I've done a lot of React development in my time but time goes on and things change. I needed to catch up to the latest frontend technologies and trends, as well as familiarize myself with JavaScript's good brother, TypeScript. I've written a lot of JavaScript but not so much TypeScript, so this project was a major step towards that direction.
             </p>
             <p>
                 I did some research into the latest advancements and decided to stick with a React client-side rendered website. Although, I've stepped into a lot of talk against SPAs and how they're not meant for every single website, that they overcomplicate everything and not all websites need that complexity.
@@ -43,7 +43,7 @@ function Goals() {
             </p>
             <UnorderedList>
                 <li>
-                    Modernize my front-end development tech stack and skills by focusing on:
+                    Modernize my frontend development tech stack and skills by focusing on:
                     <InnerUnorderedList>
                         <li>TypeScript and the latest version of React;</li>
                         <li>Modern CSS and component libraries (including frameworks and methodologies), such as Tailwind CSS And shadcn-ui;</li>
@@ -72,12 +72,12 @@ function Goals() {
                 One of my major goals is to become comfortable with building entire full-stack applications from the ground up within minutes. Right now, I'd have to heavily rely on Google and AI prompts. I'd still be able to do it, but I'm not experienced enough to be able to instantly know how to connect everything. I'm nearly there, I'm simply missing the last piece of the experience in building applications from 0 to 1, where all the component setup takes place.
             </p>
             <p>z
-                Such as setting up the back-end, authentication and authorization, API resources and endpoint patterns, the database and data models, the unit tests and end-to-end tests, the front-end and having it all bundled as an asset served by the back-end, and etc. I've experience starting a front-end from the bottom-up, but not so much with the rest. Everything was already in place when I began working on back-end tech; I'd just extend and add features to an existing back-end solution. Now's the time to experiment with personal projects and get comfortable.
+                Such as setting up the back-end, authentication and authorization, API resources and endpoint patterns, the database and data models, the unit tests and end-to-end tests, the frontend and having it all bundled as an asset served by the back-end, and etc. I've experience starting a frontend from the bottom-up, but not so much with the rest. Everything was already in place when I began working on back-end tech; I'd just extend and add features to an existing back-end solution. Now's the time to experiment with personal projects and get comfortable.
             </p>
 
             <h3 className="sub-heading">Personal Projects</h3>
             <p>
-                My goal with these personal projects is to learn and learn as much as I can. This website was the first in my journey and it satisfied a lot to do with modernizing my front-end tech stack. It is themed, responsive and accessible, and all built with a modern tech stack including TypeScript, React, Tanstack Router, Tailwind CSS, Shadcn-UI and Vite. It is also hosted on Cloudflare as a Page.
+                My goal with these personal projects is to learn and learn as much as I can. This website was the first in my journey and it satisfied a lot to do with modernizing my frontend tech stack. It is themed, responsive and accessible, and all built with a modern tech stack including TypeScript, React, Tanstack Router, Tailwind CSS, Shadcn-UI and Vite. It is also hosted on Cloudflare as a Page.
             </p>
             <p>
                 The rest of my projects will be more heavily focused on building full-stack solutions from the ground-up. Solutions involving Java and Node back-ends, SQL and NoSQL databases, password and OIDC authentication, containerization with Docker and Kubernetes, and working with cloud providers such as AWS and Cloudflare.

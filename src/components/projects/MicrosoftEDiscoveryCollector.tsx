@@ -92,13 +92,13 @@ function Architecture() {
 
             <h3 className="sub-heading">Job Wizard</h3>
             <p>
-                The guided job wizard lives in the front-end and helps users fill in key operation details when submitting a Microsoft Purview eDiscovery workflow. For example, details such as the case, the data sources, the queries, and the export download location.
+                The guided job wizard lives in the frontend and helps users fill in key operation details when submitting a Microsoft Purview eDiscovery workflow. For example, details such as the case, the data sources, the queries, and the export download location.
             </p>
             <Banner type="note"
                 message="Workflows can be customized with both hard-coded settings and execution-time settings, such as the location of source data or the name of the case to work with."
             />
             <p>
-                It does so with the help of front-end guided operation panels designed for each eDiscovery operation. For example, the <code className="code">Set eDiscovery Case</code> operation has it's own panel which provides a list of available eDiscovery cases for selection. This allows users to select the case to work on when submitting the workflow rather than hard-coding the value when building the workflow.
+                It does so with the help of frontend guided operation panels designed for each eDiscovery operation. For example, the <code className="code">Set eDiscovery Case</code> operation has it's own panel which provides a list of available eDiscovery cases for selection. This allows users to select the case to work on when submitting the workflow rather than hard-coding the value when building the workflow.
             </p>
             <p>
                 Guided operation panels are only rendered if their corresponding operation is present in a workflow. Users can mix-and-match operations as desired and the guided experience will reflect it, enabling them to create guided experiences that suite their workflow needs.

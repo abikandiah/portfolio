@@ -38,7 +38,7 @@ function Overview() {
                 It was built with a custom component library. The library began with the application and components were built as needed. Components were built to be reusable. Custom hooks and helper functions were also defined as needed, to help with component lifecycles,  behaviours and state management.
             </p>
             <p>
-                The framework defines a pattern for integrating a data model in the front-end. It supports CRUD operations, polling and caching and other coordinated flows.
+                The framework defines a pattern for integrating a data model in the frontend. It supports CRUD operations, polling and caching and other coordinated flows.
             </p>
         </>
     )
@@ -59,7 +59,7 @@ function Framework() {
 
             <h3 className="sub-heading">Model Class</h3>
             <p>
-                A Model class describes the front-end equivalent for a back-end data model, including the class structure, Redux state management, the list of available endpoints, and any front-end user action to help user flows.
+                A Model class describes the frontend equivalent for a back-end data model, including the class structure, Redux state management, the list of available endpoints, and any frontend user action to help user flows.
             </p>
 
             <CodeDisplay code={`class Model extends BaseModel {
