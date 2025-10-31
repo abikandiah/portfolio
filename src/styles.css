@@ -122,6 +122,10 @@
 	@apply leading-relaxed text-gray-900
 }
 
+.text-link {
+	@apply text-blue-600 hover:text-blue-800 visited:text-blue-900
+}
+
 .nav-link {
 	@apply relative block px-3 py-2 transition text-gray-700 hover:text-gray-950
 }
