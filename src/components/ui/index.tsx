@@ -27,3 +27,21 @@ export function ExternalSite({ url, src, alt, ...rest }: ExternalSiteProps & Rea
         </a>
     )
 }
+
+export function PageHeader({ className, ...props }: React.ComponentProps<"h1">) {
+    return (
+        <h1
+            className={cn("font-bold tracking-tight text-gray-900 text-2xl", className)}
+            {...props} />
+    )
+}
+
+export function PageDescription({ className, ...props }: React.ComponentProps<"h1">) {
+    return (
+        <h2
+            className={cn("text-gray-700 text-lg", className)}
+            {...props}
+        />
+    )
+}
+

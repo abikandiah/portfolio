@@ -1,4 +1,4 @@
-import DisclaimerUrl from "@/assets/disclaimer.txt";
+import { TextLink } from "./ui";
 
 
 function Footer() {
@@ -8,11 +8,11 @@ function Footer() {
 
 
                 <div className="flex flex-col md:items-end items-center gap-1">
-                    <a className="text-sm text-link" href={DisclaimerUrl}
-                        target="_blank" rel="noopener noreferrer"
+                    <TextLink className="text-sm"
+                        to="/disclaimer"
                     >
-                        View disclaimer
-                    </a>
+                        Disclaimer
+                    </TextLink>
 
                     <span className="text-sm text-gray-500">
                         ©

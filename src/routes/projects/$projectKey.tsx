@@ -1,4 +1,5 @@
 import { NotFound } from '@/components/NotFound';
+import { PageDescription, PageHeader } from '@/components/ui';
 import { BadgeContainer, TechBadge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -53,16 +54,16 @@ function ProjectHeader({ proj }: { proj: Project }) {
 	return (
 		<div className="pr-3">
 			<div className="flex ">
-				<SidebarTrigger className="mr-1 -ml-1.5 mt-0.2"/>
+				<SidebarTrigger className="mr-1 -ml-1.5 mt-0.2" />
 
-				<h1 className="font-bold tracking-tight text-gray-900 text-2xl">
+				<PageHeader>
 					{proj.name}
-				</h1>
+				</PageHeader>
 			</div>
 
-			<p className="mt-1 text-gray-700 text-lg">
+			<PageDescription className="mt-1">
 				{proj.description}
-			</p>
+			</PageDescription>
 
 			<BadgeContainer className="mt-4">
 				{proj.tech?.map(tech => (

@@ -4,7 +4,7 @@ import linkedinBlack from "@/assets/linkedin-black.png";
 import Education from '@/components/home/Education';
 import ProjectsOverview from '@/components/home/ProjectsOverview';
 import WorkExperience from '@/components/home/WorkExperience';
-import { ExternalSite } from "@/components/ui";
+import { ExternalSite, PageDescription, PageHeader } from "@/components/ui";
 import { LINKS, PERSONAL } from "@/constants";
 import { createFileRoute } from '@tanstack/react-router';
 import { Mail } from 'lucide-react';
@@ -32,13 +32,13 @@ function ProfileHeader() {
 		<div className="flex flex-col items-center justify-center">
 			<FaceContextMenu src={profilePhoto} />
 
-			<h1 className="font-bold tracking-tight text-gray-900 sm:text-4xl text-3xl mt-6">
+			<PageHeader className="sm:text-4xl text-3xl mt-6">
 				Abilaesh Kandiah
-			</h1>
+			</PageHeader>
 
-			<h2 className="mt-1 text-gray-700 sm:text-2xl text-xl">
+			<PageDescription className="sm:text-2xl text-xl mt-1">
 				Full-Stack Developer
-			</h2>
+			</PageDescription>
 		</div>
 	)
 }

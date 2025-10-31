@@ -1,12 +1,11 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
-import disclaimer from "@/assets/disclaimer.txt"
-import { Banner, bannerType, type BannerProps, type TBannerType } from '@/components/ui/banner'
+import { Banner, type BannerProps } from '@/components/ui/banner'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
 import { projectsByType } from '@/constants/project'
 import { Project } from '@/types/ProjectTypes'
 import { stringToBoolean } from '@/utils'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
@@ -30,7 +29,7 @@ function RouteComponent() {
 
 				{!dismissed &&
 					<DisclaimerBanner
-						className="mb-8"
+						className="mb-4"
 						onClose={onDisclaimerDismiss} />
 				}
 
@@ -92,31 +91,14 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 
 function DisclaimerBanner(props: Omit<BannerProps, 'type' | 'message'>) {
 
-	const [loading, setLoading] = useState(true);
-	const [text, setText] = useState<string>("");
-	const [type, setType] = useState<TBannerType>(bannerType.Note);
-
-	useEffect(function () {
-		fetch(disclaimer)
-			.then(res => {
-				return res.text();
-			})
-			.then(text => {
-				setText(text);
-			})
-			.catch(error => {
-				setType(bannerType.Alert)
-				setText(error);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	}, []);
-
 	return (
-		<Banner loading={loading} type={type} title="Portoflio Disclaimer"
-			hideIcon message={text} {...props}
-		/>
+		<Banner type="note" title="Portoflio Disclaimer"
+			hideIcon {...props}
+		>
+			<p>
+
+			</p>
+		</Banner>
 	)
 }
 
