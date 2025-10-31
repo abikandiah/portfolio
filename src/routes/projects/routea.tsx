@@ -8,7 +8,7 @@ import { stringToBoolean } from '@/utils'
 import { useState } from 'react'
 import { DisclaimerBody } from '../disclaimer'
 
-export const Route = createFileRoute('/projects')({
+export const Route = createFileRoute('/projects/routea')({
 	component: RouteComponent,
 })
 
@@ -24,13 +24,13 @@ function RouteComponent() {
 	}
 
 	return (
-		<SidebarProvider className='px-3 xl:px-0 mt-8'>
+		<SidebarProvider className='px-3 mt-8'>
 			<ProjectSideBar />
 			<div className="flex flex-col w-full">
 
 				{!dismissed &&
 					<Banner className="mb-4"
-						type="note"
+						type='info'
 						title="Portfolio Disclaimer"
 						hideIcon
 						onClose={onDisclaimerDismiss}

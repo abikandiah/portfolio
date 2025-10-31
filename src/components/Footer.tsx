@@ -1,21 +1,26 @@
 import { TextLink } from "./ui";
 
 
-function Footer() {
+interface FooterProps {
+    showLinks?: boolean;
+}
+
+function Footer({ showLinks = true }: FooterProps) {
     return (
-        <footer className="mt-auto px-3 xl:px-0">
-            <div className="py-16 px-3">
+        <footer className="mt-auto px-3">
+            <div className="py-16 px-3 mt-12">
 
 
                 <div className="flex flex-col md:items-end items-center gap-1">
-                    <TextLink className="text-sm"
-                        to="/disclaimer"
-                        target="_blank"
-                        activeProps={{ className: "pointer-events-none"}}
-                    >
-                        Disclaimer
-                    </TextLink>
-
+                    {showLinks &&
+                        <TextLink className="text-sm"
+                            to="/disclaimer"
+                            target="_blank"
+                            activeProps={{ className: "hidden" }}
+                        >
+                            Disclaimer
+                        </TextLink>
+                    }
                     <span className="text-sm text-gray-500">
                         ©
                         2025

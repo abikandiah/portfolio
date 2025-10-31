@@ -1,12 +1,12 @@
 import { NotFound } from '@/components/NotFound';
 import { PageDescription, PageHeader } from '@/components/ui';
 import { BadgeContainer, TechBadge } from '@/components/ui/badge';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { Fragment } from 'react/jsx-runtime';
 
 export const Route = createFileRoute('/projects/$projectKey')({
@@ -24,8 +24,10 @@ function RouteComponent() {
 	}
 
 	return (
-		<ProjectContainer>
-			<ProjectHeader proj={proj} />
+		<ProjectContainer className="space-y-4 max-w-screen-lg mx-auto">
+			<section className="px-3">
+				<ProjectHeader proj={proj} />
+			</section>
 
 			<ProjectBody>
 				{Array.isArray(proj.sections) && proj.sections.map((section, index) => (
@@ -52,14 +54,10 @@ function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) 
 
 function ProjectHeader({ proj }: { proj: Project }) {
 	return (
-		<div className="pr-3">
-			<div className="flex ">
-				<SidebarTrigger className="mr-1 -ml-1.5 mt-0.2" />
-
-				<PageHeader size="sm">
-					{proj.name}
-				</PageHeader>
-			</div>
+		<div>
+			<PageHeader size="sm">
+				{proj.name}
+			</PageHeader>
 
 			<PageDescription size="sm" className="mt-1">
 				{proj.description}
@@ -77,7 +75,7 @@ function ProjectHeader({ proj }: { proj: Project }) {
 function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={cn('card pr-3 mt-8', className)}
+			className={cn('card', className)}
 			{...props}
 		/>
 	)
@@ -94,6 +92,29 @@ function ProjectBodySection({ section }: { section: ProjectSection }) {
 
 			{section.body && <section.body />}
 		</section>
+	)
+}
+
+function ProjectsBreadcrumbs({ name, className, ...props }: { name: string } & React.ComponentProps<"nav">) {
+	return (
+		<Breadcrumb className={className} {...props}>
+			<BreadcrumbList>
+				<BreadcrumbItem>
+					<BreadcrumbLink asChild>
+						<Link to="/projects">
+							Home
+						</Link>
+					</BreadcrumbLink>
+				</BreadcrumbItem>
+
+				<BreadcrumbSeparator />
+				<BreadcrumbItem>
+					<BreadcrumbPage>
+						{name}
+					</BreadcrumbPage>
+				</BreadcrumbItem>
+			</BreadcrumbList>
+		</Breadcrumb>
 	)
 }
 
