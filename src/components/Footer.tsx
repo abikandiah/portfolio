@@ -10,6 +10,8 @@ function Footer() {
                 <div className="flex flex-col md:items-end items-center gap-1">
                     <TextLink className="text-sm"
                         to="/disclaimer"
+                        target="_blank"
+                        activeProps={{ className: "pointer-events-none"}}
                     >
                         Disclaimer
                     </TextLink>

@@ -15,7 +15,7 @@ function RouteComponent() {
 function Disclaimer() {
 	return (
 		<main className='space-y-4'>
-			<section className='mt-6'>
+			<section className='mt-8'>
 				<PageHeader>
 					Disclaimer
 				</PageHeader>
