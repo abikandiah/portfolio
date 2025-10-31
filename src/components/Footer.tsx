@@ -2,8 +2,10 @@
 function Footer() {
     return (
         <footer className="mt-auto px-3 xl:px-0">
-            <div className="py-16 px-3">
+            <div className="py-16 px-3 border-black border">
+
                 <div className="flex md:justify-end justify-center">
+
                     <p className="text-sm text-gray-500">
                         ©
                         2025

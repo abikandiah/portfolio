@@ -5,7 +5,7 @@ import Education from '@/components/home/Education';
 import ProjectsOverview from '@/components/home/ProjectsOverview';
 import WorkExperience from '@/components/home/WorkExperience';
 import { ExternalSite } from "@/components/ui";
-import { githubUrl, linkedinUrl, personalEmail } from '@/constants';
+import { LINKS, PERSONAL } from "@/constants";
 import { createFileRoute } from '@tanstack/react-router';
 import { Mail } from 'lucide-react';
 import { useRef, useState } from 'react';
@@ -57,10 +57,10 @@ function ProfileSummary() {
 			</p>
 
 			<div className="flex items-center gap-4">
-				<SendEmail email={personalEmail} />
+				<SendEmail email={PERSONAL.email} />
 
 				<ExternalSite
-					url={githubUrl}
+					url={LINKS.github}
 					src={github}
 					alt="GitHub Logo"
 					aria-label="Github Profile"
@@ -68,7 +68,7 @@ function ProfileSummary() {
 				/>
 
 				<ExternalSite
-					url={linkedinUrl}
+					url={LINKS.linkedinUrl}
 					src={linkedinBlack}
 					alt="LinkedIn Logo"
 					aria-label="LinkedIn Profile"

@@ -52,8 +52,8 @@ function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) 
 function ProjectHeader({ proj }: { proj: Project }) {
 	return (
 		<div className="pr-3">
-			<div className="flex items-center">
-				<SidebarTrigger className="mr-1 -ml-1.5"/>
+			<div className="flex ">
+				<SidebarTrigger className="mr-1 -ml-1.5 mt-0.2"/>
 
 				<h1 className="font-bold tracking-tight text-gray-900 text-2xl">
 					{proj.name}
