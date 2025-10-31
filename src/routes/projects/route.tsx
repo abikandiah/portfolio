@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
-import { MessageBanner } from '@/components/ui/banner'
+import { Banner } from '@/components/ui/banner'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
 import { projectsByType } from '@/constants/project'
 import { Project } from '@/types/ProjectTypes'
@@ -29,14 +29,19 @@ function RouteComponent() {
 			<div className="flex flex-col w-full">
 
 				{!dismissed &&
-					<DisclaimerBanner
-						className="mb-4"
-						onClose={onDisclaimerDismiss} />
+					<Banner className="mb-4"
+						type="note"
+						title="Portfolio Disclaimer"
+						hideIcon
+						onClose={onDisclaimerDismiss}
+					>
+						<DisclaimerBody />
+					</Banner>
 				}
 
 				<Outlet />
 			</div>
-		</SidebarProvider>
+		</SidebarProvider >
 	)
 }
 
@@ -87,15 +92,6 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 				)}
 			</Link>
 		</SidebarMenuItem>
-	)
-}
-
-function DisclaimerBanner({ className }: { className: string; }) {
-
-	return (
-		<MessageBanner type="note" hideIcon>
-			<DisclaimerBody />
-		</MessageBanner>
 	)
 }
 

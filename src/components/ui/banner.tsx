@@ -29,12 +29,15 @@ const styleColor: Record<TBannerType, string> = {
 };
 
 
-interface BannerProps extends Omit<MessageBannerProps, 'title' | 'message'> {
+interface BannerProps extends React.ComponentProps<"div"> {
+    type: TBannerType;
+    title?: string;
     loading?: boolean;
     hideIcon?: boolean;
+    onClose?: onClickCallback<HTMLButtonElement>;
 }
 
-function Banner({ type, loading, hideIcon, onClose, children, className, ...props }: BannerProps) {
+function Banner({ type, title, loading, hideIcon, onClose, children, className, ...props }: BannerProps) {
 
     const color = styleColor[type] || styleColor.note;
     const containerClass = `bg-${color}-${colorWeights[0]} text-${color}-${colorWeights[1]} border-${color}-${colorWeights[2]}`;
@@ -46,17 +49,24 @@ function Banner({ type, loading, hideIcon, onClose, children, className, ...prop
             role="alert"
             {...props}
         >
-            <div className="flex items-start">
+            <div className={`flex items-start`}>
                 {loading ?
                     <BannerLoadingContent />
                     :
                     <>
                         {!hideIcon &&
-                            <div className={`flex-shrink-0 mr-3 text-${color}-${colorWeights[1]}`}>
+                            <div className={`flex-shrink-0 mr-3`}>
                                 <Icon />
                             </div>
                         }
-                        {children}
+                        <section>
+                            {title && (
+                                <p className={`font-bold`}>
+                                    {title}
+                                </p>
+                            )}
+                            {children}
+                        </section>
                     </>
                 }
 
@@ -68,29 +78,16 @@ function Banner({ type, loading, hideIcon, onClose, children, className, ...prop
     )
 }
 
-interface MessageBannerProps extends React.ComponentProps<"div"> {
-    type: TBannerType;
+interface MessageBannerProps extends BannerProps {
     message: string;
-    title?: string;
-    onClose?: onClickCallback<HTMLButtonElement>;
 }
 
-function MessageBanner({ type, title, message, ...props }: MessageBannerProps) {
-
-    const color = styleColor[type] || styleColor.note;
-
+function MessageBanner({ message, ...props }: MessageBannerProps) {
     return (
-        <Banner type={type} {...props}>
-            <section>
-                {title && (
-                    <p className={`font-bold text-${color}-${colorWeights[1]}`}>
-                        {title}
-                    </p>
-                )}
-                <p className="text-sm">
-                    {message}
-                </p>
-            </section>
+        <Banner {...props}>
+            <p className="text-sm">
+                {message}
+            </p>
         </Banner>
     )
 }

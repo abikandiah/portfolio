@@ -3,12 +3,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 
 const variants = cva(
-    "list-disc pl-8 pr-2 py-2 my-4 bg-background rounded",
+    "list-disc pl-8 pr-2 py-2 rounded",
     {
         variants: {
             variant: {
-                default: "border-container",
-                outline: ""
+                default: "bg-background border-container my-4",
+                clear: "my-2"
             },
         },
         defaultVariants: {
