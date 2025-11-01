@@ -35,7 +35,7 @@ function Overview() {
     )
 }
 
-function Goals() {
+export function Goals() {
     return (
         <>
             <p>
