@@ -1,12 +1,11 @@
 import { NotFound } from '@/components/NotFound';
 import { PageDescription, PageHeader } from '@/components/ui';
 import { BadgeContainer, TechBadge } from '@/components/ui/badge';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { projectsMap } from '@/constants/project';
 import { cn } from '@/lib/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { Fragment } from 'react/jsx-runtime';
 
 export const Route = createFileRoute('/projects/$projectKey')({
@@ -92,29 +91,6 @@ function ProjectBodySection({ section }: { section: ProjectSection }) {
 
 			{section.body && <section.body />}
 		</section>
-	)
-}
-
-function ProjectsBreadcrumbs({ name, className, ...props }: { name: string } & React.ComponentProps<"nav">) {
-	return (
-		<Breadcrumb className={className} {...props}>
-			<BreadcrumbList>
-				<BreadcrumbItem>
-					<BreadcrumbLink asChild>
-						<Link to="/projects">
-							Home
-						</Link>
-					</BreadcrumbLink>
-				</BreadcrumbItem>
-
-				<BreadcrumbSeparator />
-				<BreadcrumbItem>
-					<BreadcrumbPage>
-						{name}
-					</BreadcrumbPage>
-				</BreadcrumbItem>
-			</BreadcrumbList>
-		</Breadcrumb>
 	)
 }
 
