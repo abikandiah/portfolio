@@ -8,7 +8,7 @@ interface FooterProps {
 function Footer({ showLinks = true }: FooterProps) {
     return (
         <footer className="mt-auto px-3">
-            <div className="py-8 px-6">
+            <div className="py-8 px-6 mt-32">
 
 
                 <div className="flex flex-col md:items-end items-center gap-1">

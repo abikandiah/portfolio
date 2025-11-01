@@ -27,7 +27,7 @@ function RouteComponent() {
 		<SidebarProvider>
 			<ProjectSideBar />
 
-			<div className="flex flex-col center-page mt-5">
+			<div className="flex flex-col center-page mt-12">
 
 				{!dismissed &&
 					<Banner className="mb-4"
@@ -50,8 +50,11 @@ function ProjectSideBar() {
 	const state = useSidebar();
 
 	return (
-		<Sidebar className='flex flex-col h-[calc(100vh-2.5rem)] bg-card -ml-3' collapsible='icon'>
-			<SidebarContent className='p-3'>
+		<Sidebar
+			className='flex flex-col h-[calc(100vh-2.5rem)] bg-card -ml-3 group-data-[state=expanded]:px-2'
+			collapsible='icon'
+		>
+			<SidebarContent className='py-2'>
 				{state.open && Object.keys(projectsByType).map(type => {
 					const projects = projectsByType[type];
 					return (

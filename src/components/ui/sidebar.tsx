@@ -27,7 +27,7 @@ import { cn } from "@/lib/utils"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const SIDEBAR_WIDTH = "16rem"
+const SIDEBAR_WIDTH = "18rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
@@ -262,22 +262,23 @@ function SidebarTrigger({
 	const { toggleSidebar } = useSidebar()
 
 	return (
-		<Button
-			data-sidebar="trigger"
-			data-slot="sidebar-trigger"
-			variant="ghost"
-			size="icon"
-			className={cn("size-7", className)}
-			onClick={(event) => {
-				onClick?.(event)
-				toggleSidebar()
-			}}
-			{...props}
-		>
-			<ChevronsLeft className="transition-transform group-data-[state=collapsed]:rotate-180" />
-			{/* <PanelLeftIcon /> */}
-			<span className="sr-only">Toggle Sidebar</span>
-		</Button>
+		<>
+			<Button
+				data-sidebar="trigger"
+				data-slot="sidebar-trigger"
+				variant="ghost"
+				size="icon"
+				className={cn("rounded-full", className)}
+				onClick={(event) => {
+					onClick?.(event)
+					toggleSidebar()
+				}}
+				{...props}
+			>
+				<ChevronsLeft className="transition-transform group-data-[state=collapsed]:rotate-180 size-6" />
+				<span className="sr-only">Toggle Sidebar</span>
+			</Button>
+		</>
 	)
 }
 
