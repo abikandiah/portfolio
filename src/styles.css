@@ -155,7 +155,7 @@ code {
 }
 
 :root {
-	--background: oklch(0.98 0.002 90);
+	--background: oklch(0.99 0.002 90);
 	--foreground: oklch(0.141 0.005 285.823);
 	--card: oklch(1 0 0 / 0.75);
 	--card-foreground: oklch(0.141 0.005 285.823);

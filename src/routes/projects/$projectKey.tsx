@@ -74,7 +74,7 @@ function ProjectHeader({ proj }: { proj: Project }) {
 function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={cn('card', className)}
+			className={cn('flex flex-col gap-6 p-3', className)}
 			{...props}
 		/>
 	)
