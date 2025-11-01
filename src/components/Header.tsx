@@ -1,11 +1,10 @@
 import bee from "@/assets/bee.svg";
-import { projects } from "@/constants/project";
 import { cn } from "@/lib/utils";
+import type { onClickCallback } from "@/types";
 import { Link, type LinkComponentProps } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Separator } from "./ui/separator";
 
 
 function Header() {
@@ -45,41 +44,26 @@ function HamburgerMenu() {
                 <Menu />
             </PopoverTrigger>
 
-            <PopoverContent className="mx-3 w-64 p-0 mt-2">
-                <ul className="rounded text-sm font-medium">
-                    <ListNavLink to="/" text={'Home'} onClick={closeMenu} />
-                    <ListNavLink to="/about" text={'About'} onClick={closeMenu} />
-
-                    <li className="mb-1">
-                        <Separator className="mb-3" />
-                        <HamburgerMenuSubLabel text="Projects" />
-                    </li>
-
-                    {projects.map((proj) => (
-                        <ListNavLink key={proj.name} to="/projects/$projectKey" onClick={closeMenu}
-                            params={{ projectKey: proj.pathname }} text={proj.name} />
-                    ))}
-                </ul>
+            <PopoverContent className="mx-3 w-48 p-0 mt-2">
+                <RouteLinks onClose={closeMenu} />
             </PopoverContent >
         </Popover>
     )
 }
 
-function HamburgerMenuSubLabel({ text }: { text: string }) {
-    return (
-        <span className="text-sidebar-foreground/70 px-3 text-xs font-medium">{text}</span>
-    )
+interface RouteLinksProps extends React.ComponentProps<"ul"> {
+    onClose?: onClickCallback<HTMLAnchorElement>;
 }
 
-function RouteLinks({ className, ...props }: React.ComponentProps<"ul">) {
+function RouteLinks({ className, onClose, ...props }: RouteLinksProps) {
     return (
         <ul
             className={cn("rounded text-sm font-medium", className)}
             {...props}
         >
-            <ListNavLink to="/" text={'Home'} />
-            <ListNavLink to="/about" text={'About'} />
-            <ListNavLink to="/projects" text={'Projects'} />
+            <ListNavLink to="/" text={'Home'} onClick={onClose} />
+            <ListNavLink to="/about" text={'About'} onClick={onClose} />
+            <ListNavLink to="/projects" text={'Projects'} onClick={onClose} />
         </ul>
     )
 }
