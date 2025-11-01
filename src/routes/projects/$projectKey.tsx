@@ -24,7 +24,7 @@ function RouteComponent() {
 	}
 
 	return (
-		<ProjectContainer className="space-y-4 max-w-screen-lg mx-auto">
+		<ProjectContainer className="space-y-4">
 			<section className="px-3">
 				<ProjectHeader proj={proj} />
 			</section>

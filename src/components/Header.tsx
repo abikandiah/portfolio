@@ -11,24 +11,22 @@ import { Separator } from "./ui/separator";
 function Header() {
     return (
         <>
-            <header className="z-50 fixed w-full max-w-screen-xl top-0">
-                <div className="header-card h-10">
-                    <Link to={"/"}>
-                        <img
-                            className="h-8 w-8"
-                            src={bee}
-                            alt="Home Bee"
-                        />
-                    </Link>
+            <header className="header h-10">
+                <Link to={"/"}>
+                    <img
+                        className="h-8 w-8 mx-3"
+                        src={bee}
+                        alt="Home Bee"
+                    />
+                </Link>
 
-                    <div className="md:hidden flex my-1.5">
-                        <HamburgerMenu />
-                    </div>
-
-                    <nav className="hidden md:block">
-                        <RouteLinks className="flex" />
-                    </nav>
+                <div className="md:hidden flex my-1.5">
+                    <HamburgerMenu />
                 </div>
+
+                <nav className="hidden md:block px-3">
+                    <RouteLinks className="flex" />
+                </nav>
             </header>
         </>
     );
@@ -76,7 +74,7 @@ function HamburgerMenuSubLabel({ text }: { text: string }) {
 function RouteLinks({ className, ...props }: React.ComponentProps<"ul">) {
     return (
         <ul
-            className={cn("rounded px-3 text-sm font-medium", className)}
+            className={cn("rounded text-sm font-medium", className)}
             {...props}
         >
             <ListNavLink to="/" text={'Home'} />

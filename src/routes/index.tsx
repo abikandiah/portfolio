@@ -6,6 +6,7 @@ import ProjectsOverview from '@/components/home/ProjectsOverview';
 import WorkExperience from '@/components/home/WorkExperience';
 import { ExternalSite, PageDescription, PageHeader } from "@/components/ui";
 import { LINKS, PERSONAL } from "@/constants";
+import { cn } from "@/lib/utils";
 import { createFileRoute } from '@tanstack/react-router';
 import { Mail } from 'lucide-react';
 import { useRef, useState } from 'react';
@@ -17,8 +18,8 @@ export const Route = createFileRoute('/')({
 function App() {
 	return (
 		<>
-			<LandscapeContainer />
-			<div className="flex flex-col">
+			<LandscapeContainer className="-mx-3" />
+			<div className="center-page flex flex-col">
 				<ProfileHeader />
 				<ProfileSummary />
 				<MainContent />
@@ -142,10 +143,11 @@ function FaceContextMenu({ src }: { src: string }) {
 	)
 }
 
-function LandscapeContainer() {
+function LandscapeContainer({ className, ...props }: React.ComponentProps<"div">) {
 	return (
-		<div className="image-background">
-			{/* <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent"></div> */}
+		<div
+			className={cn("image-background", className)}
+			{...props}>
 		</div>
 	);
 }

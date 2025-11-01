@@ -1,12 +1,12 @@
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 
-import { Banner } from '@/components/ui/banner'
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
-import { projectsByType } from '@/constants/project'
-import { Project } from '@/types/ProjectTypes'
-import { stringToBoolean } from '@/utils'
-import { useState } from 'react'
-import { DisclaimerBody } from './disclaimer'
+import { Banner } from '@/components/ui/banner';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import { projectsByType } from '@/constants/project';
+import { Project } from '@/types/ProjectTypes';
+import { stringToBoolean } from '@/utils';
+import { useState } from 'react';
+import { DisclaimerBody } from './disclaimer';
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
@@ -24,9 +24,10 @@ function RouteComponent() {
 	}
 
 	return (
-		<SidebarProvider className='px-3 mt-8'>
+		<SidebarProvider>
 			<ProjectSideBar />
-			<div className="flex flex-col w-full">
+
+			<div className="flex flex-col center-page mt-5">
 
 				{!dismissed &&
 					<Banner className="mb-4"
@@ -46,16 +47,24 @@ function RouteComponent() {
 }
 
 function ProjectSideBar() {
+	const state = useSidebar();
+
 	return (
-		<Sidebar>
-			<SidebarContent>
-				{Object.keys(projectsByType).map(type => {
+		<Sidebar className='flex flex-col h-[calc(100vh-2.5rem)] bg-card -ml-3' collapsible='icon'>
+			<SidebarContent className='p-3'>
+				{state.open && Object.keys(projectsByType).map(type => {
 					const projects = projectsByType[type];
 					return (
 						<ProjectsGroup key={type} type={type} projects={projects} />
 					)
 				})}
 			</SidebarContent>
+
+			<SidebarFooter className='shrink-0 border-t'>
+				<SidebarTrigger className="ml-auto" />
+			</SidebarFooter>
+
+			<SidebarRail />
 		</Sidebar >
 	)
 }
@@ -94,4 +103,3 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 		</SidebarMenuItem>
 	)
 }
-

@@ -31,7 +31,7 @@ function Root() {
 	}
 
 	return (
-		<div className="flex flex-col h-full mx-auto max-w-screen-xl">
+		<div className="flex flex-col h-full">
 			<Header />
 
 			<main className="w-full mt-10 px-3">

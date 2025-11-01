@@ -93,9 +93,13 @@
 }
 
 .image-background {
-	@apply w-full h-38 bg-cover bg-center relative bg-blend-overlay bg-stone-300/20 inset-0 rounded-b sm:-mb-16 -mb-10;
+	@apply h-38 bg-cover bg-center bg-blend-overlay bg-stone-300/20 sm:-mb-16 -mb-10;
 	background-image: url('/src//assets//background-image.svg');
 	z-index: -1;
+}
+
+.center-page {
+	@apply mx-auto max-w-screen-xl w-full;
 }
 
 .sidebar-text {
@@ -110,8 +114,8 @@
 	@apply text-sidebar-foreground
 }
 
-.header-card {
-	@apply flex justify-between rounded-b text-card-foreground bg-card border-container pl-3 items-center
+.header {
+	@apply z-50 fixed w-full top-0 px-3 flex justify-between text-card-foreground bg-card border-container items-center;
 }
 
 .sub-heading {
