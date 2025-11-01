@@ -4,9 +4,9 @@ import { MessageBanner } from "../ui/banner";
 import { CodeDisplay } from "../ui/code";
 import { UnorderedList } from "../ui/list";
 
-export const workflowWebApp: ProjectProps = {
+export const jobSchedulerWebApp: ProjectProps = {
     type: projectType.NuixRampiva,
-    name: 'eDiscovery Workflows Web App',
+    name: 'Job Scheduler Web App',
     duration: '2018 - 2025',
     description: `A management console to create, schedule and submit eDiscovery workflows for execution. Built as a React web app with a Java backend.`,
     tech: [techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.ReactRedux,
