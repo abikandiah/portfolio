@@ -50,25 +50,36 @@ function ProjectSideBar() {
 	const state = useSidebar();
 
 	return (
-		<Sidebar
-			className='flex flex-col h-[calc(100vh-2.5rem)] bg-card -ml-3 group-data-[state=expanded]:px-2'
-			collapsible='icon'
-		>
-			<SidebarContent className='py-2'>
-				{state.open && Object.keys(projectsByType).map(type => {
-					const projects = projectsByType[type];
-					return (
-						<ProjectsGroup key={type} type={type} projects={projects} />
-					)
-				})}
-			</SidebarContent>
+		<>
+			<Sidebar
+				className='flex flex-col h-[calc(100vh-2.5rem)] bg-card -ml-3 group-data-[state=expanded]:px-2'
+				collapsible='icon'
+			>
+				<SidebarContent className='py-2'>
+					{state.open && Object.keys(projectsByType).map(type => {
+						const projects = projectsByType[type];
+						return (
+							<ProjectsGroup key={type} type={type} projects={projects} />
+						)
+					})}
+				</SidebarContent>
 
-			<SidebarFooter className='shrink-0 border-t mb-4'>
-				<SidebarTrigger className="ml-auto" />
-			</SidebarFooter>
+				{!state.isMobile &&
+					<SidebarFooter className='shrink-0 border-t mb-4'>
+						<SidebarTrigger className="ml-auto" />
+					</SidebarFooter>
+				}
 
-			<SidebarRail />
-		</Sidebar >
+				<SidebarRail />
+			</Sidebar >
+
+			{state.isMobile &&
+				<SidebarTrigger
+					className='fixed bottom-4 left-4'
+					variant="outline"
+				/>
+			}
+		</>
 	)
 }
 

@@ -199,7 +199,9 @@ function Sidebar({
 						<SheetTitle>Sidebar</SheetTitle>
 						<SheetDescription>Displays the mobile sidebar.</SheetDescription>
 					</SheetHeader>
-					<div className="flex w-full flex-col">{children}</div>
+					<div className="flex w-full flex-col">
+						{children}
+					</div>
 				</SheetContent>
 			</Sheet>
 		)
@@ -259,7 +261,8 @@ function SidebarTrigger({
 	onClick,
 	...props
 }: React.ComponentProps<typeof Button>) {
-	const { toggleSidebar } = useSidebar()
+	const { isMobile, open, toggleSidebar } = useSidebar();
+	const rotationStyle = isMobile || !open ? 'rotate-180' : '';
 
 	return (
 		<>
@@ -275,7 +278,7 @@ function SidebarTrigger({
 				}}
 				{...props}
 			>
-				<ChevronsLeft className="transition-transform group-data-[state=collapsed]:rotate-180 size-6" />
+				<ChevronsLeft className={`transition-transform ${rotationStyle} size-6`} />
 				<span className="sr-only">Toggle Sidebar</span>
 			</Button>
 		</>
