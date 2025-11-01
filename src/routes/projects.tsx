@@ -65,7 +65,7 @@ function ProjectSideBar() {
 				</SidebarContent>
 
 				{!state.isMobile &&
-					<SidebarFooter className='shrink-0 border-t mb-4'>
+					<SidebarFooter className='shrink-0 border-t mb-2'>
 						<SidebarTrigger className="ml-auto" />
 					</SidebarFooter>
 				}

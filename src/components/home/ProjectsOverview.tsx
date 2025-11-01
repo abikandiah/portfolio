@@ -7,7 +7,7 @@ import { Card, CardContent, CardH2Header } from "../ui/card";
 function ProjectsOverview() {
     return (
         <Card>
-            <CardH2Header title={'Notable Projects'}
+            <CardH2Header title={'Key Projects'}
                 Icon={FolderCode}
             />
 

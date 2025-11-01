@@ -27,7 +27,7 @@ const techType = {
     AzureAD: 'Azure AD',
     MicrosoftEDiscovery: 'Microsoft eDiscovery',
     JavaAnnotations: 'Java Annotations',
-    JavaReflections: 'Java Reflections',
+    JavaReflection: 'Java Reflection',
     OpenSource: 'Open Source',
     TusProtocol: 'TUS Upload Protocol',
     RDBMS: 'RDBMS SQL',
@@ -80,7 +80,7 @@ const compressedTechColorMap: { [colorClasses: string]: TTech[] } = {
         techType.CSharp,
         techType.ReactRedux,
         techType.JavaAnnotations,
-        techType.JavaReflections,
+        techType.JavaReflection,
     ],
 
     // --- CYAN Scheme (bg-cyan-100, text-cyan-800, border-cyan-400) ---

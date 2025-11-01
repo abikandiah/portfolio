@@ -1,3 +1,5 @@
+import { MessageBanner } from "@/components/ui/banner";
+import { UnorderedList } from "@/components/ui/list";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { CodeDisplay } from "../../ui/code";
@@ -7,10 +9,10 @@ export const javaToReactFormBuilderProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Java-To-React Form Builder',
     duration: '2023',
-    description: `A React form builder and a Java form blueprint. Generating forms based on Java class and field annotations, reducing frontend development time.`,
+    description: `A Java form blueprint and a React form builder, used to auto-generate forms based on class annotations.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.Dropwizard,
-    techType.RestAPI, techType.JavaAnnotations, techType.JavaReflections],
-    
+    techType.RestAPI, techType.JavaAnnotations, techType.JavaReflection],
+
     sections: [
         { title: 'Overview', body: Overview },
         { title: 'Java Form Blueprint', body: FormBlueprint },
@@ -22,8 +24,21 @@ function Overview() {
     return (
         <>
             <p>
-                A React form builder for Java classes. Helps automating form creation for backend data models used in the frontend. Primarily used for workflow operation forms in the Workflow Builder component. Capable of describing complex forms including rows, tables and groups, as well as performing form validation.
+                This feature auto-generates React forms for corresponding Java classes. The classes need to use annotations to describe their form and field characteristics, such as the type of component and any validation logic. Then reflection is used to process those annotations and build form configuration objects. The objects are then sent to the frontend form builder component to build the React form.
             </p>
+            <p>
+                It was used internally to build forms for workflow operations. It can auto-generate any frontend form for a backend data model. Customization was made and added as complexity was required.
+            </p>
+            <p>
+                Forms supported the following and more:
+            </p>
+            <UnorderedList>
+                <li>Rows, groups and tables</li>
+                <li>Filters (min, max, regexps) and validations</li>
+                <li>Disabling and enabling fields</li>
+                <li>Hiding and showing fields</li>
+                <li>Nested forms</li>
+            </UnorderedList>
         </>
     )
 }
@@ -32,12 +47,12 @@ function FormBlueprint() {
     return (
         <>
             <p>
-                In the backend, Java annotations and reflections are used to generate form blueprints from Java classes. Those blueprints are then sent to the frontend via a REST endpoint.
+                In Java's world, annotations and reflection are used to generate form blueprints from Java classes. Those blueprints are then sent to the frontend via a REST endpoint. Form blueprints describe everything to do with the form and the model it represents.
             </p>
 
             <h3 className="sub-heading">Annotations</h3>
             <p>
-                Form field annotations are used to describe a class's form. Everything to do with the form layout, fields, and validation where described by the annotations.
+                Annotations are used to describe everything about a form. There are both class and field annotations. Field annotations describe which fields to use in the form and their properties. Class annotations describe layout and extra metadata.
             </p>
             <CodeDisplay>
                 {`@interface FormField {
@@ -55,13 +70,17 @@ function FormBlueprint() {
 }`}
             </CodeDisplay>
 
-
-            <h3 className="sub-heading">Reflections</h3>
             <p>
-                The annotations are then translated with reflections into form blueprints. Reflections is used to get metadata about a class's structure which when paired with the annotations helps fill in the blueprint. Information such as default field values, field names for the corresponding JSON representation, and the implicit component type.
+                A lot of form settings are implicitly determined through reflection, such as the component type (number component for a number type) and field position (same as in the class).
+            </p>
+
+
+            <h3 className="sub-heading">Reflection</h3>
+            <p>
+                Reflection is used to read class annotations, fields and metadata to build form blueprints. This is done at runtime to implicitly generate blueprint settings based on class and field metadata, such as the component type (InputList for a <code className="code">List&lt;String&gt;</code>) and initial value, allowing for easy form markup. The blueprints are then sent to the frontend to be rendered by the React form builder component.
             </p>
             <p>
-                Most form settings can be determined implicitly with reflections, reducing the need to set them in the annotations. By default, annotation settings don't need to be set, as long as the annotation is present. Only when a field is more complex or requires specal behaviour does the settings need to be explicitly set.
+                Implicitly determining settings with reflection reduces the need for explicit settings within annotations. Most fields are automatically configured, requiring explicit settings only for fields with complex or special behavior.
             </p>
             <CodeDisplay>
                 {`@FormBlueprint
@@ -78,12 +97,12 @@ class Something {
 `}
             </CodeDisplay>
 
-            <p>
-                The blueprints are then sent to the frontend. The frontend receives them and builds forms with them. The forms are initialized with the default JSON representation of the corresponding Java class.
-            </p>
-            <p>
-                Allowing the frontend to easily create and submit JSON representations of a Java class. The backend receives it and deserializes it into the correct Java class, ensuring it is one of the expected classes.
-            </p>
+            <MessageBanner type="note"
+                message="Settings are only implicitly set if they aren't defined by the annotations."
+            />
+            <MessageBanner type="info"
+                message="Form blueprints are only created for classes and fields with annotations correctly applied."
+            />
         </>
     )
 }
@@ -92,18 +111,12 @@ function FormBuilder() {
     return (
         <>
             <p>
-                The frontend consists of a generic React form builder component.
+                The frontend receives a form blueprint and passes it along to the React form builder component. The form builder takes the blueprint and builds a form out of it. It Initializes the form with default values, validates and manages field states (such as visibility and enabled state), and supports grid layouts.
             </p>
+            <p>
+                If a field type is another annotated class, the annotated class's blueprint will be used to create a nested form for that field. The nested form can be displayed as a list, table or popup form if needed.
 
-            <h3 className="sub-heading">Form Builder</h3>
-            <p>
-                The form builder takes a blueprint and creates a form out of it. It consists of Field, Row and Group components. It includes support for validating, disabling and hiding fields, highlighting and describing errors, and nesting forms within each other.
-            </p>
-            <p>
-                If a class contains another class, both of which are described by form annotations, then the containing class will also include the form for the containee. It would appear as a nested form, and can be crafted to appear as a list or table of objects, or as a popup form.
-            </p>
-            <p>
-                The Field component renders and manages an object's field.
+                (i.e. a field representing a list of an annotated class can be represented as a).
             </p>
 
             <h3 className="sub-heading">Workflow Builder</h3>
