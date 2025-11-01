@@ -111,17 +111,31 @@ function FormBuilder() {
     return (
         <>
             <p>
-                The frontend receives a form blueprint and passes it along to the React form builder component. The form builder takes the blueprint and builds a form out of it. It Initializes the form with default values, validates and manages field states (such as visibility and enabled state), and supports grid layouts.
+                The frontend takes the form blueprint and passes it to a React form builder component. This component takes the blueprint and builds a form out of it; it initializes the form with default values, validates and manages field states, and supports grid layouts.
+            </p>
+
+            <p>
+                When reading a form blueprint, it first organizes the fields according to the form layout. Then, it selects and renders the field components based on the field configuration objects. Field components can be configured to have default values and value restrictions, such as regexps, a list of allowed values and min-max ranges.
             </p>
             <p>
-                If a field type is another annotated class, the annotated class's blueprint will be used to create a nested form for that field. The nested form can be displayed as a list, table or popup form if needed.
-
-                (i.e. a field representing a list of an annotated class can be represented as a).
+                They can also be configured to set their visibility and active state based on the values of other fields. For example, the value of a checkbox could be used to show or hide a group of fields.
+            </p>
+            <p>
+                If a field type is another Java class, that field is rendered as the form for that Java class. However, it's only rendered if that Java class is annotated and has its own form blueprint. This effectively creates a form nested within another form, and there is no limitation to how many forms can be nested nor the level of nesting (All though things could get messy if there's too much nesting; power is left in the hands of the developer).
+            </p>
+            <p>
+                Complex collection type components, such as lists and tables, have support for adding, editing and removing multiple values. Fields that are collections of other Java classes are also supported, for example the field type <code>List&lt;Parameter&gt;</code> supports modifying a list of <code>Parameter</code> objects. These objects are modified via the nested form support mentioned above. Each object is represented by a row in a table or a list and can either be modified via row cell components or a popup form.
             </p>
 
             <h3 className="sub-heading">Workflow Builder</h3>
             <p>
-                This feature was built for a workflow builder consisting of nearly 200 operations. Each operation needed a form and new operations were always being created, so we needed a way to automate form creation.
+                The need for this feature came from the design of a workflow designer component. The designer is used to build and configure workflows consisting of one or many workflow operations. There are nearly over 200 different kinds of operations and each one of them requires their own form component.
+            </p>
+            <p>
+                
+            </p>
+            <p>
+                This feature was built to auto-generate all those and future operation forms, because operations are always being added to support new workflow actions.
             </p>
         </>
     )
