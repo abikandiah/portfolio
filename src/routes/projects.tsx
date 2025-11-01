@@ -27,7 +27,7 @@ function RouteComponent() {
 		<SidebarProvider>
 			<ProjectSideBar />
 
-			<div className="flex flex-col center-page mt-12">
+			<div className="flex flex-col center-page mt-8">
 
 				{!dismissed &&
 					<Banner className="mb-4"
@@ -63,7 +63,7 @@ function ProjectSideBar() {
 				})}
 			</SidebarContent>
 
-			<SidebarFooter className='shrink-0 border-t'>
+			<SidebarFooter className='shrink-0 border-t mb-4'>
 				<SidebarTrigger className="ml-auto" />
 			</SidebarFooter>
 

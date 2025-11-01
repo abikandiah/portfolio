@@ -49,10 +49,10 @@ function ProfileSummary() {
 		<section className='flex flex-col gap-4 p-6 mt-2'>
 
 			<p className="p-text">
-				I'm Abi, a full-stack developer and general enthusiast. I design and build software in all fields of need. Working with tools such as React, TypeScrpt, Java, Node and Python. Learning whatever is needed to get the job done the best way it can be done.
+				I'm Abi, a full-stack developer and general enthusiast. I design and build software in all fields of need. Working with tools such as React, TypeScript, Java, Node and Python. Learning whatever is needed to get the job done the best way it can be done.
 			</p>
 			<p className="p-text">
-				I do front and backend with most of my experience in ReactJS and Java Dropwizard. I've designed SQL database schemas, frontend styles and components, backend APIs, automated end-to-end tests, authentication and authorization, and entire applications.
+				I work in the front and backend, with most of my experience in ReactJS and Java Dropwizard. I've designed SQL database schemas, frontend styles and components, backend APIs, automated end-to-end tests, authentication and authorization, and entire applications.
 
 				I've over 7 years of technical experience and I'm always looking to extend.
 			</p>
