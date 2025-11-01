@@ -1,13 +1,14 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
+import { MessageBanner } from "../ui/banner";
 import { CodeDisplay } from "../ui/code";
 import { UnorderedList } from "../ui/list";
 
-export const automateWebApplicationProject: ProjectProps = {
+export const workflowWebApp: ProjectProps = {
     type: projectType.NuixRampiva,
-    name: 'Automate Web Application',
+    name: 'eDiscovery Workflows Web App',
     duration: '2018 - 2025',
-    description: `A central management console for the Automate platform. Developed with React, React Redux, Redux Sagas and a custom-built component library.`,
+    description: `A management console to create, schedule and submit eDiscovery workflows for execution. Built as a React web app with a Java backend.`,
     tech: [techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.ReactRedux,
     techType.ReduxSagas, techType.ReactRouter, techType.RestAPI, techType.OIDC, techType.Axios, techType.WebWorkers],
 
@@ -22,23 +23,18 @@ function Overview() {
     return (
         <>
             <p>
-                This web application is a <span className="font-semibold">central management console</span> for the Automate platform. It is a React single-page application (SPA) built to provide a user interface for end-to-end management, enabling users to:
+                This web application is the frontend for a workflow job scheduler. It's built as a React single-page app (SPA) and provides a user interface for complete management of the scheduler tool, enabling users to:
             </p>
             <UnorderedList>
-                <li>Design and build custom workflows;</li>
-                <li>Submit, schedule, and view workflow executions;</li>
-                <li>Track and manage clients and matters;</li>
-                <li>Configure platform settings and infrastructure;</li>
-                <li>Manage users, roles and third-party services.</li>
+                <li>Design and build custom workflows</li>
+                <li>Submit, schedule, and view workflow executions</li>
+                <li>Track and manage clients and matters</li>
+                <li>Manage users, roles and third-party services</li>
+                <li>Configure settings and infrastructure</li>
             </UnorderedList>
+
             <p>
-                The application was designed as a framework that includes all common data state management, operations and components, to reduce the amount of work required to scale and extend, allowing the platform to grow from supporting fewer than 10 back-end data models to well over 30.
-            </p>
-            <p>
-                It was built with a custom component library. The library began with the application and components were built as needed. Components were built to be reusable. Custom hooks and helper functions were also defined as needed, to help with component lifecycles,  behaviours and state management.
-            </p>
-            <p>
-                The framework defines a pattern for integrating a data model in the frontend. It supports CRUD operations, polling and caching and other coordinated flows.
+                It consists of pages to submit and view jobs, create and edit workflows, set user policies, and configure execution settings. The application contains several data models and uses a custom framework for abstraction and scaling.
             </p>
         </>
     )
@@ -48,18 +44,18 @@ function Framework() {
     return (
         <>
             <p>
-                The web UI was built with a set of three main libraries: <span className="font-semibold">React</span>, <span className="font-semibold">React-Redux</span> and <span className="font-semibold">Redux-Sagas</span>. React is used for all things components and styling, with SASS used as the pre-processor for CSS. React-Redux paired with Redux-Sagas for global app state management and asynchronous logic.
+                A pattern for integrating backend data models in the frontend. It provides support for common abstractions, such as state management and CRUD (Create, Read, Update and Delete) operations. It has its own custom component library, built from the ground up as needed, as well as custom hooks and utility functions.
             </p>
             <p>
-                The three were used to create a framework for implementing data model operations, state management and UI component building.
+                It was built with three main libraries: <span className="font-semibold">React</span>, <span className="font-semibold">React-Redux</span> and <span className="font-semibold">Redux-Sagas</span>. React is used for all things components and styling, with SASS used as the pre-processor for CSS. React-Redux paired with Redux-Sagas for global app state management and asynchronous logic. The three were used to create the app and the framework for common data model abstractions and frontend component building.
             </p>
             <p>
-                It consisted of two abstract classes for data model implementation: The <span className="font-semibold">Model</span> class and the <span className="font-semibold">ModelSaga</span> class. For UI building it had a suite of generic components as well as components to help compose Forms, Views and Tables.
+                There are two necessary abstract classes for data model integration: The <span className="font-semibold">Model</span> class and the <span className="font-semibold">ModelSaga</span> class.
             </p>
 
             <h3 className="sub-heading">Model Class</h3>
             <p>
-                A Model class describes the frontend equivalent for a back-end data model, including the class structure, Redux state management, the list of available endpoints, and any frontend user action to help user flows.
+                The Model class defines the data model in the frontend. It describes the class structure, Redux state management, list of available endpoints, and any user flows.
             </p>
 
             <CodeDisplay code={`class Model extends BaseModel {
@@ -83,7 +79,7 @@ function Framework() {
 
             <h3 className="sub-heading">Saga Class</h3>
             <p>
-                A model Saga class contains all the user flows for a data model. Each user flow defined as a saga function that is executed asynchronously as a side effect. It includes functions for polling updates, form submission and validation, and others such as coordinating a guided job submission.
+                The ModelSaga class defines all user flow handlers for a data model. Handlers are implemented as Redux saga functions and are executed asynchronously when triggered by an action. Functions include those for data fetching, CRUD operations and more complex ones such as coordinating a guided job submission.
             </p>
 
             <CodeDisplay code={`class ModelSaga extends BaseSaga {
@@ -96,15 +92,17 @@ function Framework() {
     *validateForm();
 }`
             } />
+            <MessageBanner type="note"
+                message="Both Model and ModelSaga extend base classes that contain further abstractions and simplifications. These base classes also serve as the base for other, smaller use cases within the framework." />
 
-            <h3 className="sub-heading">Forms and Views</h3>
+            <h3 className="sub-heading">Component Library</h3>
             <p>
-                Forms, Views, Tables and others are composed with custom and generic React components.
+                The component library consists of a suite of reusable components and hooks. They're used to create pages, views, tables, forms and other model specific components. Hooks consists of utility functions such as input handlers, local data fetching, virtualized rendering, observing component intersections, and more. Components and hooks were added as needed and varied in complexity.
             </p>
             <CodeDisplay code={`function SampleForm() {
     const state = useState(initialState);
-    function inputHandler();
-    function submit();
+    const inputHandler = useInputHandler();
+    const submit = useSubmit();
 
     return (
         <Form>
@@ -128,25 +126,22 @@ function Internals() {
     return (
         <>
             <p>
-                <span className="font-semibold">React-Router</span> is used for SPA page navigation, <span className="font-semibold">Axios</span> and a web worker for API requests, and custom hooks, functions and components for application development.
-            </p>
-
-            <h3 className="sub-heading">Component Library</h3>
-            <p>
-                The component library consists of reusable building blocks to help build pages, tables, views, forms, dialogs and more. Components were added as needed and would vary in complexity. Such as guided job form submissions and containers for switching items around.
-            </p>
-            <p>
-                Customs hooks were created for generic component behaviours. Similarly for helper functions and constants.
+                The framework also had support for other common operations, such as authentication, API requests and page navigation.
             </p>
 
             <h3 className="sub-heading">Authentication</h3>
             <p>
-                Authentication was handled with session tokens obtained after login with the back-end server. Authenticating could be done with a username / password form or through configured third-party <span className="font-semibold">OIDC</span> providers. An interval would run to refresh tokens at their half life.
+                Authentication was configurable and could be done with a username / password form or through third-party OIDC providers. On-successful login with the backend server, a short-lived session token is returned for API authentication. This token only lives in the API request web worker; we did not make use of any cookies other than those for the OIDC auth flow. A refresh token is also received and used to refresh the session token on half-life.
             </p>
 
             <h3 className="sub-heading">API Requests</h3>
             <p>
-                API requests were made with Axios. All requests were proxied through a web worker that acted as a separate service to send requests; in order to seperate token storage from the application. No cookies for authentication.
+                API requests are made with <span className="font-semibold">Axios</span>. All requests are proxied through a web worker for token isolation; only the web worker contained the session token. Whenever an API request was made, it would be sent to the web worker. The web worker then proxies it and returns the response. The communication between the app, the web worker and the backend are all handled with promises.
+            </p>
+
+            <h3 className="sub-heading">Page Navigation</h3>
+            <p>
+                Navigation was handled with <span className="font-semibold">React-Router</span> and it's hash router.
             </p>
         </>
     )

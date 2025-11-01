@@ -22,7 +22,7 @@ function Overview() {
     return (
         <>
             <p>
-                A React form builder for Java classes. Helps automating form creation for back-end data models used in the frontend. Primarily used for workflow operation forms in the Workflow Builder component. Capable of describing complex forms including rows, tables and groups, as well as performing form validation.
+                A React form builder for Java classes. Helps automating form creation for backend data models used in the frontend. Primarily used for workflow operation forms in the Workflow Builder component. Capable of describing complex forms including rows, tables and groups, as well as performing form validation.
             </p>
         </>
     )
@@ -32,7 +32,7 @@ function FormBlueprint() {
     return (
         <>
             <p>
-                In the back-end, Java annotations and reflections are used to generate form blueprints from Java classes. Those blueprints are then sent to the frontend via a REST endpoint.
+                In the backend, Java annotations and reflections are used to generate form blueprints from Java classes. Those blueprints are then sent to the frontend via a REST endpoint.
             </p>
 
             <h3 className="sub-heading">Annotations</h3>
@@ -82,7 +82,7 @@ class Something {
                 The blueprints are then sent to the frontend. The frontend receives them and builds forms with them. The forms are initialized with the default JSON representation of the corresponding Java class.
             </p>
             <p>
-                Allowing the frontend to easily create and submit JSON representations of a Java class. The back-end receives it and deserializes it into the correct Java class, ensuring it is one of the expected classes.
+                Allowing the frontend to easily create and submit JSON representations of a Java class. The backend receives it and deserializes it into the correct Java class, ensuring it is one of the expected classes.
             </p>
         </>
     )

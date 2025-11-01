@@ -49,7 +49,7 @@ function Architecture() {
             <UnorderedList>
                 <li>XPathHelper: Helper to build and combine xpaths for selecting frontend components, elements and text.</li>
                 <li>WaitCondition: A series of selector conditions that extend Selenium's ExpectedConditions, to specify custom selector conditions to wait on.</li>
-                <li>TestRestClient: A REST client used to make test requests to the platform's back-end.</li>
+                <li>TestRestClient: A REST client used to make test requests to the platform's backend.</li>
             </UnorderedList>
 
             <MessageBanner type="note"
