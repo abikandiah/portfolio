@@ -21,7 +21,7 @@ function Disclaimer() {
 				</PageHeader>
 
 				<PageDescription className='mt-1'>
-					Please read this carefully before reviewing the project details.
+					Please read this carefully before reviewing project details.
 				</PageDescription>
 			</section>
 
