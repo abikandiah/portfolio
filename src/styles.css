@@ -106,7 +106,7 @@
 	@apply text-sidebar-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded px-2 text-xs font-medium
 }
 
-code, .code {
+.code {
 	@apply text-sm px-1 bg-background rounded border-container
 }
 
@@ -155,7 +155,7 @@ code {
 }
 
 :root {
-	--background: oklch(1 0.001 90);
+	--background: oklch(0.99 0.002 85);
 	--foreground: oklch(0.141 0.005 285.823);
 	--card: oklch(1 0 0 / 0.75);
 	--card-foreground: oklch(0.141 0.005 285.823);
