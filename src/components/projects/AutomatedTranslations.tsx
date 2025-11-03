@@ -1,5 +1,6 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
+import { MessageBanner } from "../ui/banner";
 
 export const automatedTranslationsProject: ProjectProps = {
     type: projectType.NuixRampiva,
@@ -18,21 +19,20 @@ function Overview() {
     return (
         <>
             <p>
-                To support multiple languages, we introduced an automated way to generate translations for a given language. A translation script parses a language file containing all the user interface text, translates it with Google Translate, and then tracks the translation in a corresponding translations file. The frontend uses i18next with JSON language files and the backend uses Java with properties language files.
+                This tool automates the translation of frontend and backend language files into a target language. The translation logic is written as a Ruby script and uses Google Translate for the translations. A cache is used to avoid duplicate translations and an exponential back-off is implemented to tolerate Google Translate's rate limiters. A batch script is used to call the translation script for all frontend and backend language files. The list of target languages is specified by a supported-languages file.
             </p>
             <p>
-                Each language has it's own translations file defined as its locale code, for example: <code className="code">en_US.json</code> for English (US). A cache is used to avoid duplicate translations and a bounce-back was implemented to tolerate Google Translate's rate limiters.
+                All user-facing text is stored in a base English language file (both the frontend and backend have their own file, a JSON for the frontend and a Java properties file for the backend). This file is the source for the automated translations. Each target language produces its own translated copy of the base language file. When users select their preferred language, the application switches to use the correct language file. For example, in the frontend, <code className="code">en_US.json</code> for English (US) and <code className="code">fr_CA.json</code> for French (CA).
             </p>
+            <p>
+                Users can select their preferred langauge via a dropdown option in the frontend and as a command-line parameter (or switch) in the backend.
+            </p>
+            <MessageBanner type="info"
+                message="As an on-premise deployment, clients had full access to configure and manage their backend environments. This allowed them to pass command-line parameters (or switches) when initialzing the backend." />
 
             <h3 className="sub-heading">Pipeline</h3>
             <p>
-                At the start of every build pipeline, a script runs to verify that all user interface text has corresponding translations for the defined languages. If translations are missing, the build will fail, requiring a dev to run and commit all missing translations.
-            </p>
-            <p>
-                After updating user-facing text, the script is used to generate the corresponding translations before comitting the update.
-            </p>
-            <p>
-                A Batch script is used to call the translation script and to provide the paths for the language files in both the frontend and backend. The target languages were defined in a file.
+                At the start of every build pipeline, a script runs to verify that all user-facing text has corresponding translations for the target languages. If translations are missing, the build will fail, requiring a dev to run and commit all missing translations.
             </p>
         </>
     )
