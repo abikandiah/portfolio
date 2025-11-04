@@ -71,8 +71,15 @@ function Framework() {
                 <li>OIDC authentication</li>
             </UnorderedList>
 
+            <p>
+                Credentials can be configured at either a <span className="font-semibold">per-service</span> level or a <span className="font-semibold">per-user</span> level:
+            </p>
+            <UnorderedList>
+                <li>The <span className="font-semibold">per-service</span> level requires only one user to sign in and grant access, after which all users can use that single credential to perform API requests.</li>
+                <li>The <span className="font-semibold">per-user</span> level requires each user to provide their own credential; without which they cannot make API requests.</li>
+            </UnorderedList>
             <MessageBanner type="note"
-                message="Credentials can be tracked on a per-service level or on a per-user level. Per-service level shares a single credential for all users of the service while per-user requires each user to obtain their own credential. Per-service may sound fishy at first but our platform had further authorization rules that could limit the users who had access to a service, thus still allowing finer control for who can use the credential."
+                message="Per-service may sound fishy at first but our platform had further authorization rules that could limit the users who had access to a service, thus still allowing finer control for who can use the credential."
             />
             <MessageBanner type="info"
                 message="Credential tokens, keys or passwords are never exposed, they are only used internally by the REST client when making API requests."

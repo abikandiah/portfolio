@@ -5,6 +5,7 @@ import { MessageBanner } from "../ui/banner";
 import { UnorderedList } from "../ui/list";
 import { thirdPartyServicesProject } from "./ThirdPartyServicesFramework";
 
+
 export const microsoftEDiscoveryProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Microsoft eDiscovery Collector',
@@ -15,7 +16,7 @@ export const microsoftEDiscoveryProject: ProjectProps = {
 
     sections: [
         { title: 'Overview', body: Overview },
-        { title: 'Architecture', body: Architecture }
+        { title: 'Deep Dive', body: DeepDive }
     ]
 };
 
@@ -23,86 +24,91 @@ function Overview() {
     return (
         <>
             <p>
-                <span className="font-semibold">Microsoft Purview eDiscovery</span> is an eDiscovery tool for Microsoft 365. It is used to search, review, export, and place legal holds on data across M365 services.
+                <span className="font-semibold">Microsoft Purview eDiscovery</span> is the eDiscovery tool for managing legal holds and collecting data across all Microsoft 365 services. This integration connects Purview eDiscovery directly to the automation platform, enabling users to perform Purview operations—including creating cases, adding custodians, and exporting data—as steps within automated workflows.
             </p>
             <p>
-                This integration connects Microsoft Purview eDiscovery to the rest of our platform, enabling users to perform Purview eDiscovery operations as part of their automated workflows. For example, a user can create an eDiscovery case, add custodians, place data on hold, filter for narrow data, and export it for processing through the rest of our available operations.
+                To use this integration, users must first provide their M365 connection details and authorize access as an eDiscovery Administrator. Authentication and authorization are handled securely using a standard OAuth with OIDC login flow. The integration itself is implemented as a set of workflow operations, featuring a guided job wizard to simplify submitting jobs to the automation platform's scheduler.
             </p>
-            <p>
-                A lot of organizations, and our clients, use M365 for their organization environment. Connecting information governance and collection from M365 to our workflow automation platform bridged a gap that most had to deal with on their own. With our feature, clients can now run an entire M365 search, query, export, ingest, process and review workflow all within a single platform. We connected the M365 data collection with our platform.
-            </p>
-            <MessageBanner type="note" title="Automation Platform"
-                message="The automation platform is truly a mix of many services. We bring together multiple data sources (such as Google Vault and Microsoft Purview eDiscovery), processing platforms (such as Nuix) and review platforms (such as Nuix Discover and Relativity), then build configurable operations for them. These operations are then used to build all sorts of automated workflows."
-            />
         </>
     )
 }
 
-function Architecture() {
+function DeepDive() {
     return (
         <>
             <p>
-                This feature is an implementation of the <TextLink to="/projects/$projectKey" params={{ projectKey: thirdPartyServicesProject.pathname }}>{thirdPartyServicesProject.name}</TextLink>. There are four main parts: The Microsoft Purview eDiscovery <span className="font-semibold">Service Configuration</span>, the set of Microsoft <span className="font-semibold">eDiscovery Operations</span>, the <span className="font-semibold">REST Client</span>, and the guided <span className="font-semibold">Job Wizard</span>.
+                This feature is an implementation of the <TextLink to="/projects/$projectKey" params={{ projectKey: thirdPartyServicesProject.pathname }}>{thirdPartyServicesProject.name}</TextLink>. There are four main parts: The Purview eDiscovery <span className="font-semibold">Service Configuration</span>, the set of <span className="font-semibold">Purview eDiscovery Operations</span>, the <span className="font-semibold">REST Client</span>, and the guided <span className="font-semibold">Job Wizard</span>.
             </p>
             <MessageBanner type="info"
-                message="This integration is similar to the Google Vault integration. They're both built the same way and only differ in the operations available for their service."
+                message={
+                    <>
+                        This integration is similar to the Google Vault integration, as both are built upon the same <span className="font-semibold">Third-Party Services Framework</span> core structure. They differ only in the service-specific operations available for each platform.
+                    </>
+                }
             />
-
-            <h3 className="sub-heading">Authentication and Authorization</h3>
-            <p>
-                To perform eDiscovery operations, we need eDiscovery manager authorization. To get that authorization we require users to sign in with an eDiscovery manager and grant us delegated authorization via an access token. This is done through an OAuth with OIDC login flow. We encrypt, store and refresh the access token until the user revokes it via a removal method. Access tokens are periodically refreshed for long-term usage.
-            </p>
-            <p>
-                Access tokens can be configured to be tracked on a per-service level or a per-user level:
-            </p>
-            <UnorderedList>
-                <li>Per-service: One user signs in to provide the access token for all users of the service.</li>
-                <li>Per-user: Each user signs in to obtain their own access token, without which they cannot perform Vault operations.</li>
-            </UnorderedList>
-            <MessageBanner type={"info"}
-                message={"Access token details are never shared or exposed, they are only used internally by a REST client."}
-            />
-
 
             <h3 className="sub-heading">Service Configuration</h3>
             <p>
-                The service configuration consists of everything required to connect to and manage Microsoft Purview eDiscovery. This includes the Azure AD app registration and the OIDC connection details.
+                To begin, users must define the service configuration. This configuration stores all the necessary details to connect to and manage a Purview eDiscovery environment, including the Microsoft Entra ID app registration and OIDC connection settings required to support the secure OAuth and OIDC login flow.
+            </p>
+            <MessageBanner type="note"
+                message="The automation platform must be registered as a Microsoft Entra ID application. This step enables OIDC authentication, ensuring the platform has the required scopes and permissions to be authorized for delegated Purview eDiscovery API requests." />
+
+
+            <h3 className="sub-heading">Authentication and Authorization</h3>
+            <p>
+                Next, delegated authorization must be secured to perform operations on the eDiscovery administrator's behalf. An eDiscovery manager signs in and grants this access via a secure OAuth with OIDC login flow. Upon successful authorization, the automation platform receives the necessary access token to make REST API requests. For secure, long-term use, this token is then encrypted, stored, and periodically refreshed until the user explicitly revokes access.
+            </p>
+            <p>
+                Delegated authorization can be configured at either a <span className="font-semibold">per-service</span> level or a <span className="font-semibold">per-user</span> level:
+            </p>
+            <UnorderedList>
+                <li>The <span className="font-semibold">per-service</span> level requires only one user to sign in and grant access, after which all users can use that single token to perform API requests.</li>
+                <li>The <span className="font-semibold">per-user</span> level requires each user to provide their own delegated authorization; without which they cannot make API requests.</li>
+            </UnorderedList>
+
+            <MessageBanner type={"info"}
+                message={"Access token details are never exposed, they are only used internally by the REST client."}
+            />
+
+
+            <h3 className="sub-heading">Purview eDiscovery Operations</h3>
+            <p>
+                Once the service configuration is defined and delegated authorization is obtained, users can begin to define and execute automated workflows that incorporate Purview eDiscovery operations.
+            </p>
+            <p>
+                Operations were designed based on the available Purview eDiscovery API and common user workflows, with a focus on modularity. This approach gives users the flexibility to create and customize various Purview eDiscovery workflows, including complete end-to-end collection, search and query, or simple export and download workflows.
+            </p>
+            <p>
+                For example, key operations include: <code className="code">Set eDiscovery Case</code>, <code className="code">Add Custodian</code>, <code className="code">Add Data Source</code>, <code className="code">Add to Review Set</code>, <code className="code">Export Review Set</code>, and <code className="code">Download Export</code>.
             </p>
 
-            <h3 className="sub-heading">eDiscovery Operations</h3>
-            <p>
-                Operations were designed around the available Purview eDiscovery API and typical use cases. We took a look at all the use cases and broke them up into modular operations. These operations are then used to build various Purview eDiscovery workflows.
-            </p>
-            <p>
-                For example, we defined the following operations: <code className="code">Set eDiscovery Case</code>, <code className="code">Add Custodian</code>, <code className="code">Add Data Source</code>, <code className="code">Add to Review Set</code>, <code className="code">Export Review Set</code>, <code className="code">Download Export</code>, and etc.
-            </p>
 
             <h3 className="sub-heading">REST Client</h3>
             <p>
-                All API requests made to Purview eDiscovery are done through a REST client created and managed by our platform, with the following behaviours:
+                The platform manages and creates a dedicated REST client for all Purview eDiscovery API requests, with the following behaviors:
             </p>
             <UnorderedList>
-                <li>Requests are made with the access token obtained from the Vault administrator sign in.</li>
-                <li>Circular buffer logs are used to track requests, response metadata and errors.</li>
-                <li>Exponential backoffs and response code validations are used to provide tolerance support against rate-limiters and unexpected failures.</li>
+                <li><span className="font-semibold">Authentication</span>: Requests are authenticated using the access token obtained during the eDiscovery administrator sign-in.</li>
+                <li><span className="font-semibold">Logging</span>: A circular buffer tracks requests, response metadata, and errors for debugging and auditing.</li>
+                <li><span className="font-semibold">Fault Tolerance</span>: Exponential backoffs and response code validations are used to provide tolerance against rate limiters and unexpected API failures.</li>
             </UnorderedList>
             <p>
-                Clients are short-lived and torn down after a period of inactivity and created again when needed.
+                This client is short-lived, created only when needed, and is automatically torn down after a brief period of inactivity.
             </p>
+
 
             <h3 className="sub-heading">Job Wizard</h3>
             <p>
-                The guided job wizard lives in the frontend and helps users fill in key operation details when submitting a Microsoft Purview eDiscovery workflow. For example, details such as the case, the data sources, the queries, and the export download location.
+                The Job Wizard is a guided frontend tool designed to help users define key operation parameters when submitting workflow jobs. It achieves this by providing guided panels for each Purview eDiscovery operation within the workflow. Each panel internally makes API requests to fetch necessary values—such as the list of available cases, data sources, and exports—for user selection.
             </p>
             <MessageBanner type="note"
-                message="Workflows can be customized with both hard-coded settings and execution-time settings, such as the location of source data or the name of the case to work with."
+                message="Workflows can be customized using hard-coded settings (defined during workflow creation) and execution-time setting (provided via the user during submission). The Job Wizard utilizes these execution-time settings to help users define the operation parameters."
             />
             <p>
-                It does so with the help of frontend guided operation panels designed for each eDiscovery operation. For example, the <code className="code">Set eDiscovery Case</code> operation has it's own panel which provides a list of available eDiscovery cases for selection. This allows users to select the case to work on when submitting the workflow rather than hard-coding the value when building the workflow.
-            </p>
-            <p>
-                Guided operation panels are only rendered if their corresponding operation is present in a workflow. Users can mix-and-match operations as desired and the guided experience will reflect it, enabling them to create guided experiences that suite their workflow needs.
+                Guided operation panels are only rendered if their corresponding operation is present in the workflow. Users are free to mix-and-match operations, and the guided experience will automatically adjust to reflect these choices, enabling them to create a submission process that suits their workflow needs.
             </p>
         </>
     )
 }
+

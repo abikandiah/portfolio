@@ -79,7 +79,7 @@ function Banner({ type, title, loading, hideIcon, onClose, children, className, 
 }
 
 interface MessageBannerProps extends BannerProps {
-    message: string;
+    message: string | React.ReactNode;
 }
 
 function MessageBanner({ message, ...props }: MessageBannerProps) {

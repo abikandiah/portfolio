@@ -39,17 +39,25 @@ function DeepDive() {
             <p>
                 This feature is an implementation of the <TextLink to="/projects/$projectKey" params={{ projectKey: thirdPartyServicesProject.pathname }}>{thirdPartyServicesProject.name}</TextLink>. There are four main parts: The Google Vault <span className="font-semibold">Service Configuration</span>, the set of Google <span className="font-semibold">Vault Operations</span>, the <span className="font-semibold">REST Client</span>, and the guided <span className="font-semibold">Job Wizard</span>.
             </p>
+            <MessageBanner type="info"
+                message={
+                    <>
+                        This integration is similar to the Microsoft Purview eDiscovery integration, as both are built upon the same <span className="font-semibold">Third-Party Services Framework</span> core structure. They differ only in the service-specific operations available for each platform.
+                    </>
+                }
+            />
 
             <h3 className="sub-heading">Service Configuration</h3>
             <p>
-                The first step to using this integration is to define the necessary service configuration for the Google Workspace and Vault environment. This configuration contains all the details required to connect to and manage Google Vault, including the Google Cloud project details needed to support the secure OAuth and OIDC login flow.
+                The first step to using this integration is to define the necessary service configuration for the Google Workspace and Vault environment. This configuration contains all the details required to connect to and manage Google Vault, including the Google Cloud project details required to support the secure OAuth and OIDC login flow.
             </p>
             <MessageBanner type="note"
-                message="Users must create and properly configure a dedicated Google Cloud project within their Google Workspace environment. This is required for setting up OIDC authentication with the necessary scopes and permissions, to allow authorizing our platform to perform delegated Google Vault API requests." />
+                message="Users must create and properly configure a dedicated Google Cloud project within their Google Workspace environment. This is required for setting up OIDC authentication with the necessary scopes and permissions, to allow authorizing the platform to perform delegated Google Vault API requests." />
+
 
             <h3 className="sub-heading">Authentication and Authorization</h3>
             <p>
-                The second step involves securing delegated authorization to perform operations on the Vault administrator's behalf. A vault administrator must sign in and grant this access via a secure OAuth with OIDC login flow. Upon successful authorization, our platform receives an access token to make the necessary REST API requests. For secure, long-term use, this token is encrypted, stored and periodically refreshed until the user explicitly revokes access.
+                The second step involves securing delegated authorization to perform operations on the Vault administrator's behalf. A vault administrator must sign in and grant this access via a secure OAuth with OIDC login flow. Upon successful authorization, the platform receives the necessary access token to make the necessary REST API requests. For secure, long-term use, this token is encrypted, stored and periodically refreshed until the user explicitly revokes access.
             </p>
             <p>
                 Delegated authorization can be configured at either a <span className="font-semibold">per-service</span> level or a <span className="font-semibold">per-user</span> level:
