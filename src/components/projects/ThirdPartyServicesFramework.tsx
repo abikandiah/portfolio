@@ -128,7 +128,7 @@ function Framework() {
                 The generic API endpoints support endpoints for CRUD (create-read-update-delete), proxying requests and for querying list of objects from the third-party service. Further generic endpoints are added as needed.
             </p>
 
-            <h3 className="sub-heading">frontend Implementation</h3>
+            <h3 className="sub-heading">Frontend Implementation</h3>
             <p>
                 The frontend consisted of generic building-block components to put together the third-party service implementations. This included forms, tables, views, and the necessary authentication forms for the various authentication methods (username and pass, secret key and the OIDC login flow). It also consists of the view for the third-party serive session.
             </p>
