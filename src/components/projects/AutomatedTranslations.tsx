@@ -46,7 +46,7 @@ function Overview() {
                 The translation process is managed by a batch file. This file first reads the list of target languages from a configuration file. It then calls the Ruby translation script for each one, specifying the correct output filename and format necessary for either the frontend or backend language files. Upon completion, the frontend and backend will each have a complete set of fully translated language files for all the target languages.
             </p>
 
-            <h3 className="sub-heading">CI/CD Batch</h3>
+            <h3 className="sub-heading">Pipeline Batch</h3>
             <p>
                 To ensure translation completeness, a secondary verification batch script is executed early in the CI/CD pipeline.
             </p>

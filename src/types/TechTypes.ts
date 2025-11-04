@@ -48,6 +48,8 @@ const techType = {
     Selenium: 'Selenium',
     XPath: 'XPath',
     i18next: 'i18next',
+    Fiddler: 'Fiddler',
+    Vite: 'Vite'
 } as const;
 
 type TTech = (typeof techType)[keyof typeof techType];
@@ -129,6 +131,7 @@ const compressedTechColorMap: { [colorClasses: string]: TTech[] } = {
     'bg-green-100 text-green-800 border-green-400': [
         techType.Node,
         techType.MongoDB,
+        techType.Fiddler,
     ],
     'bg-emerald-100 text-emerald-800 border-emerald-400': [
         techType.RestAPI,
@@ -140,6 +143,7 @@ const compressedTechColorMap: { [colorClasses: string]: TTech[] } = {
         techType.ReactRouter,
         techType.TanstackRouter,
         techType.PostgreSQL,
+        techType.Vite
     ],
 
     // --- AMBER Scheme (bg-amber-100, text-amber-800, border-amber-400) ---
