@@ -10,13 +10,13 @@ export const googleVaultProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Google Vault Collector',
     duration: '2024',
-    description: `A set of guided operations to help manage and use Google Vault.`,
+    description: `An integration of the Google Vault eDiscovery tool into the workflow automation platform, providing a structured, automated approach for end-to-end data collections.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React,
     techType.Dropwizard, techType.RestAPI, techType.GoogleCloud, techType.GoogleVault, techType.OIDC],
 
     sections: [
         { title: 'Overview', body: Overview },
-        { title: 'Architecture', body: Architecture }
+        { title: 'Deep Dive', body: DeepDive }
     ]
 };
 
@@ -24,76 +24,83 @@ function Overview() {
     return (
         <>
             <p>
-                <span className="font-semibold">Google Vault</span> is an eDiscovery tool for Google Workspace. Vault admins can use it to search, review and export data from their Workspace.
+                <span className="font-semibold">Google Vault</span> is the dedicated eDiscovery tool for Google Workspace, allowing admins to search, review, and export data. This integration connects Vault's core functions to our platform, allowing users to include these operations as steps in their automated workflows. For example, a user can execute a Vault search and export, download and process the data, and then upload the collected information to a supported review platform.
             </p>
             <p>
-                This integration connects Google Vault to the rest of our platform, enabling users to perform Google Vault operations as part of their automated workflows. For example, a user could search for and export data from Google Vault, then ingest, process it with processing operations, and then upload it for review to a supported review platform.
+                To use this integration, users must first provide their Google Workspace connection details and authorize access using their Google Vault admin credentials. Authentication and authorization are handled securely via a standard OAuth with OIDC login flow. The integration itself is implemented as a set of workflow operations, with a guided job wizard to simplify the submission of workflow jobs to the automation platform's scheduler.
             </p>
         </>
     )
 }
 
-function Architecture() {
+function DeepDive() {
     return (
         <>
             <p>
                 This feature is an implementation of the <TextLink to="/projects/$projectKey" params={{ projectKey: thirdPartyServicesProject.pathname }}>{thirdPartyServicesProject.name}</TextLink>. There are four main parts: The Google Vault <span className="font-semibold">Service Configuration</span>, the set of Google <span className="font-semibold">Vault Operations</span>, the <span className="font-semibold">REST Client</span>, and the guided <span className="font-semibold">Job Wizard</span>.
             </p>
 
-            <h3 className="sub-heading">Authentication and Authorization</h3>
-            <p>
-                In order to use this feature, users need to provide delegated Vault administrator access. This is done through an OAuth 2.0 with OIDC login flow where a Vault administrator signs in to Google and authorizes our platform to perform requests on their behalf. We encrypt, store and refresh the access token when needed for repeated use, until the user revokes it via a removal method.
-            </p>
-            <p>
-                Access tokens can be configured to be tracked on a per-service level or a per-user level:
-            </p>
-
-            <UnorderedList>
-                <li>Per-service: One user signs in to provide the access token for all users of the service.</li>
-                <li>Per-user: Each user signs in to obtain their own access token, without which they cannot perform Vault operations.</li>
-            </UnorderedList>
-            <MessageBanner type={"info"}
-                message={"Access token details are never shared or exposed, they are only used internally by a REST client."}
-            />
-
             <h3 className="sub-heading">Service Configuration</h3>
             <p>
-                The service configuration consists of all details required to connect to and manage a Google Vault environment. This includes the Google Cloud project details and the OIDC connection details.
+                The first step to using this integration is to define the necessary service configuration for the Google Workspace and Vault environment. This configuration contains all the details required to connect to and manage Google Vault, including the Google Cloud project details needed to support the secure OAuth and OIDC login flow.
             </p>
+            <MessageBanner type="note"
+                message="Users must create and properly configure a dedicated Google Cloud project within their Google Workspace environment. This is required for setting up OIDC authentication with the necessary scopes and permissions, to allow authorizing our platform to perform delegated Google Vault API requests." />
+
+            <h3 className="sub-heading">Authentication and Authorization</h3>
+            <p>
+                The second step involves securing delegated authorization to perform operations on the Vault administrator's behalf. A vault administrator must sign in and grant this access via a secure OAuth with OIDC login flow. Upon successful authorization, our platform receives an access token to make the necessary REST API requests. For secure, long-term use, this token is encrypted, stored and periodically refreshed until the user explicitly revokes access.
+            </p>
+            <p>
+                Delegated authorization can be configured at either a <span className="font-semibold">per-service</span> level or a <span className="font-semibold">per-user</span> level:
+            </p>
+            <UnorderedList>
+                <li>The <span className="font-semibold">per-service</span> level requires only one user to sign in and grant access, after which all users can use that single token to perform API requests.</li>
+                <li>The <span className="font-semibold">per-user</span> level requires each user to provide their own delegated authorization; without which they cannot make API requests.</li>
+            </UnorderedList>
+
+            <MessageBanner type={"info"}
+                message={"Access token details are never exposed, they are only used internally by the REST client."}
+            />
+
 
             <h3 className="sub-heading">Vault Operations</h3>
             <p>
-                For every possible API operation exposed by Google Vault, we created a sensible and configurable operation to represent it, taking user experience and flow into account.
+                Once the service configuration is defined and delegated authorization is obtained, users can begin to define and execute automated workflows that incorporate Vault operations.
             </p>
             <p>
-                For example, the <code className="code">Set Vault Matter</code> operation combines the creating and selecting a Vault Matter into one. If the Matter to select doesn't exist, the operation will either attempt to create it or fail, depending on the <code className="code">create if doesn't exist</code> option. If the Matter does exist, the operation will select it. Once created or selected, the operation sets the Matter as a global variable accessible by all future operations, enabling them to perform work on that selected Matter.
+                Built upon the Google Vault APIs and common user workflows, the Vault operations were designed with a focus on modularity. This flexibility allows users to create and execute a variety of workflows, including complete end-to-end data collection, detailed search and query, or simple export and download workflows.
             </p>
+            <p>
+                Consider the <code className="code">Set Vault Matter</code> operation as an example. This operation combines the creation and selection of a Vault Matter into one step. Based on the <code className="code">create if doesn't exist</code> option, the operation will either create a new Matter or selects the existing one. Afterwards, the operation sets it as a global variable, making it accessible to all subsequent workflow operations.
+            </p>
+            <MessageBanner type={"info"}
+                message={"This is a required operation in most workflows, as it specifies which Matter all future operations will work with."}
+            />
+
 
             <h3 className="sub-heading">REST Client</h3>
             <p>
-                All API requests made to Google Vault are done through a REST client created and managed by our platform, with the following behaviours:
+                The platform manages and creates a dedicated REST client for all Google Vault API requests, with the following behaviors:
             </p>
             <UnorderedList>
-                <li>Requests are made with the access token obtained from the Vault administrator sign in.</li>
-                <li>Circular buffer logs are used to track requests, response metadata and errors.</li>
-                <li>Exponential backoffs and response code validations are used to provide tolerance support against rate-limiters and unexpected failures.</li>
+                <li><span className="font-semibold">Authentication</span>: Requests are authenticated using the access token obtained during the Vault administrator sign-in.</li>
+                <li><span className="font-semibold">Logging</span>: A circular buffer tracks requests, response metadata, and errors for debugging and auditing.</li>
+                <li><span className="font-semibold">Fault Tolerance</span>: Exponential backoffs and response code validations are used to provide tolerance against rate limiters and unexpected API failures.</li>
             </UnorderedList>
             <p>
-                Clients are short-lived and torn down after a period of inactivity and created again when needed.
+                This client is short-lived, created only when needed, and is automatically torn down after a brief period of inactivity.
             </p>
 
             <h3 className="sub-heading">Job Wizard</h3>
             <p>
-                The guided job wizard lives in the frontend and helps users fill in key operation details when submitting a Google Vault workflow. For example, details such as the matter, the data sources, the queries, and the export download location.
+                The Job Wizard is a guided frontend tool designed to help users define key operation parameters when submitting workflow jobs. It achieves this by providing guided panels for each Vault operation within the workflow. Each panel internally makes API requests to fetch necessary values—such as the list of available matters, data sources, and exports—for user selection.
             </p>
             <MessageBanner type="note"
-                message="Workflows can be customized with both hard-coded settings and execution-time settings, such as the location of source data or the name of the case to work with."
+                message="Workflows can be customized using hard-coded settings (defined during workflow creation) and execution-time setting (provided via the user during submission). The Job Wizard utilizes these execution-time settings to help users define the operation parameters."
             />
             <p>
-                It does so with the help of frontend guided operation panels designed for each Vault operation. For example, the <code className="code">Set Vault Matter</code> operation has it's own panel which provides a list of available Vault matters for selection. This allows users to select the matter to work on when submitting the workflow rather than hard-coding the value when building the workflow.
-            </p>
-            <p>
-                Guided operation panels are only rendered if their corresponding operation is present in a workflow. Users can mix-and-match operations as desired and the guided experience will reflect it, enabling them to create guided experiences that suite their workflow needs.
+                Guided operation panels are only rendered if their corresponding operation is present in the workflow. Users are free to mix-and-match operations, and the guided experience will automatically adjust to reflect these choices, enabling them to create a submission process that suits their workflow needs.
             </p>
         </>
     )

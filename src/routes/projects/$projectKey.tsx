@@ -54,9 +54,15 @@ function ProjectContainer({ className, ...props }: React.ComponentProps<"div">) 
 function ProjectHeader({ proj }: { proj: Project }) {
 	return (
 		<div>
-			<PageHeader size="sm">
-				{proj.name}
-			</PageHeader>
+			<div className="flex">
+				<PageHeader size="sm">
+					{proj.name}
+				</PageHeader>
+				{/* 
+				<span className="ml-auto leading-5 text-gray-600">
+					{proj.duration}
+				</span> */}
+			</div>
 
 			<PageDescription size="sm" className="mt-1">
 				{proj.description}
@@ -74,8 +80,8 @@ function ProjectHeader({ proj }: { proj: Project }) {
 function ProjectBody({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			// className={cn('flex flex-col gap-6 p-3', className)}
-			className={cn('card', className)}
+			className={cn('flex flex-col gap-6 p-3', className)}
+			// className={cn('card', className)}
 			{...props}
 		/>
 	)

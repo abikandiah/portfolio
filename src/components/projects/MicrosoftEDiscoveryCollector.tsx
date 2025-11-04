@@ -9,7 +9,7 @@ export const microsoftEDiscoveryProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Microsoft eDiscovery Collector',
     duration: '2022 - 2024',
-    description: `A set of guided operations to help manage and use Microsoft Purview eDiscovery.`,
+    description: `An integration of the Microsoft Purview eDiscovery tool into the workflow automation platform, providing a structured, automated approach for end-to-end data collections.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React,
     techType.Dropwizard, techType.RestAPI, techType.AzureAD, techType.MicrosoftEDiscovery, techType.OIDC],
 
