@@ -258,7 +258,7 @@ function DatabaseSchema() {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-stone-300/80 font-medium whitespace-nowrap">
+                    <tbody className="divide-y divide-stone-300/80 font-medium">
                         <tr>
                             <td className="px-3 py-2">
                                 Legal Hold

@@ -6,7 +6,7 @@ import { projectsByType } from '@/constants/project';
 import type { onClickCallback } from '@/types';
 import { Project } from '@/types/ProjectTypes';
 import { stringToBoolean } from '@/utils';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { DisclaimerBody } from './disclaimer';
 
 export const Route = createFileRoute('/projects')({
@@ -50,11 +50,11 @@ function RouteComponent() {
 function ProjectSideBar() {
 	const state = useSidebar();
 
-	function closeMobileSidebar() {
+	const closeMobileSidebar = useCallback(function () {
 		if (state.isMobile) {
 			state.setOpenMobile(false);
 		}
-	}
+	}, [state]);
 
 	return (
 		<>
