@@ -1,8 +1,9 @@
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Link, Outlet, type LinkComponentProps } from '@tanstack/react-router';
 
 import { Banner } from '@/components/ui/banner';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { projectsByType } from '@/constants/project';
+import type { onClickCallback } from '@/types';
 import { Project } from '@/types/ProjectTypes';
 import { stringToBoolean } from '@/utils';
 import { useState } from 'react';
@@ -49,6 +50,12 @@ function RouteComponent() {
 function ProjectSideBar() {
 	const state = useSidebar();
 
+	function closeMobileSidebar() {
+		if (state.isMobile) {
+			state.setOpenMobile(false);
+		}
+	}
+
 	return (
 		<>
 			<Sidebar
@@ -59,7 +66,8 @@ function ProjectSideBar() {
 					{state.open && Object.keys(projectsByType).map(type => {
 						const projects = projectsByType[type];
 						return (
-							<ProjectsGroup key={type} type={type} projects={projects} />
+							<ProjectsGroup key={type} closeMobileSidebar={closeMobileSidebar}
+								type={type} projects={projects} />
 						)
 					})}
 				</SidebarContent>
@@ -83,7 +91,13 @@ function ProjectSideBar() {
 	)
 }
 
-function ProjectsGroup({ type, projects }: { type: string, projects: Project[] }) {
+interface ProjectsGroupProps {
+	type: string;
+	projects: Project[];
+	closeMobileSidebar: onClickCallback<HTMLAnchorElement>;
+}
+
+function ProjectsGroup({ type, projects, closeMobileSidebar }: ProjectsGroupProps) {
 	return (
 		<SidebarGroup>
 			<SidebarGroupLabel>
@@ -94,7 +108,7 @@ function ProjectsGroup({ type, projects }: { type: string, projects: Project[] }
 				<SidebarMenu>
 					{projects.map((proj) => (
 						<SidebarMenuLink key={proj.name}
-							proj={proj} />
+							proj={proj} onClick={closeMobileSidebar} />
 					))}
 				</SidebarMenu>
 			</SidebarGroupContent>
@@ -102,11 +116,12 @@ function ProjectsGroup({ type, projects }: { type: string, projects: Project[] }
 	)
 }
 
-function SidebarMenuLink({ proj }: { proj: Project }) {
+function SidebarMenuLink({ proj, ...props }: { proj: Project } & LinkComponentProps) {
 	return (
 		<SidebarMenuItem>
 			<Link to="/projects/$projectKey"
 				params={{ projectKey: proj.pathname }}
+				{...props}
 			>
 				{({ isActive }) => (
 					<SidebarMenuButton asChild isActive={isActive}>
@@ -117,3 +132,4 @@ function SidebarMenuLink({ proj }: { proj: Project }) {
 		</SidebarMenuItem>
 	)
 }
+
