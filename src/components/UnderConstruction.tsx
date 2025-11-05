@@ -36,6 +36,14 @@ function UnderConstruction() {
     );
 }
 
+export function ConstructionLanding() {
+    return (
+        <div className='relative top-[75%] flex flex-col justify-center'>
+            <UnderConstruction />
+        </div>
+    )
+}
+
 function ConstructionImage({ className, ...props }: React.ComponentProps<"img">) {
     return (
         <img

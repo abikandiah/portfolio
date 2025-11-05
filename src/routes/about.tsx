@@ -1,5 +1,5 @@
 import { InnerUnorderedList, UnorderedList } from '@/components/ui/list'
-import UnderConstruction from '@/components/UnderConstruction'
+import { ConstructionLanding } from '@/components/UnderConstruction'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/about')({
@@ -8,10 +8,7 @@ export const Route = createFileRoute('/about')({
 
 function RouteComponent() {
 	return (
-		<div className='relative top-100'>
-			<UnderConstruction />
-		</div>
-
+		<ConstructionLanding />
 	)
 
 	return (
