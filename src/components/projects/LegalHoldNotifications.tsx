@@ -1,4 +1,3 @@
-import legalHoldDbSchema from "@/assets/legal-hold-schema.svg";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { MessageBanner } from "../ui/banner";
