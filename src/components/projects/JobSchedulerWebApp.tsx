@@ -126,7 +126,7 @@ function Internals() {
     return (
         <>
             <p>
-                The framework also had support for other common operations, such as authentication, API requests and page navigation.
+                The framework also has support for other common operations, such as authentication, API requests and page navigation.
             </p>
 
             <h3 className="sub-heading">Authentication</h3>
@@ -141,7 +141,7 @@ function Internals() {
 
             <h3 className="sub-heading">Page Navigation</h3>
             <p>
-                Navigation was handled with <span className="font-semibold">React-Router</span> and it's hash router.
+                Navigation was handled with <span className="font-semibold">React-Router</span> and its hash router.
             </p>
         </>
     )

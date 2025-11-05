@@ -8,7 +8,7 @@ export const thirdPartyServicesProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Third-Party Services Framework',
     duration: '2024',
-    description: 'A full-stack framework to build connectors to third-party services.',
+    description: 'A full-stack framework to build integrations to third-party services.',
     tech: [techType.Java, techType.JavaScript, techType.JSX, techType.React, techType.Dropwizard, techType.RDBMS],
 
     sections: [
@@ -21,24 +21,23 @@ function Overview() {
     return (
         <>
             <p>
-                This is a framework for integrating third-party services into our platform. We regularly work with and integrate third-party services, and all the setup and boilerplate is very similar, so we decided it'd be best to create a generic implementation pattern to help ease our lives.
+                When integrating various third-party services, we found a clear, repeated pattern of basic setup (boilerplate) across database design, API code creation, and handling credentials. Previously, these integrations were built using unique, service-specific code without any common structure.
             </p>
             <p>
-                Normally when integrating a third-party service, we'd do it cut-and-dry without any abstraction and be very specific to the third-party service we're integrating. However, when you look at it from afar, a visible boilerplate pattern can be seen. It just needed to be abstracted out and argued into a generic, repeatable and efficient pattern.
+                This framework standardizes that common infrastructure into a generic, reusable pattern. It uses polymorphism to unify all these different service integrations under one system.
             </p>
             <p>
-                That's where this framework came in; as a solution to the generic, repeatable pattern. This framework consists of the following:
+                The framework's architecture is defined by the following abstract and concrete components:
             </p>
             <UnorderedList>
-                <li>Generic database models and tables where everything references abstract types but stores the implementation types</li>
-                <li>Generic API resources where everything references abstract types but operates on the implementation types</li>
-                <li>Generic frontend components for building type-specific forms, views, tables, and for completing the OIDC login flow</li>
-                <li>Abstract classes used to implement the third-party service configuration, credentials and REST client</li>
+                <li><span className="font-semibold">Data Layer</span>: Generic database models and tables that reference abstract types but store the specific implementation types.</li>
+                <li><span className="font-semibold">API Layer</span>: Generic API resources that operate consistently using abstract types, but execute the specific code for their respective concrete implementation types.</li>
+                <li><span className="font-semibold">User Interface</span>: Reusable frontend components designed for building service-specific forms, views, tables, and completing the standard OIDC login process.</li>
+                <li><span className="font-semibold">Service Implementation</span>: A set of abstract classes that developers must extend to define the service's configuration, credentials storage, and REST client.</li>
             </UnorderedList>
-
-            <MessageBanner type="note"
-                message="This framework uses polymorphism to create a boilerplate out of all the common behaviours of third-party service integrations."
-            />
+            <p>
+                <span className="font-semibold">Goal</span>: To create a highly efficient, scalable, and maintainable approach for continually adding new service integrations to the platform.
+            </p>
         </>
     )
 }
@@ -47,98 +46,162 @@ function Framework() {
     return (
         <>
             <p>
-                To implement this framework, a set of third-party service abstract classes need to be implemented. One for the service configuration, another for the credentials, one more for the REST client and a final one for the service session.
+                To integrate a new service using this framework, developers must extend four core abstract classes. These classes define the unique behavior of the service while fitting into the framework's generic blueprint:
             </p>
+            <UnorderedList>
+                <li><span className="font-semibold">Third-Party Service</span>: Defines the necessary service-specific settings.</li>
+                <li><span className="font-semibold">Third-Party Credential</span>: Handles the storage and retrieval of tokens, passwords and keys.</li>
+                <li><span className="font-semibold">Third-Party REST Client</span>: Manages all direct communication (API requests and responses) with the third-party service.</li>
+                <li><span className="font-semibold">Third-Party Session</span>: Controls the active connection state and lifecycle.</li>
+            </UnorderedList>
+
 
             <h3 className="sub-heading">Third-Party Service</h3>
             <p>
-                The first abstract class to implement is the Third-Party Service class is used to describe all the configuration details for a third-party service. It contains common info such as the name, description and active state. It also contains type-specific info such as the client ID, hostname, port and others. These type-specific fields are added with the type-specific implementations while the common info are present in the abstract classes (hence why they're common).
+                This is the primary abstract class that defines the configuration for a third-party service integration. It comes pre-built with common fields and is extended for type-specific needs:
             </p>
+            <UnorderedList>
+                <li><span className="font-semibold">Common Fields</span>: The abstract class includes fields like name, description, and active state, which are shared across all service implementations.</li>
+                <li><span className="font-semibold">Type-Specific Fields</span>: Concrete implementations extend the abstract class to add unique fields, such as client ID, hostname, port, and other specialized settings.</li>
+            </UnorderedList>
             <p>
-                The abstract class also contains abstract methods the implementation types need to implement, such as a validation method and an update method. This allows references to abstract types to execute code defined in implementation types due to polymorphism. This is the basis of how the generic API resource and database ORM (object-relational mapping) operate.
+                The class also includes abstract methods (like validation and update methods) that must be implemented by the specific service types. This design uses polymorphism as the foundation, allowing generic resources (such as the API and ORM (object-relational mapping)) to correctly execute the service-specific logic at runtime.
             </p>
+
 
             <h3 className="sub-heading">Third-Party Credential</h3>
             <p>
-                The next abstract class to implement is the Third-Party Credential class. This class is used to store all the details regarding service credentials, such as the username, access token, refresh token and relevant dates. All tokens and passwords present in this class are encrypted for security.
+                The next abstract class to implement is the Third-Party Credential class. This abstract class is dedicated to securely managing all service authentication details, such as usernames, access tokens, refresh tokens, and relevant expiration dates.
             </p>
+            <MessageBanner type="info"
+                message={
+                    <>
+                        All sensitive data, including tokens and passwords, stored within this class are encrypted by the framework to ensure security.
+                    </>
+                } />
+
             <p>
-                There is less implementation involved here when implementing the type-specific credential classes, only need to specify the supported authentication methods. This framework supports three common auth methods:
+                There is less implementation involved here when implementing the type-specific credential classes, developers only need to specify the supported authentication methods. The framework currently supports three common methods:
             </p>
             <UnorderedList>
-                <li>Username and password authentication</li>
-                <li>Secret key authentication</li>
-                <li>OIDC authentication</li>
+                <li><span className="font-semibold">Username and password</span> authentication</li>
+                <li><span className="font-semibold">Secret key</span> authentication</li>
+                <li><span className="font-semibold">OIDC</span> (OpenID Connect) authentication</li>
             </UnorderedList>
 
             <p>
-                Credentials can be configured at either a <span className="font-semibold">per-service</span> level or a <span className="font-semibold">per-user</span> level:
+                Credentials can be configured at two distinct levels, providing flexibility based on the service's use case:
             </p>
             <UnorderedList>
-                <li>The <span className="font-semibold">per-service</span> level requires only one user to sign in and grant access, after which all users can use that single credential to perform API requests.</li>
-                <li>The <span className="font-semibold">per-user</span> level requires each user to provide their own credential; without which they cannot make API requests.</li>
+                <li><span className="font-semibold">Per-Service Level</span>: Only a single user needs to sign in to grant platform-wide access. After this, all users can utilize that single credential to execute API requests.</li>
+                <li><span className="font-semibold">Per-User Level</span>: Each individual user must sign in. Users cannot make API requests without their own dedicated credential.</li>
             </UnorderedList>
+
             <MessageBanner type="note"
-                message="Per-service may sound fishy at first but our platform had further authorization rules that could limit the users who had access to a service, thus still allowing finer control for who can use the credential."
+                message="While the Per-Service Level allows a single set of credentials to be used by all users, users still need to be authorized for access to the third-party service. This effectively means that only users with specific platform authorization are allowed to utilize that single shared credential for API requests."
             />
             <MessageBanner type="info"
                 message="Credential tokens, keys or passwords are never exposed, they are only used internally by the REST client when making API requests."
             />
 
             <p>
-                Each authentication method has it's own frontend flow for obtaining a service credential. Once saved, the service REST client can use it to make API requests. Credentials can be removed at any time. Tokens are also periodically refreshed if a corresponding refresh token was obtained when completing the OIDC login flow (not all flows return refresh tokens).
+                Each supported authentication method requires its own specific frontend flow to obtain the service credential. Once successfully saved, the service REST client can use it to make API requests. Credentials can be deleted at any time. Furthermore, for the OIDC login flow, tokens are periodically refreshed if a corresponding refresh token was obtained during the initial authentication (not all flows provide a refresh token).
             </p>
+
 
             <h3 className="sub-heading">Third-Party REST Client</h3>
             <p>
-                The third abstract class to implement is the Third-Part REST client. This is the class used to make API requests to the third-party service. It uses the service configuration and the service credentials to connect to and speak with the third-party service.
+                The Third-Party REST Client is the third abstract class developers implement, serving as the dedicated interface for communicating with the external service. It uses the service configuration and the service credentials to connect to and speak with the third-party service.
             </p>
             <p>
-                The REST client requires implementing abstract methods for testing and validation, but it is mostly implementation-focused. It comes with built-in methods for making REST API calls and supports tolerating rate-limiters and unexpected failures via exponential back-off and response code-checking.
+                While it requires implementing specific abstract methods for testing and validation, the class is mostly implementation-focused. It comes with built-in capabilities for making REST API calls, including:
             </p>
+            <UnorderedList>
+                <li><span className="font-semibold">Resilience</span>: It supports tolerating rate-limiters and handling unexpected failures automatically.</li>
+                <li><span className="font-semibold">Robust Handling</span>: Achieved via exponential-back off logic and automated HTTP response code checking.</li>
+            </UnorderedList>
+            <p>
+                This makes integrating the actual API logic straightforward and robust.
+            </p>
+
 
             <h3 className="sub-heading">Third-Party Session</h3>
             <p>
-                The final abstract class is the Third-Party Session class. This class integrates the three previous classes and provides additional session-tracking logic, such as request and response metadata, application logging and errors if any. It behaves as a container and access point for the whole third-party service integration.
+                The Third-Party Session is the final abstract class, acting as the container and primary access point for the entire third-party service integration.
             </p>
+            <p>
+                It integrates the three previous classes (Configuration, Credentials, and REST Client) and provides essential session-tracking logic. This includes capturing important data like request and response metadata, application logging, and any errors encountered during the connection.
+            </p>
+
             <MessageBanner type="info"
                 message="The third-party session only lives in memory and is never written to the database. It is short-lived and is evicted after a period of inactivity. Each user has their own session object and uses it when working with a third-party service." />
 
 
             <h3 className="sub-heading">Third-Party Service Operations</h3>
             <p>
-                The real final piece to the puzzle; why we even have third-party integrations to begin with. We integrate with so many third-party services because we provide workflow operations to perform work with those third-party services, such as performing work with Google Vault, Microsoft Purview eDiscovery, Nuix Discover or Relativity.
+                This is the final piece of the puzzle—the reason we build these integrations in the first place. We integrate with third-party services (like Google Vault, Microsoft Purview, or Relativity) to provide workflow operations that perform work directly within those systems.
             </p>
             <p>
-                This framework provides the third-party service configurations, credentials, REST client, and session that these operations consume. We then build workflows with them to interact with third-party services.
+                This framework provides the foundation that these operations consume: the defined <strong>Service Configurations, Credentials, REST Client, and Session</strong>. This allows us to build powerful, consistent workflows that interact reliably with any integrated service.
             </p>
             <MessageBanner type="info"
-                message="To use a third-party service operation in a workflow, the corresponding service configuration and credential need to be defined." />
+                message="To use a third-party service operation within a workflow, the corresponding third-party service must be configured and authorized." />
 
 
             <h3 className="sub-heading">Generic Database ORM (Object-Relational Mapping)</h3>
             <p>
-                The database binding and mapping of implementation classes to the database model and vice-versa is done mostly with the power of GSON and it's ability to understand the polymorphic types. The binding and mapping were defined on the abstract type but by letting GSON know about the implementation types (every time a third-party service is integrated we need to let GSON know) it is able to deduce type-specific serialization and deserialization.
+                The framework achieves generic database binding and mapping of all implementation classes through the use of GSON and its built-in support for polymorphic types.
             </p>
             <p>
-                There is also one hack required. The database schema did not consist of columns for all the class fields; instead, only relevant and abstract class fields, such as the ID and active state, were stored as columns, while the rest were shoved into a JSON column as a single serialized JSON object. This allowed the sharing of database tables and schemas for all the third-party service types.
+                The binding logic is defined on the abstract types. By registering each new third-party service implementation with GSON, the library can intelligently perform type-specific serialization and deserialization—meaning it knows exactly how to read and write the unique fields for each service type.
             </p>
+            <p>
+                To allow all third-party services to share the same database tables and schemas, we employ a simplified design:
+            </p>
+            <UnorderedList>
+                <li><strong>Column Storage</strong>: The database schema only uses standard columns for common fields found in the abstract classes (e.g., ID and active state).</li>
+                <li><strong>JSON Column Storage</strong>: All remaining, type-specific class fields are serialized into a single JSON object and stored in one designated database column.</li>
+            </UnorderedList>
+            <p>
+                This approach ensures the underlying database structure remains uniform, while the ORM handles the task of extracting the correct, type-specific object from the JSON column using GSON.
+            </p>
+
 
             <h3 className="sub-heading">Generic API Resource</h3>
             <p>
-                The generic API resource also made excellent use of GSON's power, defining all endpoints to work with abstract types and leaving GSON to handle serializing and deserializing objects into the correct implementation type. This worked perfectly; all that was required was telling GSON the list of implementation types.
+                The generic API resource is crucial for maintaining polymorphism across the entire platform. It defines all endpoints to work strictly with abstract types, leaving GSON to automatically handle the serialization and deserialization of objects into their correct, underlying implementation types.
             </p>
             <p>
-                When an implementation type needs a specific endpoint or behaviour, it is not added as a type-specific endpoint in the generic API resource, instead it is exposed through a generic proxy endpoint which in turns calls a <span className="font-semibold">proxy abstract method</span> defined in the third-party service REST session and client. This is done to always maintain generic and polymorphic behaviour.
+                To handle requests that require unique, type-specific behavior, we do not create separate API endpoints. Instead, the framework exposes a generic proxy endpoint.
             </p>
             <p>
-                The generic API endpoints support endpoints for CRUD (create-read-update-delete), proxying requests and for querying list of objects from the third-party service. Further generic endpoints are added as needed.
+                This endpoint calls a corresponding proxy abstract method defined in the Service REST Client and Session classes. This pattern ensures the API resource layer remains entirely generic and polymorphic, while the service implementation executes the necessary unique logic.
+            </p>
+            <p>
+                The generic API endpoints supports essential functions:
+            </p>
+            <UnorderedList>
+                <li><strong>CRUD</strong> (Create, Read, Update, Delete) operations.</li>
+                <li><strong>Proxying</strong> unique, service-specific requests.</li>
+                <li><strong>Querying</strong> lists of objects from the third-party service.</li>
+            </UnorderedList>
+            <p>
+                Further generic endpoints are added as the framework evolves.
             </p>
 
             <h3 className="sub-heading">Frontend Implementation</h3>
             <p>
-                The frontend consisted of generic building-block components to put together the third-party service implementations. This included forms, tables, views, and the necessary authentication forms for the various authentication methods (username and pass, secret key and the OIDC login flow). It also consists of the view for the third-party serive session.
+                The frontend architecture consists of generic building-block components designed to assemble and support any third-party service implementation.
             </p>
+            <p>
+                These reusable components include:
+            </p>
+            <UnorderedList>
+                <li><strong>Core UI</strong>: Generic forms, tables, and views for displaying configuration and data.</li>
+                <li><strong>Authentication</strong>: Necessary authentication forms supporting all framework methods (username/password, secret key, and the OIDC login flow).</li>
+                <li><strong>Session View</strong>: A dedicated view for monitoring the state of the active session.</li>
+            </UnorderedList>
         </>
     )
 }
+
