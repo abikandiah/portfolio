@@ -2,41 +2,182 @@ import legalHoldDbSchema from "@/assets/legal-hold-schema.svg";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { MessageBanner } from "../ui/banner";
-import { UnorderedList } from "../ui/list";
+import { OrderedList, UnorderedList } from "../ui/list";
 
 export const legalHoldNotificationsProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Legal Hold Notifications',
     duration: '2020 - 2021',
-    description: `A notification and survey system for administrating and tracking legal holds.`,
+    description: `A communication platform for administrating and auditing legal holds.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.Dropwizard,
     techType.RestAPI, techType.SSOLinks, techType.SMTP, techType.RDBMS, techType.LDAP, techType.ThreadPools],
 
     sections: [
         { title: 'Overview', body: Overview },
+        { title: 'Notice Templates', body: NoticeTemplates },
+        { title: 'User Sources', body: UserSources },
+        { title: 'SMTP Servers', body: SmtpServers },
+        { title: 'SSO Links', body: SsoLinks },
         { title: 'The Legal Hold', body: LegalHold },
-        { title: 'Architecture', body: Architecture },
+        { title: 'Database Schema', body: DatabaseSchema }
     ]
 };
+<p>
+    Everything is handled within a single <span className="font-semibold">Legal Hold</span> object. Administrators are added to administrate and manage the hold and custodians are added to be placed on hold with notices and surveys. The list of notices sent are defined here as well, as well as the SMTP server to use for emails and the workflows to submit on an event trigger.
+</p>
 
 function Overview() {
     return (
         <>
             <p>
-                This is a tool for tracking and notifying custodians placed on legal hold. It does not place any preservation or holds on data nor does it manage any data. It's only meant for sending notices and surveys and letting custodians know they're on hold or released. It's main purpose is for administration and communication.
+                This is a specialized application designed for the <strong>administration and communication</strong> of legal holds. Its core function is to track custodians and manage the distribution of both notices and compliance surveys throughout the legal hold lifecycle. This platform is strictly a communication layer and does not interact with, manage, or place preservation holds on any underlying data systems.
             </p>
             <p>
-                Everything is handled within a single <span className="font-semibold">Legal Hold</span> object. Administrators are added to administrate and manage the hold and custodians are added to be placed on hold with notices and surveys. The list of notices sent are defined here as well, as well as the SMTP server to use for emails and the workflows to submit on an event trigger.
+                The legal hold application is built as a combination of integrated, modular components:
+            </p>
+            <UnorderedList>
+                <li><strong>Notice Templating</strong>: Defines notices using markdown and allows for the creation of compliance surveys with fully configurable form components.</li>
+                <li><strong>SMTP Servers</strong>: Used to define and configure the SMTP servers for sending all notification emails.</li>
+                <li><strong>User Services</strong>: Manages external services to source and synchronize the list of available users for custodian and administrator roles.</li>
+                <li><strong>Workflow Triggers</strong>: Used to submit workflows to the job scheduler on legal hold events.</li>
+                <li><strong>Legal Hold</strong>: The central component that unifies all elements to configure, initiate, and administrate the complete legal hold lifecycle.</li>
+            </UnorderedList>
+        </>
+    )
+}
+
+function NoticeTemplates() {
+    return (
+        <>
+            <p>
+                Notices are first defined as <strong>Notice Templates</strong>. These templates are defined in a separate section and act as reusable blueprints to create the specific notice object used within a legal hold.
             </p>
             <p>
-                This feature is essentially an entire application on it's own. It has it's own database schema with several normalized tables, it's own frontend for configuring, managing and viewing, it's own backend for all the API resources, and even it's own authentication mechanism via single-sign on (SSO) links.
+                This modular approach offers several benefits:
+            </p>
+            <UnorderedList>
+                <li>It allows reusability of notices across multiple legal holds.</li>
+                <li>It separates the logic of defining notices from the legal hold process itself.</li>
+                <li>Templates can be modified without affecting the notices already in use in existing legal holds.</li>
+            </UnorderedList>
+            <p>
+                Once a notice is generated for a legal hold, it becomes a distinct, separate object that exists solely for that specific hold, detached from its original template.
             </p>
             <p>
-                Although it could stand on its own as an application, it was built as a mini-application within our main platform; which allowed it to share several pre-built mechanisms such as user authentication and authorization, as well as all the database, API configurations and even triggering of workflows.
+                Notice templates have their own frontend and CRUD endpoints. They define the notice's markdown message, customizable parameters for use in a hold, and a list of survey questions for the custodian.
+            </p>
+
+
+            <h3 className="sub-heading">Notice Comments</h3>
+            <p>
+                The Notice Comments system is a communication tool operating at the <strong>notice event level</strong>, designed to facilitate discussions regarding a specific custodian's notice.
             </p>
             <p>
-                It was easier to create it as a sub-application within our already defined application stack rather than creating it as it's own application, even though having it as a separate service would have been better for modularity and flexibility.
+                It provides two distinct channels for communication:
             </p>
+            <UnorderedList>
+                <li><strong>Custodian/Admin Communication</strong>: This channel allows custodians to communicate directly with legal hold administrators about their notice.</li>
+                <li><strong>Admin Notes (Internal)</strong>: Administrators can submit private notes to each other on a custodian's notice, enabling internal discussions and tracking that are not visible to the custodian.</li>
+            </UnorderedList>
+        </>
+    )
+}
+
+function UserSources() {
+    return (
+        <>
+            <p>
+                All <strong>custodians and administrators</strong> must be selected from a central pool of users managed by the platform. There are multiple methods for sourcing these users:
+            </p>
+            <UnorderedList>
+                <li><strong>Manual Upload</strong>: Directly upload a list of users to a self-managed user service.</li>
+                <li><strong>Microsoft Entra ID (Azure AD)</strong>: Connect and synchronize the user list from an Entra ID instance.</li>
+                <li><strong>LDAP Server</strong>: Connect and synchronize the user list from an LDAP server.</li>
+            </UnorderedList>
+            <p>
+                All selected custodians and administrators draw from these sourced users. The list of users is cached within the platform's database, and synchronization occurs on a configurable, periodic basis. User sources can also be configured, updated, or removed as needed.
+            </p>
+            <MessageBanner type="info"
+                message={
+                    <>
+                        To successfully send <strong>SMTP emails</strong>, the sourced users must include <strong>valid, working email addresses</strong> for each user.
+                    </>
+                }
+            />
+        </>
+    )
+}
+
+function SmtpServers() {
+    return (
+        <>
+            <p>
+                SMTP server configurations define the required details for a <strong>self-hosted SMTP server</strong>. This platform itself does not provide or run SMTP servers; this configuration serves as the connection bridge to external services (e.g., Google, Outlook, etc.).
+            </p>
+            <p>
+                The configuration requires standard connection details: <strong>host, port, username and password</strong>. All legal hold emails will appear to be sent from the specified username.
+            </p>
+            <p>
+                Similar to notice templates, SMTP server configurations have their own dedicated frontend and CRUD endpoints for easy management.
+            </p>
+
+            <h3 className="sub-heading">Asynchronous Email Processing</h3>
+            <p>
+                The platform handles email delivery efficiently using an <strong>asynchronous queuing system</strong> powered by a threadpool. This ensures that sending emails—which can number in the thousands—does not block the application or require synchronous processing.
+            </p>
+            <p>
+                The backend service for email management includes endpoints for queue control, offering functionality to:
+            </p>
+            <UnorderedList>
+                <li><strong>Export</strong> and <strong>Archive</strong> the email history.</li>
+                <li><strong>Retry</strong> failed send attempts.</li>
+                <li><strong>Purge</strong> the email queue.</li>
+            </UnorderedList>
+            <p>
+                Emails are assigned a <strong>state</strong> to actively track their sending progress and record any errors encountered during the delivery process.
+            </p>
+        </>
+    )
+}
+
+function SsoLinks() {
+    return (
+        <>
+            <p>
+                SSO links are utilized in emails to provide custodians and administrators with simple, one-click access to legal hold and notice details. These links are short-lived and designed for <strong>one-time use</strong>, though they can be refreshed upon request.
+            </p>
+
+            <h3 className="sub-heading">Security and Validation</h3>
+            <p>
+                The security of SSO links relies on asymmetric encryption and a caching mechanism. An SSO link carries two main components:
+            </p>
+            <OrderedList>
+                <li>A <strong>payload</strong> containing navigation information about the specific notice or legal hold.</li>
+                <li>An <strong>encrypted signature</strong> of that payload.</li>
+            </OrderedList>
+
+            <p>
+                The payload is encrypted using a <strong>secret key</strong> maintained exclusively by the platform. To verify the integrity and authenticity of an incoming SSO link, the system performs the following steps:
+            </p>
+            <OrderedList>
+                <li>The link payload is <strong>re-hashed</strong> using a pre-defined hashing algorithm.</li>
+                <li>The resulting hash is then <strong>encrypted</strong> with the platform's secret key.</li>
+                <li>The encrypted result is compared against the signature attached to the link.</li>
+            </OrderedList>
+            <p>
+                A successful match confirms that the platform originally created the payload.
+            </p>
+
+            <h3 className="sub-heading">Expiration and Status Tracking</h3>
+            <p>
+                To manage validity, the platform uses caching to track active SSO links. Each cached link entry is assigned a TTL (Time-to-Live), and expired links are treated as a cache miss. Expired links, however, can still be refreshed by the user.
+            </p>
+
+            <MessageBanner type="info"
+                message="SSO links are an optional feature of legal holds. Disabling them requires custodians and administrators to sign in manually." />
+            <MessageBanner type="info"
+                message="Upon system restart, all cached SSO links are lost and immediately become expired, though they remain refreshable."
+            />
         </>
     )
 }
@@ -45,130 +186,131 @@ function LegalHold() {
     return (
         <>
             <p>
-                A Legal Hold is an object that consists of the list of custodians and administrators, the configured notices to be sent, the workflows to be triggered on selected events, the SMTP server to use for emails, and the status of the legal hold.
-            </p>
-            <MessageBanner type="info"
-                message="Notices and emails can be disabled if all that's needed is a system for tracking custodians. Triggering workflows is also optional."
-            />
-            <p>
-                Once a legal hold is activated, custodians are sent hold notices to notify them of the hold and survey notices for additional questioning. When released, all custodians are sent release notices to notify them of being released. Administrators are also notified of legal hold status changes. Worklfows configured to trigger on legal hold status changes are also appropriately triggered for execution.
-            </p>
-            <p>
-                Custodians can sign-on manually or via SSO (single-sign on) links and view and respond to their received notices. If the notice has no survey questions then all they can do is view. If custodians have any questions or comments, they can contact administrators via notice comments on their individual notice events.
-            </p>
-            <MessageBanner type="note"
-                message="Survey questions are optional on notices and any notice can contain surveys. Custodians can only respond to notices with survey questions, otherwise they simply read and view them."
-            />
-            <MessageBanner type="info"
-                message="Custodians receive notices as Notice Event objects. A notice event tracks the receiving user, sent and view dates, and responses for any survey questions. The parent notice object tracks the message and survey questions."
-            />
-            <p>
-                Notices can be configured to require responses or viewing by a certain day, with reminders as that day grows near and escalations if passed.
-            </p>
-            <p>
-                Custodians and administrators are tracked as participations of a legal hold with roles and states.
-            </p>
-
-            <h3 className="sub-heading">Database Schema</h3>
-            <p>
-                All data models associated with the legal hold application are stored in the platform database. The following diagram shows the relation between all models:
-            </p>
-            <img
-                className="object-cover mx-auto my-6"
-                src={legalHoldDbSchema}
-                alt="Legal Hold Database Schema"
-            />
-            <UnorderedList>
-                <li>A legal hold can have multiple participations, events, and notices, and one SMTP server</li>
-                <li>A notice template can be used by multiple legal holds and can have multiple child notices</li>
-                <li>A notice is attached to one legal hold and can have multiple notice events</li>
-                <li>A user can participate in multiple legal holds and receive multiple notice events</li>
-                <li>An SMTP server can be used in multiple legal holds</li>
-            </UnorderedList>
-        </>
-    )
-}
-
-function Architecture() {
-    return (
-        <>
-            <p>
-                The legal hold notification system is built as a combination of four parts:
-            </p>
-
-            <UnorderedList>
-                <li>A user management system to source and track available users</li>
-                <li>Notice templates and configuration</li>
-                <li>SMTP servers for sending emails</li>
-                <li>A workflow trigger mechanism to trigger workflows on legal hold events, such as placing a custodian on hold</li>
-            </UnorderedList>
-
-
-            <h3 className="sub-heading">User Sourcing</h3>
-            <p>
-                Custodians and administrators had to come from somewhere and that somewhere was from our method of sourcing users. We defined multiple ways of providing user sources:
+                A <strong>Legal Hold</strong> is the central object that governs the entire process. It is defined by the following components:
             </p>
             <UnorderedList>
-                <li>Manually uploading a list of users to a self-managed user service</li>
-                <li>Connecting to Microsoft Entra ID (Azure AD) and synchronizing the list of users</li>
-                <li>Connecting to an LDAP server and synchronzing the list of users</li>
+                <li>The list of <strong>custodians and administrators</strong>.</li>
+                <li>The configured <strong>notices</strong> to be sent (Hold, Survey, Release).</li>
+                <li>The <strong>SMTP server</strong> used for all related emails.</li>
+                <li>Optional <strong>workflows</strong> to be triggered on selected events.</li>
+                <li>The overall status of the legal hold.</li>
             </UnorderedList>
-            <p>
-                All custodians and administrators are selected from these sourced users. User synchronization occurs on a periodic basis and can be configured, erased and updated. The list of users are cached within our database.
-            </p>
             <MessageBanner type="info"
-                message="In order to send SMTP emails, the list of users must also come with working email addresses for each user."
+                message="Notices and emails are optional and can be disabled if the system is used solely for tracking custodians. Workflow triggering is also optional."
             />
 
-            <h3 className="sub-heading">Notices and Templates</h3>
-            <p>
-                Notices are first defined as <span className="font-semibold">Notice Templates</span>. These templates are defined in their own section and are used like stamps to create the notice object used within a legal hold. This is done for re-usability of notices and to separate the logic of defining notices from legal holds. Also, this allows templates to be modified without affecting the notice used within an existing legal hold. All in all for better modularity; once a notice has been created for a legal hold it becomes seperate from its template.
-            </p>
-            <p>
-                Notice templates have their own frontend and CRUD endpoints. They define the markdown message of the notice, parameters that can be updated when used in a legal hold, and a list of survey questions for the custodian.
-            </p>
+            <h3 className="sub-heading">Lifecycle Events</h3>
+            <OrderedList>
+                <li><strong>Activation</strong>: Once activated, custodians receive <strong>Hold Notices</strong> to inform them of their obligations and optional <strong>Survey Notices</strong> for additional data collection.</li>
+                <li><strong>Release</strong>: When the hold ends, all custodians receive <strong>Release Notices</strong>.</li>
+                <li><strong>Status Changes</strong>: Administrators are notified of all significant legal hold status changes, and any configured workflows are automatically triggered for execution.</li>
+            </OrderedList>
 
-            <h3 className="sub-heading">Notice Comments</h3>
+            <h3 className="sub-heading">Custodian Interaction</h3>
             <p>
-                Notice comments is a whole comment system to enable communication between a custodian and the legal hold administrators. It operates on the notice event level. Admins also optionally have a method to subit admin notes to each other on a custodian's notice, for admin-level discussions.
+                Custodians can access and respond to their received notices by signing on manually or using the <strong>SSO (Single Sign-On) links</strong>.
             </p>
-
-            <h3 className="sub-heading">SMTP Server Configuration</h3>
-            <p>
-                SMTP server configurations define the details for a self-hosted SMTP server. We do not provide SMTP servers and do not run SMTP servers within our platform. This configuration can be used to connect to any SMTP server such as that provided by Google. It requires the connection details such as host, port, username and password. All emails will be seen to be sent from this username.
-            </p>
-            <p>
-                SMTP server configurations, similar to notice templates, have their own frontend and CRUD endpoints. The backend for managing emails also includes endpoints to export, archive, retry and purge the email queue.
-            </p>
-            <p>
-                Emails are sent with a threadpool and are queued asynchronously to prevent blocking. There could be as many as 10,000 emails being sent at once and we do not want to wait or handle it synchronously. Emails also have state to track sending progress and errors if any.
-            </p>
-
-            <h3 className="sub-heading">SSO Links</h3>
-            <p>
-                SSO links are sent in emails to enable custodians and administrators to easily open and access the legal hold and notice details. SSO links are one-time use and are short-lived. They can be refreshed on request.
-            </p>
-            <p>
-                SSO links use asymmetric encryption and caching for security validation. An SSO link contains a payload containing navigation information about the notice or legal hold and an encrypted signature of that payload. The payload is encrypted by a secret key only maintained by our platform. To verify an SSO link we do the following:
-            </p>
-            <UnorderedList className="list-digit">
-                <li>Re-hash the link payload with a pre-defined hashing algorithm</li>
-                <li>Encrypt the hash with the platform's secret key</li>
-                <li>Verify if the encrypted result matches the signature attached to the link</li>
+            <UnorderedList>
+                <li>They can respond to a notice <strong>only if it contains survey questions</strong>.</li>
+                <li>If a notice has no surveys, the custodian can only view the message.</li>
+                <li>Custodians can contact administrators using <strong>Notice Comments</strong> on their individual notice event.</li>
             </UnorderedList>
             <p>
-                If the result matches the SSO link signature, then we can be guaranteed that we created the payload for that link. But it may still be invalid due to expiration. For that, we use caching to keep track of active SSO links. The cache assigns a TTL (Time-to-live) to all SSO link entries and treats them as a cache miss if expired. However, SSO links can still be refreshed if expired.
+                Notices can be configured to require responses or viewing by a <strong>specific deadline</strong>. The system supports sending <strong>reminders</strong> as the deadline approaches and initiating <strong>escalations</strong> if the deadline is missed.
             </p>
             <MessageBanner type="info"
-                message="On system restart, the cached SSO links are lost and they all become expired, but they can still be refreshed."
+                message={
+                    <>
+                        <strong>Notice Event Tracking</strong>: Custodians interact with <strong>Notice Event</strong> objects. A Notice Event tracks the receiving user, send/view dates, and survey responses. This event is derived from its <strong>parent Notice object</strong>, which defines the message and survey questions.
+                    </>
+                }
             />
-            <MessageBanner type="info"
-                message="SSO links are an optional feature of legal holds. They can be disabled, requiring custodians and administrators to manually sign-on." />
+            <p>
+                Custodians and administrators are tracked as <strong>participants</strong> in a legal hold, each assigned specific roles and statuses.
+            </p>
 
             <h3 className="sub-heading">Workflow Triggers</h3>
             <p>
-                Legal holds can be configured to submit workflows to the automation platform on legal hold events, such as activating a legal hold or relasing a custodian. These workflows are passed details about the triggering event, such as the legal hold and custodian(s) involved. Effectively connecting the legal hold application with the rest of our platform. Any operation and workflow defined within our automation platform can be triggered here.
+                Legal holds provide integration with the automation platform. Holds can be configured to submit workflows to the automation platform upon specific legal hold events, such as <strong>activation</strong> or <strong>custodian release</strong>.
+            </p>
+            <p>
+                These workflows receive detailed information about the triggering event, including data about the legal hold and the involved custodian(s). This effectively connects the legal hold application with the broader platform, allowing for the execution of any operation or workflow defined within the automation environment.
             </p>
         </>
     )
 }
+
+function DatabaseSchema() {
+    return (
+        <>
+            <p>
+                All data models associated with the legal hold application are stored in the platform database. The following relations define the structure of the data:
+            </p>
+
+            <div className="my-4 border-container rounded text-sm">
+                <table className="divide-y divide-stone-300/80 min-w-full">
+                    <thead>
+                        <tr className="text-xs text-left font-semibold uppercase">
+                            <th scope="col" className="px-3 py-2 tracking-wider w-1/3">
+                                Component
+                            </th>
+                            <th scope="col" className="px-3 py-2 tracking-wider w-2/3">
+                                Relations
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-stone-300/80 font-medium whitespace-nowrap">
+                        <tr>
+                            <td className="px-3 py-2">
+                                Legal Hold
+                            </td>
+                            <td className="px-3 py-2 text-gray-700">
+                                Has multiple participations, events, and notices; uses one SMTP server.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="px-3 py-2">
+                                Notice Template
+                            </td>
+                            <td className="px-3 py-2 text-gray-700">
+                                Can be used by multiple legal holds and can have multiple child notices.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="px-3 py-2">
+                                Notice
+                            </td>
+                            <td className="px-3 py-2 text-gray-700">
+                                Is attached to one legal hold and can have multiple notice events.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="px-3 py-2">
+                                User
+                            </td>
+                            <td className="px-3 py-2 text-gray-700">
+                                Can participate in multiple legal holds and receive multiple notice events.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="px-3 py-2">
+                                SMTP Server
+                            </td>
+                            <td className="px-3 py-2 text-gray-700">
+                                Can be used in multiple legal holds.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {/* 
+            <img
+                className="object-cover mx-auto mt-12"
+                src={legalHoldDbSchema}
+                alt="Legal Hold Database Schema"
+            /> */}
+        </>
+    )
+}
+
+
