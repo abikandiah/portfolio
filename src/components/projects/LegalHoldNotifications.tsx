@@ -38,7 +38,7 @@ function Overview() {
                 <li><strong>Notice Templating</strong>: Defines notices using markdown and allows for the creation of compliance surveys with fully configurable form components.</li>
                 <li><strong>SMTP Servers</strong>: Used to define and configure the SMTP servers for sending all notification emails.</li>
                 <li><strong>User Services</strong>: Manages external services to source and synchronize the list of available users for custodian and administrator roles.</li>
-                <li><strong>Workflow Triggers</strong>: Used to submit workflows to the job scheduler on legal hold events.</li>
+                <li><strong>Workflow Triggers</strong>: Used to submit workflows to the automation platform on legal hold events.</li>
                 <li><strong>Legal Hold</strong>: The central component that unifies all elements to configure, initiate, and administrate the complete legal hold lifecycle.</li>
             </UnorderedList>
         </>

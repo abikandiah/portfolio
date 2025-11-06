@@ -24,7 +24,7 @@ function Overview() {
     return (
         <>
             <p>
-                <span className="font-semibold">Google Vault</span> is the dedicated eDiscovery tool for Google Workspace, allowing admins to search, review, and export data. This integration connects Vault's core functions to our platform, allowing users to include these operations as steps in their automated workflows. For example, a user can execute a Vault search and export, download and process the data, and then upload the collected information to a supported review platform.
+                <span className="font-semibold">Google Vault</span> is the dedicated eDiscovery tool for Google Workspace, allowing admins to search, review, and export data. This integration connects Vault's core functions to the automation platform, allowing users to include these operations as steps in their automated workflows. For example, a user can execute a Vault search and export, download and process the data, and then upload the collected information to a supported review platform.
             </p>
             <p>
                 To use this integration, users must first provide their Google Workspace connection details and authorize access using their Google Vault admin credentials. Authentication and authorization are handled securely via a standard OAuth with OIDC login flow. The integration itself is implemented as a set of workflow operations, with a guided job wizard to simplify the submission of workflow jobs to the automation platform's scheduler.

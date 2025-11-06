@@ -20,7 +20,7 @@ function Overview() {
     return (
         <>
             <p>
-                Our platform uses internationalization (i18n) to provide multi-language support. All user-facing text is separated into dedicated language files: JSON for the frontend (using i18next) and Java properties for the backend. The base text is maintained in two master English files (one for each stack), and the correct locale is dynamically served based on user selection.
+                The automation platform uses internationalization (i18n) to provide multi-language support. All user-facing text is separated into dedicated language files: JSON for the frontend (using i18next) and Java properties for the backend. The base text is maintained in two master English files (one for each stack), and the correct locale is dynamically served based on user selection.
             </p>
             <MessageBanner type="note"
                 message="Users can select their preferred langauge via a dropdown option in the frontend and as a command-line parameter (or switch) in the backend." />

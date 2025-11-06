@@ -6,7 +6,7 @@ import { UnorderedList } from "../ui/list";
 
 export const jobSchedulerWebApp: ProjectProps = {
     type: projectType.NuixRampiva,
-    name: 'Job Scheduler Web App',
+    name: 'Automation Platform Web App',
     duration: '2018 - 2025',
     description: `A management console to create, schedule and submit eDiscovery workflows for execution. Built as a React web app with a Java backend.`,
     tech: [techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.ReactRedux,
@@ -23,7 +23,7 @@ function Overview() {
     return (
         <>
             <p>
-                This web application is the frontend for a workflow job scheduler. It's built as a React single-page app (SPA) and provides a user interface for complete management of the scheduler tool, enabling users to:
+                This web application is the frontend for the automation platform. It's built as a React single-page app (SPA) and provides a user interface for complete management of the scheduler tool, enabling users to:
             </p>
             <UnorderedList>
                 <li>Design and build custom workflows</li>
