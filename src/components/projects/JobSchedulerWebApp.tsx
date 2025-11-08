@@ -23,7 +23,7 @@ function Overview() {
     return (
         <>
             <p>
-                This web application is the frontend for the automation platform. It's built as a React single-page app (SPA) and provides a user interface for complete management of the scheduler tool, enabling users to:
+                This web application is the frontend for an automation platform. It's built as a React single-page app (SPA) and provides a user interface for complete management of the scheduler tool, enabling users to:
             </p>
             <UnorderedList>
                 <li>Design and build custom workflows</li>

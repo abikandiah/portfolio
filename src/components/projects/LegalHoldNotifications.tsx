@@ -2,6 +2,7 @@ import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { MessageBanner } from "../ui/banner";
 import { OrderedList, UnorderedList } from "../ui/list";
+import { Skeleton } from "../ui/skeleton";
 
 export const legalHoldNotificationsProject: ProjectProps = {
     type: projectType.NuixRampiva,
@@ -158,11 +159,14 @@ function SsoLinks() {
             <p>
                 The payload is encrypted using a <strong>secret key</strong> maintained exclusively by the platform. To verify the integrity and authenticity of an incoming SSO link, the system performs the following steps:
             </p>
+
+            <Skeleton className="h-20 w-[80%] bg-stone-300"/>
+{/* 
             <OrderedList>
                 <li>The link payload is <strong>re-hashed</strong> using a pre-defined hashing algorithm.</li>
                 <li>The resulting hash is then <strong>encrypted</strong> with the platform's secret key.</li>
                 <li>The encrypted result is compared against the signature attached to the link.</li>
-            </OrderedList>
+            </OrderedList> */}
             <p>
                 A successful match confirms that the platform originally created the payload.
             </p>

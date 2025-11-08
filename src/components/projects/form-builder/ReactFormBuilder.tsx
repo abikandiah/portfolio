@@ -55,7 +55,7 @@ function FormBlueprint() {
                 Annotations are used to describe everything about a form. There are both class and field annotations. Field annotations describe which fields to use in the form and their properties. Class annotations describe layout and extra metadata.
             </p>
             <CodeDisplay>
-                {`@interface FormField {
+                {`@interface Field {
     String label();
     String name();
     ComponentType type();
@@ -64,9 +64,9 @@ function FormBlueprint() {
     int min();
     int max();
 }
-@interface FormFieldRow {
+@interface FieldRow {
 }
-@interface FormFieldGroup {
+@interface FFieldGroup {
 }`}
             </CodeDisplay>
 
@@ -85,13 +85,13 @@ function FormBlueprint() {
             <CodeDisplay>
                 {`@FormBlueprint
 class Something {
-    @FormField
+    @Field
     String name;
 
-    @FormField(values=["a", "ab", "ba"])
+    @Field(values=["a", "ab", "ba"])
     Enum type;
 
-    @FormField
+    @Field
     Boolean checked;
 }
 `}
