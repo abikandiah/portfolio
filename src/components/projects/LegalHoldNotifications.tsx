@@ -151,24 +151,32 @@ function SsoLinks() {
             <p>
                 The security of SSO links relies on asymmetric encryption and a caching mechanism. An SSO link carries two main components:
             </p>
-            <OrderedList>
+
+            <Skeleton className="h-15 bg-stone-300 lg:w-[80%] xl:w-[70%]"
+                variant="none"
+            />
+
+            {/* <OrderedList>
                 <li>A <strong>payload</strong> containing navigation information about the specific notice or legal hold.</li>
                 <li>An <strong>encrypted signature</strong> of that payload.</li>
-            </OrderedList>
+            </OrderedList> */}
 
             <p>
                 The payload is encrypted using a <strong>secret key</strong> maintained exclusively by the platform. To verify the integrity and authenticity of an incoming SSO link, the system performs the following steps:
             </p>
 
-            <Skeleton className="h-20 w-[80%] bg-stone-300"/>
-{/* 
+            <Skeleton className="h-25 bg-stone-300 lg:w-[80%] xl:w-[70%]"
+                variant="none"
+            />
+
+            {/* 
             <OrderedList>
                 <li>The link payload is <strong>re-hashed</strong> using a pre-defined hashing algorithm.</li>
                 <li>The resulting hash is then <strong>encrypted</strong> with the platform's secret key.</li>
                 <li>The encrypted result is compared against the signature attached to the link.</li>
             </OrderedList> */}
             <p>
-                A successful match confirms that the platform originally created the payload.
+                A successful match confirms that the platform created the payload.
             </p>
 
             <h3 className="sub-heading">Expiration and Status Tracking</h3>
@@ -177,7 +185,8 @@ function SsoLinks() {
             </p>
 
             <MessageBanner type="info"
-                message="SSO links are an optional feature of legal holds. Disabling them requires custodians and administrators to sign in manually." />
+                message="SSO links are an optional feature of legal holds. Disabling them requires custodians and administrators to sign in manually."
+            />
             <MessageBanner type="info"
                 message="Upon system restart, all cached SSO links are lost and immediately become expired, though they remain refreshable."
             />
