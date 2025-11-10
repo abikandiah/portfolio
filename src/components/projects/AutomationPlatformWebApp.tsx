@@ -4,7 +4,7 @@ import { MessageBanner } from "../ui/banner";
 import { CodeDisplay } from "../ui/code";
 import { UnorderedList } from "../ui/list";
 
-export const jobSchedulerWebApp: ProjectProps = {
+export const automationPlatformWebApp: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Automation Platform Web App',
     duration: '2018 - 2025',
