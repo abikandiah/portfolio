@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -19,6 +20,11 @@ import { Route as ProjectsProjectKeyRouteImport } from './routes/projects/$proje
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaygroundRoute = PlaygroundRouteImport.update({
+  id: '/playground',
+  path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DisclaimerRoute = DisclaimerRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/playground': typeof PlaygroundRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/playground': typeof PlaygroundRoute
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/projects': typeof ProjectsIndexRoute
 }
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/playground': typeof PlaygroundRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -77,16 +86,24 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/disclaimer'
+    | '/playground'
     | '/projects'
     | '/projects/$projectKey'
     | '/projects/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/disclaimer' | '/projects/$projectKey' | '/projects'
+  to:
+    | '/'
+    | '/about'
+    | '/disclaimer'
+    | '/playground'
+    | '/projects/$projectKey'
+    | '/projects'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/disclaimer'
+    | '/playground'
     | '/projects'
     | '/projects/$projectKey'
     | '/projects/'
@@ -96,6 +113,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   DisclaimerRoute: typeof DisclaimerRoute
+  PlaygroundRoute: typeof PlaygroundRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
 }
 
@@ -106,6 +124,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/playground': {
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/disclaimer': {
@@ -164,6 +189,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   DisclaimerRoute: DisclaimerRoute,
+  PlaygroundRoute: PlaygroundRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
 }
 export const routeTree = rootRouteImport

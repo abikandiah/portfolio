@@ -149,7 +149,7 @@ function SsoLinks() {
 
             <h3 className="sub-heading">Security and Validation</h3>
             <p>
-                The security of SSO links relies on asymmetric encryption and a caching mechanism. An SSO link carries two main components:
+                The security of SSO links relies on symmetric encryption and a caching mechanism. An SSO link carries two main components:
             </p>
 
             <Skeleton className="h-15 bg-stone-300 lg:w-[80%] xl:w-[70%]"
