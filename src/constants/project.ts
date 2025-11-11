@@ -4,7 +4,7 @@ import { javaToReactFormBuilderProject as javaToReactFormBuilder } from "@/compo
 import { googleVaultProject as googleVaultCollector } from "@/components/projects/GoogleVaultCollector";
 import { legalHoldNotificationsProject as legalHoldNotifications } from "@/components/projects/LegalHoldNotifications";
 import { microsoftEDiscoveryProject as microsoftEDiscoveryCollector } from "@/components/projects/MicrosoftEDiscoveryCollector";
-import { automationPlatformWebApp } from "@/components/projects/AutomationPlatformWebApp";
+import { platformWebApp } from "@/components/projects/PlatformWebApp";
 import { selenumE2ETestSuiteProject as selenumE2ETestSuite } from "@/components/projects/SeleniumE2ETestSuite";
 import { thirdPartyServicesProject as thirdPartyServices } from "@/components/projects/ThirdPartyServicesFramework";
 import { webPortfolioProject as webPortfolio } from "@/components/projects/WebPortfolio";
@@ -18,7 +18,7 @@ function addProject(props: ProjectProps) {
     props.pathname = proj.pathname;
 }
 
-addProject(automationPlatformWebApp);
+addProject(platformWebApp);
 addProject(legalHoldNotifications);
 addProject(javaToReactFormBuilder);
 addProject(thirdPartyServices);
