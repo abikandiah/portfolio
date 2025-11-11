@@ -3,6 +3,7 @@ import { techType } from "@/types/TechTypes";
 import { MessageBanner } from "../ui/banner";
 import { CodeDisplay } from "../ui/code";
 import { UnorderedList } from "../ui/list";
+import { Skeleton } from "../ui/skeleton";
 
 export const platformWebApp: ProjectProps = {
     type: projectType.NuixRampiva,
@@ -44,7 +45,7 @@ function Framework() {
                 The framework defines a pattern for integrating backend data models into the frontend application. It standardizes common frontend concerns, offering built-in support for:
             </p>
             <UnorderedList>
-                <li><strong>State Management</strong>: Enables querying, polling, and centralized, global tracking of application data model objects.</li>
+                <li><strong>State Management</strong>: Supports querying, polling, and global tracking of application data.</li>
                 <li><strong>Data Operations</strong>: Full CRUD (Create, Read, Update, Delete) functionality.</li>
                 <li><strong>Component Ecosystem</strong>: A suite of custom components, hooks, and utility functions to aid development.</li>
             </UnorderedList>
@@ -52,18 +53,18 @@ function Framework() {
                 It's built with three main libraries:
             </p>
             <UnorderedList>
-                <li><strong>React</strong>: For the base for the user interface, components, and styling (leveraging <strong>SASS</strong> as the CSS pre-processor).</li>
-                <li><strong>React-Redux</strong>: Provides scalable global state management across the application.</li>
-                <li><strong>Redux-Sagas</strong>: Supports defining and managing complex, asynchronous logic and side-effects.</li>
+                <li><strong>React</strong>: For the user interface, components, and styling (leveraging <strong>SASS</strong> as the CSS pre-processor).</li>
+                <li><strong>React-Redux</strong>: Provides global state management across the application.</li>
+                <li><strong>Redux-Sagas</strong>: For defining and managing complex, asynchronous logic and side-effects.</li>
             </UnorderedList>
 
             <p>
-                To successfully integrate data models according to this pattern, developers must extend two essential abstract base classes: The <span className="font-semibold">Model</span> class and the <span className="font-semibold">ModelSaga</span> class.
+                This pattern is built around two essential abstract classes: The <span className="font-semibold">Model</span> class and the <span className="font-semibold">ModelSaga</span> class.
             </p>
 
             <h3 className="sub-heading">Model Class</h3>
             <p>
-                The Model class serves as the central definition for a backend data model within the frontend. It describes the class structure, its integration with Redux state management, and registers the list of available API endpoints.
+                The Model class serves as the central definition for a backend data model within the frontend. It describes the class structure, its integration with Redux state management, and the list of available API endpoints.
             </p>
 
             <CodeDisplay code={`class Model extends BaseModel {
@@ -87,7 +88,7 @@ function Framework() {
 
             <h3 className="sub-heading">Saga Class</h3>
             <p>
-                The ModelSaga class is responsible for defining and controlling all asynchronous user flow handlers associated with a data model. These handlers are implemented as Redux Saga functions and are triggered by specific Redux actions.
+                The ModelSaga class is responsible for defining and managing all asynchronous user flow handlers for a data model. These handlers are implemented as Redux Saga functions and are triggered by specific Redux actions.
             </p>
             <p>
                 Its responsibilities encompass standard functions for data fetching and CRUD operations, as well as complex logic, such as coordinating multi-step guided job submissions.
@@ -104,14 +105,11 @@ function Framework() {
 }`
             } />
             <MessageBanner type="note"
-                message="Both Model and ModelSaga extend base classes that contain further abstractions and simplifications. These base classes also serve as the base for other, smaller use cases within the framework." />
+                message="Both Model and ModelSaga extend base classes that contain further abstractions. These base classes also serve as the base for other, specialized classes within the framework." />
 
             <h3 className="sub-heading">Component Ecosystem</h3>
             <p>
-                The framework includes a suite of reusable components, custom hooks, and utility functions, designed to accelerate frontend development and maintain UI consistency.
-            </p>
-            <p>
-                The components are utilized to construct core application views, including pages, popups, data tables, forms, and model-specific interfaces.
+                The framework includes a suite of reusable components, custom hooks, and utility functions, designed to accelerate frontend development and maintain UI consistency. The components are utilized to construct core application views, including pages, popups, data tables, forms, and model-specific interfaces.
             </p>
             <p>
                 The custom hooks provide abstracted utility and logic across a wide range of needs, from standard input handling and local data fetching to more complex operations, such as virtualized rendering and component intersection observation.
@@ -152,8 +150,8 @@ function Internals() {
                 Authentication is configurable and supports <strong>username/password forms</strong> or <strong>third-party OIDC providers</strong>.
             </p>
             <UnorderedList>
-                <li>Upon successful backend login, the frontend receives a short-lived session token used for API authentication.</li>
-                <li>For securty, this session token is isolated within a web worker and is not stored within a cookie.</li>
+                <li>Upon successful login, the frontend receives a short-lived session token used for API authentication.</li>
+                <li><Skeleton className="h-5 w-150" variant="none" /></li>
                 <li>A refresh token is also utilized to automatically renew the session token at its half-life.</li>
             </UnorderedList>
 
@@ -168,7 +166,7 @@ function Internals() {
 
             <h3 className="sub-heading">Page Navigation</h3>
             <p>
-                Application navigation is managed using <strong>React-Router</strong>, built upon its <strong>Hash Router</strong> implementation.
+                Application navigation is managed using <strong>React-Router</strong>.
             </p>
         </>
     )

@@ -152,7 +152,7 @@ function SsoLinks() {
                 The security of SSO links relies on symmetric encryption and a caching mechanism. An SSO link carries two main components:
             </p>
 
-            <Skeleton className="h-15 bg-stone-300 lg:w-[80%] xl:w-[70%]"
+            <Skeleton className="h-15 lg:w-[80%] xl:w-[70%]"
                 variant="none"
             />
 
@@ -165,7 +165,7 @@ function SsoLinks() {
                 The payload is encrypted using a <strong>secret key</strong> maintained exclusively by the platform. To verify the integrity and authenticity of an incoming SSO link, the system performs the following steps:
             </p>
 
-            <Skeleton className="h-25 bg-stone-300 lg:w-[80%] xl:w-[70%]"
+            <Skeleton className="h-25 lg:w-[80%] xl:w-[70%]"
                 variant="none"
             />
 
