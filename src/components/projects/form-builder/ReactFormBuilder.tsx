@@ -1,5 +1,5 @@
 import { MessageBanner } from "@/components/ui/banner";
-import { UnorderedList } from "@/components/ui/list";
+import { OrderedList, UnorderedList } from "@/components/ui/list";
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
 import { CodeDisplay } from "../../ui/code";
@@ -9,14 +9,14 @@ export const javaToReactFormBuilderProject: ProjectProps = {
     type: projectType.NuixRampiva,
     name: 'Java-To-React Form Builder',
     duration: '2023',
-    description: `A Java form blueprint and a React form builder, used to auto-generate forms based on class annotations.`,
+    description: `A form generation tool that renders React forms based on Java class and field annotations, greatly reducing UI development time for new back-end models.`,
     tech: [techType.Java, techType.JavaScript, techType.SASS, techType.JSX, techType.React, techType.Dropwizard,
     techType.RestAPI, techType.JavaAnnotations, techType.JavaReflection],
 
     sections: [
         { title: 'Overview', body: Overview },
         { title: 'Java Form Blueprint', body: FormBlueprint },
-        { title: 'The Form Builder', body: FormBuilder },
+        { title: 'React Form Builder', body: FormBuilder },
     ]
 };
 
@@ -24,20 +24,19 @@ function Overview() {
     return (
         <>
             <p>
-                This feature auto-generates React forms for corresponding Java classes. The classes need to use annotations to describe their form and field characteristics, such as the type of component and any validation logic. Then reflection is used to process those annotations and build form configuration objects. The objects are then sent to the frontend form builder component to build the React form.
+                This feature enables automated, synchronized form generation for Java classes. It uses Java reflection to process custom annotations (used to define form structure, field types, value options, and all validation logic), converting them into form configuration objects. These objects are then consumed by a dedicated frontend form builder to dynamically render the final React form.
             </p>
             <p>
-                It was used internally to build forms for workflow operations. It can auto-generate any frontend form for a backend data model. Customization was made and added as complexity was required.
+                Initially developed to generate complex workflow operation forms, this tool allows for the automatic generation of frontend forms for any backend data model. Its primary value is establishing Java classes as the blueprint for UI forms, removing frontend development time and maintenance. The architecture was designed for extensibility to handle growing complexity.
             </p>
             <p>
-                Forms supported the following and more:
+                The form builder component supports a wide array of advanced features, including:
             </p>
             <UnorderedList>
-                <li>Rows, groups and tables</li>
-                <li>Filters (min, max, regexps) and validations</li>
-                <li>Disabling and enabling fields</li>
-                <li>Hiding and showing fields</li>
-                <li>Nested forms</li>
+                <li><strong>Complex Layouts</strong>: Support for grouping into rows, sections, and dynamic tables.</li>
+                <li><strong>Advanced Validation</strong>: Implementing filters (min, max), custom regular expressions, and input validation checks.</li>
+                <li><strong>Dynamic Field Behavior</strong>: Conditional logic for disabling, enabling, hiding, and showing fields based on user input.</li>
+                <li><strong>Hierarchy Support</strong>: Handling nested forms for complex object structures.</li>
             </UnorderedList>
         </>
     )
@@ -47,13 +46,18 @@ function FormBlueprint() {
     return (
         <>
             <p>
-                In Java's world, annotations and reflection are used to generate form blueprints from Java classes. Those blueprints are then sent to the frontend via a REST endpoint. Form blueprints describe everything to do with the form and the model it represents.
+                In Java's world, <strong>annotations and reflection</strong> are used to generate the form blueprint from the corresponding Java class. This blueprint serves as the single source of truth for form definition and is then delivered to the frontend via a dedicated REST endpoint. The form blueprint fully describes the structure of the form and the data model it represents, ensuring synchronization.
             </p>
 
             <h3 className="sub-heading">Annotations</h3>
             <p>
-                Annotations are used to describe everything about a form. There are both class and field annotations. Field annotations describe which fields to use in the form and their properties. Class annotations describe layout and extra metadata.
+                Java class and field annotations are utilized to describe every aspect of the form:
             </p>
+            <UnorderedList>
+                <li><strong>Field Annotations</strong>: Define which fields are included in the form, along with their individual properties (e.g., component type, value options, and validation rules).</li>
+                <li><strong>Class Annotations</strong>: Define the overall form structure, including layout (e.g., grouping and rows) and essential metadata.</li>
+            </UnorderedList>
+
             <CodeDisplay>
                 {`@interface Field {
     String label();
@@ -66,22 +70,22 @@ function FormBlueprint() {
 }
 @interface FieldRow {
 }
-@interface FFieldGroup {
+@interface FieldGroup {
 }`}
             </CodeDisplay>
 
             <p>
-                A lot of form settings are implicitly determined through reflection, such as the component type (number component for a number type) and field position (same as in the class).
+                A lot of form settings are implicitly determined with reflection, effectively reducing the need for manual annotation. Settings, such as the <strong>component type</strong> (e.g., a number input for a Java numeric type) and the default <strong>field position</strong> (inherited directly from the class declaration order), are automatically determined, making it easier to define blueprints.
             </p>
-
 
             <h3 className="sub-heading">Reflection</h3>
             <p>
-                Reflection is used to read class annotations, fields and metadata to build form blueprints. This is done at runtime to implicitly generate blueprint settings based on class and field metadata, such as the component type (InputList for a <code className="code">List&lt;String&gt;</code>) and initial value, allowing for easy form markup. The blueprints are then sent to the frontend to be rendered by the React form builder component.
+                Java reflection is used to parse class annotations, fields and metadata for building form blueprints. It is also used for implicitly generating blueprint settings—such as mapping Java types (e.g., <code className="code">List&lt;String&gt;</code>) to their specific component type (e.g., <code className="code">InputList</code>), and determining default field values. These complete blueprints are then serialized and transmitted to the frontend for dynamic rendering by the React form builder component.
             </p>
             <p>
-                Implicitly determining settings with reflection reduces the need for explicit settings within annotations. Most fields are automatically configured, requiring explicit settings only for fields with complex or special behavior.
+                The strategy of implicit determination via reflection reduces the need for explicit settings within the annotations. By automatically configuring most form field settings based on Java field properties, the tool ensures that explicit settings are only necessary for fields requiring complex or highly customized behaviour, easing the whole blueprint definition process.
             </p>
+
             <CodeDisplay>
                 {`@FormBlueprint
 class Something {
@@ -98,10 +102,10 @@ class Something {
             </CodeDisplay>
 
             <MessageBanner type="note"
-                message="Settings are only implicitly set if they aren't defined by the annotations."
+                message="Settings are only implicitly set if they aren't explicitly defined by the annotations."
             />
             <MessageBanner type="info"
-                message="Form blueprints are only created for classes and fields with annotations correctly applied."
+                message="Blueprint creation is limited to Java classes and fields that have the necessary custom annotations correctly applied."
             />
         </>
     )
@@ -111,24 +115,28 @@ function FormBuilder() {
     return (
         <>
             <p>
-                The frontend takes the form blueprint and passes it to a React form builder component. This component takes the blueprint and builds a form out of it.
+                The frontend takes the form blueprint delivered via the REST endpoint and passes it to the dedicated React form builder component. This builder constructs the form in two main phases:
             </p>
+            <OrderedList>
+                <li><strong>Layout and Structure</strong>: Fields are organized according to the blueprint's layout specifications, arranging them into grid-like patterns of rows and columns.</li>
+                <li><strong>Component Rendering</strong>: Field components are rendered for the field configurations, applying default values, value restrictions (like regular expressions, allowed value lists, or min/max ranges), and dynamic validation handlers.</li>
+            </OrderedList>
             <p>
-                First, it organizes the fields according to the form layout, arranging them into a grid-like pattern of rows and columns. Next, it selects and renders the field components based on their configuration objects. These components can be configured with default values and value restrictions, such as regular expressions, lists of allowed values, or minimum/maximum ranges.
+                A key feature is the support for <strong>Dynamic Field Behavior</strong>: components can be configured to set their visibility or active state based on the real-time values of other fields. For example, a checkbox value can be used to conditionally show or hide an entire group of related fields.
             </p>
+
+            <h3 className="sub-heading">Advanced Form Capabilities</h3>
             <p>
-                They can also be configured to set their visibility and active state based on the values of other fields. For example, the value of a checkbox could be used to show or hide a group of fields.
+                This tool is designed to handle complex data structures:
             </p>
-            <p>
-                If a field's type is another Java class (e.g., a Client object containing an Address object), it will be rendered as a nested form using that class's configuration. However, it's only rendered if that Java class is annotated and has its own form blueprint. There's no limitation to how many forms can be nested nor the level of nesting (All though things could get messy if there's too much nesting; power is left in the hands of the developer).
-            </p>
-            <p>
-                Complex collection type components, such as lists and tables, have support for adding, editing and removing multiple values. Fields that are collections of other Java classes are also supported, for example the field type <code className="code">List&lt;Parameter&gt;</code> supports modifying a list of <code className="code">Parameter</code> objects. These objects are modified via the nested form support. Each object is represented by a row in a table or list and can either be modified via row cell components or a popup form.
-            </p>
+            <UnorderedList>
+                <li><strong>Nested Forms</strong>: If a field's type is an annotated Java class (e.g., a `Client` object containing an `Address` object), it is dynamically rendered as a nested form using that class's own blueprint. There is no limitation on the depth of nesting, providing developers flexibility for hierarchical data modeling.</li>
+                <li><strong>Collection Types</strong>: Components for complex collection types, such as lists and tables, support adding, editing, and removing multiple values. Collections of other annotated Java classes (e.g., <code className="code">List&lt;Parameter&gt;</code>) are fully supported, with each object represented by a row in a table or list and modified via cell components or a dedicated popup form (leveraging the nested form support).</li>
+            </UnorderedList>
 
             <h3 className="sub-heading">Workflow Builder</h3>
             <p>
-                This feature was designed to auto-generate operation forms for our workflow builder. With over 200 supported operations—and more being added regularly—this tool is essential. It allows for quick and easy creation of forms directly from backend configurations, reducing frontend development time and the overall number of components to manage.
+                This feature was originally designed to auto-generate operation forms for a <strong>Workflow Builder</strong> component.With over 200 supported operations—and more being added regularly—this tool has become essential. It allows for quick and easy creation of fully functional forms directly from backend configurations, reducing frontend development time and the overall number of components to manage.
             </p>
         </>
     )
