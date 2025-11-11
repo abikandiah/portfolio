@@ -4,6 +4,7 @@
 check_prereqs() {
 	if [[ -n $(git status --porcelain --untracked-files=no) ]]; then
 		echo "Current branch has uncommitted files."
+		echo
 		git status
 		return 1;
 	else

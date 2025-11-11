@@ -23,11 +23,16 @@ function Overview() {
     return (
         <>
             <p>
-                This web application is the user interface for an enterprise automation platform, providing complete end-to-end management of the system. The application enables users to design, schedule, and monitor custom workflows while managing core data models (clients/matters), user access policies, system configuration, and third-party integrations. Built as a scalable React Single-Page Application (SPA) utilizing a custom abstraction framework.
+                This web application is the user interface for an enterprise automation platform, providing complete end-to-end system management. Built as a scalable <strong>React Single-Page Application (SPA)</strong> utilizing a custom abstraction framework, the frontend offers a centralized management console.
             </p>
             <p>
-                The frontend provides a centralized management console, featuring dedicated views for the full lifecycle of automation jobs (submission, viewing, and configuration) and comprehensive administrative control over the system. This functionality is supported by a design featuring multiple core data models and underpinned by a custom framework built for abstraction and long-term scalability.
+                This console enables users to:
             </p>
+            <UnorderedList>
+                <li>Design, schedule, and monitor custom workflows.</li>
+                <li>Manage core data models (clients/matters) and third-party integrations.</li>
+                <li>Administrate system configuration and user access policies.</li>
+            </UnorderedList>
         </>
     )
 }
