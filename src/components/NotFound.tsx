@@ -11,7 +11,7 @@ import { TextLink } from "./ui";
 
 function NotFound() {
     return (
-        <Empty>
+        <Empty className="relative top-[100%]">
             <EmptyHeader>
                 <FileQuestionMark size="128" className="mb-2" />
                 <EmptyTitle className="text-3xl">404 - Not Found</EmptyTitle>

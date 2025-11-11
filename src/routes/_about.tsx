@@ -2,7 +2,7 @@ import { InnerUnorderedList, UnorderedList } from '@/components/ui/list'
 import { ConstructionLanding } from '@/components/UnderConstruction'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/about')({
+export const Route = createFileRoute('/_about')({
 	component: RouteComponent,
 })
 

@@ -10,9 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as AboutRouteImport } from './routes/_about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
 import { Route as ProjectsProjectKeyRouteImport } from './routes/projects/$projectKey'
@@ -22,19 +21,13 @@ const ProjectsRoute = ProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlaygroundRoute = PlaygroundRouteImport.update({
-  id: '/playground',
-  path: '/playground',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+  id: '/_about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -55,27 +48,22 @@ const ProjectsProjectKeyRoute = ProjectsProjectKeyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/disclaimer': typeof DisclaimerRoute
-  '/playground': typeof PlaygroundRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/disclaimer': typeof DisclaimerRoute
-  '/playground': typeof PlaygroundRoute
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/projects': typeof ProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/_about': typeof AboutRoute
   '/disclaimer': typeof DisclaimerRoute
-  '/playground': typeof PlaygroundRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -84,26 +72,17 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
     | '/disclaimer'
-    | '/playground'
     | '/projects'
     | '/projects/$projectKey'
     | '/projects/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/disclaimer'
-    | '/playground'
-    | '/projects/$projectKey'
-    | '/projects'
+  to: '/' | '/disclaimer' | '/projects/$projectKey' | '/projects'
   id:
     | '__root__'
     | '/'
-    | '/about'
+    | '/_about'
     | '/disclaimer'
-    | '/playground'
     | '/projects'
     | '/projects/$projectKey'
     | '/projects/'
@@ -113,7 +92,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   DisclaimerRoute: typeof DisclaimerRoute
-  PlaygroundRoute: typeof PlaygroundRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
 }
 
@@ -126,13 +104,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/playground': {
-      id: '/playground'
-      path: '/playground'
-      fullPath: '/playground'
-      preLoaderRoute: typeof PlaygroundRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/disclaimer': {
       id: '/disclaimer'
       path: '/disclaimer'
@@ -140,10 +111,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DisclaimerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
+    '/_about': {
+      id: '/_about'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -189,7 +160,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   DisclaimerRoute: DisclaimerRoute,
-  PlaygroundRoute: PlaygroundRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
