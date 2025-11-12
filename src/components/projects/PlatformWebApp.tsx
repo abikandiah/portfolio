@@ -6,7 +6,7 @@ import { UnorderedList } from "../ui/list";
 import { Skeleton } from "../ui/skeleton";
 
 export const platformWebApp: ProjectProps = {
-    type: projectType.NuixRampiva,
+    type: projectType.Work,
     name: 'Platform Web Application',
     duration: '2018 - 2025',
     description: `A React-based management console for the Java backend, enabling users to create, schedule, and submit eDiscovery workflows for processing.`,

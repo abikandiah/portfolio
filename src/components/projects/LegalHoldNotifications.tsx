@@ -5,7 +5,7 @@ import { OrderedList, UnorderedList } from "../ui/list";
 import { Skeleton } from "../ui/skeleton";
 
 export const legalHoldNotificationsProject: ProjectProps = {
-    type: projectType.NuixRampiva,
+    type: projectType.Work,
     name: 'Legal Hold Notifications',
     duration: '2020 - 2021',
     description: `A communication platform for administrating and auditing legal holds.`,

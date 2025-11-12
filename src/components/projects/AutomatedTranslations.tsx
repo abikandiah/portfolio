@@ -4,7 +4,7 @@ import { MessageBanner } from "../ui/banner";
 import { OrderedList } from "../ui/list";
 
 export const automatedTranslationsProject: ProjectProps = {
-    type: projectType.NuixRampiva,
+    type: projectType.Work,
     name: 'Automated Translations',
     duration: '2019',
     description: `A collection of scripts for automating the translation of frontend and backend language files.`,

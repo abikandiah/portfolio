@@ -3,7 +3,7 @@ import { techType } from "@/types/TechTypes";
 import { OrderedList } from "../ui/list";
 
 export const selenumE2ETestSuiteProject: ProjectProps = {
-    type: projectType.NuixRampiva,
+    type: projectType.Work,
     name: 'Selenium E2E Test Suite',
     duration: '2019 - 2025',
     description: `A scalable end-to-end (E2E) test suite for validating web application user flows, executed as part of the CI/CD pipeline's test stage.`,

@@ -7,7 +7,7 @@ import { thirdPartyServicesProject } from "./ThirdPartyServicesFramework";
 
 
 export const googleVaultProject: ProjectProps = {
-    type: projectType.NuixRampiva,
+    type: projectType.Work,
     name: 'Google Vault Collector',
     duration: '2024',
     description: `An integration of the Google Vault eDiscovery tool into the workflow automation platform, providing a structured, automated approach for end-to-end data collections.`,

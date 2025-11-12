@@ -5,7 +5,7 @@ import { UnorderedList } from "../ui/list";
 
 
 export const thirdPartyServicesProject: ProjectProps = {
-    type: projectType.NuixRampiva,
+    type: projectType.Work,
     name: 'Third-Party Services Framework',
     duration: '2024',
     description: 'A full-stack framework to build integrations to third-party services.',

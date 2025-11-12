@@ -2,7 +2,7 @@ import type { ComponentType } from "react";
 import { type TTech } from "./TechTypes";
 
 const projectType = {
-    NuixRampiva: 'Nuix / Rampiva',
+    Work: 'Work',
     Personal: 'Personal'
 } as const;
 

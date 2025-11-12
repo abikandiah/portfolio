@@ -4,7 +4,7 @@ import { MessageBanner } from "../ui/banner";
 import { OrderedList, UnorderedList } from "../ui/list";
 
 export const dataUploadProject: ProjectProps = {
-    type: projectType.NuixRampiva,
+    type: projectType.Work,
     name: 'Data Upload',
     duration: '2020',
     description: `A web-based tool for uploading data to data repositories for further processing with workflows.`,

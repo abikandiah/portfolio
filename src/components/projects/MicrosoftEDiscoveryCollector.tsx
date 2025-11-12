@@ -7,7 +7,7 @@ import { thirdPartyServicesProject } from "./ThirdPartyServicesFramework";
 
 
 export const microsoftEDiscoveryProject: ProjectProps = {
-    type: projectType.NuixRampiva,
+    type: projectType.Work,
     name: 'Microsoft eDiscovery Collector',
     duration: '2022 - 2024',
     description: `An integration of the Microsoft Purview eDiscovery tool into the workflow automation platform, providing a structured, automated approach for end-to-end data collections.`,
