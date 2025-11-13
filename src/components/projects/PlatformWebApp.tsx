@@ -151,7 +151,11 @@ function Internals() {
             </p>
             <UnorderedList>
                 <li>Upon successful login, the frontend receives a short-lived session token used for API authentication.</li>
-                <li><Skeleton className="h-5 w-150" variant="none" /></li>
+                <li>
+                    <Skeleton className="h-5 lg:w-150"
+                        variant="none"
+                    />
+                </li>
                 <li>A refresh token is also utilized to automatically renew the session token at its half-life.</li>
             </UnorderedList>
 
