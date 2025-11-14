@@ -22,9 +22,9 @@ fi
 
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
-echo Merging $current_branch into master
+echo Merging $current_branch into main
 
-git checkout master
+git checkout main
 git merge $current_branch
 git push
 git checkout $current_branch
