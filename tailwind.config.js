@@ -9,7 +9,7 @@ export default {
 
 		// 🌟 MANDATORY: Tell Tailwind to look inside your installed package's files
 		// This ensures classes used by Button, Card, etc., are included in the build.
-		'./node_modules/@abumble/design-system/**/*.{js,jsx,ts,tsx}',
+		'./node_modules/@abumble/design-system/dist/**/*.{js,jsx,ts,tsx}',
 	],
 }
 

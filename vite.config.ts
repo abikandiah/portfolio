@@ -1,10 +1,10 @@
 import { resolve } from 'node:path'
 
 import { defineConfig } from 'vite'
-import "vitest/config" // <-- just dummy import
+import "vitest/config"; // <-- just dummy import
 
-import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import viteReact from '@vitejs/plugin-react'
 
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
@@ -19,7 +19,7 @@ export default defineConfig({
 		globals: true,
 		environment: 'jsdom',
 		include: ['src/**/*.{test,spec}.{ts,tsx}'],
-	coverage: {
+		coverage: {
 			reporter: ['text', 'json', 'html'],
 		},
 	},
