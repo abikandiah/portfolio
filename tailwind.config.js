@@ -1,4 +1,4 @@
-const { dsConfig } = require("@abumble/design-system")
+const { dsConfig } = require("@abumble/design-system/config")
 
 
 /** @type {import('tailwindcss').Config} */

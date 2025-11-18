@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import UnderConstruction from '@/components/UnderConstruction'
+import { UnderConstruction } from '@/components/UnderConstruction'
 import { stringToBoolean } from '@/utils'
 import type { QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
