@@ -1,5 +1,5 @@
-import { InnerUnorderedList, UnorderedList } from '@/components/ui/list'
-import { ConstructionLanding } from '@/components/UnderConstruction'
+import { InnerUnorderedList, UnorderedList } from '@abumble/design-system/components/List'
+import { ConstructionLanding } from '@abumble/design-system/components/UnderConstruction'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_about')({

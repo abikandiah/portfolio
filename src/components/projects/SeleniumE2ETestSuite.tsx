@@ -1,6 +1,6 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
-import { OrderedList } from "../ui/list";
+import { OrderedList } from "@abumble/design-system/components/List";
 
 export const selenumE2ETestSuiteProject: ProjectProps = {
     type: projectType.Work,

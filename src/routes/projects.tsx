@@ -1,11 +1,11 @@
 import { createFileRoute, Link, Outlet, type LinkComponentProps } from '@tanstack/react-router';
 
-import { Banner } from '@/components/ui/banner';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import { Banner } from '@abumble/design-system/components/Banner';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from "@abumble/design-system/components/Sidebar";
 import { projectsByType } from '@/constants/project';
-import type { onClickCallback } from '@/types';
+import type { onClickCallback } from '@abumble/design-system/types';
 import { Project } from '@/types/ProjectTypes';
-import { stringToBoolean } from '@/utils';
+import { stringToBoolean } from '@abumble/design-system/utils';
 import { useCallback, useState } from 'react';
 import { DisclaimerBody } from './disclaimer';
 

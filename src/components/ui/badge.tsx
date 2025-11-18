@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@abumble/design-system/utils";
 import { techColorMap } from "@/types/TechTypes";
 
 

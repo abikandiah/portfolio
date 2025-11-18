@@ -1,8 +1,8 @@
 import { projectType, type ProjectProps } from "@/types/ProjectTypes";
 import { techType } from "@/types/TechTypes";
-import { MessageBanner } from "../ui/banner";
-import { OrderedList, UnorderedList } from "../ui/list";
-import { Skeleton } from "../ui/skeleton";
+import { MessageBanner } from "@abumble/design-system/components/Banner";
+import { OrderedList, UnorderedList } from "@abumble/design-system/components/List";
+import { Skeleton } from "@abumble/design-system/components/Skeleton";
 
 export const legalHoldNotificationsProject: ProjectProps = {
     type: projectType.Work,

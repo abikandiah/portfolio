@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { UnderConstruction } from '@/components/UnderConstruction'
-import { stringToBoolean } from '@/utils'
+import { UnderConstruction } from '@abumble/design-system/components/UnderConstruction'
+import { stringToBoolean } from '@abumble/design-system/utils'
 import type { QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 

@@ -6,7 +6,7 @@ import ProjectsOverview from '@/components/home/ProjectsOverview';
 import WorkExperience from '@/components/home/WorkExperience';
 import { ExternalSite, PageDescription, PageHeader } from "@/components/ui";
 import { LINKS, PERSONAL } from "@/constants";
-import { cn } from "@/lib/utils";
+import { cn } from "@abumble/design-system/utils";
 import { createFileRoute } from '@tanstack/react-router';
 import { Mail } from 'lucide-react';
 import { useRef, useState } from 'react';

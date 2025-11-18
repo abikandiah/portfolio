@@ -1,9 +1,9 @@
 import { NotFound } from '@/components/NotFound';
 import { PageDescription, PageHeader } from '@/components/ui';
 import { BadgeContainer, TechBadge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
+import { Separator } from '@abumble/design-system/components/Separator';
 import { projectsMap } from '@/constants/project';
-import { cn } from '@/lib/utils';
+import { cn } from '@abumble/design-system/utils';
 import type { Project, ProjectSection } from '@/types/ProjectTypes';
 import { createFileRoute } from '@tanstack/react-router';
 import { Fragment } from 'react/jsx-runtime';

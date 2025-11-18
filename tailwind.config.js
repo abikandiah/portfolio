@@ -1,4 +1,3 @@
-const { dsConfig } = require("@abumble/design-system/config")
 
 
 /** @type {import('tailwindcss').Config} */
@@ -12,6 +11,5 @@ export default {
 		// This ensures classes used by Button, Card, etc., are included in the build.
 		'./node_modules/@abumble/design-system/**/*.{js,jsx,ts,tsx}',
 	],
-	presets: [dsConfig]
 }
 

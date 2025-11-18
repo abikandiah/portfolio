@@ -1,7 +1,7 @@
 import * as React from "react";
 
 
-export function CardH2Header({ Icon, title }: { Icon: React.ElementType; title: string }) {
+function CardH2Header({ Icon, title }: { Icon: React.ElementType; title: string }) {
 	return (
 		<h2 className="flex font-semibold">
 			<Icon />
@@ -10,9 +10,5 @@ export function CardH2Header({ Icon, title }: { Icon: React.ElementType; title: 
 	)
 }
 
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@abumble/design-system/components/Card";
-
-export {
-	Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
-};
+export { CardH2Header };
 

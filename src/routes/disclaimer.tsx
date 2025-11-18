@@ -1,5 +1,5 @@
 import { PageDescription, PageHeader } from '@/components/ui';
-import { UnorderedList } from '@/components/ui/list';
+import { UnorderedList } from '@abumble/design-system/components/List';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/disclaimer')({
