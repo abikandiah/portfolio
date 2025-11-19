@@ -1,12 +1,11 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import { UnderConstruction } from '@abumble/design-system/components/UnderConstruction'
-import { stringToBoolean } from '@abumble/design-system/utils'
-import type { QueryClient } from '@tanstack/react-query'
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { config } from '@/config';
+import { UnderConstruction } from '@abumble/design-system/components/UnderConstruction';
+import type { QueryClient } from '@tanstack/react-query';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 
 // GLOBALS
-const inConstruction = !stringToBoolean(import.meta.env.VITE_CONSTRUCTION_DISABLED);
 
 interface MyRouterContext {
 	queryClient: QueryClient
@@ -18,7 +17,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function Root() {
 
-	if (inConstruction) {
+	if (!config.constructionDisabled) {
 		return (
 			<div className="flex flex-col h-full">
 				<div className='flex flex-grow justify-center'>
