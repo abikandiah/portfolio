@@ -260,7 +260,7 @@ function DatabaseSchema() {
             </p>
 
             <div className="my-4 border-container rounded text-sm">
-                <table className="divide-y divide-stone-300/80 min-w-full">
+                <table className="divide-y divide-border min-w-full">
                     <thead>
                         <tr className="text-xs text-left font-semibold uppercase">
                             <th scope="col" className="px-3 py-2 tracking-wider w-1/3">
@@ -271,7 +271,7 @@ function DatabaseSchema() {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-stone-300/80 font-medium">
+                    <tbody className="divide-y divide-border font-medium">
                         <tr>
                             <td className="px-3 py-2">
                                 Legal Hold
