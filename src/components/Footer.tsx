@@ -23,7 +23,7 @@ function Footer({ showLinks = true }: FooterProps) {
                     }
                     <span className="text-sm text-gray-500">
                         ©
-                        2025
+                        2026
                         Abilaesh Kandiah. All rights reserved.
                     </span>
                 </div>
