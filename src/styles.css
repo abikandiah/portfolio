@@ -3,3 +3,7 @@
 
 @import '@abumble/design-system/styles.css';
 @source "../node_modules/@abumble/design-system";
+
+.image-background {
+	background-image: url("/src/assets/background-image.svg");
+}
