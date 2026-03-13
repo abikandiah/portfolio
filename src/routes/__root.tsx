@@ -1,9 +1,9 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import { config } from '@/config';
-import { UnderConstruction } from '@abumble/design-system/components/UnderConstruction';
-import type { QueryClient } from '@tanstack/react-query';
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
+import { UnderConstruction } from '@abumble/design-system/components/UnderConstruction'
+import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
+import type { QueryClient } from '@tanstack/react-query'
+import { config } from '@/config'
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 
 // GLOBALS
 
@@ -12,15 +12,14 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-	component: Root
-});
+	component: Root,
+})
 
 function Root() {
-
 	if (!config.constructionDisabled) {
 		return (
 			<div className="flex flex-col h-full">
-				<div className='flex flex-grow justify-center'>
+				<div className="flex grow justify-center">
 					<UnderConstruction />
 				</div>
 
@@ -41,4 +40,3 @@ function Root() {
 		</div>
 	)
 }
-

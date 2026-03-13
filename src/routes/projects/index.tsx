@@ -1,5 +1,5 @@
-import { projects } from '@/constants/project';
-import { createFileRoute, Navigate } from '@tanstack/react-router';
+import { Navigate, createFileRoute } from '@tanstack/react-router'
+import { projects } from '@/constants/project'
 
 export const Route = createFileRoute('/projects/')({
 	component: RouteComponent,

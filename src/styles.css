@@ -2,8 +2,9 @@
 @import 'tw-animate-css';
 
 @import '@abumble/design-system/styles.css';
+@import '@abumble/design-system/themes/linen.css';
 @source "../node_modules/@abumble/design-system";
 
 .image-background {
-	background-image: url("/src/assets/background-image.svg");
+	background-image: url('/src/assets/background-image.svg');
 }
