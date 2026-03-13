@@ -1,22 +1,22 @@
-import bee from "@/assets/bee.svg";
-import { Popover, PopoverContent, PopoverTrigger } from "@abumble/design-system/components/Popover";
-import type { onClickCallback } from "@abumble/design-system/types";
-import { cn } from "@abumble/design-system/utils";
-import { Link, type LinkComponentProps } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
-import { useState } from "react";
-
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from '@abumble/design-system/components/Popover'
+import { cn } from '@abumble/design-system/utils'
+import { Link  } from '@tanstack/react-router'
+import { Menu } from 'lucide-react'
+import { useState } from 'react'
+import type {LinkComponentProps} from '@tanstack/react-router';
+import type { onClickCallback } from '@abumble/design-system/types'
+import bee from '@/assets/bee.svg'
 
 function Header() {
 	return (
 		<>
 			<header className="header h-10">
-				<Link to={"/"}>
-					<img
-						className="h-8 w-8 mx-3"
-						src={bee}
-						alt="Home Bee"
-					/>
+				<Link to={'/'}>
+					<img className="h-8 w-8 mx-3" src={bee} alt="Home Bee" />
 				</Link>
 
 				<div className="md:hidden flex my-1.5">
@@ -28,14 +28,14 @@ function Header() {
 				</nav>
 			</header>
 		</>
-	);
+	)
 }
 
 function HamburgerMenu() {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false)
 
 	function closeMenu() {
-		setOpen(false);
+		setOpen(false)
 	}
 
 	return (
@@ -46,21 +46,18 @@ function HamburgerMenu() {
 
 			<PopoverContent className="mx-3 w-48 p-0 mt-2">
 				<RouteLinks onClose={closeMenu} />
-			</PopoverContent >
+			</PopoverContent>
 		</Popover>
 	)
 }
 
-interface RouteLinksProps extends React.ComponentProps<"ul"> {
-	onClose?: onClickCallback<HTMLAnchorElement>;
+interface RouteLinksProps extends React.ComponentProps<'ul'> {
+	onClose?: onClickCallback<HTMLAnchorElement>
 }
 
 function RouteLinks({ className, onClose, ...props }: RouteLinksProps) {
 	return (
-		<ul
-			className={cn("rounded text-sm font-medium", className)}
-			{...props}
-		>
+		<ul className={cn('rounded text-sm font-medium', className)} {...props}>
 			<ListNavLink to="/" text={'Home'} onClick={onClose} />
 			<ListNavLink to="/projects" text={'Projects'} onClick={onClose} />
 		</ul>
@@ -77,7 +74,8 @@ function ListNavLink(props: React.ComponentProps<typeof NavLink>) {
 
 function NavLink({ text, ...props }: { text: string } & LinkComponentProps) {
 	return (
-		<Link className="nav-link"
+		<Link
+			className="nav-link"
 			activeProps={{ className: 'nav-link-active' }}
 			{...props}
 		>
@@ -85,18 +83,17 @@ function NavLink({ text, ...props }: { text: string } & LinkComponentProps) {
 				return (
 					<>
 						{isActive && (
-							<span className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-gray-500/0 via-gray-500/60 to-gray-500/10
-                                dark:from-gray-400/0 dark:via-gray-400/60 dark:to-gray-400/0"></span>
+							<span
+								className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-gray-500/0 via-gray-500/60 to-gray-500/10
+                                dark:from-gray-400/0 dark:via-gray-400/60 dark:to-gray-400/0"
+							></span>
 						)}
 						{text}
 					</>
 				)
 			}}
 		</Link>
-	);
+	)
 }
 
-
-
-export default Header;
-
+export default Header

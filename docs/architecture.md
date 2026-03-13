@@ -1,6 +1,6 @@
 # PropMange — Project Architecture
 
-**Stack:** Spring Boot 4, Java 21, React 19, TypeScript, TanStack Router, TanStack Query, PostgreSQL, Liquibase, JWT / OIDC, Docker, Caddy, Authentik
+**Stack:** Spring Boot 4, Java 21, React 19, TypeScript, TanStack Router, TanStack Query, PostgreSQL, Liquibase, JWT / OIDC, Docker, Caddy, Logto
 
 ---
 
@@ -30,7 +30,7 @@ PropMange is a full-stack property management system designed to handle the full
 The system is built around several integrated, modular components:
 
 - **Properties & Units** — The foundational inventory of buildings and rentable spaces.
-- **Lease Management** — A structured, state-machine-driven lease lifecycle covering creation through expiry or termination.
+- **Lease Management** — A structured, state-machine-driven lease lifecycle covering creation through termination or eviction.
 - **Tenant Portal** — A read-only, offline-capable view for tenants to access their active lease details.
 - **Organizations & Multi-Tenancy** — All data is scoped to an organization, enabling the same platform to serve multiple independent property managers.
 - **Membership & Access Control** — A fine-grained permission system that controls what each member of an organization can see and do.
@@ -51,11 +51,11 @@ Properties and units form a strict parent-child hierarchy. A unit always belongs
 
 ### Unit Status
 
-Units carry a `status` field that reflects their current availability: `VACANT`, `OCCUPIED`, or `MAINTENANCE`. This status is updated automatically as leases move through their lifecycle — when a lease is activated, the associated unit transitions to `OCCUPIED`; when a lease expires or is terminated, the unit returns to `VACANT`. This gives property managers an always-accurate inventory view without manual bookkeeping.
+Units carry a `status` field with four possible values: `VACANT`, `OCCUPIED`, `UNDER_MAINTENANCE`, and `NOTICE_GIVEN`. The lease lifecycle drives the core transitions automatically: activating a lease sets the unit to `OCCUPIED`; terminating or evicting sets it back to `VACANT`. The `UNDER_MAINTENANCE` and `NOTICE_GIVEN` values are set manually by managers to reflect real-world conditions outside the lease lifecycle.
 
 ### Frontend
 
-Both properties and units have their own dedicated list and detail views in the manager section of the UI. The list views support pagination and are backed by TanStack Query with optimistic updates — creating or updating a property or unit reflects in the UI immediately, before the server confirms the change.
+Both properties and units have their own dedicated list and detail views in the manager section of the UI. List views are backed by TanStack Query with optimistic updates — creating or updating a property or unit reflects in the UI immediately, before the server confirms the change.
 
 ---
 
@@ -73,19 +73,19 @@ A lease begins in `DRAFT` status, where all fields can be freely edited. From th
 | `REVIEW` | Submitted for review. No further edits until resolved. |
 | `SIGNED` | All required tenants have acknowledged the lease. |
 | `ACTIVE` | Lease is live. The associated unit transitions to `OCCUPIED`. |
-| `EXPIRED` | The lease end date has passed and the system has closed it out. |
+| `EXPIRED` | The lease end date has passed; transitioned automatically by a scheduled task. |
 | `TERMINATED` | The lease was ended early by a manager action. |
 | `EVICTED` | The lease was ended due to an eviction workflow. |
 
-Only `DRAFT` leases can be deleted. State transitions are triggered by dedicated API endpoints (`/submit`, `/activate`, `/terminate`) and are validated server-side — a lease cannot skip states or transition backwards.
+Only `DRAFT` leases can be deleted. Manual state transitions are triggered by dedicated API endpoints (`/submit`, `/activate`, `/revert`, `/terminate`, `/evict`) and are validated server-side — a lease cannot skip states or transition backwards. `REVIEW` and `SIGNED` leases can be reverted to `DRAFT` via `/revert`. `EXPIRED` is set automatically by a scheduled task, not via an endpoint.
 
 ### Lease Tenants
 
-A lease can have multiple tenants, each assigned a role (e.g., `PRIMARY`, `CO_APPLICANT`). Tenants are linked to the lease via a join entity (`LeaseTenant`) that tracks their individual role and, in the future, their signing status. The multi-tenant structure allows for household configurations while keeping the primary contact distinct.
+A lease can have multiple tenants, each assigned a role (e.g., `PRIMARY`, `CO_APPLICANT`). Tenants join a lease via an invite flow — a `LeaseTenant` record is created when the invite is issued and linked to the `Tenant` record once the invite is accepted. The join entity tracks the tenant's role, invite status, signed date, and the lease version they acknowledged. The multi-tenant structure allows for household configurations while keeping the primary contact distinct.
 
 ### Financial Terms
 
-Each lease stores the monthly rent amount, security deposit, and the start and end dates of the tenancy. These values are stamped at lease creation and do not change once the lease moves past `DRAFT` — ensuring a reliable audit record of the original agreed terms.
+Each lease stores the monthly rent amount, rent due day, security deposit, late fee type and amount, and the start and end dates of the tenancy. These values are stamped at lease creation and do not change once the lease moves past `DRAFT` — ensuring a reliable audit record of the original agreed terms. The rendered agreement text (`executedContentMarkdown`) is stamped at the point of activation, not creation.
 
 ### Frontend
 
@@ -99,11 +99,15 @@ Lease templates act as reusable blueprints for generating new leases. Rather tha
 
 ### Template Rendering
 
-A lease template contains a Markdown body with parameterized placeholders — things like `{{tenant_name}}`, `{{unit_address}}`, and `{{start_date}}`. When a lease is created from a template, the `LeaseTemplateRenderer` replaces these placeholders with the actual values from the lease and its associated tenants and unit. The rendered output is stored on the lease itself, creating a standalone snapshot that is decoupled from the original template.
+A lease template contains a Markdown body with parameterized placeholders. The `LeaseTemplateRenderer` supports the following built-in placeholders:
+
+`{{property_name}}`, `{{unit_number}}`, `{{start_date}}`, `{{end_date}}`, `{{rent_amount}}`, `{{rent_due_day}}`, `{{security_deposit}}`
+
+Templates can also define their own custom `templateParameters` (stored as JSON), which are merged with the built-in values — lease-level overrides take highest priority. The rendered output is stored in the `executedContentMarkdown` field on the lease and is stamped at **activation** time, not at creation. This creates a standalone snapshot decoupled from the original template.
 
 ### Separation of Concerns
 
-This separation is intentional: modifying a template after leases have been generated does not affect those existing leases. Each lease carries its own rendered copy of the agreement, giving managers a stable, auditable record of exactly what was agreed to at the time of signing.
+This separation is intentional: modifying a template after leases have been generated does not affect those existing leases. Each lease carries its own rendered copy of the agreement, giving managers a stable, auditable record of exactly what was agreed to at the time of activation.
 
 ### Frontend
 
@@ -117,15 +121,15 @@ The tenant portal is a dedicated, read-only interface that gives tenants a direc
 
 ### Aggregate Endpoint
 
-Rather than requiring the frontend to assemble tenant data from multiple API calls, the backend exposes a single aggregate endpoint: `GET /api/tenant/my-lease`. This endpoint reads the authenticated user's identity, finds their active `LeaseTenant` record, and returns a unified response containing the lease terms, the unit details, the property address, and their co-tenants — all in one payload.
+Rather than requiring the frontend to assemble tenant data from multiple API calls, the backend exposes a single aggregate endpoint: `GET /api/tenant/my-lease?orgId=<uuid>`. This endpoint reads the authenticated user's identity, finds their active `LeaseTenant` record, and returns a unified response containing the lease terms, the unit details, the property address, associated assets, co-tenants, and the caller's own `LeaseTenant` status — all in one payload.
 
 ### Long-Term Caching
 
-The tenant portal query is cached aggressively — for up to 7 days — in the frontend's IndexedDB store. This is a deliberate design decision: a tenant's lease details rarely change, and a tenant may need to access this information on moving day when network connectivity is unreliable. The long cache TTL ensures they can always see their lease details regardless of connectivity.
+The tenant portal query is cached aggressively in the frontend's IndexedDB store. The cache TTL is configurable via `VITE_QUERY_CACHE_MAX_AGE_HOURS` (default: 24 hours). This is a deliberate design decision: a tenant's lease details rarely change, and a tenant may need to access this information on moving day when network connectivity is unreliable. The long cache TTL ensures they can always see their lease details regardless of connectivity.
 
 ### Read-Only Enforcement
 
-The tenant portal routes are protected by a role-based layout guard (`_tenant`) in the frontend. Tenants cannot navigate to any manager-only routes. On the backend, the `my-lease` endpoint is restricted to the `ROLE_TENANT` authority, and all returned data is read-only — there are no mutation endpoints exposed in the tenant portal.
+The tenant portal routes are protected by a role-based layout guard (`_tenant`) in the frontend. Tenants cannot navigate to any manager-only routes. On the backend, the `my-lease` endpoint requires only `isAuthenticated()` — the response is naturally scoped to the caller's own active lease record, and there are no mutation endpoints exposed in the tenant portal.
 
 ---
 
@@ -149,39 +153,75 @@ A single user can be a member of multiple organizations. The UI provides an orga
 
 ## Membership & Access Control
 
-Membership defines the relationship between a user and an organization, including what that user is allowed to do. PropMange uses a two-layer permission model: **role-based access control** (RBAC) at the coarse level via JWT groups, and a **fine-grained permission policy system** (SPAC) for more specific authorization.
+Membership defines the relationship between a user and an organization, including what that user is allowed to do. PropMange uses a **hydration-based, hierarchy-aware permission model** driven by Permission Policies and Access Entries. Spring roles play no part in business-operation authorization.
 
-### Roles
+### Permission Policies
 
-At the broadest level, users carry a `groups` claim in their JWT (e.g., `ADMIN`, `MANAGER`, `TENANT`). These groups map to Spring Security's `ROLE_` authorities and gate entire sections of the API — a tenant cannot call manager endpoints regardless of their policy assignments.
+A `PermissionPolicy` is a named, reusable set of permissions stored as a JSON object mapping domain codes to action letters:
 
-### SPAC Permission Policies
-
-Within an organization, managers can define **Permission Policies** and assign them to memberships. A policy encodes a specific permission as a structured string:
-
-```
-ACTION : DOMAIN : TARGET : ORG_ID
+```json
+{ "l": "cru", "m": "r", "p": "crud" }
 ```
 
-For example, `C:LEASE:ORG:abc123` grants the ability to create leases within organization `abc123`. Actions cover read (`R`), create (`C`), update (`U`), and delete (`D`). Domains include `PORTFOLIO`, `LEASE`, `TENANT`, `MEMBERSHIP`, and others. This allows fine-grained delegation — a property manager can be granted the ability to create and update leases without the ability to delete them or manage memberships.
+Domain codes: `l` = Leases, `m` = Maintenance, `f` = Finances, `c` = People (contacts), `o` = Organization, `p` = Portfolio. Action letters: `r` = read, `c` = create, `u` = update, `d` = delete. Policies can be system-wide templates or org-specific, and are reusable — the same policy can be assigned to many members.
+
+### Policy Assignments
+
+A `PolicyAssignment` links a `Membership` to a policy at a specific **scope**: `ORG`, `PROPERTY`, `UNIT`, or `ASSET`, identified by a resource ID. Assignments can carry per-assignment `overrides` (a custom permissions JSON) that replace the linked policy's defaults entirely for that scope. This means a member can have full CRUD on leases at organization scope but read-only access on maintenance at a specific property.
+
+### Access Entry Hydration
+
+At request time, a user's effective permissions are materialized as a list of `AccessEntry` records — each carrying `(orgId, scopeType, scopeId, permissions)` where `permissions` is a domain → action bitmask map.
+
+The `JwtAccessHydrationFilter` runs after JWT authentication on every request and either:
+
+1. Reads the `access` claim directly from the JWT (dev tokens include this pre-embedded), or
+2. Calls `JwtHydrationService` to build the list fresh from the database (production Logto tokens carry no `access` claim and always hydrate from DB)
+
+`JwtHydrationService` compiles the access list from three sources:
+- **Policy assignments** — resolved from the user's memberships across all organizations
+- **Property ownership** — full CRUD on all domains at `PROPERTY` scope for properties the user owns
+- **Active lease tenancy** — read-only on Leases and Maintenance at `UNIT` scope for units the user is actively leasing
+
+The resulting list is cached per user and evicted whenever membership or policy assignments change.
+
+### Hierarchy-Aware Authorization
+
+Permission checks are **hierarchy-aware**: a permission granted at a parent scope covers all its children. The resolution walks from most specific to least specific:
+
+```
+UNIT → PROPERTY → ORG  (first match wins)
+```
+
+Enforcement uses Spring's `@PreAuthorize` with a `PermissionGuard` SpEL bean:
+
+```java
+@PreAuthorize("@permissionGuard.hasAccess('UPDATE', 'LEASES', 'LEASE', #id, #orgId)")
+```
+
+Convenience meta-annotations (`@PreAuthorizePropAccess`, `@PreAuthorizeLeaseAccess`, etc.) wrap the common patterns so most controllers need no boilerplate SpEL.
+
+### Global Admin
+
+Users with `ROLE_ADMIN` in their JWT `groups` claim bypass all permission checks and have unrestricted access. This is the **only** role the backend enforces. Other group values (`MANAGER`, `TENANT`, `USER`) are carried in the JWT for the frontend to use when controlling UI visibility — they have no effect on backend authorization.
 
 ### Frontend Permission Gating
 
-The frontend mirrors this permission model in the UI. Before rendering action buttons or navigation items, components check the active user's resolved permissions. If a user lacks the `D:LEASE` permission, the delete option is hidden from the UI entirely — not just disabled — reducing visual clutter and preventing confusion. The server still enforces permissions independently, so UI-level hiding is an ergonomic enhancement, not a security boundary.
+The frontend reads the user's resolved access entries from the session and checks them before rendering action buttons or navigation items. If a user lacks update access on the Leases domain, the edit option is hidden entirely — not just disabled — reducing visual clutter. The server enforces all permissions independently; UI-level hiding is ergonomic only, not a security boundary.
 
 ---
 
 ## Invitations & Onboarding
 
-New members join an organization through an invitation flow. A manager creates an **Invite** by specifying the intended recipient's email address and desired role. The system generates a time-limited invite token and sends an email with a sign-up link.
+New members join an organization through an invitation flow. Invites have two target types: **`MEMBERSHIP`** (inviting someone to an organization) and **`LEASE`** (inviting a tenant to sign a lease). In both cases a manager specifies the recipient's email address, the system generates a time-limited token, and an email with a sign-up link is sent.
 
 ### Invite Lifecycle
 
-Invites carry a status: `PENDING`, `ACCEPTED`, or `EXPIRED`. Pending invites expire after 72 hours. If the recipient doesn't accept in time, the invite transitions to `EXPIRED` and the manager can resend it, which generates a new token and resets the expiry window.
+Invites carry a status: `PENDING`, `ACCEPTED`, or `EXPIRED`. Pending invites expire after **72 hours**. If the recipient doesn't accept in time, the invite transitions to `EXPIRED` and the manager can resend it — subject to a **15-minute resend cooldown** — which generates a new token and resets the expiry window.
 
 ### Onboarding Flow
 
-When a new user follows the invite link, they are directed to the identity provider (Authentik in production, or the dev login endpoint in development) to create their account. Upon first login, the backend matches their verified email address against the pending invite record, creates their membership in the organization with the configured role, and marks the invite as `ACCEPTED`. This matching is done automatically — no additional steps are required from the inviting manager.
+When a new user follows the invite link, they are directed to the identity provider (Logto in production, or the dev login endpoint in development) to create their account. Upon first login, the backend matches their verified email address against the pending invite record, creates their membership in the organization with the configured role, and marks the invite as `ACCEPTED`. This matching is done automatically — no additional steps are required from the inviting manager.
 
 ### Frontend
 
@@ -199,29 +239,52 @@ The backend uses Spring's application event system to decouple event publishing 
 
 ### Stored Data
 
-Each `ActivityEvent` record captures the event type, the ID of the actor (the user who triggered it), the organization it belongs to, a timestamp, and a flexible `metadata` field (stored as JSONB in PostgreSQL) containing event-specific details — such as which lease was activated or which user was invited.
+Each `ActivityEvent` record captures the event type, the subject type and ID (the entity the event concerns), the actor ID (the user who triggered it), the organization, a timestamp, and a flexible `metadata` field stored as JSONB. The current set of tracked event types is:
+
+`LEASE_SUBMITTED_FOR_REVIEW`, `LEASE_TENANT_SIGNED`, `LEASE_ALL_TENANTS_SIGNED`, `LEASE_ACTIVATED`, `LEASE_EXPIRING_SOON`, `LEASE_EXPIRED`, `LEASE_TERMINATED`, `LEASE_EVICTED`, `ORGANIZATION_CREATED`, `INVITE_ACCEPTED`
+
+Each event is persisted in its own `REQUIRES_NEW` transaction after the originating transaction commits, so a rollback on the primary action never produces a phantom activity record.
 
 ### API & Frontend
 
-The activity feed is exposed via `GET /api/activity?orgId=<uuid>`, returning a paginated list of events in reverse-chronological order. In the frontend, the dashboard home page renders this feed as a real-time-feeling list of recent actions, giving managers an at-a-glance view of organizational activity without needing to navigate into individual record views.
+The activity feed is exposed via `GET /api/activity?orgId=<uuid>`, with an optional `eventTypes` query parameter for filtering by event type. It returns a paginated list in reverse-chronological order. In the frontend, the dashboard home page renders this feed as a real-time-feeling list of recent actions, giving managers an at-a-glance view of organizational activity without needing to navigate into individual record views.
 
 ---
 
 ## Notifications
 
-PropMange delivers email notifications to relevant users when significant lease events occur. The notifications system is designed to be configurable per user — each user can choose which events they want to receive emails for.
+PropMange delivers email notifications across three domains: lease lifecycle events, organization invites, and user account events. The `NotificationDispatcher` listens to domain events via `@TransactionalEventListener(phase = AFTER_COMMIT)` and coordinates delivery.
 
 ### Event Triggers
 
-Email notifications are triggered by lease lifecycle transitions: when a lease moves to `ACTIVE`, when it is nearing expiry, when it is terminated, or when a new tenant is added. The backend's event listener infrastructure (the same system used for activity events) handles notification dispatch asynchronously — email sending does not block the primary transaction.
+**Lease lifecycle** — notifications are sent to tenants, managers, or both depending on the event:
+
+| Event | Recipients |
+|---|---|
+| Submitted for review | Tenants |
+| Tenant signed | Manager (includes signing tenant name and remaining count) |
+| All tenants signed | Manager |
+| Activated | Tenants |
+| Expiring soon | Tenants + Manager |
+| Expired | Tenants + Manager |
+| Terminated | Tenants |
+| Evicted | Tenants |
+
+**Invites** — an email is sent to the invitee when an org membership or lease invite is created or resent. On resend, any previous pending deliveries for the same invite are cancelled before a new one is created.
+
+**User registration** — a welcome email (`ACCOUNT_CREATED`) is sent to the user on first login when their account is provisioned.
+
+### Outbox Pattern
+
+The dispatcher follows an outbox pattern to prevent lost notifications on JVM failure. For each recipient it first commits a `PENDING` delivery row in an isolated `REQUIRES_NEW` transaction, then enqueues the actual email send asynchronously. If the process crashes between those two steps, the `NotificationRetryScheduler` picks up any stale `PENDING` rows and retries them.
 
 ### User Preferences
 
-Each user has a `UserNotificationPreference` record per organization, storing a set of enabled notification types. Before sending an email, the notification service checks this preference record. If the user has disabled a particular notification type, the email is skipped.
+Each user has a `UserNotificationPreference` record per organization, storing the set of notification types they have opted into. The delivery service respects these preferences before creating a delivery record.
 
 ### Delivery Tracking
 
-Each outbound email is recorded as a `NotificationDelivery` record, capturing the recipient, the event type, the timestamp, and the delivery status (`PENDING`, `SENT`, `FAILED`). This allows administrators to audit whether critical notifications were delivered and provides a basis for retry logic on failures.
+Each outbound email is recorded as a `NotificationDelivery` row capturing the recipient, notification type, reference entity (`LEASE`, `INVITE`, or `USER`), timestamp, and status (`PENDING`, `SENT`, `FAILED`). This gives administrators a full audit trail of what was sent and a basis for retry logic on failures.
 
 ---
 
@@ -231,11 +294,11 @@ The frontend is designed to remain functional during network outages. This is es
 
 ### IndexedDB Persistence
 
-TanStack Query's cache is persisted to **IndexedDB** using Dexie. Each user gets their own isolated database (`prop-manager-{userId}`), ensuring that one user's cached data is never visible to another user on the same device. The cache is populated during normal online use and remains available when the user goes offline.
+TanStack Query's cache is persisted to **IndexedDB** using Dexie. Each user gets their own isolated database, ensuring that one user's cached data is never visible to another user on the same device. Writes are throttled at 1 second to avoid excessive I/O. The cache is populated during normal online use and remains available when the user goes offline. Persistence is disabled in the dev environment by default and enabled via `VITE_PERSIST_OFFLINE=true`.
 
 ### Mutation Queuing
 
-All mutations use `networkMode: 'online'`. When the user is offline, mutation calls are not dropped — they are paused and queued. When connectivity is restored, the queue is automatically drained and each mutation is replayed in order. The pending mutation queue is also persisted to IndexedDB, so queued mutations survive page refreshes and browser restarts.
+All mutations use `networkMode: 'online'`. When the user is offline, mutation calls are not dropped — they are paused and queued. When connectivity is restored, the queue is automatically drained and each mutation is replayed in order. Mutations in `paused`, `pending`, or `idle` state are persisted to IndexedDB, so the outbox survives page refreshes and browser restarts.
 
 ### Idempotency
 
@@ -253,19 +316,21 @@ When a user logs out, their query client and associated IndexedDB database are c
 
 PropMange uses JWT-based authentication via Spring's OAuth2 Resource Server. The frontend includes the JWT as a `Bearer` token on every API request, and the backend validates the token's signature and expiry before processing the request.
 
-The JWT's `groups` claim is mapped to Spring Security `ROLE_` authorities. This means the identity provider — not the application — is the source of truth for a user's top-level role. Endpoint-level authorization uses `@PreAuthorize("hasRole('...')")` annotations, and method-level permission evaluation covers the SPAC policy checks.
+After token validation, the `JwtAccessHydrationFilter` materializes the user's permissions into a list of `AccessEntry` records attached to the request. These drive all business-operation authorization via the `PermissionGuard` SpEL bean (see [Membership & Access Control](#membership--access-control)).
+
+The JWT's `groups` claim is mapped to Spring Security `ROLE_` authorities solely for the global admin bypass — `ROLE_ADMIN` skips all permission checks. No other role is enforced by the backend.
 
 ### Development vs. Production
 
-In the **development profile**, a local HS256 JWT is generated by the backend itself via a `POST /api/dev/login` endpoint. No external identity provider is required. The frontend stores the returned token in `localStorage` and the Axios client picks it up automatically on every request.
+In the **development profile**, a local HS256 JWT is generated by the backend itself via a `POST /api/dev/login` endpoint. No external identity provider is required. The frontend stores the returned token in `localStorage` and the Axios client picks it up automatically on every request. The API base URL is configured via the `VITE_API_BASE_URL` environment variable (e.g. `http://localhost:8080`).
 
-In **production**, authentication is delegated to **Authentik**, a self-hosted OIDC provider. The frontend performs a PKCE authorization code flow, and the resulting JWT is issued by Authentik. The backend validates these tokens against Authentik's JWKS endpoint via the `AUTH_ISSUER_URI` environment variable. This means the same codebase handles both environments with a profile switch, and no credentials are ever stored in the application.
+In **production**, authentication is delegated to **Logto**, a self-hosted OIDC provider. The frontend performs a PKCE authorization code flow using the `oidc-client-ts` library, configured via `VITE_OIDC_AUTHORITY`, `VITE_OIDC_CLIENT_ID`, and `VITE_OIDC_REDIRECT_URI` environment variables. The resulting JWT is issued by Logto, and the backend validates it against Logto's JWKS endpoint. This means the same codebase handles both environments with a profile switch, and no credentials are ever stored in the application.
 
 ### Rate Limiting & Audit Logging
 
 Every inbound request passes through two filters before reaching a controller:
 
-- **Rate Limiting**: A Resilience4j-backed filter enforces a cap of 100 requests per minute per IP address. Requests exceeding this limit receive a `429 Too Many Requests` response.
+- **Rate Limiting**: A Resilience4j-backed filter enforces a cap of 100 requests per minute per IP address. Requests exceeding this limit receive a `429 Too Many Requests` response. Rate limiting is disabled in the dev profile.
 - **Audit Logging**: A filter logs every request — including the timestamp, the authenticated user, the endpoint, and the response status code — to provide a complete access log for security review.
 
 ---
@@ -278,31 +343,31 @@ The production environment is managed via Docker Compose and consists of five se
 
 | Service | Role |
 |---|---|
-| **PostgreSQL** | Primary relational database |
+| **PostgreSQL** | Primary relational database (shared by the app and Logto) |
 | **Spring Boot API** | Backend application server (port 8080, internal) |
-| **Authentik** | Self-hosted OIDC identity provider |
-| **Caddy** | Reverse proxy, TLS termination, forward auth |
+| **Logto** | Self-hosted OIDC identity provider |
+| **Caddy** | Reverse proxy, TLS termination, security headers |
 | **Cloudflare Tunnel** | Exposes the stack without opening inbound firewall ports |
 
-The frontend is hosted separately on **Cloudflare Pages**, which handles global CDN distribution and automatic deploys from the main branch.
+The frontend is hosted on **Cloudflare Pages**, which handles global CDN distribution and automatic deploys from the main branch.
 
 ### Request Flow
 
 ```
 User → Cloudflare Pages (React SPA)
      ↓ (PKCE auth code flow)
-User → Authentik (OIDC, issues JWT)
+User → Cloudflare Tunnel → Caddy → Logto (OIDC, issues JWT)
      ↓ (JWT in Authorization header)
-User → Cloudflare Tunnel → Caddy (TLS, forward auth validation)
+User → Cloudflare Tunnel → Caddy (TLS termination, security headers)
      ↓
-Spring Boot API (re-validates JWT against JWKS)
+Spring Boot API (validates JWT against Logto JWKS at http://logto:3001/oidc/jwks)
      ↓
 PostgreSQL
 ```
 
 ### Development Profile
 
-In development, the full production stack is not required. The backend runs against an **H2 in-memory database** (no PostgreSQL needed), and authentication uses a local HS256 JWT via the dev login endpoint (no Authentik needed). The frontend dev server proxies all `/api` requests to `localhost:8080`. This allows the full application to run on a single machine with a single `mvnw spring-boot:run` and `pnpm dev`.
+In development, the full production stack is not required. The backend runs against an **H2 in-memory database** (no PostgreSQL needed), and authentication uses a local HS256 JWT via the dev login endpoint (no Logto needed). The frontend connects directly to the backend using `VITE_API_BASE_URL=http://localhost:8080`. Outbound emails are captured locally by **Mailpit** (available in the devcontainer at port 8025). This allows the full application to run on a single machine with a single `mvnw spring-boot:run` and `pnpm dev`.
 
 ### Database Migrations
 
@@ -312,22 +377,24 @@ Schema changes are managed by **Liquibase**. All migrations live in a single cha
 
 ## Database Schema
 
-All data models are stored in PostgreSQL (production) or H2 (development). Every table includes `version` (for optimistic locking), `created_at`, and `updated_at` audit columns inherited from `BaseEntity`.
+All data models are stored in PostgreSQL (production) or H2 (development). Most user-facing entities extend `BaseEntity`, which provides `id` (UUID v7), `version` (optimistic locking), `created_at`, and `updated_at`. System-managed tables (`users`, `addresses`, `user_identities`, `invite`) manage their own timestamps and omit `version`.
 
 | Entity | Relations |
 |---|---|
 | **Organization** | Has many properties, memberships, invites, and activity events. |
-| **Property** (`Prop`) | Belongs to one organization. Has many units. Cannot be deleted while units exist. |
-| **Unit** | Belongs to one property. Has many leases. Status reflects active lease state. |
-| **Lease** | Belongs to one unit and one organization. Has many lease tenants. Has one optional template stamp. |
-| **LeaseTenant** | Join between a lease and a tenant. Carries role and (future) signing status. |
-| **LeaseTemplate** | Belongs to one organization. Can be stamped onto multiple leases. |
-| **Tenant** | Belongs to one organization. Can be a participant in many leases via LeaseTenant. |
-| **User** | Global (not org-scoped). Has many memberships and notification preferences. |
-| **Membership** | Join between a user and an organization. Carries role and policy assignments. |
-| **PermissionPolicy** | Belongs to one organization. Can be assigned to many memberships. |
-| **PolicyAssignment** | Join between a membership and a permission policy. |
-| **Invite** | Belongs to one organization. Carries status (`PENDING`, `ACCEPTED`, `EXPIRED`) and expiry timestamp. |
-| **ActivityEvent** | Belongs to one organization. Stores event type, actor ID, and JSONB metadata. |
-| **NotificationDelivery** | Belongs to one user and one organization. Tracks send status per notification event. |
-| **UserNotificationPreference** | Belongs to one user per organization. Stores enabled notification types. |
+| **Property** (`Prop`) | Belongs to one organization and one owner (`User`). Has many units. Cannot be deleted while units exist. |
+| **Unit** | Belongs to one property. Has many leases. Status driven automatically by lease activation/termination; `UNDER_MAINTENANCE` and `NOTICE_GIVEN` are set manually. |
+| **Lease** | Belongs to one unit. Has many lease tenants. Optionally stamped from a template; rendered content stored on activation. |
+| **LeaseTenant** | Join between a lease and a tenant via an invite. Carries role, signing status, signed date, and the lease version acknowledged. |
+| **LeaseTemplate** | Belongs to one organization. Defines Markdown body, default financial terms, and custom template parameters. |
+| **Tenant** | Belongs to one user. Can participate in many leases via LeaseTenant. |
+| **Asset** | Belongs to a property and optionally a unit. Tracks equipment with make/model, serial number, and service dates. |
+| **User** | Global (not org-scoped). Has many memberships. Identity linked via `UserIdentity` (issuer + sub). |
+| **UserIdentity** | Links a `User` to an external OIDC identity (issuer + sub). One user can have multiple identities. |
+| **Membership** | Join between a user and an organization. Has many policy assignments. |
+| **PermissionPolicy** | Belongs to one organization (or system-wide if org is null). Defines domain → action permissions as JSON. |
+| **PolicyAssignment** | Scopes a policy (or inline overrides) to a membership at ORG / PROPERTY / UNIT / ASSET level. |
+| **Invite** | Targets either a `MEMBERSHIP` or a `LEASE`. Carries status (`PENDING`, `ACCEPTED`, `EXPIRED`), token, and expiry timestamp. |
+| **ActivityEvent** | Belongs to one organization. Stores event type, subject type/ID, actor ID, and JSONB metadata. |
+| **NotificationDelivery** | Tracks each outbound email: recipient, type, reference entity, status (`PENDING`, `SENT`, `FAILED`), and retry count. |
+| **UserNotificationPreference** | Per user per notification type per channel. Controls whether a delivery record is created. |

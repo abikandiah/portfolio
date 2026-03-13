@@ -1,29 +1,26 @@
-import { projects } from "@/constants/project";
-import type { Project } from "@/types/ProjectTypes";
-import { Card, CardContent } from "@abumble/design-system/components/Card";
-import { FolderCode } from "lucide-react";
-import { TextLink } from "../ui";
-import { CardH2Header } from "../ui/card";
+import { Card, CardContent } from '@abumble/design-system/components/Card'
+import { FolderCode } from 'lucide-react'
+import { TextLink } from '../ui'
+import { CardH2Header } from '../ui/card'
+import type { Project } from '@/types/ProjectTypes'
+import { projects } from '@/constants/project'
 
 function ProjectsOverview() {
 	return (
 		<Card>
-			<CardH2Header title={'Key Projects'}
-				Icon={FolderCode}
-			/>
-
+			<CardH2Header title={'Key Projects'} Icon={FolderCode} />
 
 			<CardContent className="space-y-4">
-				{projects.slice(0, 5).map(proj =>
+				{projects.slice(0, 5).map((proj) => (
 					<ProjectOverview key={proj.name} proj={proj} />
-				)}
+				))}
 			</CardContent>
 		</Card>
 	)
 }
 
 function ProjectOverview({ proj }: { proj: Project }) {
-	const { name, duration, description } = proj;
+	const { name, duration, description } = proj
 
 	return (
 		<div className="">
@@ -37,9 +34,7 @@ function ProjectOverview({ proj }: { proj: Project }) {
 				</span>
 			</div>
 
-			<p className="text-sm leading-5 text-gray-600">
-				{description}
-			</p>
+			<p className="text-sm leading-5 text-gray-600">{description}</p>
 
 			<TextLink
 				to="/projects/$projectKey"
@@ -48,9 +43,8 @@ function ProjectOverview({ proj }: { proj: Project }) {
 			>
 				View Project
 			</TextLink>
-
 		</div>
 	)
 }
 
-export default ProjectsOverview;
+export default ProjectsOverview
