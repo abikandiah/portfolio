@@ -1,15 +1,15 @@
-import profilePhoto from "@/assets/face.svg";
-import github from "@/assets/github.svg";
-import linkedinBlack from "@/assets/linkedin-black.png";
-import Education from '@/components/home/Education';
-import ProjectsOverview from '@/components/home/ProjectsOverview';
-import WorkExperience from '@/components/home/WorkExperience';
-import { ExternalSite, PageDescription, PageHeader } from "@/components/ui";
-import { LINKS, PERSONAL } from "@/constants";
-import { cn } from "@abumble/design-system/utils";
-import { createFileRoute } from '@tanstack/react-router';
-import { Mail } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { cn } from '@abumble/design-system/utils'
+import { createFileRoute } from '@tanstack/react-router'
+import { Mail } from 'lucide-react'
+import { useRef, useState } from 'react'
+import profilePhoto from '@/assets/face.svg'
+import github from '@/assets/github.svg'
+import linkedinBlack from '@/assets/linkedin-black.png'
+import Education from '@/components/home/Education'
+import ProjectsOverview from '@/components/home/ProjectsOverview'
+import WorkExperience from '@/components/home/WorkExperience'
+import { ExternalSite, PageDescription, PageHeader } from '@/components/ui'
+import { LINKS, PERSONAL } from '@/constants'
 
 export const Route = createFileRoute('/')({
 	component: App,
@@ -33,23 +33,23 @@ function ProfileHeader() {
 		<div className="flex flex-col items-center justify-center">
 			<FaceContextMenu src={profilePhoto} />
 
-			<PageHeader className="mt-6">
-				Abilaesh Kandiah
-			</PageHeader>
+			<PageHeader className="mt-6">Abilaesh Kandiah</PageHeader>
 
-			<PageDescription className="mt-1">
-				Full-Stack Developer
-			</PageDescription>
+			<PageDescription className="mt-1">Full-Stack Developer</PageDescription>
 		</div>
 	)
 }
 
 function ProfileSummary() {
 	return (
-		<section className='flex flex-col gap-4 p-6 mt-2'>
-
+		<section className="flex flex-col gap-4 p-6 mt-2">
 			<p className="p-text">
-				Hey, I'm Abi, a seasoned full-stack developer with over 7 years of experience dedicated to bringing ideas to life. I architect and deliver complete, robust solutions—from database design to launching polished UIs. Leveraging React, JavaScript, Java, Node, and Python alongside modern CI/CD and cloud platforms (AWS/Azure/GCP), I manage the full operational loop to build it right.
+				Hey, I'm Abi, a seasoned full-stack developer with over 7 years of
+				experience dedicated to bringing ideas to life. I architect and deliver
+				complete, robust solutions—from database design to launching polished
+				UIs. Leveraging React, JavaScript, Java, Node, and Python alongside
+				modern CI/CD and cloud platforms (AWS/Azure/GCP), I manage the full
+				operational loop to build it right.
 			</p>
 
 			<div className="flex items-center gap-4">
@@ -104,32 +104,33 @@ function SendEmail({ email, showText }: { email: string; showText?: boolean }) {
 }
 
 function FaceContextMenu({ src }: { src: string }) {
-
-	const [state, setState] = useState({ degree: 0, duration: 500 });
-	const downTime = useRef(0);
+	const [state, setState] = useState({ degree: 0, duration: 500 })
+	const downTime = useRef(0)
 
 	function onPointerDown(event: React.PointerEvent<HTMLImageElement>) {
-		downTime.current = event.timeStamp;
+		downTime.current = event.timeStamp
 	}
 
 	function onPointerUp(event: React.PointerEvent<HTMLImageElement>) {
-		const additionalDegrees = (event.timeStamp - downTime.current);
+		const additionalDegrees = event.timeStamp - downTime.current
 
 		setState({
 			degree: state.degree + additionalDegrees,
-			duration: Math.max(additionalDegrees * 2, 500)
-		});
+			duration: Math.max(additionalDegrees * 2, 500),
+		})
 	}
 
-	const rotationClass = `transition-transform duration-500 rotate-[var(--random-rotation)]`;
+	const rotationClass = `transition-transform duration-500 rotate-[var(--random-rotation)]`
 	const customStyles = {
 		// Use the CSS variable syntax for custom properties
 		'--random-rotation': `${state.degree}deg`,
-		'transitionDuration': `${state.duration}ms`,
-	};
+		transitionDuration: `${state.duration}ms`,
+	}
 
 	return (
-		<img onPointerDown={onPointerDown} onPointerUp={onPointerUp}
+		<img
+			onPointerDown={onPointerDown}
+			onPointerUp={onPointerUp}
 			className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg ${rotationClass}`}
 			src={src}
 			alt="Abilaesh Kandiah's Profile Photo"
@@ -138,12 +139,9 @@ function FaceContextMenu({ src }: { src: string }) {
 	)
 }
 
-function LandscapeContainer({ className, ...props }: React.ComponentProps<"div">) {
-	return (
-		<div
-			className={cn("image-background", className)}
-			{...props}>
-		</div>
-	);
+function LandscapeContainer({
+	className,
+	...props
+}: React.ComponentProps<'div'>) {
+	return <div className={cn('image-background', className)} {...props}></div>
 }
-
