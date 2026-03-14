@@ -27,7 +27,7 @@ export function ExternalSite({
 	)
 }
 
-const pageHeaderVariants = cva('font-bold tracking-tight text-gray-900', {
+const pageHeaderVariants = cva('font-bold tracking-tight text-foreground', {
 	variants: {
 		size: {
 			default: 'sm:text-4xl text-3xl',
@@ -48,7 +48,7 @@ export function PageHeader({
 	)
 }
 
-const pageDescriptionVariants = cva('text-gray-700', {
+const pageDescriptionVariants = cva('text-muted-foreground', {
 	variants: {
 		size: {
 			default: 'sm:text-2xl text-xl',

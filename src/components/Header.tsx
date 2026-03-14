@@ -3,31 +3,36 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from '@abumble/design-system/components/Popover'
+import { ThemeSelector } from '@abumble/design-system/components/ThemeSelector'
+import { ThemeToggle } from '@abumble/design-system/components/ThemeToggle'
 import { cn } from '@abumble/design-system/utils'
-import { Link  } from '@tanstack/react-router'
-import { Menu } from 'lucide-react'
+import { BeeLogo } from '@abumble/design-system/components/BeeLogo'
+import { Link } from '@tanstack/react-router'
+import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
-import type {LinkComponentProps} from '@tanstack/react-router';
+import type { LinkComponentProps } from '@tanstack/react-router'
 import type { onClickCallback } from '@abumble/design-system/types'
-import bee from '@/assets/bee.svg'
 
 function Header() {
 	return (
-		<>
-			<header className="header h-10">
-				<Link to={'/'}>
-					<img className="h-8 w-8 mx-3" src={bee} alt="Home Bee" />
-				</Link>
+		<header className="header">
+			<BeeLogo asChild>
+				<Link to="/" />
+			</BeeLogo>
 
-				<div className="md:hidden flex my-1.5">
+			<div className="flex items-center gap-1">
+				<ThemeToggle />
+				<ThemeSelector />
+
+				<nav className="hidden md:flex items-center gap-1 ml-1">
+					<RouteLinks className="flex items-center gap-1" />
+				</nav>
+
+				<div className="md:hidden flex items-center ml-1">
 					<HamburgerMenu />
 				</div>
-
-				<nav className="hidden md:block px-3">
-					<RouteLinks className="flex" />
-				</nav>
-			</header>
-		</>
+			</div>
+		</header>
 	)
 }
 
@@ -40,11 +45,14 @@ function HamburgerMenu() {
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
-			<PopoverTrigger className="mx-3">
-				<Menu />
+			<PopoverTrigger className="flex items-center justify-center h-8 w-8 rounded-md hover:bg-foreground/8 transition-colors outline-none">
+				{open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
 			</PopoverTrigger>
 
-			<PopoverContent className="mx-3 w-48 p-0 mt-2">
+			<PopoverContent
+				align="end"
+				className="w-44 p-1.5 mt-1 shadow-lg border border-border/60"
+			>
 				<RouteLinks onClose={closeMenu} />
 			</PopoverContent>
 		</Popover>
@@ -57,9 +65,9 @@ interface RouteLinksProps extends React.ComponentProps<'ul'> {
 
 function RouteLinks({ className, onClose, ...props }: RouteLinksProps) {
 	return (
-		<ul className={cn('rounded text-sm font-medium', className)} {...props}>
-			<ListNavLink to="/" text={'Home'} onClick={onClose} />
-			<ListNavLink to="/projects" text={'Projects'} onClick={onClose} />
+		<ul className={cn('text-sm font-medium', className)} {...props}>
+			<ListNavLink to="/" text="Home" exact onClick={onClose} />
+			<ListNavLink to="/projects" text="Projects" onClick={onClose} />
 		</ul>
 	)
 }
@@ -72,26 +80,21 @@ function ListNavLink(props: React.ComponentProps<typeof NavLink>) {
 	)
 }
 
-function NavLink({ text, ...props }: { text: string } & LinkComponentProps) {
+function NavLink({
+	text,
+	exact,
+	...props
+}: { text: string; exact?: boolean } & LinkComponentProps) {
 	return (
 		<Link
-			className="nav-link"
-			activeProps={{ className: 'nav-link-active' }}
+			className="flex items-center px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-foreground/6 transition-colors outline-none"
+			activeProps={{
+				className: 'text-foreground bg-foreground/8 font-semibold',
+			}}
+			activeOptions={{ exact }}
 			{...props}
 		>
-			{({ isActive }: { isActive: boolean }) => {
-				return (
-					<>
-						{isActive && (
-							<span
-								className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-gray-500/0 via-gray-500/60 to-gray-500/10
-                                dark:from-gray-400/0 dark:via-gray-400/60 dark:to-gray-400/0"
-							></span>
-						)}
-						{text}
-					</>
-				)
-			}}
+			{text}
 		</Link>
 	)
 }

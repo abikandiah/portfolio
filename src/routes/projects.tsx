@@ -1,9 +1,4 @@
-import {
-	Link,
-	
-	Outlet,
-	createFileRoute
-} from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 
 import { Banner } from '@abumble/design-system/components/Banner'
 import {
@@ -24,7 +19,7 @@ import {
 import { stringToBoolean } from '@abumble/design-system/utils'
 import { useCallback, useState } from 'react'
 import { DisclaimerBody } from './disclaimer'
-import type {LinkComponentProps} from '@tanstack/react-router';
+import type { LinkComponentProps } from '@tanstack/react-router'
 import type { onClickCallback } from '@abumble/design-system/types'
 import type { Project } from '@/types/ProjectTypes'
 import { projectsByType } from '@/constants/project'
@@ -160,7 +155,7 @@ function SidebarMenuLink({
 			>
 				{({ isActive }) => (
 					<SidebarMenuButton asChild isActive={isActive}>
-						<span className="text-gray-700">{proj.name}</span>
+						<span className="text-foreground">{proj.name}</span>
 					</SidebarMenuButton>
 				)}
 			</Link>

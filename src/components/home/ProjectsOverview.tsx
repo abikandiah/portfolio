@@ -25,16 +25,16 @@ function ProjectOverview({ proj }: { proj: Project }) {
 	return (
 		<div className="">
 			<div className="flex flex-auto">
-				<span className="text-sm font-medium text-gray-900 leading-6">
+				<span className="text-sm font-medium text-foreground leading-6">
 					{name}
 				</span>
 
-				<span className="ml-auto text-xs leading-5 text-gray-500">
+				<span className="ml-auto text-xs leading-5 text-muted-foreground">
 					{duration}
 				</span>
 			</div>
 
-			<p className="text-sm leading-5 text-gray-600">{description}</p>
+			<p className="text-sm leading-5 text-muted-foreground">{description}</p>
 
 			<TextLink
 				to="/projects/$projectKey"

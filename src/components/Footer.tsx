@@ -19,8 +19,8 @@ function Footer({ showLinks = true }: FooterProps) {
 							Disclaimer
 						</TextLink>
 					)}
-					<span className="text-sm text-gray-500">
-						© 2026 Abilaesh Kandiah.
+					<span className="text-sm text-muted-foreground">
+						© 2026 Abilaesh Kandiah
 					</span>
 				</div>
 			</div>

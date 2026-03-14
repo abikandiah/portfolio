@@ -51,13 +51,13 @@ function EducationRow({
 
 			<dl className="flex flex-auto flex-wrap gap-x-2">
 				<dt className="sr-only">School</dt>
-				<dd className="w-full flex-none text-sm font-medium leading-6 text-gray-900">
+				<dd className="w-full flex-none text-sm font-medium leading-6 text-foreground">
 					{school}
 				</dd>
 				<dt className="sr-only">Degree</dt>
-				<dd className="text-xs leading-5 text-gray-600">{degree}</dd>
+				<dd className="text-xs leading-5 text-muted-foreground">{degree}</dd>
 				<dt className="sr-only">Duration</dt>
-				<dd className="ml-auto text-xs leading-5 text-gray-500">{duration}</dd>
+				<dd className="ml-auto text-xs leading-5 text-muted-foreground">{duration}</dd>
 			</dl>
 		</li>
 	)

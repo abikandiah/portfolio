@@ -23,6 +23,10 @@ export default defineConfig({
 			reporter: ['text', 'json', 'html'],
 		},
 	},
+	server: {
+		host: '0.0.0.0',
+		port: 3000,
+	},
 	resolve: {
 		alias: {
 			'@': resolve(__dirname, './src'),

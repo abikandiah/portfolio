@@ -20,17 +20,20 @@ function addProject(props: ProjectProps) {
 	props.pathname = proj.pathname
 }
 
+// First five are shown under KeyProjects
+addProject(propMangeProject)
 addProject(platformWebApp)
 addProject(legalHoldNotifications)
 addProject(javaToReactFormBuilder)
 addProject(thirdPartyServices)
+
+addProject(webPortfolio)
+
 addProject(googleVaultCollector)
 addProject(microsoftEDiscoveryCollector)
 addProject(dataUpload)
 addProject(selenumE2ETestSuite)
 addProject(automatedTranslations)
-addProject(webPortfolio)
-addProject(propMangeProject);
 
 const projects = Array.from(projectsMap.values())
 

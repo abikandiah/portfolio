@@ -131,7 +131,7 @@ function FaceContextMenu({ src }: { src: string }) {
 		<img
 			onPointerDown={onPointerDown}
 			onPointerUp={onPointerUp}
-			className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg ${rotationClass}`}
+			className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-background shadow-lg dark:invert ${rotationClass}`}
 			src={src}
 			alt="Abilaesh Kandiah's Profile Photo"
 			style={customStyles}

@@ -4,9 +4,9 @@ import {
 	UnorderedList,
 } from '@abumble/design-system/components/List'
 import { Skeleton } from '@abumble/design-system/components/Skeleton'
-import type {ProjectProps} from '@/types/ProjectTypes';
+import type { ProjectProps } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
-import {  projectType } from '@/types/ProjectTypes'
+import { projectType } from '@/types/ProjectTypes'
 
 export const legalHoldNotificationsProject: ProjectProps = {
 	type: projectType.Work,
@@ -38,14 +38,6 @@ export const legalHoldNotificationsProject: ProjectProps = {
 		{ title: 'Database Schema', body: DatabaseSchema },
 	],
 }
-;<p>
-	Everything is handled within a single{' '}
-	<span className="font-semibold">Legal Hold</span> object. Administrators are
-	added to administrate and manage the hold and custodians are added to be
-	placed on hold with notices and surveys. The list of notices sent are defined
-	here as well, as well as the SMTP server to use for emails and the workflows
-	to submit on an event trigger.
-</p>
 
 function Overview() {
 	return (
@@ -431,35 +423,35 @@ function DatabaseSchema() {
 					<tbody className="divide-y divide-border font-medium">
 						<tr>
 							<td className="px-3 py-2">Legal Hold</td>
-							<td className="px-3 py-2 text-gray-700">
+							<td className="px-3 py-2 text-muted-foreground">
 								Has multiple participations, events, and notices; uses one SMTP
 								server.
 							</td>
 						</tr>
 						<tr>
 							<td className="px-3 py-2">Notice Template</td>
-							<td className="px-3 py-2 text-gray-700">
+							<td className="px-3 py-2 text-muted-foreground">
 								Can be used by multiple legal holds and can have multiple child
 								notices.
 							</td>
 						</tr>
 						<tr>
 							<td className="px-3 py-2">Notice</td>
-							<td className="px-3 py-2 text-gray-700">
+							<td className="px-3 py-2 text-muted-foreground">
 								Is attached to one legal hold and can have multiple notice
 								events.
 							</td>
 						</tr>
 						<tr>
 							<td className="px-3 py-2">User</td>
-							<td className="px-3 py-2 text-gray-700">
+							<td className="px-3 py-2 text-muted-foreground">
 								Can participate in multiple legal holds and receive multiple
 								notice events.
 							</td>
 						</tr>
 						<tr>
 							<td className="px-3 py-2">SMTP Server</td>
-							<td className="px-3 py-2 text-gray-700">
+							<td className="px-3 py-2 text-muted-foreground">
 								Can be used in multiple legal holds.
 							</td>
 						</tr>

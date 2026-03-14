@@ -91,7 +91,7 @@ function ProjectBodySection({ section }: { section: ProjectSection }) {
 			{section.title && (
 				<h2
 					id={section.pathname}
-					className="font-semibold text-lg text-gray-900 mb-1"
+					className="font-semibold text-lg text-foreground mb-1"
 				>
 					{section.title}
 				</h2>

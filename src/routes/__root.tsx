@@ -1,4 +1,5 @@
 import { UnderConstruction } from '@abumble/design-system/components/UnderConstruction'
+import { ThemeProvider } from '@abumble/design-system/themes'
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import type { QueryClient } from '@tanstack/react-query'
 import { config } from '@/config'
@@ -29,14 +30,16 @@ function Root() {
 	}
 
 	return (
-		<div className="flex flex-col h-full">
-			<Header />
+		<ThemeProvider defaultColorTheme="linen">
+			<div className="flex flex-col h-full">
+				<Header />
 
-			<main className="w-full mt-10 px-3">
-				<Outlet />
-			</main>
+				<main className="w-full px-3 mt-14">
+					<Outlet />
+				</main>
 
-			<Footer />
-		</div>
+				<Footer />
+			</div>
+		</ThemeProvider>
 	)
 }

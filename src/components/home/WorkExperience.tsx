@@ -71,13 +71,13 @@ function WorkExperienceRow({
 
 			<dl className="flex flex-auto flex-wrap gap-x-2">
 				<dt className="sr-only">Company</dt>
-				<dd className="w-full flex-none text-sm font-medium leading-6 text-gray-900">
+				<dd className="w-full flex-none text-sm font-medium leading-6 text-foreground">
 					{companyName}
 				</dd>
 				<dt className="sr-only">Role</dt>
-				<dd className="text-xs leading-5 text-gray-600">{role}</dd>
+				<dd className="text-xs leading-5 text-muted-foreground">{role}</dd>
 				<dt className="sr-only">Duration</dt>
-				<dd className="ml-auto text-xs leading-5 text-gray-500">{duration}</dd>
+				<dd className="ml-auto text-xs leading-5 text-muted-foreground">{duration}</dd>
 			</dl>
 		</li>
 	)
