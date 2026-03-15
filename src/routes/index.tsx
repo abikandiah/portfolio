@@ -4,7 +4,7 @@ import { Mail } from 'lucide-react'
 import { useRef, useState } from 'react'
 import profilePhoto from '@/assets/face.svg'
 import github from '@/assets/github.svg'
-import linkedinBlack from '@/assets/linkedin-black.png'
+import linkedin from '@/assets/linkedin.svg'
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
 import WorkExperience from '@/components/home/WorkExperience'
@@ -61,11 +61,12 @@ function ProfileSummary() {
 					alt="GitHub Logo"
 					aria-label="Github Profile"
 					title="Visit my Github"
+					imgClassName="dark:invert"
 				/>
 
 				<ExternalSite
 					url={LINKS.linkedinUrl}
-					src={linkedinBlack}
+					src={linkedin}
 					alt="LinkedIn Logo"
 					aria-label="LinkedIn Profile"
 					title="Check out my LinkedIn"

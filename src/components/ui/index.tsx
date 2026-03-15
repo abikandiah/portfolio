@@ -12,17 +12,19 @@ interface ExternalSiteProps {
 	url: string
 	src: string
 	alt: string
+	imgClassName?: string
 }
 
 export function ExternalSite({
 	url,
 	src,
 	alt,
+	imgClassName,
 	...rest
 }: ExternalSiteProps & React.ComponentProps<'a'>) {
 	return (
 		<a href={url} target="_blank" rel="noopener noreferrer" {...rest}>
-			<img src={src} alt={alt} className="h-6 w-6" />
+			<img src={src} alt={alt} className={cn('h-6 w-6', imgClassName)} />
 		</a>
 	)
 }

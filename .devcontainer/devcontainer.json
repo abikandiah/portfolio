@@ -13,7 +13,7 @@
 			"onAutoForward": "notify"
 		}
 	},
-	"postCreateCommand": "npm ci",
+	"postCreateCommand": "npm ci && curl -fsSL https://claude.ai/install.sh | bash",
 	"customizations": {
 		"vscode": {
 			"extensions": [
