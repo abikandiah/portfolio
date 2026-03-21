@@ -55,6 +55,9 @@ const techType = {
 	JWT: 'JWT',
 	Caddy: 'Caddy',
 	Logto: 'Logto',
+	C: 'C',
+	WebAssembly: 'WebAssembly',
+	Emscripten: 'Emscripten',
 } as const
 
 type TTech = (typeof techType)[keyof typeof techType]
@@ -159,6 +162,15 @@ const compressedTechColorMap: { [colorClasses: string]: Array<TTech> } = {
 		techType.Selenium,
 		techType.SQLite,
 	],
+
+	// --- SLATE Scheme ---
+	'bg-slate-100 text-slate-800 border-slate-400': [
+		techType.C,
+		techType.Emscripten,
+	],
+
+	// --- STONE/WASM Scheme ---
+	'bg-stone-100 text-stone-800 border-stone-400': [techType.WebAssembly],
 
 	// --- GRAY Scheme (bg-gray-100, text-gray-800, border-gray-400) (Includes Default) ---
 	'bg-gray-100 text-gray-800 border-gray-400': [

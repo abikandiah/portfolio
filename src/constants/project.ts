@@ -6,6 +6,7 @@ import { googleVaultProject as googleVaultCollector } from '@/projects/GoogleVau
 import { legalHoldNotificationsProject as legalHoldNotifications } from '@/projects/LegalHoldNotifications'
 import { microsoftEDiscoveryProject as microsoftEDiscoveryCollector } from '@/projects/MicrosoftEDiscoveryCollector'
 import { platformWebApp } from '@/projects/PlatformWebApp'
+import { chip8EmulatorProject } from '@/projects/Chip8Emulator'
 import { propMangeProject } from '@/projects/PropMange'
 import { selenumE2ETestSuiteProject as selenumE2ETestSuite } from '@/projects/SeleniumE2ETestSuite'
 import { thirdPartyServicesProject as thirdPartyServices } from '@/projects/ThirdPartyServicesFramework'
@@ -27,6 +28,7 @@ addProject(legalHoldNotifications)
 addProject(javaToReactFormBuilder)
 addProject(thirdPartyServices)
 
+addProject(chip8EmulatorProject)
 addProject(webPortfolio)
 
 addProject(googleVaultCollector)

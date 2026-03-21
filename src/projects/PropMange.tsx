@@ -1,3 +1,4 @@
+import { CodeDisplay } from '@abumble/design-system/components/CodeDisplay'
 import { UnorderedList } from '@abumble/design-system/components/List'
 import {
 	Table,
@@ -85,8 +86,8 @@ function Overview() {
 				</li>
 				<li>
 					<strong>Membership & Access Control</strong> — A fine-grained
-					permission system that controls what each member of an organization can
-					see and do.
+					permission system that controls what each member of an organization
+					can see and do.
 				</li>
 				<li>
 					<strong>Activity & Audit Trail</strong> — A persisted event log
@@ -98,17 +99,6 @@ function Overview() {
 					lease lifecycle events, configurable per user.
 				</li>
 			</UnorderedList>
-			<p>
-				The backend is built with <strong>Spring Boot</strong> and{' '}
-				<strong>Java 21</strong>, backed by <strong>PostgreSQL</strong> with
-				schema migrations managed by <strong>Liquibase</strong>. The frontend is
-				a <strong>React 19</strong> SPA written in <strong>TypeScript</strong>,
-				using <strong>TanStack Router</strong> for routing and{' '}
-				<strong>TanStack Query</strong> for server-state management. The stack
-				is deployed via <strong>Docker Compose</strong> with{' '}
-				<strong>Caddy</strong> as the reverse proxy and <strong>Logto</strong>{' '}
-				as the OIDC identity provider.
-			</p>
 		</>
 	)
 }
@@ -221,11 +211,12 @@ function LeaseTemplates() {
 				the built-in values — lease-level overrides take highest priority.
 			</p>
 			<p>
-				The rendered output is stored in the <code>executedContentMarkdown</code>{' '}
-				field on the lease and is stamped at <strong>activation</strong> time,
-				not at creation. This creates a standalone snapshot decoupled from the
-				original template — modifying a template after leases have been
-				generated does not affect those existing records.
+				The rendered output is stored in the{' '}
+				<code>executedContentMarkdown</code> field on the lease and is stamped
+				at <strong>activation</strong> time, not at creation. This creates a
+				standalone snapshot decoupled from the original template — modifying a
+				template after leases have been generated does not affect those existing
+				records.
 			</p>
 		</>
 	)
@@ -302,20 +293,19 @@ function AccessControl() {
 	return (
 		<>
 			<p>
-				PropMange uses a <strong>hydration-based, hierarchy-aware permission
-				model</strong> driven by Permission Policies and Policy Assignments.
-				Spring roles play no part in business-operation authorization — the only
-				role the backend enforces is <code>ROLE_ADMIN</code>, which bypasses all
-				permission checks entirely.
+				PropMange uses a{' '}
+				<strong>hydration-based, hierarchy-aware permission model</strong>{' '}
+				driven by Permission Policies and Policy Assignments. Spring roles play
+				no part in business-operation authorization — the only role the backend
+				enforces is <code>ROLE_ADMIN</code>, which bypasses all permission
+				checks entirely.
 			</p>
 			<p>
 				A <strong>PermissionPolicy</strong> is a named, reusable set of
 				permissions stored as a JSON object mapping domain codes to action
 				letters:
 			</p>
-			<pre className="p-text text-sm bg-gray-100 rounded p-3 overflow-x-auto">
-				{'{ "l": "cru", "m": "r", "p": "crud" }'}
-			</pre>
+			<CodeDisplay code={'{ "l": "cru", "m": "r", "p": "crud" }'} />
 			<p>
 				Domain codes include <code>l</code> (Leases), <code>m</code>{' '}
 				(Maintenance), <code>f</code> (Finances), <code>c</code> (People),{' '}
@@ -346,9 +336,9 @@ function AccessControl() {
 			</p>
 			<p>
 				The frontend reads the user's resolved access entries from the session
-				and checks them before rendering action buttons or navigation items. If a
-				user lacks update access on the Leases domain, the edit option is hidden
-				entirely — not just disabled. The server enforces all permissions
+				and checks them before rendering action buttons or navigation items. If
+				a user lacks update access on the Leases domain, the edit option is
+				hidden entirely — not just disabled. The server enforces all permissions
 				independently; UI-level hiding is ergonomic only, not a security
 				boundary.
 			</p>
@@ -368,8 +358,7 @@ function Invitations() {
 				link is sent.
 			</p>
 			<p>
-				Invites carry a status:{' '}
-				<span className="font-semibold">PENDING</span>,{' '}
+				Invites carry a status: <span className="font-semibold">PENDING</span>,{' '}
 				<span className="font-semibold">ACCEPTED</span>, or{' '}
 				<span className="font-semibold">EXPIRED</span>. Pending invites expire
 				after 72 hours. If the recipient doesn't accept in time, the manager can
@@ -381,9 +370,7 @@ function Invitations() {
 				identity provider to create their account. Upon first login, the backend
 				matches their verified email against the pending invite record, creates
 				their membership or lease tenant record with the configured role, and
-				marks the invite as <span className="font-semibold">ACCEPTED</span> —
-				automatically, with no additional steps required from the inviting
-				manager.
+				marks the invite as <span className="font-semibold">ACCEPTED</span> automatically.
 			</p>
 		</>
 	)
@@ -415,8 +402,8 @@ function ActivityAudit() {
 				organization, a timestamp, and a flexible <code>metadata</code> field
 				stored as JSONB. The current tracked event types include:{' '}
 				<code>LEASE_SUBMITTED_FOR_REVIEW</code>,{' '}
-				<code>LEASE_TENANT_SIGNED</code>, <code>LEASE_ALL_TENANTS_SIGNED</code>
-				, <code>LEASE_ACTIVATED</code>, <code>LEASE_EXPIRING_SOON</code>,{' '}
+				<code>LEASE_TENANT_SIGNED</code>, <code>LEASE_ALL_TENANTS_SIGNED</code>,{' '}
+				<code>LEASE_ACTIVATED</code>, <code>LEASE_EXPIRING_SOON</code>,{' '}
 				<code>LEASE_EXPIRED</code>, <code>LEASE_TERMINATED</code>,{' '}
 				<code>LEASE_EVICTED</code>, <code>ORGANIZATION_CREATED</code>, and{' '}
 				<code>INVITE_ACCEPTED</code>.
@@ -426,7 +413,7 @@ function ActivityAudit() {
 				<code>GET /api/activity?orgId=&lt;uuid&gt;</code> with an optional{' '}
 				<code>eventTypes</code> filter parameter, returning a paginated list in
 				reverse-chronological order. The dashboard renders this feed as a
-				real-time-feeling list of recent organizational actions.
+				paginated list of recent organizational actions.
 			</p>
 		</>
 	)
@@ -456,7 +443,10 @@ function Notifications() {
 				<TableBody>
 					{[
 						['Submitted for review', 'Tenants'],
-						['Tenant signed', 'Manager (includes signing tenant name and remaining count)'],
+						[
+							'Tenant signed',
+							'Manager (includes signing tenant name and remaining count)',
+						],
 						['All tenants signed', 'Manager'],
 						['Activated', 'Tenants'],
 						['Expiring soon', 'Tenants + Manager'],
@@ -465,7 +455,9 @@ function Notifications() {
 						['Evicted', 'Tenants'],
 					].map(([event, recipients]) => (
 						<TableRow key={event}>
-							<TableCell className="whitespace-nowrap align-top">{event}</TableCell>
+							<TableCell className="whitespace-nowrap align-top">
+								{event}
+							</TableCell>
 							<TableCell className="whitespace-normal">{recipients}</TableCell>
 						</TableRow>
 					))}
@@ -510,10 +502,10 @@ function OfflineFirst() {
 			<p>
 				TanStack Query's cache is persisted to <strong>IndexedDB</strong> using
 				Dexie. Each user gets their own isolated database (
-				<code>prop-manager-v1-db-&#123;userId&#125;</code>), ensuring one
-				user's cached data is never visible to another on the same device.
-				Writes are throttled at 1 second to avoid excessive I/O. Persistence is
-				disabled in the dev environment by default and enabled via{' '}
+				<code>prop-manager-v1-db-&#123;userId&#125;</code>), ensuring one user's
+				cached data is never visible to another on the same device. Writes are
+				throttled at 1 second to avoid excessive I/O. Persistence is disabled in
+				the dev environment by default and enabled via{' '}
 				<code>VITE_PERSIST_OFFLINE=true</code>. The tenant portal query is
 				cached aggressively — configurable via{' '}
 				<code>VITE_QUERY_CACHE_MAX_AGE_HOURS</code> (default: 24 hours) — since
@@ -525,8 +517,8 @@ function OfflineFirst() {
 				Mutations in <code>paused</code>, <code>pending</code>, or{' '}
 				<code>idle</code> state are persisted to IndexedDB, so the outbox
 				survives page refreshes and browser restarts. When connectivity is
-				restored, the queue drains automatically and each mutation is replayed in
-				order.
+				restored, the queue drains automatically and each mutation is replayed
+				in order.
 			</p>
 			<p>
 				Because queued mutations may be replayed after a connectivity drop, each
@@ -651,26 +643,79 @@ function DatabaseSchema() {
 			</TableHeader>
 			<TableBody>
 				{[
-					['Organization', 'Has many properties, memberships, invites, and activity events.'],
-					['Property', 'Belongs to one organization and one owner (User). Has many units. Cannot be deleted while units exist.'],
-					['Unit', 'Belongs to one property. Has many leases. Status driven automatically by lease activation/termination; UNDER_MAINTENANCE and NOTICE_GIVEN are set manually.'],
-					['Asset', 'Belongs to a property and optionally a unit. Tracks equipment with make/model, serial number, and service dates.'],
-					['Lease', 'Belongs to one unit. Has many lease tenants. Optionally stamped from a template; rendered content stored on activation.'],
-					['LeaseTenant', 'Join between a lease and a tenant via an invite. Carries role, signing status, signed date, and the lease version acknowledged.'],
-					['LeaseTemplate', 'Belongs to one organization. Defines Markdown body, default financial terms, and custom template parameters.'],
-					['Tenant', 'Belongs to one user. Can participate in many leases via LeaseTenant.'],
-					['User', 'Global (not org-scoped). Has many memberships. Identity linked via UserIdentity (issuer + sub).'],
-					['UserIdentity', 'Links a User to an external OIDC identity (issuer + sub). One user can have multiple identities.'],
-					['Membership', 'Join between a user and an organization. Has many policy assignments.'],
-					['PermissionPolicy', 'Belongs to one organization, or system-wide if org is null. Defines domain → action permissions as JSON.'],
-					['PolicyAssignment', 'Scopes a policy (or inline overrides) to a membership at ORG / PROPERTY / UNIT / ASSET level.'],
-					['Invite', 'Targets either a MEMBERSHIP or a LEASE. Carries status (PENDING, ACCEPTED, EXPIRED), token, and expiry timestamp.'],
-					['ActivityEvent', 'Belongs to one organization. Stores event type, subject type/ID, actor ID, and JSONB metadata.'],
-					['NotificationDelivery', 'Tracks each outbound email: recipient, type, reference entity, status (PENDING, SENT, FAILED), and retry count.'],
-					['UserNotificationPreference', 'Per user per notification type per channel. Controls whether a delivery record is created.'],
+					[
+						'Organization',
+						'Has many properties, memberships, invites, and activity events.',
+					],
+					[
+						'Property',
+						'Belongs to one organization and one owner (User). Has many units. Cannot be deleted while units exist.',
+					],
+					[
+						'Unit',
+						'Belongs to one property. Has many leases. Status driven automatically by lease activation/termination; UNDER_MAINTENANCE and NOTICE_GIVEN are set manually.',
+					],
+					[
+						'Asset',
+						'Belongs to a property and optionally a unit. Tracks equipment with make/model, serial number, and service dates.',
+					],
+					[
+						'Lease',
+						'Belongs to one unit. Has many lease tenants. Optionally stamped from a template; rendered content stored on activation.',
+					],
+					[
+						'LeaseTenant',
+						'Join between a lease and a tenant via an invite. Carries role, signing status, signed date, and the lease version acknowledged.',
+					],
+					[
+						'LeaseTemplate',
+						'Belongs to one organization. Defines Markdown body, default financial terms, and custom template parameters.',
+					],
+					[
+						'Tenant',
+						'Belongs to one user. Can participate in many leases via LeaseTenant.',
+					],
+					[
+						'User',
+						'Global (not org-scoped). Has many memberships. Identity linked via UserIdentity (issuer + sub).',
+					],
+					[
+						'UserIdentity',
+						'Links a User to an external OIDC identity (issuer + sub). One user can have multiple identities.',
+					],
+					[
+						'Membership',
+						'Join between a user and an organization. Has many policy assignments.',
+					],
+					[
+						'PermissionPolicy',
+						'Belongs to one organization, or system-wide if org is null. Defines domain → action permissions as JSON.',
+					],
+					[
+						'PolicyAssignment',
+						'Scopes a policy (or inline overrides) to a membership at ORG / PROPERTY / UNIT / ASSET level.',
+					],
+					[
+						'Invite',
+						'Targets either a MEMBERSHIP or a LEASE. Carries status (PENDING, ACCEPTED, EXPIRED), token, and expiry timestamp.',
+					],
+					[
+						'ActivityEvent',
+						'Belongs to one organization. Stores event type, subject type/ID, actor ID, and JSONB metadata.',
+					],
+					[
+						'NotificationDelivery',
+						'Tracks each outbound email: recipient, type, reference entity, status (PENDING, SENT, FAILED), and retry count.',
+					],
+					[
+						'UserNotificationPreference',
+						'Per user per notification type per channel. Controls whether a delivery record is created.',
+					],
 				].map(([entity, relations]) => (
 					<TableRow key={entity}>
-						<TableCell className="font-medium whitespace-nowrap align-top">{entity}</TableCell>
+						<TableCell className="font-medium whitespace-nowrap align-top">
+							{entity}
+						</TableCell>
 						<TableCell className="whitespace-normal">{relations}</TableCell>
 					</TableRow>
 				))}

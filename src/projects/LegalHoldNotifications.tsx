@@ -4,6 +4,14 @@ import {
 	UnorderedList,
 } from '@abumble/design-system/components/List'
 import { Skeleton } from '@abumble/design-system/components/Skeleton'
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from '@abumble/design-system/components/Table'
 import type { ProjectProps } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
 import { projectType } from '@/types/ProjectTypes'
@@ -408,56 +416,30 @@ function DatabaseSchema() {
 				the data:
 			</p>
 
-			<div className="my-4 border-container rounded text-sm">
-				<table className="divide-y divide-border min-w-full">
-					<thead>
-						<tr className="text-xs text-left font-semibold uppercase">
-							<th scope="col" className="px-3 py-2 tracking-wider w-1/3">
-								Component
-							</th>
-							<th scope="col" className="px-3 py-2 tracking-wider w-2/3">
-								Relations
-							</th>
-						</tr>
-					</thead>
-					<tbody className="divide-y divide-border font-medium">
-						<tr>
-							<td className="px-3 py-2">Legal Hold</td>
-							<td className="px-3 py-2 text-muted-foreground">
-								Has multiple participations, events, and notices; uses one SMTP
-								server.
-							</td>
-						</tr>
-						<tr>
-							<td className="px-3 py-2">Notice Template</td>
-							<td className="px-3 py-2 text-muted-foreground">
-								Can be used by multiple legal holds and can have multiple child
-								notices.
-							</td>
-						</tr>
-						<tr>
-							<td className="px-3 py-2">Notice</td>
-							<td className="px-3 py-2 text-muted-foreground">
-								Is attached to one legal hold and can have multiple notice
-								events.
-							</td>
-						</tr>
-						<tr>
-							<td className="px-3 py-2">User</td>
-							<td className="px-3 py-2 text-muted-foreground">
-								Can participate in multiple legal holds and receive multiple
-								notice events.
-							</td>
-						</tr>
-						<tr>
-							<td className="px-3 py-2">SMTP Server</td>
-							<td className="px-3 py-2 text-muted-foreground">
-								Can be used in multiple legal holds.
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<Table>
+				<TableHeader>
+					<TableRow>
+						<TableHead>Component</TableHead>
+						<TableHead>Relations</TableHead>
+					</TableRow>
+				</TableHeader>
+				<TableBody>
+					{[
+						['Legal Hold', 'Has multiple participations, events, and notices; uses one SMTP server.'],
+						['Notice Template', 'Can be used by multiple legal holds and can have multiple child notices.'],
+						['Notice', 'Is attached to one legal hold and can have multiple notice events.'],
+						['User', 'Can participate in multiple legal holds and receive multiple notice events.'],
+						['SMTP Server', 'Can be used in multiple legal holds.'],
+					].map(([component, relations]) => (
+						<TableRow key={component}>
+							<TableCell className="font-medium whitespace-nowrap align-top">
+								{component}
+							</TableCell>
+							<TableCell className="whitespace-normal">{relations}</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
 			{/* 
             <img
                 className="object-cover mx-auto mt-12"
