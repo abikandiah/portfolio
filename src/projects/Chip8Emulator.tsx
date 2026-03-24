@@ -46,7 +46,7 @@ function Overview() {
 				This is a software implementation of the CHIP-8 virtual machine — an
 				interpreted platform originally designed in 1977 for early home
 				microcomputers. It executes programs (ROMs) written for the CHIP-8
-				platform, including classic games like Snake and Breakout.
+				platform, including classic games like Snake and Br8kout.
 			</p>
 			<p>
 				The project is built around a{' '}
@@ -126,11 +126,15 @@ function Chip8Spec() {
 function SystemArchitecture() {
 	return (
 		<>
-			<p>The four source files each own a distinct responsibility:</p>
+			<p>The five source files each own a distinct responsibility:</p>
 			<UnorderedList>
 				<li>
 					<strong>chip8.c / chip8.h</strong> — the virtual machine. Pure logic
 					with no platform dependencies.
+				</li>
+				<li>
+					<strong>main.c</strong> — the entry point for the native build. Parses
+					arguments, allocates the VM, and hands off to the terminal frontend.
 				</li>
 				<li>
 					<strong>terminal.c</strong> — the POSIX/Linux frontend. Handles
@@ -154,8 +158,10 @@ function CoreEmulatorDesign() {
 	return (
 		<>
 			<p>
-				All virtual machine state lives in a single struct. No heap allocation —
-				the entire VM fits comfortably on the stack.
+				All virtual machine state lives in a single struct. The struct itself
+				contains no internal heap allocations — every array is inline — so it
+				can be allocated once and passed around by pointer with no further
+				memory management.
 			</p>
 			<CodeDisplay
 				code={`typedef struct {
@@ -178,7 +184,7 @@ function CoreEmulatorDesign() {
 				Each call to <code>chip8_step()</code> performs one complete
 				fetch-decode-execute cycle: read 2 bytes at <code>memory[pc]</code>,
 				combine into a 16-bit opcode, advance <code>pc</code> by 2, then switch
-				on the top nibble to dispatch. All 35 CHIP-8 opcodes are implemented.
+				on the top nibble to dispatch. All 34 standard CHIP-8 instructions are implemented.
 			</p>
 
 			<h3 className="sub-heading">Sprite Rendering & Collision Detection</h3>
@@ -293,15 +299,16 @@ function WasmInterface() {
 				the WASM memory layout.
 			</p>
 			<CodeDisplay
-				code={`static uint8_t rom_staging_buffer[3584];  // max ROM size
+				code={`static uint8_t rom_staging[CHIP8_MEMORY_SIZE - PC_START_ADDRESS];  // 3,584 bytes
 
-int* wasm_get_rom_buffer() {
-    return (int*)rom_staging_buffer;
+uint8_t* wasm_get_rom_buffer(void) {
+    return rom_staging;
 }
 
-void wasm_load_rom_from_buffer(int size) {
+int wasm_load_rom_from_buffer(int size) {
     // Copy from staging buffer → chip8.memory[0x200]
-    memcpy(&chip.memory[PC_START_ADDRESS], rom_staging_buffer, size);
+    memcpy(&chip->memory[PC_START_ADDRESS], rom_staging, size);
+    return 0;
 }`}
 			/>
 		</>
@@ -323,7 +330,7 @@ function WebFrontend() {
 				</li>
 				<li>
 					<strong>ROM Selector</strong> — dropdown to pick one of 3 bundled ROMs
-					(Snake, Rock Paper Scissors, Breakout).
+					(Snake, Rock Paper Scissors, Br8kout).
 				</li>
 				<li>
 					<strong>File Upload</strong> — allows loading any custom{' '}
@@ -339,22 +346,23 @@ function WebFrontend() {
 			</UnorderedList>
 			<p>
 				The display pointer is read directly from WASM linear memory via{' '}
-				<code>HEAPU32</code>, converted to an <code>ImageData</code> object, and
-				stamped onto the canvas with <code>putImageData</code>. This avoids any
-				data copying — the canvas reads directly from the WASM memory space.
+				<code>HEAPU32</code>, then converted pixel-by-pixel into an{' '}
+				<code>ImageData</code> object and stamped onto the canvas with{' '}
+				<code>putImageData</code>. This reads the pixel buffer straight out of
+				WASM's address space without an intermediate JavaScript array allocation.
 			</p>
 			<CodeDisplay
 				code={`function renderFrame() {
     const ptr = Module._wasm_get_display();
-    const pixels = new Uint32Array(Module.HEAPU32.buffer, ptr, 64 * 32);
+    const display = new Uint32Array(Module.HEAPU32.buffer, ptr, 64 * 32);
 
     const imageData = ctx.createImageData(64, 32);
     for (let i = 0; i < 64 * 32; i++) {
-        const on = pixels[i] !== 0;
-        imageData.data[i * 4 + 0] = on ? 255 : 0;  // R
-        imageData.data[i * 4 + 1] = on ? 255 : 0;  // G
-        imageData.data[i * 4 + 2] = on ? 255 : 0;  // B
-        imageData.data[i * 4 + 3] = 255;            // A
+        const on = display[i] ? 255 : 0;
+        imageData.data[i * 4 + 0] = on;  // R
+        imageData.data[i * 4 + 1] = on;  // G
+        imageData.data[i * 4 + 2] = on;  // B
+        imageData.data[i * 4 + 3] = 255; // A
     }
     ctx.putImageData(imageData, 0, 0);
 }`}
@@ -371,7 +379,7 @@ function BuildSystem() {
 			<CodeDisplay
 				code={`# Compile with GCC
 make
-# Produces: ./chip8 (Linux/macOS executable)
+# Produces: ./chip8 (Linux executable)
 
 # Run a ROM
 ./chip8 roms/snake.ch8`}
