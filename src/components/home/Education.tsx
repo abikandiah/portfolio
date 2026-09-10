@@ -2,6 +2,7 @@ import { Card } from '@abumble/design-system/components/Card'
 import { University } from 'lucide-react'
 import { CardH2Header } from '../ui/card'
 import tmuLogo from '@/assets/tmu.svg'
+import uoftLogo from '@/assets/uoft-logo.svg'
 
 function Education() {
 	return (
@@ -10,8 +11,14 @@ function Education() {
 
 			<ol className="space-y-4">
 				<EducationRow
+					school="University of Toronto"
+					degree="MEng in Electrical & Computer Engineering"
+					duration="2026 - Present"
+					logoSrc={uoftLogo}
+				/>
+				<EducationRow
 					school="Toronto Metropolitan University"
-					degree="Computer Engineering"
+					degree="BEng in Computer Engineering"
 					duration="2014 - 2018"
 					logoSrc={tmuLogo}
 				/>
@@ -57,7 +64,9 @@ function EducationRow({
 				<dt className="sr-only">Degree</dt>
 				<dd className="text-xs leading-5 text-muted-foreground">{degree}</dd>
 				<dt className="sr-only">Duration</dt>
-				<dd className="ml-auto text-xs leading-5 text-muted-foreground">{duration}</dd>
+				<dd className="ml-auto text-xs leading-5 text-muted-foreground">
+					{duration}
+				</dd>
 			</dl>
 		</li>
 	)

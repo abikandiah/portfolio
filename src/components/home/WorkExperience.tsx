@@ -14,9 +14,9 @@ function WorkExperience() {
 
 			<ol className="space-y-4">
 				<WorkExperienceRow
-					companyName="Free Man"
+					companyName="Sabbatical"
 					role="Individual Contributor"
-					duration="2025 - Present"
+					duration="2025 - 2026"
 					logoSrc={bee}
 				/>
 
@@ -77,7 +77,9 @@ function WorkExperienceRow({
 				<dt className="sr-only">Role</dt>
 				<dd className="text-xs leading-5 text-muted-foreground">{role}</dd>
 				<dt className="sr-only">Duration</dt>
-				<dd className="ml-auto text-xs leading-5 text-muted-foreground">{duration}</dd>
+				<dd className="ml-auto text-xs leading-5 text-muted-foreground">
+					{duration}
+				</dd>
 			</dl>
 		</li>
 	)
