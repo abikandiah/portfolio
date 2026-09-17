@@ -370,7 +370,8 @@ function Invitations() {
 				identity provider to create their account. Upon first login, the backend
 				matches their verified email against the pending invite record, creates
 				their membership or lease tenant record with the configured role, and
-				marks the invite as <span className="font-semibold">ACCEPTED</span> automatically.
+				marks the invite as <span className="font-semibold">ACCEPTED</span>{' '}
+				automatically.
 			</p>
 		</>
 	)

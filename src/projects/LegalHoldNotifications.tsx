@@ -425,10 +425,22 @@ function DatabaseSchema() {
 				</TableHeader>
 				<TableBody>
 					{[
-						['Legal Hold', 'Has multiple participations, events, and notices; uses one SMTP server.'],
-						['Notice Template', 'Can be used by multiple legal holds and can have multiple child notices.'],
-						['Notice', 'Is attached to one legal hold and can have multiple notice events.'],
-						['User', 'Can participate in multiple legal holds and receive multiple notice events.'],
+						[
+							'Legal Hold',
+							'Has multiple participations, events, and notices; uses one SMTP server.',
+						],
+						[
+							'Notice Template',
+							'Can be used by multiple legal holds and can have multiple child notices.',
+						],
+						[
+							'Notice',
+							'Is attached to one legal hold and can have multiple notice events.',
+						],
+						[
+							'User',
+							'Can participate in multiple legal holds and receive multiple notice events.',
+						],
 						['SMTP Server', 'Can be used in multiple legal holds.'],
 					].map(([component, relations]) => (
 						<TableRow key={component}>

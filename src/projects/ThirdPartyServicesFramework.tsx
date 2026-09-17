@@ -1,7 +1,7 @@
 import { MessageBanner } from '@abumble/design-system/components/Banner'
 import { UnorderedList } from '@abumble/design-system/components/List'
-import type {ProjectProps} from '@/types/ProjectTypes';
-import {  projectType } from '@/types/ProjectTypes'
+import type { ProjectProps } from '@/types/ProjectTypes'
+import { projectType } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
 
 export const thirdPartyServicesProject: ProjectProps = {

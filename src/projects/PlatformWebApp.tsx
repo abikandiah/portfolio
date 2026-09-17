@@ -2,9 +2,9 @@ import { MessageBanner } from '@abumble/design-system/components/Banner'
 import { CodeDisplay } from '@abumble/design-system/components/CodeDisplay'
 import { UnorderedList } from '@abumble/design-system/components/List'
 import { Skeleton } from '@abumble/design-system/components/Skeleton'
-import type {ProjectProps} from '@/types/ProjectTypes';
+import type { ProjectProps } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
-import {  projectType } from '@/types/ProjectTypes'
+import { projectType } from '@/types/ProjectTypes'
 
 export const platformWebApp: ProjectProps = {
 	type: projectType.Work,

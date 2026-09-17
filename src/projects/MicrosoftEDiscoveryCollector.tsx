@@ -2,9 +2,9 @@ import { MessageBanner } from '@abumble/design-system/components/Banner'
 import { UnorderedList } from '@abumble/design-system/components/List'
 import { TextLink } from '../components/ui'
 import { thirdPartyServicesProject } from './ThirdPartyServicesFramework'
-import type {ProjectProps} from '@/types/ProjectTypes';
+import type { ProjectProps } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
-import {  projectType } from '@/types/ProjectTypes'
+import { projectType } from '@/types/ProjectTypes'
 
 export const microsoftEDiscoveryProject: ProjectProps = {
 	type: projectType.Work,

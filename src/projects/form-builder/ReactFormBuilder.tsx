@@ -4,9 +4,9 @@ import {
 	OrderedList,
 	UnorderedList,
 } from '@abumble/design-system/components/List'
-import type {ProjectProps} from '@/types/ProjectTypes';
+import type { ProjectProps } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
-import {  projectType } from '@/types/ProjectTypes'
+import { projectType } from '@/types/ProjectTypes'
 
 export const javaToReactFormBuilderProject: ProjectProps = {
 	type: projectType.Work,

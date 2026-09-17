@@ -1,3 +1,4 @@
+import { SocialLinks } from './SocialLinks'
 import { TextLink } from './ui'
 
 interface FooterProps {
@@ -7,7 +8,11 @@ interface FooterProps {
 function Footer({ showLinks = true }: FooterProps) {
 	return (
 		<footer className="mt-auto px-3">
-			<div className="py-8 px-6 mt-18">
+			<div className="py-8 px-6 mt-18 flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-6">
+				{showLinks && (
+					<SocialLinks className="flex items-center gap-4" iconClassName="h-5 w-5" />
+				)}
+
 				<div className="flex flex-col md:items-end items-center gap-1">
 					{showLinks && (
 						<TextLink

@@ -1,15 +1,12 @@
 import { cn } from '@abumble/design-system/utils'
 import { createFileRoute } from '@tanstack/react-router'
-import { Mail } from 'lucide-react'
 import { useRef, useState } from 'react'
 import profilePhoto from '@/assets/face.svg'
-import github from '@/assets/github.svg'
-import linkedin from '@/assets/linkedin.svg'
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
 import WorkExperience from '@/components/home/WorkExperience'
-import { ExternalSite, PageDescription, PageHeader } from '@/components/ui'
-import { LINKS, PERSONAL } from '@/constants'
+import { SocialLinks } from '@/components/SocialLinks'
+import { PageDescription, PageHeader } from '@/components/ui'
 
 export const Route = createFileRoute('/')({
 	component: App,
@@ -20,59 +17,39 @@ function App() {
 		<>
 			<LandscapeContainer className="-mx-3" />
 			<div className="center-page flex flex-col">
-				<ProfileHeader />
-				<ProfileSummary />
+				<ProfileIntro />
 				<MainContent />
 			</div>
 		</>
 	)
 }
 
-function ProfileHeader() {
+function ProfileIntro() {
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<FaceContextMenu src={profilePhoto} />
+		<div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 px-6 pb-6 pt-6">
+			<div className="flex flex-col items-center justify-center shrink-0">
+				<FaceContextMenu src={profilePhoto} />
 
-			<PageHeader className="mt-6">Abilaesh Kandiah</PageHeader>
+				<PageHeader className="mt-6 text-center">Abilaesh Kandiah</PageHeader>
 
-			<PageDescription className="mt-1">Full-Stack Developer</PageDescription>
-		</div>
-	)
-}
-
-function ProfileSummary() {
-	return (
-		<section className="flex flex-col gap-4 p-6 mt-2">
-			<p className="p-text">
-				Hey, I'm Abi, a seasoned full-stack developer with over 7 years of
-				experience dedicated to bringing ideas to life. I architect and deliver
-				complete, robust solutions—from database design to launching polished
-				UIs. Leveraging React, JavaScript, Java, Node, and Python alongside
-				modern CI/CD and cloud platforms (AWS/Azure/GCP), I manage the full
-				operational loop to build it right.
-			</p>
-
-			<div className="flex items-center gap-4">
-				<SendEmail email={PERSONAL.email} />
-
-				<ExternalSite
-					url={LINKS.github}
-					src={github}
-					alt="GitHub Logo"
-					aria-label="Github Profile"
-					title="Visit my Github"
-					imgClassName="dark:invert"
-				/>
-
-				<ExternalSite
-					url={LINKS.linkedinUrl}
-					src={linkedin}
-					alt="LinkedIn Logo"
-					aria-label="LinkedIn Profile"
-					title="Check out my LinkedIn"
-				/>
+				<PageDescription className="mt-1 text-center">
+					Full-Stack Developer
+				</PageDescription>
 			</div>
-		</section>
+
+			<section className="flex flex-col gap-4 mt-4">
+				<p className="p-text">
+					Hey, I'm Abi, a seasoned full-stack developer with over 7 years of
+					experience dedicated to bringing ideas to life. I architect and
+					deliver complete, robust solutions—from database design to launching
+					polished UIs. Leveraging React, JavaScript, Java, Node, and Python
+					alongside modern CI/CD and cloud platforms (AWS/Azure/GCP), I manage
+					the full operational loop to build it right.
+				</p>
+
+				<SocialLinks className="flex items-center gap-4 justify-center md:justify-start" />
+			</section>
+		</div>
 	)
 }
 
@@ -88,19 +65,6 @@ function MainContent() {
 				<WorkExperience />
 			</div>
 		</div>
-	)
-}
-
-function SendEmail({ email, showText }: { email: string; showText?: boolean }) {
-	return (
-		<a
-			className="flex items-center action-hover"
-			title="Send me an email"
-			href={`mailto:${email}?subject=Hello!&body=I wanted to reach out to you regarding...`}
-		>
-			<Mail />
-			{showText && <span className="ml-2 font-medium">{email}</span>}
-		</a>
 	)
 }
 
