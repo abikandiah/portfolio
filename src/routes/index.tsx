@@ -1,6 +1,6 @@
 import { cn } from '@abumble/design-system/utils'
 import { createFileRoute } from '@tanstack/react-router'
-import { useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import profilePhoto from '@/assets/face.svg'
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
@@ -68,38 +68,129 @@ function MainContent() {
 	)
 }
 
+// A wind-up toy: hovering gives a slow passive spin, and moving the mouse
+// quickly across it "spends energy" to wind it up further. The energy decays
+// gradually (coasts to a stop) once you stop moving or leave.
+const SPIN_CYCLE_MS = 12000
+const SPIN_IDLE_RATE = 0.3
+const SPIN_MAX_RATE = 14
+const SPIN_EASE = 0.08
+const ENERGY_MAX = 14
+const ENERGY_DECAY = 0.985
+const ENERGY_PER_PIXEL_MOVED = 0.03
+const ENERGY_STOP_THRESHOLD = 0.05
+
 function FaceContextMenu({ src }: { src: string }) {
-	const [state, setState] = useState({ degree: 0, duration: 500 })
-	const downTime = useRef(0)
+	const imgRef = useRef<HTMLImageElement>(null)
+	const spinAnimation = useRef<Animation | null>(null)
+	const rafId = useRef<number>(0)
 
-	function onPointerDown(event: React.PointerEvent<HTMLImageElement>) {
-		downTime.current = event.timeStamp
+	const isHovering = useRef(false)
+	const lastPointer = useRef<{ x: number; y: number } | null>(null)
+	const energy = useRef(0)
+
+	function getSpinAnimation(): Animation | null {
+		if (spinAnimation.current != null) {
+			return spinAnimation.current
+		}
+
+		const img = imgRef.current
+		if (img == null) {
+			return null
+		}
+
+		spinAnimation.current = img.animate(
+			[{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }],
+			{ duration: SPIN_CYCLE_MS, iterations: Infinity },
+		)
+		spinAnimation.current.playbackRate = SPIN_IDLE_RATE
+		spinAnimation.current.pause()
+		return spinAnimation.current
 	}
 
-	function onPointerUp(event: React.PointerEvent<HTMLImageElement>) {
-		const additionalDegrees = event.timeStamp - downTime.current
+	function tick() {
+		const animation = spinAnimation.current
+		if (animation == null) {
+			return
+		}
 
-		setState({
-			degree: state.degree + additionalDegrees,
-			duration: Math.max(additionalDegrees * 2, 500),
-		})
+		energy.current *= ENERGY_DECAY
+
+		const target = Math.min(
+			(isHovering.current ? SPIN_IDLE_RATE : 0) + energy.current,
+			SPIN_MAX_RATE,
+		)
+		animation.playbackRate += (target - animation.playbackRate) * SPIN_EASE
+
+		const settled =
+			!isHovering.current &&
+			energy.current < ENERGY_STOP_THRESHOLD &&
+			Math.abs(animation.playbackRate) < ENERGY_STOP_THRESHOLD
+
+		if (settled) {
+			animation.pause()
+			return
+		}
+
+		rafId.current = requestAnimationFrame(tick)
 	}
 
-	const rotationClass = `transition-transform duration-500 rotate-[var(--random-rotation)]`
-	const customStyles = {
-		// Use the CSS variable syntax for custom properties
-		'--random-rotation': `${state.degree}deg`,
-		transitionDuration: `${state.duration}ms`,
+	function ensureSpinning() {
+		const animation = getSpinAnimation()
+		if (animation == null) {
+			return
+		}
+
+		if (animation.playState !== 'running') {
+			animation.play()
+			rafId.current = requestAnimationFrame(tick)
+		}
 	}
+
+	function onPointerEnter() {
+		isHovering.current = true
+		lastPointer.current = null
+		ensureSpinning()
+	}
+
+	function onPointerMove(event: React.PointerEvent<HTMLImageElement>) {
+		const last = lastPointer.current
+
+		if (last != null) {
+			const distance = Math.hypot(
+				event.clientX - last.x,
+				event.clientY - last.y,
+			)
+			energy.current = Math.min(
+				energy.current + distance * ENERGY_PER_PIXEL_MOVED,
+				ENERGY_MAX,
+			)
+		}
+
+		lastPointer.current = { x: event.clientX, y: event.clientY }
+	}
+
+	function onPointerLeave() {
+		isHovering.current = false
+		lastPointer.current = null
+	}
+
+	useEffect(() => {
+		return () => {
+			cancelAnimationFrame(rafId.current)
+			spinAnimation.current?.cancel()
+		}
+	}, [])
 
 	return (
 		<img
-			onPointerDown={onPointerDown}
-			onPointerUp={onPointerUp}
-			className={`sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-background shadow-lg dark:invert ${rotationClass}`}
+			ref={imgRef}
+			onPointerEnter={onPointerEnter}
+			onPointerMove={onPointerMove}
+			onPointerLeave={onPointerLeave}
+			className="sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-background shadow-lg dark:invert"
 			src={src}
 			alt="Abilaesh Kandiah's Profile Photo"
-			style={customStyles}
 		/>
 	)
 }

@@ -1,6 +1,10 @@
 import { UnderConstruction } from '@abumble/design-system/components/UnderConstruction'
 import { ThemeProvider } from '@abumble/design-system/themes'
-import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
+import {
+	Outlet,
+	createRootRouteWithContext,
+	useLocation,
+} from '@tanstack/react-router'
 import type { QueryClient } from '@tanstack/react-query'
 import { config } from '@/config'
 import Footer from '@/components/Footer'
@@ -17,6 +21,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 })
 
 function Root() {
+	const { pathname } = useLocation()
+	const isHome = pathname === '/'
+
 	if (!config.constructionDisabled) {
 		return (
 			<div className="flex flex-col h-full">
@@ -38,7 +45,7 @@ function Root() {
 					<Outlet />
 				</main>
 
-				<Footer />
+				<Footer showSocials={!isHome} />
 			</div>
 		</ThemeProvider>
 	)
