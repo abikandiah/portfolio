@@ -66,6 +66,14 @@ export function DisclaimerBody() {
 						endorsement of actual implementation.
 					</p>
 				</li>
+				<li>
+					<p className="leading-relaxed">
+						<span className="font-semibold">AI-Assisted Writing</span>: Project
+						write-ups were drafted with AI assistance from my own notes, design
+						docs, and technical decisions, then reviewed by me for accuracy. The
+						work, decisions, and technical judgment described are my own.
+					</p>
+				</li>
 			</UnorderedList>
 
 			<p className="leading-relaxed">
