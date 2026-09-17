@@ -15,7 +15,7 @@ export const Route = createFileRoute('/')({
 function App() {
 	return (
 		<>
-			<LandscapeContainer className="-mx-3" />
+			<LandscapeContainer className="-mx-3" style={{ height: '11rem' }} />
 			<div className="center-page flex flex-col">
 				<ProfileIntro />
 				<MainContent />
@@ -26,7 +26,7 @@ function App() {
 
 function ProfileIntro() {
 	return (
-		<div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 px-6 pb-6 pt-6">
+		<div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 px-6 pb-8 pt-4">
 			<div className="flex flex-col items-center justify-center shrink-0">
 				<FaceContextMenu src={profilePhoto} />
 

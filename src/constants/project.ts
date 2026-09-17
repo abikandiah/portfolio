@@ -65,8 +65,6 @@ function getProject(props: ProjectProps): Project {
 
 const featuredProjects: Array<Project> = [
 	propMangeProject,
-	platformWebApp,
-	legalHoldNotifications,
 	javaToReactFormBuilder,
 	thirdPartyServices,
 ].map(getProject)
