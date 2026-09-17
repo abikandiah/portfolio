@@ -15,7 +15,8 @@ import { techType } from '@/types/TechTypes'
 export const chip8EmulatorProject: ProjectProps = {
 	type: projectType.Personal,
 	name: 'CHIP-8 Emulator',
-	duration: '2024',
+	startYear: 2024,
+	endYear: 2024,
 	url: 'https://chip8.akandiah.ca',
 	description: `A fully-featured CHIP-8 virtual machine emulator written in C, deployable as both a native terminal application and a browser-based experience via WebAssembly.`,
 	tech: [

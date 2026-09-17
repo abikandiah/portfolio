@@ -9,7 +9,8 @@ import { projectType } from '@/types/ProjectTypes'
 export const platformWebApp: ProjectProps = {
 	type: projectType.Work,
 	name: 'Platform Web Application',
-	duration: '2018 - 2025',
+	startYear: 2018,
+	endYear: 2025,
 	description: `A React-based management console for the Java backend, enabling users to create, schedule, and submit eDiscovery workflows for processing.`,
 	tech: [
 		techType.JavaScript,

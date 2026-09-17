@@ -19,7 +19,8 @@ import { projectType } from '@/types/ProjectTypes'
 export const legalHoldNotificationsProject: ProjectProps = {
 	type: projectType.Work,
 	name: 'Legal Hold Notifications',
-	duration: '2020 - 2021',
+	startYear: 2020,
+	endYear: 2021,
 	description: `A communication platform for administrating and auditing legal holds.`,
 	tech: [
 		techType.Java,

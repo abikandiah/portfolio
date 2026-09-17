@@ -5,7 +5,7 @@ import { techType } from '@/types/TechTypes'
 export const webPortfolioProject: ProjectProps = {
 	type: projectType.Personal,
 	name: 'Web Portfolio',
-	duration: '2025',
+	startYear: 2025,
 	description: `A personal portfolio website to showcase my technical expertise, designed as a modern single-page application (SPA) and hosted on Cloudflare as a Page.`,
 	tech: [
 		techType.TypeScript,
@@ -16,6 +16,17 @@ export const webPortfolioProject: ProjectProps = {
 	],
 
 	sections: [{ title: 'Overview', body: Overview }],
+
+	caseStudy: {
+		summary:
+			'A personal portfolio built to showcase technical work to both recruiters and engineers — and, fittingly, the same project this case-study/engineering toggle feature was designed for.',
+		problem:
+			'A portfolio site needs to serve two very different readers at once: someone skimming quickly for an overall impression, and someone who wants to dig into real technical decisions. Most portfolios pick one and leave the other reader wanting.',
+		approach:
+			'Built as a React 19 single-page app with TypeScript, TanStack Router, and Tailwind CSS v4, then iterated in tight feedback loops on the details that actually affect how it reads — hover states and consistent affordances across sections, an expandable Experience/Education timeline, and this case-study/engineering toggle itself.',
+		outcome:
+			'Every project can now be read as a short case study or a full engineering write-up without maintaining two separate pages, and the same pattern is ready to roll out across the rest of the portfolio as more case studies get written.',
+	},
 }
 
 function Overview() {

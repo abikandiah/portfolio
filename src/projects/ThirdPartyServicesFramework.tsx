@@ -7,7 +7,8 @@ import { techType } from '@/types/TechTypes'
 export const thirdPartyServicesProject: ProjectProps = {
 	type: projectType.Work,
 	name: 'Third-Party Services Framework',
-	duration: '2024',
+	startYear: 2024,
+	endYear: 2024,
 	description:
 		'A full-stack framework to build integrations to third-party services.',
 	tech: [

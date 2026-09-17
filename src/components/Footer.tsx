@@ -6,7 +6,7 @@ interface FooterProps {
 	showSocials?: boolean
 }
 
-function Footer({ showLinks = true, showSocials = showLinks }: FooterProps) {
+function Footer({ showLinks = true, showSocials = true }: FooterProps) {
 	return (
 		<footer className="mt-auto px-3">
 			<div className="py-8 px-6 mt-18 flex flex-col md:flex-row items-center md:items-end justify-center gap-6">

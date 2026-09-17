@@ -35,4 +35,27 @@ function TechBadge({
 	)
 }
 
-export { BadgeContainer, TechBadge }
+interface TechBadgeListProps extends VariantProps<typeof techBadgeVariants> {
+	tech: Array<string>
+	max?: number
+	className?: string
+}
+
+/** Capped tech badge list with a "+N more" overflow, e.g. for compact rows/cards. */
+function TechBadgeList({ tech, max = 4, size, className }: TechBadgeListProps) {
+	const visible = tech.slice(0, max)
+	const remaining = tech.length - visible.length
+
+	return (
+		<div className={cn('flex flex-wrap items-center gap-1.5', className)}>
+			{visible.map((value) => (
+				<TechBadge key={value} value={value} size={size} />
+			))}
+			{remaining > 0 && (
+				<span className="text-xs text-muted-foreground">+{remaining} more</span>
+			)}
+		</div>
+	)
+}
+
+export { BadgeContainer, TechBadge, TechBadgeList }

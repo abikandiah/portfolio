@@ -6,7 +6,8 @@ import { techType } from '@/types/TechTypes'
 export const selenumE2ETestSuiteProject: ProjectProps = {
 	type: projectType.Work,
 	name: 'Selenium E2E Test Suite',
-	duration: '2019 - 2025',
+	startYear: 2019,
+	endYear: 2025,
 	description: `A scalable end-to-end (E2E) test suite for validating web application user flows, executed as part of the CI/CD pipeline's test stage.`,
 	tech: [
 		techType.Java,

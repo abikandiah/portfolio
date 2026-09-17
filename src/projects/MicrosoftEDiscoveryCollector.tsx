@@ -4,12 +4,13 @@ import { TextLink } from '../components/ui'
 import { thirdPartyServicesProject } from './ThirdPartyServicesFramework'
 import type { ProjectProps } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
-import { projectType } from '@/types/ProjectTypes'
+import { projectType, toUrl } from '@/types/ProjectTypes'
 
 export const microsoftEDiscoveryProject: ProjectProps = {
 	type: projectType.Work,
 	name: 'Microsoft eDiscovery Collector',
-	duration: '2022 - 2024',
+	startYear: 2022,
+	endYear: 2024,
 	description: `An integration of the Microsoft Purview eDiscovery tool into the workflow automation platform, providing a structured, automated approach for end-to-end data collections.`,
 	tech: [
 		techType.Java,
@@ -60,7 +61,7 @@ function DeepDive() {
 				This feature is an implementation of the{' '}
 				<TextLink
 					to="/projects/$projectKey"
-					params={{ projectKey: thirdPartyServicesProject.pathname }}
+					params={{ projectKey: toUrl(thirdPartyServicesProject.name) }}
 				>
 					{thirdPartyServicesProject.name}
 				</TextLink>

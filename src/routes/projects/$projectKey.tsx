@@ -1,41 +1,109 @@
 import { Separator } from '@abumble/design-system/components/Separator'
 import { cn } from '@abumble/design-system/utils'
 import { createFileRoute } from '@tanstack/react-router'
+import { ChevronLeft } from 'lucide-react'
 import { Fragment } from 'react/jsx-runtime'
-import type { Project, ProjectSection } from '@/types/ProjectTypes'
+import type {
+	Project,
+	ProjectSection,
+	TProjectView,
+} from '@/types/ProjectTypes'
+import { projectView } from '@/types/ProjectTypes'
+import { CaseStudyBody } from '@/components/projects/CaseStudyBody'
+import { ViewToggle } from '@/components/projects/ViewToggle'
 import { NotFound } from '@/components/NotFound'
-import { PageDescription, PageHeader } from '@/components/ui'
+import { PageDescription, PageHeader, TextLink } from '@/components/ui'
 import { BadgeContainer, TechBadge } from '@/components/ui/badge'
 import { projectsMap } from '@/constants/project'
 
+interface ProjectSearch {
+	view?: TProjectView
+}
+
 export const Route = createFileRoute('/projects/$projectKey')({
+	validateSearch: (search: Record<string, unknown>): ProjectSearch => {
+		if (
+			search.view === projectView.CaseStudy ||
+			search.view === projectView.Engineering
+		) {
+			return { view: search.view }
+		}
+		return {}
+	},
 	component: RouteComponent,
 })
 
+function resolveView(
+	requested: TProjectView | undefined,
+	hasCaseStudy: boolean,
+	hasEngineering: boolean,
+): TProjectView {
+	if (requested === projectView.CaseStudy && hasCaseStudy) {
+		return projectView.CaseStudy
+	}
+	if (requested === projectView.Engineering && hasEngineering) {
+		return projectView.Engineering
+	}
+	return hasCaseStudy ? projectView.CaseStudy : projectView.Engineering
+}
+
 function RouteComponent() {
 	const { projectKey } = Route.useParams()
+	const { view: requestedView } = Route.useSearch()
+	const navigate = Route.useNavigate()
 	const proj = projectsMap.get(projectKey)
 
 	if (proj == null) {
 		return <NotFound />
 	}
 
+	const hasCaseStudy = proj.caseStudy != null
+	const hasEngineering = proj.sections != null && proj.sections.length > 0
+	const activeView = resolveView(requestedView, hasCaseStudy, hasEngineering)
+
+	function onSelectView(view: TProjectView) {
+		navigate({ search: { view }, replace: true })
+	}
+
 	return (
 		<ProjectContainer className="space-y-4 mt-4">
-			<section className="px-3">
+			<BackToProjectsLink className="px-3" />
+
+			<section className="px-3 space-y-4">
 				<ProjectHeader proj={proj} />
+
+				<ViewToggle
+					hasCaseStudy={hasCaseStudy}
+					hasEngineering={hasEngineering}
+					activeView={activeView}
+					onSelect={onSelectView}
+				/>
 			</section>
 
-			<ProjectBody>
-				{Array.isArray(proj.sections) &&
-					proj.sections.map((section, index) => (
-						<Fragment key={index}>
-							{index > 0 && <Separator />}
-							<ProjectBodySection key={index} section={section} />
-						</Fragment>
-					))}
-			</ProjectBody>
+			{!hasCaseStudy && !hasEngineering ? (
+				<p className="px-3 text-sm text-muted-foreground">
+					No write-up for this project yet — check back soon.
+				</p>
+			) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
+				<CaseStudyBody caseStudy={proj.caseStudy} />
+			) : (
+				<EngineeringBody sections={proj.sections ?? []} />
+			)}
+
+			<BackToProjectsLink className="border-t px-3 pt-4" />
 		</ProjectContainer>
+	)
+}
+
+function BackToProjectsLink({ className }: { className?: string }) {
+	return (
+		<TextLink
+			to="/projects"
+			className={cn('inline-flex items-center gap-1 text-sm', className)}
+		>
+			<ChevronLeft className="h-4 w-4" />
+			All Projects
+		</TextLink>
 	)
 }
 
@@ -75,13 +143,16 @@ function ProjectHeader({ proj }: { proj: Project }) {
 	)
 }
 
-function ProjectBody({ className, ...props }: React.ComponentProps<'div'>) {
+function EngineeringBody({ sections }: { sections: Array<ProjectSection> }) {
 	return (
-		<div
-			className={cn('flex flex-col gap-6 p-3', className)}
-			// className={cn('card', className)}
-			{...props}
-		/>
+		<div className="flex flex-col gap-6 p-3">
+			{sections.map((section, index) => (
+				<Fragment key={index}>
+					{index > 0 && <Separator />}
+					<ProjectBodySection section={section} />
+				</Fragment>
+			))}
+		</div>
 	)
 }
 

@@ -10,7 +10,8 @@ import { techType } from '@/types/TechTypes'
 export const dataUploadProject: ProjectProps = {
 	type: projectType.Work,
 	name: 'Data Upload',
-	duration: '2020',
+	startYear: 2020,
+	endYear: 2020,
 	description: `A web-based tool for uploading data to data repositories for further processing with workflows.`,
 	tech: [
 		techType.Java,

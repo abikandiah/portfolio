@@ -107,8 +107,11 @@ function ExpandableRow({
 
 				<CollapsibleContent>
 					<ul className="ml-14 mt-1 mb-2 list-disc space-y-1 pl-4">
-						{bullets.map((bullet) => (
-							<li key={bullet} className="text-xs leading-5 text-muted-foreground">
+						{bullets.map((bullet, index) => (
+							<li
+								key={`${index}-${bullet}`}
+								className="text-xs leading-5 text-muted-foreground"
+							>
 								{bullet}
 							</li>
 						))}

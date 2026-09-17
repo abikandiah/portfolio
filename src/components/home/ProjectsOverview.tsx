@@ -2,11 +2,9 @@ import { Card, CardContent } from '@abumble/design-system/components/Card'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, FolderCode } from 'lucide-react'
 import { CardH2Header } from '../ui/card'
-import { TechBadge } from '../ui/badge'
+import { TechBadgeList } from '../ui/badge'
 import type { Project } from '@/types/ProjectTypes'
-import { projects } from '@/constants/project'
-
-const MAX_VISIBLE_TECH = 4
+import { featuredProjects } from '@/constants/project'
 
 function ProjectsOverview() {
 	return (
@@ -14,7 +12,7 @@ function ProjectsOverview() {
 			<CardH2Header title={'Key Projects'} Icon={FolderCode} />
 
 			<CardContent className="space-y-2">
-				{projects.slice(0, 5).map((proj) => (
+				{featuredProjects.map((proj) => (
 					<ProjectOverview key={proj.name} proj={proj} />
 				))}
 			</CardContent>
@@ -24,8 +22,6 @@ function ProjectsOverview() {
 
 function ProjectOverview({ proj }: { proj: Project }) {
 	const { name, duration, description, tech } = proj
-	const visibleTech = tech.slice(0, MAX_VISIBLE_TECH)
-	const remainingTech = tech.length - visibleTech.length
 
 	return (
 		<Link
@@ -45,16 +41,7 @@ function ProjectOverview({ proj }: { proj: Project }) {
 
 			<p className="text-sm leading-5 text-muted-foreground">{description}</p>
 
-			<div className="flex flex-wrap items-center gap-1.5 mt-2">
-				{visibleTech.map((t) => (
-					<TechBadge key={t} value={t} size="sm" />
-				))}
-				{remainingTech > 0 && (
-					<span className="text-xs text-muted-foreground">
-						+{remainingTech} more
-					</span>
-				)}
-			</div>
+			<TechBadgeList tech={tech} size="sm" className="mt-2" />
 
 			<span className="inline-flex items-center gap-1 text-xs text-link mt-2">
 				View Project

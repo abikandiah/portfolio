@@ -8,23 +8,51 @@ const projectType = {
 
 type TProjectType = (typeof projectType)[keyof typeof projectType]
 
+const projectView = {
+	CaseStudy: 'case-study',
+	Engineering: 'engineering',
+} as const
+
+type TProjectView = (typeof projectView)[keyof typeof projectView]
+
 interface ProjectSectionProps {
 	title?: string
 	body: React.ComponentType
 	pathname?: string
 }
 
+interface CaseStudyMedia {
+	type: 'image' | 'video'
+	src: string
+	caption?: string
+}
+
+interface CaseStudyMetric {
+	label: string
+	value: string
+}
+
+interface CaseStudy {
+	summary: string
+	problem: string
+	approach: string
+	outcome: string
+	metrics?: Array<CaseStudyMetric>
+	media?: Array<CaseStudyMedia>
+}
+
 interface ProjectProps {
 	type: TProjectType
 	name: string
 	description: string
-	duration: string
+	startYear: number
+	endYear?: number | undefined
 	tech: Array<TTech>
 
 	url?: string | undefined
-	pathname?: string
 	icon?: ComponentType<any> | undefined
 	sections?: Array<ProjectSectionProps> | undefined
+	caseStudy?: CaseStudy | undefined
 }
 
 class ProjectSection implements ProjectSectionProps {
@@ -46,7 +74,8 @@ class Project implements ProjectProps {
 	type: TProjectType
 	name: string
 	description: string
-	duration: string
+	startYear: number
+	endYear?: number | undefined
 
 	tech: Array<TTech>
 	pathname: string
@@ -54,16 +83,19 @@ class Project implements ProjectProps {
 	url?: string | undefined
 	icon?: ComponentType<any> | undefined
 	sections?: Array<ProjectSection> | undefined
+	caseStudy?: CaseStudy | undefined
 
 	constructor(props: ProjectProps) {
 		this.type = props.type
 		this.name = props.name
 		this.description = props.description
-		this.duration = props.duration
+		this.startYear = props.startYear
+		this.endYear = props.endYear
 
 		this.tech = props.tech
 		this.pathname = toUrl(this.name)
 		this.url = props.url
+		this.caseStudy = props.caseStudy
 
 		if (Array.isArray(props.sections)) {
 			this.sections = props.sections.map(
@@ -71,11 +103,35 @@ class Project implements ProjectProps {
 			)
 		}
 	}
+
+	/** Display text derived from startYear/endYear, e.g. "2024", "2018 - 2025", "2026 - Present". */
+	get duration(): string {
+		if (this.endYear == null) {
+			return `${this.startYear} - Present`
+		}
+		if (this.endYear === this.startYear) {
+			return `${this.startYear}`
+		}
+		return `${this.startYear} - ${this.endYear}`
+	}
+
+	/** Sort key for reverse-chronological ordering — ongoing projects sort as most recent. */
+	get sortYear(): number {
+		return this.endYear ?? Infinity
+	}
 }
 
 function toUrl(str: string): string {
 	return str.toLowerCase().replaceAll(' ', '-')
 }
 
-export { Project, ProjectSection, projectType }
-export type { ProjectProps, ProjectSectionProps }
+export { Project, ProjectSection, projectType, projectView, toUrl }
+export type {
+	CaseStudy,
+	CaseStudyMedia,
+	CaseStudyMetric,
+	ProjectProps,
+	ProjectSectionProps,
+	TProjectType,
+	TProjectView,
+}

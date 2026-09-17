@@ -11,7 +11,8 @@ import { projectType } from '@/types/ProjectTypes'
 export const javaToReactFormBuilderProject: ProjectProps = {
 	type: projectType.Work,
 	name: 'Java-To-React Form Builder',
-	duration: '2023',
+	startYear: 2023,
+	endYear: 2023,
 	description: `A form generation tool for rendering React forms for backend Java classes, removing the need to manually create forms.`,
 	tech: [
 		techType.Java,

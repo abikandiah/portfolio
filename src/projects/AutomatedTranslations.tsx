@@ -7,7 +7,8 @@ import { techType } from '@/types/TechTypes'
 export const automatedTranslationsProject: ProjectProps = {
 	type: projectType.Work,
 	name: 'Automated Translations',
-	duration: '2019',
+	startYear: 2019,
+	endYear: 2019,
 	description: `A collection of scripts for automating the translation of frontend and backend language files.`,
 	tech: [techType.Ruby, techType.i18next, techType.GoogleCloud],
 
