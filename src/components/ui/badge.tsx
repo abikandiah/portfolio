@@ -8,7 +8,7 @@ function BadgeContainer({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 const techBadgeVariants = cva(
-	'inline-flex items-center rounded-full border font-medium',
+	'tech-tag inline-flex items-center gap-1.5 rounded border font-medium text-foreground',
 	{
 		variants: {
 			size: {
@@ -26,10 +26,11 @@ function TechBadge({
 	value,
 	size,
 }: { value: string } & VariantProps<typeof techBadgeVariants>) {
-	const techBadgeClass = techColorMap[value] || techColorMap.default
+	const dotClass = techColorMap[value] || techColorMap.default
 
 	return (
-		<span className={cn(techBadgeVariants({ size }), techBadgeClass)}>
+		<span className={cn(techBadgeVariants({ size }))}>
+			<span className={cn('tech-dot', dotClass)} aria-hidden="true" />
 			{value}
 		</span>
 	)

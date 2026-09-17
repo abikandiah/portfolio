@@ -27,7 +27,7 @@ function ProjectOverview({ proj }: { proj: Project }) {
 		<Link
 			to="/projects/$projectKey"
 			params={{ projectKey: proj.pathname }}
-			className="group block rounded-lg p-3 -mx-3 transition-all hover:-translate-y-0.5 hover:bg-foreground/4 hover:shadow-md focus-visible:outline-2 focus-visible:outline-ring"
+			className="group block rounded-lg p-3 -mx-3 transition-colors hover:bg-foreground/4 focus-visible:outline-2 focus-visible:outline-ring"
 		>
 			<div className="flex flex-auto">
 				<span className="text-sm font-medium text-foreground leading-6">

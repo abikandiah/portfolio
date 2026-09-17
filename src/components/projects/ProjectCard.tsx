@@ -10,7 +10,7 @@ function ProjectCard({ proj }: { proj: Project }) {
 			params={{ projectKey: proj.pathname }}
 			className="block h-full"
 		>
-			<Card className="h-full transition-all hover:-translate-y-0.5 hover:shadow-md">
+			<Card className="interactive-card h-full">
 				<div className="flex items-start justify-between gap-2">
 					<h3 className="font-semibold text-foreground">{proj.name}</h3>
 					<span className="shrink-0 text-xs text-muted-foreground">

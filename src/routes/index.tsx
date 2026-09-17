@@ -15,7 +15,10 @@ export const Route = createFileRoute('/')({
 function App() {
 	return (
 		<>
-			<LandscapeContainer className="-mx-3" style={{ height: '11rem' }} />
+			<LandscapeContainer
+				className="-mx-3 -mt-14"
+				style={{ height: '224px' }}
+			/>
 			<div className="center-page flex flex-col">
 				<ProfileIntro />
 				<MainContent />
@@ -26,18 +29,20 @@ function App() {
 
 function ProfileIntro() {
 	return (
-		<div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 px-6 pb-8 pt-4">
-			<div className="flex flex-col items-center justify-center shrink-0">
+		<div className="flex flex-col gap-4 px-6 pb-8 pt-18 sm:pt-24">
+			<div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
 				<FaceContextMenu src={profilePhoto} />
 
-				<PageHeader className="mt-6 text-center">Abilaesh Kandiah</PageHeader>
+				<div className="flex flex-col">
+					<PageHeader>Abilaesh Kandiah</PageHeader>
 
-				<PageDescription className="mt-1 text-center">
-					Full-Stack Developer
-				</PageDescription>
+					<PageDescription className="mt-1">
+						Full-Stack Developer
+					</PageDescription>
+				</div>
 			</div>
 
-			<section className="flex flex-col gap-4 mt-4">
+			<section className="flex flex-col gap-4">
 				<p className="p-text">
 					Hey, I'm Abi, a seasoned full-stack developer with over 7 years of
 					experience dedicated to bringing ideas to life. I architect and
@@ -47,7 +52,7 @@ function ProfileIntro() {
 					the full operational loop to build it right.
 				</p>
 
-				<SocialLinks className="flex items-center gap-4 justify-center md:justify-start" />
+				<SocialLinks className="flex items-center gap-4" />
 			</section>
 		</div>
 	)
@@ -188,7 +193,7 @@ function FaceContextMenu({ src }: { src: string }) {
 			onPointerEnter={onPointerEnter}
 			onPointerMove={onPointerMove}
 			onPointerLeave={onPointerLeave}
-			className="sm:h-48 sm:w-48 h-32 w-32 rounded-full object-cover ring-4 ring-background shadow-lg dark:invert"
+			className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-background shadow-lg sm:h-24 sm:w-24 dark:invert"
 			src={src}
 			alt="Abilaesh Kandiah's Profile Photo"
 		/>

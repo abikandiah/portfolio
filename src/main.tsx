@@ -9,6 +9,7 @@ import { routeTree } from './routeTree.gen'
 
 import { NotFound } from './components/NotFound.tsx'
 import reportWebVitals from './reportWebVitals.ts'
+import '@fontsource-variable/inter'
 import './styles.css'
 
 // Create a new router instance
