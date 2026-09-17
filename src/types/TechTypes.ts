@@ -62,147 +62,107 @@ const techType = {
 
 type TTech = (typeof techType)[keyof typeof techType]
 
-// This structure maps a single Tailwind color utility string to an array of technology keys.
-const compressedTechColorMap: { [colorClasses: string]: Array<TTech> } = {
-	// --- BLUE Scheme (bg-blue-100, text-blue-800, border-blue-400) ---
-	'bg-blue-100 text-blue-800 border-blue-400': [
-		techType.TypeScript,
-		techType.TSX,
-		techType.GoogleCloud,
-		techType.RDBMS,
-	],
+/**
+ * Tech badges are grouped into a small set of theme-aware color families
+ * (see `.tech-badge-*` in styles.css, which carry the actual light/dark
+ * values) rather than raw hex/Tailwind palette classes. Kept to 9 hues so
+ * badges stay visually distinguishable at a glance. Every tech gets a
+ * color — no neutral/uncolored bucket, since a mix of colored and
+ * "blank" badges reads as inconsistent rather than intentional. Grouping
+ * leans on real brand colors where one exists (HTML orange, Sass pink,
+ * WebAssembly indigo, etc.) and otherwise groups by ecosystem (e.g. LDAP
+ * and SMTP alongside the other auth/protocol tech in purple).
+ *
+ * Typed as `Record<TTech, string>` so adding a new techType entry without
+ * giving it a color is a compile error, not a silent fallback to neutral.
+ */
+const techFamilyMap: Record<TTech, string> = {
+	// blue
+	[techType.TypeScript]: 'tech-badge-blue',
+	[techType.TSX]: 'tech-badge-blue',
+	[techType.GoogleCloud]: 'tech-badge-blue',
+	[techType.RDBMS]: 'tech-badge-blue',
+	[techType.Liquibase]: 'tech-badge-blue',
 
-	// --- YELLOW/GRAY Scheme (WCAG Contrast on Yellow) ---
-	'bg-yellow-100 text-gray-900 border-yellow-400': [
-		techType.JavaScript,
-		techType.Python,
-	],
+	// yellow
+	[techType.JavaScript]: 'tech-badge-yellow',
+	[techType.JSX]: 'tech-badge-yellow',
+	[techType.Python]: 'tech-badge-yellow',
+	[techType.i18next]: 'tech-badge-yellow',
 
-	// --- RED Scheme (bg-red-100, text-red-800, border-red-400) ---
-	'bg-red-100 text-red-800 border-red-400': [
-		techType.Java,
-		techType.Axios,
-		techType.SpringBoot,
-	],
+	// red
+	[techType.Java]: 'tech-badge-red',
+	[techType.Axios]: 'tech-badge-red',
+	[techType.SpringBoot]: 'tech-badge-red',
+	[techType.Dropwizard]: 'tech-badge-red',
 
-	// --- PURPLE Scheme (bg-purple-100, text-purple-800, border-purple-400) ---
-	'bg-purple-100 text-purple-800 border-purple-400': [
-		techType.CSharp,
-		techType.ReactRedux,
-		techType.JavaAnnotations,
-		techType.JavaReflection,
-	],
+	// purple
+	[techType.CSharp]: 'tech-badge-purple',
+	[techType.ReactRedux]: 'tech-badge-purple',
+	[techType.JavaAnnotations]: 'tech-badge-purple',
+	[techType.JavaReflection]: 'tech-badge-purple',
+	[techType.ReduxSagas]: 'tech-badge-purple',
+	[techType.OIDC]: 'tech-badge-purple',
+	[techType.SSOLinks]: 'tech-badge-purple',
+	[techType.JWT]: 'tech-badge-purple',
+	[techType.Logto]: 'tech-badge-purple',
+	[techType.LDAP]: 'tech-badge-purple',
+	[techType.SMTP]: 'tech-badge-purple',
 
-	// --- CYAN Scheme (bg-cyan-100, text-cyan-800, border-cyan-400) ---
-	'bg-cyan-100 text-cyan-800 border-cyan-400': [techType.Go, techType.React],
+	// cyan
+	[techType.Go]: 'tech-badge-cyan',
+	[techType.React]: 'tech-badge-cyan',
+	[techType.TailwindCSS]: 'tech-badge-cyan',
+	[techType.CSS]: 'tech-badge-cyan',
+	[techType.Docker]: 'tech-badge-cyan',
+	[techType.AzureAD]: 'tech-badge-cyan',
+	[techType.MicrosoftEDiscovery]: 'tech-badge-cyan',
+	[techType.Caddy]: 'tech-badge-cyan',
 
-	// --- PINK/ROSE/FUCHSIA Schemes ---
-	'bg-pink-100 text-pink-800 border-pink-400': [techType.Ruby],
-	'bg-rose-100 text-rose-800 border-rose-400': [techType.XPath],
-	'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-400': [
-		techType.SASS,
-		techType.TusProtocol,
-		techType.Concurrency,
-	],
-	'bg-violet-100 text-violet-800 border-violet-400': [
-		techType.ReduxSagas,
-		techType.OIDC,
-		techType.SSOLinks,
-		techType.JWT,
-		techType.Logto,
-	],
+	// pink
+	[techType.Ruby]: 'tech-badge-pink',
+	[techType.SASS]: 'tech-badge-pink',
+	[techType.XPath]: 'tech-badge-pink',
+	[techType.TusProtocol]: 'tech-badge-pink',
+	[techType.Concurrency]: 'tech-badge-pink',
 
-	// --- SKY/LIGHT-BLUE Scheme (bg-sky-100, text-sky-800, border-sky-400) ---
-	'bg-sky-100 text-sky-800 border-sky-400': [
-		techType.CSS,
-		techType.Docker,
-		techType.AzureAD,
-		techType.MicrosoftEDiscovery,
-		techType.Caddy,
-	],
+	// orange
+	[techType.HTML]: 'tech-badge-orange',
+	[techType.Jenkins]: 'tech-badge-orange',
+	[techType.AWS]: 'tech-badge-orange',
+	[techType.GoogleVault]: 'tech-badge-orange',
+	[techType.ThreadPools]: 'tech-badge-orange',
 
-	// --- ORANGE Scheme (bg-orange-100, text-orange-800, border-orange-400) ---
-	'bg-orange-100 text-orange-800 border-orange-400': [
-		techType.HTML,
-		techType.JSX,
-		techType.Jenkins,
-	],
+	// green
+	[techType.Node]: 'tech-badge-green',
+	[techType.Express]: 'tech-badge-green',
+	[techType.MongoDB]: 'tech-badge-green',
+	[techType.Fiddler]: 'tech-badge-green',
+	[techType.RestAPI]: 'tech-badge-green',
+	[techType.OpenSource]: 'tech-badge-green',
+	[techType.WebWorkers]: 'tech-badge-green',
+	[techType.Selenium]: 'tech-badge-green',
+	[techType.SQLite]: 'tech-badge-green',
 
-	// --- TEAL/GREEN/EMERALD Schemes ---
-	'bg-teal-100 text-teal-800 border-teal-400': [techType.TailwindCSS],
-	'bg-green-100 text-green-800 border-green-400': [
-		techType.Node,
-		techType.MongoDB,
-		techType.Fiddler,
-	],
-	'bg-emerald-100 text-emerald-800 border-emerald-400': [
-		techType.RestAPI,
-		techType.OpenSource,
-	],
-
-	// --- INDIGO Scheme (bg-indigo-100, text-indigo-800, border-indigo-400) ---
-	'bg-indigo-100 text-indigo-800 border-indigo-400': [
-		techType.ReactRouter,
-		techType.TanstackRouter,
-		techType.TanstackQuery,
-		techType.PostgreSQL,
-		techType.Vite,
-	],
-
-	// --- AMBER Scheme (bg-amber-100, text-amber-800, border-amber-400) ---
-	'bg-amber-100 text-amber-800 border-amber-400': [
-		techType.AWS,
-		techType.GoogleVault,
-		techType.ThreadPools,
-	],
-
-	// --- LIME Scheme (bg-lime-100, text-lime-800, border-lime-400) ---
-	'bg-lime-100 text-lime-800 border-lime-400': [
-		techType.WebWorkers,
-		techType.Selenium,
-		techType.SQLite,
-	],
-
-	// --- SLATE Scheme ---
-	'bg-slate-100 text-slate-800 border-slate-400': [
-		techType.C,
-		techType.Emscripten,
-	],
-
-	// --- STONE/WASM Scheme ---
-	'bg-stone-100 text-stone-800 border-stone-400': [techType.WebAssembly],
-
-	// --- GRAY Scheme (bg-gray-100, text-gray-800, border-gray-400) (Includes Default) ---
-	'bg-gray-100 text-gray-800 border-gray-400': [
-		techType.Dropwizard,
-		techType.Express,
-		techType.LDAP,
-		techType.SMTP,
-		techType.i18next,
-		techType.Liquibase,
-		// NOTE: 'default' key is typically handled by a lookup function
-		// but included here if TTechKey was expanded to include it.
-	],
+	// indigo
+	[techType.ReactRouter]: 'tech-badge-indigo',
+	[techType.TanstackRouter]: 'tech-badge-indigo',
+	[techType.TanstackQuery]: 'tech-badge-indigo',
+	[techType.PostgreSQL]: 'tech-badge-indigo',
+	[techType.Vite]: 'tech-badge-indigo',
+	[techType.C]: 'tech-badge-indigo',
+	[techType.Emscripten]: 'tech-badge-indigo',
+	[techType.WebAssembly]: 'tech-badge-indigo',
 }
 
-function generateTechColorMap(sourceMap: {
-	[colorClasses: string]: Array<TTech>
-}): {
-	[key: string]: string
-} {
-	const finalMap: { [key: string]: string } = {}
-	for (const colorString in sourceMap) {
-		const techKeys = sourceMap[colorString]
-		for (const key of techKeys) {
-			finalMap[key] = colorString
-		}
-	}
-	finalMap['default'] = 'bg-gray-100 text-gray-800 border-gray-400'
-	return finalMap
+// techFamilyMap above is exhaustive over TTech (compiler-enforced). This
+// widened copy adds a 'default' fallback for callers that accept a plain
+// string rather than a TTech (e.g. TechBadge's `value` prop) — it should
+// never actually be hit in normal use.
+const techColorMap: { [key: string]: string } = {
+	...techFamilyMap,
+	default: 'tech-badge-neutral',
 }
-
-// This is the map your application uses for lookups (O(1) efficiency)
-const techColorMap = generateTechColorMap(compressedTechColorMap)
 
 export { techColorMap, techType }
 export type { TTech }

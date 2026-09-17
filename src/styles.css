@@ -7,3 +7,134 @@
 .image-background {
 	background-image: url('/src/assets/background-image.svg');
 }
+
+/*
+ * Tech badge colors. Defined here (not per color-theme) so every badge
+ * reads correctly in light/dark regardless of which of the 5 accent
+ * themes is active. Light/dark pairs follow the same lightness formula
+ * already used for --banner-* tokens in the design system.
+ */
+:root {
+	--tech-blue-bg: oklch(0.94 0.035 240);
+	--tech-blue-fg: oklch(0.32 0.12 240);
+	--tech-blue-border: oklch(0.65 0.14 240);
+
+	--tech-cyan-bg: oklch(0.94 0.035 195);
+	--tech-cyan-fg: oklch(0.32 0.1 195);
+	--tech-cyan-border: oklch(0.6 0.13 195);
+
+	--tech-green-bg: oklch(0.94 0.045 145);
+	--tech-green-fg: oklch(0.32 0.1 145);
+	--tech-green-border: oklch(0.62 0.14 145);
+
+	--tech-yellow-bg: oklch(0.93 0.06 95);
+	--tech-yellow-fg: oklch(0.28 0.03 95);
+	--tech-yellow-border: oklch(0.65 0.13 95);
+
+	--tech-orange-bg: oklch(0.93 0.05 55);
+	--tech-orange-fg: oklch(0.34 0.11 55);
+	--tech-orange-border: oklch(0.65 0.15 55);
+
+	--tech-red-bg: oklch(0.93 0.04 25);
+	--tech-red-fg: oklch(0.34 0.13 25);
+	--tech-red-border: oklch(0.6 0.16 25);
+
+	--tech-pink-bg: oklch(0.93 0.035 340);
+	--tech-pink-fg: oklch(0.34 0.12 340);
+	--tech-pink-border: oklch(0.62 0.15 340);
+
+	--tech-purple-bg: oklch(0.93 0.035 305);
+	--tech-purple-fg: oklch(0.32 0.12 305);
+	--tech-purple-border: oklch(0.6 0.15 305);
+
+	--tech-indigo-bg: oklch(0.93 0.035 275);
+	--tech-indigo-fg: oklch(0.32 0.12 275);
+	--tech-indigo-border: oklch(0.6 0.15 275);
+}
+
+.dark {
+	--tech-blue-bg: oklch(0.28 0.06 240);
+	--tech-blue-fg: oklch(0.88 0.06 240);
+	--tech-blue-border: oklch(0.5 0.15 240);
+
+	--tech-cyan-bg: oklch(0.28 0.055 195);
+	--tech-cyan-fg: oklch(0.86 0.06 195);
+	--tech-cyan-border: oklch(0.5 0.14 195);
+
+	--tech-green-bg: oklch(0.28 0.06 145);
+	--tech-green-fg: oklch(0.86 0.08 145);
+	--tech-green-border: oklch(0.5 0.15 145);
+
+	--tech-yellow-bg: oklch(0.3 0.05 95);
+	--tech-yellow-fg: oklch(0.9 0.09 95);
+	--tech-yellow-border: oklch(0.55 0.13 95);
+
+	--tech-orange-bg: oklch(0.29 0.06 55);
+	--tech-orange-fg: oklch(0.88 0.09 55);
+	--tech-orange-border: oklch(0.55 0.15 55);
+
+	--tech-red-bg: oklch(0.28 0.07 25);
+	--tech-red-fg: oklch(0.88 0.08 25);
+	--tech-red-border: oklch(0.5 0.16 25);
+
+	--tech-pink-bg: oklch(0.28 0.06 340);
+	--tech-pink-fg: oklch(0.88 0.08 340);
+	--tech-pink-border: oklch(0.5 0.15 340);
+
+	--tech-purple-bg: oklch(0.28 0.06 305);
+	--tech-purple-fg: oklch(0.87 0.08 305);
+	--tech-purple-border: oklch(0.5 0.15 305);
+
+	--tech-indigo-bg: oklch(0.28 0.06 275);
+	--tech-indigo-fg: oklch(0.87 0.08 275);
+	--tech-indigo-border: oklch(0.5 0.15 275);
+}
+
+.tech-badge-blue {
+	background: var(--tech-blue-bg);
+	color: var(--tech-blue-fg);
+	border-color: var(--tech-blue-border);
+}
+.tech-badge-cyan {
+	background: var(--tech-cyan-bg);
+	color: var(--tech-cyan-fg);
+	border-color: var(--tech-cyan-border);
+}
+.tech-badge-green {
+	background: var(--tech-green-bg);
+	color: var(--tech-green-fg);
+	border-color: var(--tech-green-border);
+}
+.tech-badge-yellow {
+	background: var(--tech-yellow-bg);
+	color: var(--tech-yellow-fg);
+	border-color: var(--tech-yellow-border);
+}
+.tech-badge-orange {
+	background: var(--tech-orange-bg);
+	color: var(--tech-orange-fg);
+	border-color: var(--tech-orange-border);
+}
+.tech-badge-red {
+	background: var(--tech-red-bg);
+	color: var(--tech-red-fg);
+	border-color: var(--tech-red-border);
+}
+.tech-badge-pink {
+	background: var(--tech-pink-bg);
+	color: var(--tech-pink-fg);
+	border-color: var(--tech-pink-border);
+}
+.tech-badge-purple {
+	background: var(--tech-purple-bg);
+	color: var(--tech-purple-fg);
+	border-color: var(--tech-purple-border);
+}
+.tech-badge-indigo {
+	background: var(--tech-indigo-bg);
+	color: var(--tech-indigo-fg);
+	border-color: var(--tech-indigo-border);
+}
+.tech-badge-neutral {
+	@apply bg-muted text-muted-foreground border-border;
+}

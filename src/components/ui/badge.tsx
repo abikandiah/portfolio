@@ -8,7 +8,7 @@ function BadgeContainer({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 const techBadgeVariants = cva(
-	'inline-flex items-center rounded border font-light',
+	'inline-flex items-center rounded-full border font-medium',
 	{
 		variants: {
 			size: {

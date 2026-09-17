@@ -33,7 +33,7 @@ function ExpandableRow({
 	const avatar = (
 		<div
 			className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full
-                shadow-md ring-1 shadow-stone-800/5 ring-stone-900/5"
+                bg-white shadow-md ring-1 shadow-stone-800/5 ring-stone-900/5"
 		>
 			<img
 				className="h-7 w-7"

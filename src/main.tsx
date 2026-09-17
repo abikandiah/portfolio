@@ -33,6 +33,11 @@ declare module '@tanstack/react-router' {
 	}
 }
 
+// Linen is the only accent theme now that the picker is gone. Clear any
+// value a visit from before that removal left in localStorage so
+// ThemeProvider can't pick a stale theme back up.
+localStorage.removeItem('color-theme')
+
 // Render the app
 const rootElement = document.getElementById('app')
 if (rootElement && !rootElement.innerHTML) {

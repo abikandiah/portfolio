@@ -37,7 +37,7 @@ function Root() {
 	}
 
 	return (
-		<ThemeProvider defaultColorTheme="steel">
+		<ThemeProvider defaultColorTheme="linen">
 			<div className="flex flex-col h-full">
 				<Header />
 

@@ -3,7 +3,6 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from '@abumble/design-system/components/Popover'
-import { ThemeSelector } from '@abumble/design-system/components/ThemeSelector'
 import { ThemeToggle } from '@abumble/design-system/components/ThemeToggle'
 import { cn } from '@abumble/design-system/utils'
 import { BeeLogo } from '@abumble/design-system/components/BeeLogo'
@@ -22,7 +21,6 @@ function Header() {
 
 			<div className="flex items-center gap-1">
 				<ThemeToggle />
-				<ThemeSelector />
 
 				<nav className="hidden md:flex items-center gap-1 ml-1">
 					<RouteLinks className="flex items-center gap-1" />
