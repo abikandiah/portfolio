@@ -106,6 +106,7 @@ function FaceContextMenu({ src }: { src: string }) {
 	const imgRef = useRef<HTMLImageElement>(null)
 	const spinAnimation = useRef<Animation | null>(null)
 	const rafId = useRef<number>(0)
+	const looping = useRef(false)
 
 	const isHovering = useRef(false)
 	const lastPointer = useRef<{ x: number; y: number } | null>(null)
@@ -151,6 +152,7 @@ function FaceContextMenu({ src }: { src: string }) {
 
 		if (settled) {
 			animation.pause()
+			looping.current = false
 			return
 		}
 
@@ -163,10 +165,18 @@ function FaceContextMenu({ src }: { src: string }) {
 			return
 		}
 
-		if (animation.playState !== 'running') {
-			animation.play()
-			rafId.current = requestAnimationFrame(tick)
+		animation.play()
+
+		// Tracked separately from `playState`, since `.play()` can leave it
+		// `pending` rather than `running` (e.g. a backgrounded tab) — relying
+		// on `playState` here let a second pointerenter start a duplicate
+		// rAF chain against the same animation.
+		if (looping.current) {
+			return
 		}
+
+		looping.current = true
+		rafId.current = requestAnimationFrame(tick)
 	}
 
 	function onPointerEnter() {

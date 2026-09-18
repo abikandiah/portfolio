@@ -36,8 +36,14 @@ declare module '@tanstack/react-router' {
 
 // Linen is the only accent theme now that the picker is gone. Clear any
 // value a visit from before that removal left in localStorage so
-// ThemeProvider can't pick a stale theme back up.
-localStorage.removeItem('color-theme')
+// ThemeProvider can't pick a stale theme back up. Storage can throw (private
+// browsing, sandboxed iframes, etc.), and this runs before anything can
+// catch it, so it must not take the whole app down with it.
+try {
+	localStorage.removeItem('color-theme')
+} catch {
+	// Storage unavailable — nothing to clean up.
+}
 
 // Render the app
 const rootElement = document.getElementById('app')

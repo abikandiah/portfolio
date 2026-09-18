@@ -1,8 +1,8 @@
 import type { ProjectProps } from '@/types/ProjectTypes'
-import { Project, toUrl } from '@/types/ProjectTypes'
+import { Project } from '@/types/ProjectTypes'
 import { automatedTranslationsProject as automatedTranslations } from '@/projects/AutomatedTranslations'
 import { dataUploadProject as dataUpload } from '@/projects/DataUpload'
-import { javaToReactFormBuilderProject as javaToReactFormBuilder } from '@/projects/form-builder/ReactFormBuilder'
+import { javaToReactFormBuilderProject } from '@/projects/form-builder/ReactFormBuilder'
 import { googleVaultProject as googleVaultCollector } from '@/projects/GoogleVaultCollector'
 import { legalHoldNotificationsProject as legalHoldNotifications } from '@/projects/LegalHoldNotifications'
 import { microsoftEDiscoveryProject as microsoftEDiscoveryCollector } from '@/projects/MicrosoftEDiscoveryCollector'
@@ -10,21 +10,22 @@ import { platformWebApp } from '@/projects/PlatformWebApp'
 import { chip8EmulatorProject } from '@/projects/Chip8Emulator'
 import { propMangeProject } from '@/projects/PropMange'
 import { selenumE2ETestSuiteProject as selenumE2ETestSuite } from '@/projects/SeleniumE2ETestSuite'
-import { thirdPartyServicesProject as thirdPartyServices } from '@/projects/ThirdPartyServicesFramework'
+import { thirdPartyServicesProject } from '@/projects/ThirdPartyServicesFramework'
 import { webPortfolioProject as webPortfolio } from '@/projects/WebPortfolio'
 
 const projectsMap: Map<string, Project> = new Map()
 
-function addProject(props: ProjectProps) {
+function addProject(props: ProjectProps): Project {
 	const proj = new Project(props)
 	projectsMap.set(proj.pathname, proj)
+	return proj
 }
 
-addProject(propMangeProject)
+const propMange = addProject(propMangeProject)
 addProject(platformWebApp)
 addProject(legalHoldNotifications)
-addProject(javaToReactFormBuilder)
-addProject(thirdPartyServices)
+const javaToReactFormBuilder = addProject(javaToReactFormBuilderProject)
+const thirdPartyServices = addProject(thirdPartyServicesProject)
 addProject(chip8EmulatorProject)
 addProject(webPortfolio)
 addProject(googleVaultCollector)
@@ -54,19 +55,13 @@ const projectsByType: ProjectMap = projects.reduce((prev, curr) => {
 
 // Key Projects, hand-picked and in display order — deliberately independent
 // of the reverse-chronological `projects` sort above. "Key" means important,
-// not "most recent."
-function getProject(props: ProjectProps): Project {
-	const proj = projectsMap.get(toUrl(props.name))
-	if (proj == null) {
-		throw new Error(`Featured project not registered: ${props.name}`)
-	}
-	return proj
-}
-
+// not "most recent." These reuse the Project instances `addProject` already
+// created above, rather than re-deriving them by name, so a rename can't
+// silently break this list.
 const featuredProjects: Array<Project> = [
-	propMangeProject,
+	propMange,
 	javaToReactFormBuilder,
 	thirdPartyServices,
-].map(getProject)
+]
 
 export { featuredProjects, projects, projectsByType, projectsMap }
