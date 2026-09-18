@@ -4,7 +4,7 @@ function CaseStudyBody({ caseStudy }: { caseStudy: CaseStudy }) {
 	const { summary, problem, approach, outcome, metrics, media } = caseStudy
 
 	return (
-		<div className="flex flex-col gap-6 p-3 p-text">
+		<div className="flex flex-col gap-6 p-text">
 			<p>{summary}</p>
 
 			{metrics != null && metrics.length > 0 && (

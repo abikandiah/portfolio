@@ -15,8 +15,8 @@ import { techType } from '@/types/TechTypes'
 export const chip8EmulatorProject: ProjectProps = {
 	type: projectType.Personal,
 	name: 'CHIP-8 Emulator',
-	startYear: 2024,
-	endYear: 2024,
+	startYear: 2026,
+	endYear: 2026,
 	url: 'https://chip8.akandiah.ca',
 	description: `A fully-featured CHIP-8 virtual machine emulator written in C, deployable as both a native terminal application and a browser-based experience via WebAssembly.`,
 	tech: [
@@ -185,7 +185,8 @@ function CoreEmulatorDesign() {
 				Each call to <code>chip8_step()</code> performs one complete
 				fetch-decode-execute cycle: read 2 bytes at <code>memory[pc]</code>,
 				combine into a 16-bit opcode, advance <code>pc</code> by 2, then switch
-				on the top nibble to dispatch. All 34 standard CHIP-8 instructions are implemented.
+				on the top nibble to dispatch. All 34 standard CHIP-8 instructions are
+				implemented.
 			</p>
 
 			<h3 className="sub-heading">Sprite Rendering & Collision Detection</h3>
@@ -208,10 +209,11 @@ function CoreEmulatorDesign() {
 				</li>
 			</UnorderedList>
 			<p>
-				In the terminal, precise timing is achieved with <code>nanosleep()</code>.
-				In the browser, Emscripten's <code>emscripten_set_main_loop()</code>{' '}
-				fires at 60 FPS, and the CPU executes ~8 instructions per frame to
-				maintain the correct frequency ratio.
+				In the terminal, precise timing is achieved with{' '}
+				<code>nanosleep()</code>. In the browser, Emscripten's{' '}
+				<code>emscripten_set_main_loop()</code> fires at 60 FPS, and the CPU
+				executes ~8 instructions per frame to maintain the correct frequency
+				ratio.
 			</p>
 		</>
 	)
@@ -269,12 +271,30 @@ function WasmInterface() {
 				</TableHeader>
 				<TableBody>
 					{[
-						['wasm_get_rom_buffer()', 'Returns a pointer to the ROM staging buffer in WASM memory'],
-						['wasm_load_rom_from_buffer(size)', 'Loads ROM from the staging buffer, resets VM'],
-						['wasm_reset_rom()', 'Re-initializes the VM and reloads the current ROM'],
-						['wasm_set_paused(p)', 'Pauses or resumes the Emscripten main loop'],
-						['wasm_set_key(key, value)', 'Sets the state of a keypad key (1=pressed, 0=released)'],
-						['wasm_get_display()', 'Returns a pointer to the display pixel buffer in WASM memory'],
+						[
+							'wasm_get_rom_buffer()',
+							'Returns a pointer to the ROM staging buffer in WASM memory',
+						],
+						[
+							'wasm_load_rom_from_buffer(size)',
+							'Loads ROM from the staging buffer, resets VM',
+						],
+						[
+							'wasm_reset_rom()',
+							'Re-initializes the VM and reloads the current ROM',
+						],
+						[
+							'wasm_set_paused(p)',
+							'Pauses or resumes the Emscripten main loop',
+						],
+						[
+							'wasm_set_key(key, value)',
+							'Sets the state of a keypad key (1=pressed, 0=released)',
+						],
+						[
+							'wasm_get_display()',
+							'Returns a pointer to the display pixel buffer in WASM memory',
+						],
 					].map(([fn, purpose]) => (
 						<TableRow key={fn}>
 							<TableCell className="whitespace-nowrap align-top font-medium">
@@ -286,18 +306,20 @@ function WasmInterface() {
 				</TableBody>
 			</Table>
 
-			<h3 className="sub-heading">Memory Sharing — The Staging Buffer Pattern</h3>
+			<h3 className="sub-heading">
+				Memory Sharing — The Staging Buffer Pattern
+			</h3>
 			<p>
 				A key challenge with WASM is safely sharing data between C and
 				JavaScript. When <code>ALLOW_MEMORY_GROWTH=1</code> is enabled (required
-				for ROM loading), the WASM memory buffer can be reallocated, invalidating
-				any JavaScript references to raw pointers.
+				for ROM loading), the WASM memory buffer can be reallocated,
+				invalidating any JavaScript references to raw pointers.
 			</p>
 			<p>
-				The solution is a <strong>static staging buffer</strong> in C. JavaScript
-				writes ROM bytes into the buffer <em>before</em> calling any function
-				that could trigger memory growth, making the approach safe regardless of
-				the WASM memory layout.
+				The solution is a <strong>static staging buffer</strong> in C.
+				JavaScript writes ROM bytes into the buffer <em>before</em> calling any
+				function that could trigger memory growth, making the approach safe
+				regardless of the WASM memory layout.
 			</p>
 			<CodeDisplay
 				code={`static uint8_t rom_staging[CHIP8_MEMORY_SIZE - PC_START_ADDRESS];  // 3,584 bytes
@@ -350,7 +372,8 @@ function WebFrontend() {
 				<code>HEAPU32</code>, then converted pixel-by-pixel into an{' '}
 				<code>ImageData</code> object and stamped onto the canvas with{' '}
 				<code>putImageData</code>. This reads the pixel buffer straight out of
-				WASM's address space without an intermediate JavaScript array allocation.
+				WASM's address space without an intermediate JavaScript array
+				allocation.
 			</p>
 			<CodeDisplay
 				code={`function renderFrame() {

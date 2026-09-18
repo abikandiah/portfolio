@@ -16,8 +16,7 @@ interface ExpandableRowProps {
 	bullets?: Array<string>
 }
 
-const ROW_CLASS =
-	'flex w-full items-start gap-4 rounded-lg p-3 -mx-3 text-left transition-all hover:-translate-y-0.5 hover:bg-foreground/4 hover:shadow-md'
+const ROW_CLASS = 'flex w-full items-start gap-4 rounded-lg p-3 -mx-3 text-left'
 
 function ExpandableRow({
 	title,
@@ -82,7 +81,7 @@ function ExpandableRow({
 					aria-label={`${title}, ${subtitle}, ${duration}`}
 					className={cn(
 						ROW_CLASS,
-						'focus-visible:outline-2 focus-visible:outline-ring',
+						'cursor-pointer transition-colors hover:bg-foreground/4 focus-visible:outline-2 focus-visible:outline-ring',
 					)}
 				>
 					{avatar}

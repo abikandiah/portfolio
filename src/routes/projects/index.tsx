@@ -81,7 +81,7 @@ function CategoryFilter({
 					type="button"
 					onClick={() => onChange(option)}
 					className={cn(
-						'rounded-full px-3 py-1.5 text-sm font-medium transition-colors',
+						'rounded px-3 py-1.5 text-sm font-medium transition-colors',
 						value === option
 							? 'bg-foreground/8 text-foreground'
 							: 'text-muted-foreground hover:bg-foreground/6 hover:text-foreground',
@@ -109,7 +109,7 @@ function SearchInput({
 				value={value}
 				onChange={(event) => onChange(event.target.value)}
 				placeholder="Search projects..."
-				className="w-full rounded-full border bg-background py-1.5 pr-3 pl-9 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring sm:w-56"
+				className="w-full rounded border bg-background py-1.5 pr-3 pl-9 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring sm:w-56"
 			/>
 		</div>
 	)

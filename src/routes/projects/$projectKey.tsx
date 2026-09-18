@@ -1,3 +1,4 @@
+import { Card } from '@abumble/design-system/components/Card'
 import { Separator } from '@abumble/design-system/components/Separator'
 import { cn } from '@abumble/design-system/utils'
 import { createFileRoute } from '@tanstack/react-router'
@@ -69,28 +70,30 @@ function RouteComponent() {
 		<ProjectContainer className="space-y-4 mt-4">
 			<BackToProjectsLink className="px-3" />
 
-			<section className="px-3 space-y-4">
-				<ProjectHeader proj={proj} />
+			<Card>
+				<section className="space-y-4">
+					<ProjectHeader proj={proj} />
 
-				<ViewToggle
-					hasCaseStudy={hasCaseStudy}
-					hasEngineering={hasEngineering}
-					activeView={activeView}
-					onSelect={onSelectView}
-				/>
-			</section>
+					<ViewToggle
+						hasCaseStudy={hasCaseStudy}
+						hasEngineering={hasEngineering}
+						activeView={activeView}
+						onSelect={onSelectView}
+					/>
+				</section>
 
-			{!hasCaseStudy && !hasEngineering ? (
-				<p className="px-3 text-sm text-muted-foreground">
-					No write-up for this project yet — check back soon.
-				</p>
-			) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
-				<CaseStudyBody caseStudy={proj.caseStudy} />
-			) : (
-				<EngineeringBody sections={proj.sections ?? []} />
-			)}
+				{!hasCaseStudy && !hasEngineering ? (
+					<p className="text-sm text-muted-foreground">
+						No write-up for this project yet — check back soon.
+					</p>
+				) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
+					<CaseStudyBody caseStudy={proj.caseStudy} />
+				) : (
+					<EngineeringBody sections={proj.sections ?? []} />
+				)}
 
-			<BackToProjectsLink className="border-t px-3 pt-4" />
+				<BackToProjectsLink className="border-t pt-4" />
+			</Card>
 		</ProjectContainer>
 	)
 }
@@ -111,7 +114,9 @@ function ProjectContainer({
 	className,
 	...props
 }: React.ComponentProps<'div'>) {
-	return <div className={cn('', className)} {...props} />
+	return (
+		<div className={cn('mx-auto w-full max-w-3xl', className)} {...props} />
+	)
 }
 
 function ProjectHeader({ proj }: { proj: Project }) {
@@ -145,7 +150,7 @@ function ProjectHeader({ proj }: { proj: Project }) {
 
 function EngineeringBody({ sections }: { sections: Array<ProjectSection> }) {
 	return (
-		<div className="flex flex-col gap-6 p-3">
+		<div className="flex flex-col gap-6">
 			{sections.map((section, index) => (
 				<Fragment key={index}>
 					{index > 0 && <Separator />}

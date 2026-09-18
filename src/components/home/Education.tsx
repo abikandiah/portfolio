@@ -17,10 +17,6 @@ function Education() {
 					duration="2026 - Present"
 					logoSrc={uoftLogo}
 					current
-					bullets={[
-						'Placeholder — relevant coursework or focus area',
-						'Placeholder — thesis or capstone project details',
-					]}
 				/>
 				<ExpandableRow
 					title="Toronto Metropolitan University"

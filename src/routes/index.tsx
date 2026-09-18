@@ -1,6 +1,9 @@
+import { Button } from '@abumble/design-system/components/Button'
 import { cn } from '@abumble/design-system/utils'
 import { createFileRoute } from '@tanstack/react-router'
+import { Download } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+import AbiResume from '@/assets/Abilaesh Kandiah - Resume.pdf'
 import profilePhoto from '@/assets/face.svg'
 import Education from '@/components/home/Education'
 import ProjectsOverview from '@/components/home/ProjectsOverview'
@@ -52,15 +55,29 @@ function ProfileIntro() {
 					the full operational loop to build it right.
 				</p>
 
-				<SocialLinks className="flex items-center gap-4" />
+				<div className="flex flex-wrap items-center justify-between gap-4">
+					<SocialLinks className="flex items-center gap-4" />
+					<DownloadResume />
+				</div>
 			</section>
 		</div>
 	)
 }
 
+function DownloadResume() {
+	return (
+		<Button asChild variant="default">
+			<a href={AbiResume} download className="flex items-center gap-2">
+				<span className="font-medium">Download CV</span>
+				<Download />
+			</a>
+		</Button>
+	)
+}
+
 function MainContent() {
 	return (
-		<div className="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
+		<div className="grid grid-cols-1 gap-y-4 px-6 lg:grid-cols-2 lg:px-0">
 			<div className="flex flex-col">
 				<ProjectsOverview />
 			</div>

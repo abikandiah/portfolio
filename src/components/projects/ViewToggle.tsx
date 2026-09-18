@@ -4,7 +4,7 @@ import { projectView } from '@/types/ProjectTypes'
 
 const VIEW_LABELS: Record<TProjectView, string> = {
 	[projectView.CaseStudy]: 'Case Study',
-	[projectView.Engineering]: 'Engineering',
+	[projectView.Engineering]: 'Design',
 }
 
 // Order they appear in the toggle. Add a new view here and to VIEW_LABELS
@@ -37,7 +37,7 @@ function ViewToggle({
 		const onlyView = availableViews[0] ?? activeView
 
 		return (
-			<span className="inline-flex items-center self-start rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground">
+			<span className="inline-flex items-center self-start rounded border px-3 py-1 text-xs font-medium text-muted-foreground">
 				{VIEW_LABELS[onlyView]}
 			</span>
 		)
@@ -47,7 +47,7 @@ function ViewToggle({
 		<div
 			role="tablist"
 			aria-label="Project view"
-			className="inline-flex gap-1 self-start rounded-full border p-1"
+			className="inline-flex gap-1 self-start rounded border p-1"
 		>
 			{availableViews.map((view) => (
 				<ViewToggleButton
@@ -77,7 +77,7 @@ function ViewToggleButton({
 			aria-selected={active}
 			onClick={() => onSelect(view)}
 			className={cn(
-				'rounded-full px-3 py-1 text-xs font-medium transition-colors outline-none',
+				'rounded px-3 py-1 text-xs font-medium transition-colors outline-none',
 				active
 					? 'bg-foreground/8 text-foreground'
 					: 'text-muted-foreground hover:bg-foreground/6 hover:text-foreground',
