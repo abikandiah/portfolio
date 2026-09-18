@@ -15,9 +15,8 @@ function WorkExperience() {
 				<ExpandableRow
 					title="Sabbatical"
 					subtitle="Individual Contributor"
-					duration="2025 - Present"
+					duration="2025 - 2026"
 					logoSrc={bee}
-					current
 				/>
 
 				<ExpandableRow
