@@ -224,7 +224,7 @@ function FaceContextMenu({ src }: { src: string }) {
 			onPointerEnter={onPointerEnter}
 			onPointerMove={onPointerMove}
 			onPointerLeave={onPointerLeave}
-			className="h-28 w-28 shrink-0 rounded-full object-cover ring-4 ring-background shadow-lg sm:h-40 sm:w-40 dark:invert"
+			className="h-28 w-28 shrink-0 -mt-2 rounded-full object-cover ring-4 ring-background shadow-lg sm:h-40 sm:w-40 dark:invert"
 			src={src}
 			alt="Abilaesh Kandiah's Profile Photo"
 		/>
