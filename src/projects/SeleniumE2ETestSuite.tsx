@@ -1,6 +1,6 @@
 import { OrderedList } from '@abumble/design-system/components/List'
-import type {ProjectProps} from '@/types/ProjectTypes';
-import {  projectType } from '@/types/ProjectTypes'
+import type { ProjectProps } from '@/types/ProjectTypes'
+import { projectType } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
 
 export const selenumE2ETestSuiteProject: ProjectProps = {

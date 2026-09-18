@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 
 import { defineConfig } from 'vite'
-import "vitest/config"; // <-- just dummy import
+import 'vitest/config' // <-- just dummy import
 
 import tailwindcss from '@tailwindcss/vite'
 import viteReact from '@vitejs/plugin-react'
@@ -31,5 +31,5 @@ export default defineConfig({
 		alias: {
 			'@': resolve(__dirname, './src'),
 		},
-	}
+	},
 })
