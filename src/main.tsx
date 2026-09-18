@@ -45,6 +45,19 @@ try {
 	// Storage unavailable — nothing to clean up.
 }
 
+// @abumble/design-system's ThemeProvider falls back to 'dark' when no
+// 'theme' key is stored yet — there's no prop to override that default from
+// here. Seeding 'light' for first-time visitors (before ThemeProvider's
+// first read) gets the default we want without touching a return visitor's
+// explicit choice, dark or light.
+try {
+	if (localStorage.getItem('theme') == null) {
+		localStorage.setItem('theme', 'light')
+	}
+} catch {
+	// Storage unavailable — ThemeProvider falls back to its own default.
+}
+
 // Render the app
 const rootElement = document.getElementById('app')
 if (rootElement && !rootElement.innerHTML) {
