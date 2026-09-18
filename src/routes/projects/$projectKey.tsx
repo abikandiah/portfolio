@@ -2,21 +2,28 @@ import { Card } from '@abumble/design-system/components/Card'
 import { Separator } from '@abumble/design-system/components/Separator'
 import { cn } from '@abumble/design-system/utils'
 import { createFileRoute } from '@tanstack/react-router'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Fragment } from 'react/jsx-runtime'
 import type {
 	Project,
 	ProjectSection,
 	TProjectView,
 } from '@/types/ProjectTypes'
+import type { TocEntry } from '@/components/projects/TableOfContents'
 import { projectView } from '@/types/ProjectTypes'
 import { CaseStudyBody } from '@/components/projects/CaseStudyBody'
 import { Section } from '@/components/projects/Section'
+import { TableOfContents } from '@/components/projects/TableOfContents'
 import { ViewToggle } from '@/components/projects/ViewToggle'
 import { NotFound } from '@/components/NotFound'
 import { PageDescription, PageHeader, TextLink } from '@/components/ui'
 import { BadgeContainer, TechBadge } from '@/components/ui/badge'
-import { projectsMap } from '@/constants/project'
+import { projects, projectsMap } from '@/constants/project'
+
+// Below this many sections, a sidebar TOC is more furniture than help — the
+// page already reads fine at a glance, so it only appears once there's
+// enough structure to actually get lost in.
+const MIN_SECTIONS_FOR_TOC = 4
 
 interface ProjectSearch {
 	view?: TProjectView
@@ -63,6 +70,16 @@ function RouteComponent() {
 	const hasEngineering = proj.sections != null && proj.sections.length > 0
 	const activeView = resolveView(requestedView, hasCaseStudy, hasEngineering)
 
+	const tocEntries: Array<TocEntry> = (proj.sections ?? []).flatMap(
+		(section) =>
+			section.title != null && section.pathname != null
+				? [{ title: section.title, pathname: section.pathname }]
+				: [],
+	)
+	const showToc =
+		activeView === projectView.Engineering &&
+		tocEntries.length >= MIN_SECTIONS_FOR_TOC
+
 	function onSelectView(view: TProjectView) {
 		navigate({ search: { view }, replace: true })
 	}
@@ -72,7 +89,7 @@ function RouteComponent() {
 			<BackToProjectsLink className="px-3" />
 
 			<Card>
-				<section className="space-y-4">
+				<div className="max-w-3xl space-y-4">
 					<ProjectHeader proj={proj} />
 
 					<ViewToggle
@@ -81,21 +98,80 @@ function RouteComponent() {
 						activeView={activeView}
 						onSelect={onSelectView}
 					/>
-				</section>
+				</div>
+			</Card>
 
+			<Card>
 				{!hasCaseStudy && !hasEngineering ? (
-					<p className="text-sm text-muted-foreground">
+					<p className="max-w-3xl text-sm text-muted-foreground">
 						No write-up for this project yet — check back soon.
 					</p>
 				) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
 					<CaseStudyBody caseStudy={proj.caseStudy} />
+				) : showToc ? (
+					<div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-0">
+						<EngineeringBody sections={proj.sections ?? []} />
+						<TableOfContents entries={tocEntries} />
+					</div>
 				) : (
-					<EngineeringBody sections={proj.sections ?? []} />
+					<div className="max-w-3xl">
+						<EngineeringBody sections={proj.sections ?? []} />
+					</div>
 				)}
 
-				<BackToProjectsLink className="border-t pt-4" />
+				<ProjectFooterNav current={proj} />
 			</Card>
 		</ProjectContainer>
+	)
+}
+
+function ProjectFooterNav({ current }: { current: Project }) {
+	const index = projects.findIndex((p) => p.pathname === current.pathname)
+	const prev = index > 0 ? projects[index - 1] : undefined
+	const next =
+		index >= 0 && index < projects.length - 1 ? projects[index + 1] : undefined
+
+	return (
+		<div className="flex flex-col gap-4 border-t pt-4">
+			<BackToProjectsLink />
+
+			{(prev != null || next != null) && (
+				<div className="flex items-start justify-between gap-4 text-sm">
+					<ProjectNavLink project={prev} direction="prev" />
+					<ProjectNavLink project={next} direction="next" />
+				</div>
+			)}
+		</div>
+	)
+}
+
+function ProjectNavLink({
+	project,
+	direction,
+}: {
+	project?: Project
+	direction: 'prev' | 'next'
+}) {
+	if (project == null) {
+		return <span />
+	}
+
+	return (
+		<TextLink
+			to="/projects/$projectKey"
+			params={{ projectKey: project.pathname }}
+			className={cn(
+				'inline-flex items-center gap-1',
+				direction === 'next' && 'flex-row-reverse text-right',
+			)}
+		>
+			{direction === 'prev' ? (
+				<ChevronLeft className="h-4 w-4 shrink-0" />
+			) : (
+				<ChevronRight className="h-4 w-4 shrink-0" />
+			)}
+			<span>{project.name}</span>
+		</TextLink>
 	)
 }
 
@@ -116,7 +192,7 @@ function ProjectContainer({
 	...props
 }: React.ComponentProps<'div'>) {
 	return (
-		<div className={cn('mx-auto w-full max-w-3xl', className)} {...props} />
+		<div className={cn('mx-auto w-full max-w-5xl', className)} {...props} />
 	)
 }
 
