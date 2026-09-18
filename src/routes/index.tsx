@@ -32,11 +32,11 @@ function App() {
 
 function ProfileIntro() {
 	return (
-		<div className="flex flex-col gap-4 px-6 pb-8 pt-18 sm:pt-24">
-			<div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+		<div className="flex flex-col gap-4 px-6 pb-8 pt-4 sm:pt-6">
+			<div className="flex flex-col items-center gap-2 text-center">
 				<FaceContextMenu src={profilePhoto} />
 
-				<div className="flex flex-col">
+				<div className="flex flex-col items-center">
 					<PageHeader>Abilaesh Kandiah</PageHeader>
 
 					<PageDescription className="mt-1">
@@ -224,7 +224,7 @@ function FaceContextMenu({ src }: { src: string }) {
 			onPointerEnter={onPointerEnter}
 			onPointerMove={onPointerMove}
 			onPointerLeave={onPointerLeave}
-			className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-background shadow-lg sm:h-24 sm:w-24 dark:invert"
+			className="h-28 w-28 shrink-0 rounded-full object-cover ring-4 ring-background shadow-lg sm:h-40 sm:w-40 dark:invert"
 			src={src}
 			alt="Abilaesh Kandiah's Profile Photo"
 		/>
