@@ -1,7 +1,6 @@
 import type { ProjectProps } from '@/types/ProjectTypes'
 import { projectType } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
-import { Section } from '@/components/projects/Section'
 
 export const webPortfolioProject: ProjectProps = {
 	type: projectType.Personal,
@@ -16,48 +15,7 @@ export const webPortfolioProject: ProjectProps = {
 		techType.Vite,
 	],
 
-	sections: [{ title: 'Overview', body: Overview }],
-
-	caseStudy: CaseStudy,
-}
-
-function CaseStudy() {
-	return (
-		<>
-			<p>
-				My portfolio site: where I showcase my experience and projects, explain
-				the thinking behind them, and track what I pick up as I keep on
-				building.
-			</p>
-
-			<Section title="Problem">
-				<p>
-					Needed to work as a quick read for everyone, hold up under closer
-					technical scrutiny, and stay worth maintaining as I keep learning and
-					adding to it.
-				</p>
-			</Section>
-
-			<Section title="Approach">
-				<p>
-					Built as a React 19 SPA with TypeScript, TanStack Router, and
-					Tailwind CSS v4. Design-wise: one small border-radius used everywhere
-					instead of mixing pill and sharp shapes, hover/cursor behavior that
-					only shows up on things that are actually clickable, a readable
-					column width for write-ups instead of full-width prose, and a
-					case-study/design toggle so each project can be read short or in
-					depth.
-				</p>
-			</Section>
-
-			<Section title="Outcome">
-				<p>
-					Still a work in progress — I add to it as I build new things and pick
-					up new tools.
-				</p>
-			</Section>
-		</>
-	)
+	caseStudy: Overview,
 }
 
 function Overview() {
