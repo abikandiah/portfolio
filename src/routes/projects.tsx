@@ -2,7 +2,7 @@ import { Outlet, createFileRoute } from '@tanstack/react-router'
 import { Banner } from '@abumble/design-system/components/Banner'
 import { stringToBoolean } from '@abumble/design-system/utils'
 import { useState } from 'react'
-import { DisclaimerBody } from './disclaimer'
+import { TextLink } from '@/components/ui'
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
@@ -30,7 +30,15 @@ function RouteComponent() {
 					hideIcon
 					onClose={onDisclaimerDismiss}
 				>
-					<DisclaimerBody />
+					<p className="text-sm text-muted-foreground">
+						The content within this portfolio is intended solely to showcase my
+						product design vision, problem-solving process, and conceptual
+						abilities.{' '}
+						<TextLink to="/disclaimer" target="_blank">
+							Read the full disclaimer
+						</TextLink>
+						.
+					</p>
 				</Banner>
 			)}
 
