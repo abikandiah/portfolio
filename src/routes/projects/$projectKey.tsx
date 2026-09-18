@@ -85,7 +85,9 @@ function RouteComponent() {
 	}
 
 	return (
-		<ProjectContainer className="space-y-4 mt-4">
+		<ProjectContainer
+			className={cn('mt-4 space-y-4', showToc ? 'max-w-5xl' : 'max-w-3xl')}
+		>
 			<BackToProjectsLink className="px-3" />
 
 			<Card>
@@ -101,38 +103,49 @@ function RouteComponent() {
 				</div>
 			</Card>
 
-			<Card>
-				{!hasCaseStudy && !hasEngineering ? (
-					<p className="max-w-3xl text-sm text-muted-foreground">
-						No write-up for this project yet — check back soon.
-					</p>
-				) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
-					<CaseStudyBody caseStudy={proj.caseStudy} />
-				) : showToc ? (
-					<div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-0">
+			{showToc ? (
+				<div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_220px]">
+					<Card>
 						<EngineeringBody sections={proj.sections ?? []} />
-						<TableOfContents entries={tocEntries} />
-					</div>
-				) : (
-					<div className="max-w-3xl">
-						<EngineeringBody sections={proj.sections ?? []} />
-					</div>
-				)}
+					</Card>
 
-				<ProjectFooterNav current={proj} />
-			</Card>
+					<TableOfContents entries={tocEntries} />
+				</div>
+			) : (
+				<Card>
+					{!hasCaseStudy && !hasEngineering ? (
+						<p className="max-w-3xl text-sm text-muted-foreground">
+							No write-up for this project yet — check back soon.
+						</p>
+					) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
+						<CaseStudyBody caseStudy={proj.caseStudy} />
+					) : (
+						<div className="max-w-3xl">
+							<EngineeringBody sections={proj.sections ?? []} />
+						</div>
+					)}
+				</Card>
+			)}
+
+			<ProjectFooterNav current={proj} className="px-3" />
 		</ProjectContainer>
 	)
 }
 
-function ProjectFooterNav({ current }: { current: Project }) {
+function ProjectFooterNav({
+	current,
+	className,
+}: {
+	current: Project
+	className?: string
+}) {
 	const index = projects.findIndex((p) => p.pathname === current.pathname)
 	const prev = index > 0 ? projects[index - 1] : undefined
 	const next =
 		index >= 0 && index < projects.length - 1 ? projects[index + 1] : undefined
 
 	return (
-		<div className="flex flex-col gap-4 border-t pt-4">
+		<div className={cn('flex flex-col gap-4', className)}>
 			<BackToProjectsLink />
 
 			{(prev != null || next != null) && (
