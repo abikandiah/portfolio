@@ -14,15 +14,13 @@ export const microsoftEDiscoveryProject: ProjectProps = {
 	description: `An integration of the Microsoft Purview eDiscovery tool into the workflow automation platform, providing a structured, automated approach for end-to-end data collections.`,
 	tech: [
 		techType.Java,
+		techType.Dropwizard,
+		techType.React,
+		techType.MicrosoftEDiscovery,
+		techType.AzureAD,
+		techType.OIDC,
 		techType.JavaScript,
 		techType.SASS,
-		techType.JSX,
-		techType.React,
-		techType.Dropwizard,
-		techType.RestAPI,
-		techType.AzureAD,
-		techType.MicrosoftEDiscovery,
-		techType.OIDC,
 	],
 
 	sections: [

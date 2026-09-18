@@ -15,14 +15,10 @@ export const dataUploadProject: ProjectProps = {
 	description: `A web-based tool for uploading data to data repositories for further processing with workflows.`,
 	tech: [
 		techType.Java,
+		techType.Dropwizard,
+		techType.React,
 		techType.JavaScript,
 		techType.SASS,
-		techType.JSX,
-		techType.React,
-		techType.Dropwizard,
-		techType.RestAPI,
-		techType.OpenSource,
-		techType.TusProtocol,
 	],
 
 	sections: [

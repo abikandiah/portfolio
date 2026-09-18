@@ -16,14 +16,10 @@ export const javaToReactFormBuilderProject: ProjectProps = {
 	description: `A form generation tool for rendering React forms for backend Java classes, removing the need to manually create forms.`,
 	tech: [
 		techType.Java,
+		techType.Dropwizard,
+		techType.React,
 		techType.JavaScript,
 		techType.SASS,
-		techType.JSX,
-		techType.React,
-		techType.Dropwizard,
-		techType.RestAPI,
-		techType.JavaAnnotations,
-		techType.JavaReflection,
 	],
 
 	sections: [

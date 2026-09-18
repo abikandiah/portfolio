@@ -11,8 +11,8 @@ export const selenumE2ETestSuiteProject: ProjectProps = {
 	description: `A scalable end-to-end (E2E) test suite for validating web application user flows, executed as part of the CI/CD pipeline's test stage.`,
 	tech: [
 		techType.Java,
-		techType.XPath,
 		techType.Selenium,
+		techType.XPath,
 		techType.Jenkins,
 		techType.Fiddler,
 	],

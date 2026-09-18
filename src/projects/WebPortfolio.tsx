@@ -11,7 +11,7 @@ export const webPortfolioProject: ProjectProps = {
 		techType.TypeScript,
 		techType.React,
 		techType.TailwindCSS,
-		techType.TanstackRouter,
+		techType.Tanstack,
 		techType.Vite,
 	],
 

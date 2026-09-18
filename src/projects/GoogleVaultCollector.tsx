@@ -14,15 +14,13 @@ export const googleVaultProject: ProjectProps = {
 	description: `An integration of the Google Vault eDiscovery tool into the workflow automation platform, providing a structured, automated approach for end-to-end data collections.`,
 	tech: [
 		techType.Java,
+		techType.Dropwizard,
+		techType.React,
+		techType.GoogleVault,
+		techType.GoogleCloud,
+		techType.OIDC,
 		techType.JavaScript,
 		techType.SASS,
-		techType.JSX,
-		techType.React,
-		techType.Dropwizard,
-		techType.RestAPI,
-		techType.GoogleCloud,
-		techType.GoogleVault,
-		techType.OIDC,
 	],
 
 	sections: [

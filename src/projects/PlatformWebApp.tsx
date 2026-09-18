@@ -14,16 +14,12 @@ export const platformWebApp: ProjectProps = {
 	description: `A React-based management console for the Java backend, enabling users to create, schedule, and submit eDiscovery workflows for processing.`,
 	tech: [
 		techType.JavaScript,
-		techType.SASS,
-		techType.JSX,
 		techType.React,
 		techType.ReactRedux,
-		techType.ReduxSagas,
 		techType.ReactRouter,
-		techType.RestAPI,
-		techType.OIDC,
-		techType.Axios,
 		techType.WebWorkers,
+		techType.OIDC,
+		techType.SASS,
 	],
 
 	sections: [

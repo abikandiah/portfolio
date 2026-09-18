@@ -24,17 +24,12 @@ export const propMangeProject: ProjectProps = {
 		techType.SpringBoot,
 		techType.TypeScript,
 		techType.React,
-		techType.TanstackRouter,
-		techType.TanstackQuery,
-		techType.Axios,
+		techType.Tanstack,
 		techType.PostgreSQL,
 		techType.Liquibase,
 		techType.Docker,
-		techType.Caddy,
-		techType.RestAPI,
 		techType.JWT,
 		techType.OIDC,
-		techType.Logto,
 	],
 
 	sections: [

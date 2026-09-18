@@ -24,17 +24,12 @@ export const legalHoldNotificationsProject: ProjectProps = {
 	description: `A communication platform for administrating and auditing legal holds.`,
 	tech: [
 		techType.Java,
+		techType.Dropwizard,
+		techType.React,
+		techType.LDAP,
+		techType.RDBMS,
 		techType.JavaScript,
 		techType.SASS,
-		techType.JSX,
-		techType.React,
-		techType.Dropwizard,
-		techType.RestAPI,
-		techType.SSOLinks,
-		techType.SMTP,
-		techType.RDBMS,
-		techType.LDAP,
-		techType.ThreadPools,
 	],
 
 	sections: [

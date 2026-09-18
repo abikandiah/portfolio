@@ -13,11 +13,10 @@ export const thirdPartyServicesProject: ProjectProps = {
 		'A full-stack framework to build integrations to third-party services.',
 	tech: [
 		techType.Java,
-		techType.JavaScript,
-		techType.JSX,
-		techType.React,
 		techType.Dropwizard,
+		techType.React,
 		techType.RDBMS,
+		techType.JavaScript,
 	],
 
 	sections: [
