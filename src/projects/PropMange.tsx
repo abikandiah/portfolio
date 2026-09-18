@@ -15,8 +15,8 @@ import { techType } from '@/types/TechTypes'
 export const propMangeProject: ProjectProps = {
 	type: projectType.Personal,
 	name: 'PropMange',
-	startYear: 2025,
-	endYear: 2025,
+	startYear: 2026,
+	endYear: 2026,
 	url: 'https://prop-mange.akandiah.ca',
 	description: `A full-stack property management system covering the complete rental lifecycle — from unit availability and lease agreements to tenant communication and multi-organization access control.`,
 	tech: [
