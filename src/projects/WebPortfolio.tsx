@@ -1,6 +1,7 @@
 import type { ProjectProps } from '@/types/ProjectTypes'
 import { projectType } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
+import { Section } from '@/components/projects/Section'
 
 export const webPortfolioProject: ProjectProps = {
 	type: projectType.Personal,
@@ -17,16 +18,46 @@ export const webPortfolioProject: ProjectProps = {
 
 	sections: [{ title: 'Overview', body: Overview }],
 
-	caseStudy: {
-		summary:
-			'A personal portfolio built to showcase technical work to both recruiters and engineers — and, fittingly, the same project this case-study/design toggle feature was designed for.',
-		problem:
-			'A portfolio site needs to serve two very different readers at once: someone skimming quickly for an overall impression, and someone who wants to dig into real technical decisions. Most portfolios pick one and leave the other reader wanting.',
-		approach:
-			'Built as a React 19 single-page app with TypeScript, TanStack Router, and Tailwind CSS v4, then iterated in tight feedback loops on the details that actually affect how it reads — hover states and consistent affordances across sections, an expandable Experience/Education timeline, and this case-study/design toggle itself.',
-		outcome:
-			'Every project can now be read as a short case study or a full design write-up without maintaining two separate pages, and the same pattern is ready to roll out across the rest of the portfolio as more case studies get written.',
-	},
+	caseStudy: CaseStudy,
+}
+
+function CaseStudy() {
+	return (
+		<>
+			<p>
+				My portfolio site: where I showcase my experience and projects, explain
+				the thinking behind them, and track what I pick up as I keep on
+				building.
+			</p>
+
+			<Section title="Problem">
+				<p>
+					Needed to work as a quick read for everyone, hold up under closer
+					technical scrutiny, and stay worth maintaining as I keep learning and
+					adding to it.
+				</p>
+			</Section>
+
+			<Section title="Approach">
+				<p>
+					Built as a React 19 SPA with TypeScript, TanStack Router, and
+					Tailwind CSS v4. Design-wise: one small border-radius used everywhere
+					instead of mixing pill and sharp shapes, hover/cursor behavior that
+					only shows up on things that are actually clickable, a readable
+					column width for write-ups instead of full-width prose, and a
+					case-study/design toggle so each project can be read short or in
+					depth.
+				</p>
+			</Section>
+
+			<Section title="Outcome">
+				<p>
+					Still a work in progress — I add to it as I build new things and pick
+					up new tools.
+				</p>
+			</Section>
+		</>
+	)
 }
 
 function Overview() {

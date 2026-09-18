@@ -11,6 +11,7 @@ import type {
 } from '@/types/ProjectTypes'
 import { projectView } from '@/types/ProjectTypes'
 import { CaseStudyBody } from '@/components/projects/CaseStudyBody'
+import { Section } from '@/components/projects/Section'
 import { ViewToggle } from '@/components/projects/ViewToggle'
 import { NotFound } from '@/components/NotFound'
 import { PageDescription, PageHeader, TextLink } from '@/components/ui'
@@ -163,17 +164,13 @@ function EngineeringBody({ sections }: { sections: Array<ProjectSection> }) {
 
 function ProjectBodySection({ section }: { section: ProjectSection }) {
 	return (
-		<section className="p-text space-y-4">
-			{section.title && (
-				<h2
-					id={section.pathname}
-					className="font-semibold text-lg text-foreground mb-1"
-				>
-					{section.title}
-				</h2>
-			)}
-
+		<Section
+			title={section.title}
+			id={section.pathname}
+			className="p-text space-y-4"
+			headingClassName="mb-1"
+		>
 			<section.body />
-		</section>
+		</Section>
 	)
 }

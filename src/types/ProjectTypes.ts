@@ -21,26 +21,6 @@ interface ProjectSectionProps {
 	pathname?: string
 }
 
-interface CaseStudyMedia {
-	type: 'image' | 'video'
-	src: string
-	caption?: string
-}
-
-interface CaseStudyMetric {
-	label: string
-	value: string
-}
-
-interface CaseStudy {
-	summary: string
-	problem: string
-	approach: string
-	outcome: string
-	metrics?: Array<CaseStudyMetric>
-	media?: Array<CaseStudyMedia>
-}
-
 interface ProjectProps {
 	type: TProjectType
 	name: string
@@ -52,7 +32,7 @@ interface ProjectProps {
 	url?: string | undefined
 	icon?: ComponentType<any> | undefined
 	sections?: Array<ProjectSectionProps> | undefined
-	caseStudy?: CaseStudy | undefined
+	caseStudy?: React.ComponentType | undefined
 }
 
 class ProjectSection implements ProjectSectionProps {
@@ -83,7 +63,7 @@ class Project implements ProjectProps {
 	url?: string | undefined
 	icon?: ComponentType<any> | undefined
 	sections?: Array<ProjectSection> | undefined
-	caseStudy?: CaseStudy | undefined
+	caseStudy?: React.ComponentType | undefined
 
 	constructor(props: ProjectProps) {
 		this.type = props.type
@@ -126,12 +106,4 @@ function toUrl(str: string): string {
 }
 
 export { Project, ProjectSection, projectType, projectView, toUrl }
-export type {
-	CaseStudy,
-	CaseStudyMedia,
-	CaseStudyMetric,
-	ProjectProps,
-	ProjectSectionProps,
-	TProjectType,
-	TProjectView,
-}
+export type { ProjectProps, ProjectSectionProps, TProjectType, TProjectView }
