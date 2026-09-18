@@ -66,7 +66,11 @@ function ProfileIntro() {
 
 function DownloadResume() {
 	return (
-		<Button asChild variant="default">
+		<Button
+			asChild
+			variant="outline"
+			className="border-primary text-primary hover:bg-primary/10 hover:text-primary"
+		>
 			<a href={AbiResume} download className="flex items-center gap-2">
 				<span className="font-medium">Download CV</span>
 				<Download />
