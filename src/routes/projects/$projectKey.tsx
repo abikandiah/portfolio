@@ -85,13 +85,11 @@ function RouteComponent() {
 	}
 
 	return (
-		<ProjectContainer
-			className={cn('mt-4 space-y-4', showToc ? 'max-w-5xl' : 'max-w-3xl')}
-		>
+		<ProjectContainer className="mt-4 space-y-4">
 			<BackToProjectsLink className="px-3" />
 
 			<Card>
-				<div className="max-w-3xl space-y-4">
+				<div className="space-y-4">
 					<ProjectHeader proj={proj} />
 
 					<ViewToggle
@@ -103,29 +101,29 @@ function RouteComponent() {
 				</div>
 			</Card>
 
-			{showToc ? (
-				<div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_220px]">
-					<Card>
-						<EngineeringBody sections={proj.sections ?? []} />
-					</Card>
-
-					<TableOfContents entries={tocEntries} />
-				</div>
-			) : (
+			{/* The TOC hangs in the right margin rather than taking a column, so
+			    the reading column keeps the same width and position whether or
+			    not it's shown — switching views never shifts the page. */}
+			<div className="relative">
 				<Card>
 					{!hasCaseStudy && !hasEngineering ? (
-						<p className="max-w-3xl text-sm text-muted-foreground">
+						<p className="text-sm text-muted-foreground">
 							No write-up for this project yet — check back soon.
 						</p>
 					) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
 						<CaseStudyBody caseStudy={proj.caseStudy} />
 					) : (
-						<div className="max-w-3xl">
-							<EngineeringBody sections={proj.sections ?? []} />
-						</div>
+						<EngineeringBody sections={proj.sections ?? []} />
 					)}
 				</Card>
-			)}
+
+				{showToc && (
+					<TableOfContents
+						entries={tocEntries}
+						className="absolute top-0 left-full ml-4 h-full w-52"
+					/>
+				)}
+			</div>
 
 			<ProjectFooterNav current={proj} className="px-3" />
 		</ProjectContainer>
@@ -205,7 +203,7 @@ function ProjectContainer({
 	...props
 }: React.ComponentProps<'div'>) {
 	return (
-		<div className={cn('mx-auto w-full max-w-5xl', className)} {...props} />
+		<div className={cn('mx-auto w-full max-w-3xl', className)} {...props} />
 	)
 }
 

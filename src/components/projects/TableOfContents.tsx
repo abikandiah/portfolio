@@ -13,7 +13,12 @@ interface TocEntry {
 // a little breathing room.
 const READING_LINE_PX = 100
 
-function TableOfContents({ entries }: { entries: Array<TocEntry> }) {
+interface TableOfContentsProps {
+	entries: Array<TocEntry>
+	className?: string
+}
+
+function TableOfContents({ entries, className }: TableOfContentsProps) {
 	const [activeId, setActiveId] = useState<string | undefined>(
 		entries[0]?.pathname,
 	)
@@ -53,16 +58,17 @@ function TableOfContents({ entries }: { entries: Array<TocEntry> }) {
 	}, [entryKey])
 
 	return (
-		// Hidden entirely below lg (no TOC on mobile) and, at lg+, split into
-		// two layers: this outer div is a plain grid item that gets the grid's
-		// default full-height stretch, giving the inner sticky div room to
-		// track the whole way down a long content column — sticky only ever
-		// moves within its containing block's height, so without this tall
-		// outer wrapper it would un-stick after the first screen. The Card
-		// one level in is what's actually visible, sized to its own content
-		// rather than stretching to match the content column.
-		<div className="hidden lg:block">
-			<div className="lg:sticky lg:top-20">
+		// Hidden below xl — the TOC sits in the page's right margin, and
+		// only from xl is that margin wide enough to hold it beside the 3xl
+		// reading column. At xl+ it's split into two layers: this outer div
+		// is sized by the caller to the full height of the content it sits
+		// beside, giving the inner sticky div room to track the whole way
+		// down — sticky only ever moves within its containing block's
+		// height, so without this tall wrapper it would un-stick after the
+		// first screen. The Card one level in is what's actually visible,
+		// sized to its own content rather than stretching to match.
+		<div className={cn('hidden xl:block', className)}>
+			<div className="sticky top-20">
 				<Card>
 					<nav aria-label="Table of contents">
 						<div className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
