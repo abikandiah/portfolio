@@ -1,4 +1,3 @@
-import { Card } from '@abumble/design-system/components/Card'
 import { cn } from '@abumble/design-system/utils'
 import { useEffect, useState } from 'react'
 import { scrollToHash } from '@/components/projects/scrollToHash'
@@ -65,39 +64,37 @@ function TableOfContents({ entries, className }: TableOfContentsProps) {
 		// beside, giving the inner sticky div room to track the whole way
 		// down — sticky only ever moves within its containing block's
 		// height, so without this tall wrapper it would un-stick after the
-		// first screen. The Card one level in is what's actually visible,
-		// sized to its own content rather than stretching to match.
+		// first screen. The nav itself is sized to its own content rather
+		// than stretching to match.
 		<div className={cn('hidden xl:block', className)}>
 			<div className="sticky top-20">
-				<Card>
-					<nav aria-label="Table of contents">
-						<div className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-							On this page
-						</div>
+				<nav aria-label="Table of contents">
+					<div className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+						On this page
+					</div>
 
-						<ul className="space-y-1 text-sm">
-							{entries.map((entry) => (
-								<li key={entry.pathname}>
-									<a
-										href={`#${entry.pathname}`}
-										onClick={(event) => scrollToHash(event, entry.pathname)}
-										aria-current={
-											activeId === entry.pathname ? 'location' : undefined
-										}
-										className={cn(
-											'-ml-px block border-l-2 py-1 pl-3 transition-colors',
-											activeId === entry.pathname
-												? 'border-foreground font-medium text-foreground'
-												: 'border-transparent text-muted-foreground hover:border-foreground/30 hover:text-foreground',
-										)}
-									>
-										{entry.title}
-									</a>
-								</li>
-							))}
-						</ul>
-					</nav>
-				</Card>
+					<ul className="space-y-1 border-l border-foreground/15 text-sm">
+						{entries.map((entry) => (
+							<li key={entry.pathname}>
+								<a
+									href={`#${entry.pathname}`}
+									onClick={(event) => scrollToHash(event, entry.pathname)}
+									aria-current={
+										activeId === entry.pathname ? 'location' : undefined
+									}
+									className={cn(
+										'-ml-px block border-l-2 py-1 pl-3 transition-colors',
+										activeId === entry.pathname
+											? 'border-foreground font-medium text-foreground'
+											: 'border-transparent text-muted-foreground hover:border-foreground/30 hover:text-foreground',
+									)}
+								>
+									{entry.title}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
 			</div>
 		</div>
 	)

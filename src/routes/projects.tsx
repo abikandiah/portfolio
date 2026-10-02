@@ -1,47 +1,12 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
-import { Banner } from '@abumble/design-system/components/Banner'
-import { stringToBoolean } from '@abumble/design-system/utils'
-import { useState } from 'react'
-import { TextLink } from '@/components/ui'
 
 export const Route = createFileRoute('/projects')({
 	component: RouteComponent,
 })
 
-const DISCLAIMER_DISMISSED_KEY = 'bee_disclaimer_dismissed'
-
 function RouteComponent() {
-	const [dismissed, setDismissed] = useState(
-		stringToBoolean(localStorage.getItem(DISCLAIMER_DISMISSED_KEY)),
-	)
-
-	function onDisclaimerDismiss() {
-		localStorage.setItem(DISCLAIMER_DISMISSED_KEY, true.toString())
-		setDismissed(true)
-	}
-
 	return (
 		<div className="flex flex-col center-page mt-8">
-			{!dismissed && (
-				<Banner
-					className="mb-4"
-					type="info"
-					title="Portfolio Disclaimer"
-					hideIcon
-					onClose={onDisclaimerDismiss}
-				>
-					<p className="text-sm text-muted-foreground">
-						The content within this portfolio is intended solely to showcase my
-						product design vision, problem-solving process, and conceptual
-						abilities.{' '}
-						<TextLink to="/disclaimer" target="_blank">
-							Read the full disclaimer
-						</TextLink>
-						.
-					</p>
-				</Banner>
-			)}
-
 			<Outlet />
 		</div>
 	)

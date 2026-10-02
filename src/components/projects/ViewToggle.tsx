@@ -33,14 +33,10 @@ function ViewToggle({
 	}
 	const availableViews = ALL_VIEWS.filter((view) => availability[view])
 
+	// With only one view there's nothing to switch between — a lone chip
+	// would look like a button that does nothing.
 	if (availableViews.length <= 1) {
-		const onlyView = availableViews[0] ?? activeView
-
-		return (
-			<span className="inline-flex items-center self-start rounded border px-3 py-1 text-xs font-medium text-muted-foreground">
-				{VIEW_LABELS[onlyView]}
-			</span>
-		)
+		return null
 	}
 
 	return (
@@ -77,7 +73,7 @@ function ViewToggleButton({
 			aria-selected={active}
 			onClick={() => onSelect(view)}
 			className={cn(
-				'rounded px-3 py-1 text-xs font-medium transition-colors outline-none',
+				'rounded px-3 py-1 text-xs font-medium transition-colors outline-none focus-visible:outline-2 focus-visible:outline-ring',
 				active
 					? 'bg-foreground/8 text-foreground'
 					: 'text-muted-foreground hover:bg-foreground/6 hover:text-foreground',

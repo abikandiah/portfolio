@@ -45,7 +45,7 @@ class ProjectSection implements ProjectSectionProps {
 		this.body = props.body
 
 		if (this.title != null) {
-			this.pathname = toUrl(this.title)
+			this.pathname = toSlug(this.title)
 		}
 	}
 }
@@ -103,6 +103,16 @@ class Project implements ProjectProps {
 
 function toUrl(str: string): string {
 	return str.toLowerCase().replaceAll(' ', '-')
+}
+
+// Section anchors get shared as copied links, so strip anything that isn't
+// a letter or digit — "Properties & Units" becomes `properties-units`,
+// not `properties-&-units`.
+function toSlug(str: string): string {
+	return str
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-|-$/g, '')
 }
 
 export { Project, ProjectSection, projectType, projectView, toUrl }

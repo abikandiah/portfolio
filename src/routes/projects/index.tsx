@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 import type { TProjectType } from '@/types/ProjectTypes'
 import { ProjectCard } from '@/components/projects/ProjectCard'
 import { PageDescription, PageHeader } from '@/components/ui'
+import { ProjectsDisclaimer } from '@/components/projects/ProjectsDisclaimer'
 import { projects, projectsByType } from '@/constants/project'
 
 export const Route = createFileRoute('/projects/')({
@@ -38,6 +39,8 @@ function RouteComponent() {
 
 	return (
 		<div className="flex flex-col gap-6 px-3">
+			<ProjectsDisclaimer />
+
 			<div>
 				<PageHeader size="sm">Projects</PageHeader>
 

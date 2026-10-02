@@ -1,4 +1,3 @@
-import { Card } from '@abumble/design-system/components/Card'
 import { Separator } from '@abumble/design-system/components/Separator'
 import { cn } from '@abumble/design-system/utils'
 import { createFileRoute } from '@tanstack/react-router'
@@ -15,6 +14,7 @@ import { CaseStudyBody } from '@/components/projects/CaseStudyBody'
 import { Section } from '@/components/projects/Section'
 import { TableOfContents } from '@/components/projects/TableOfContents'
 import { ViewToggle } from '@/components/projects/ViewToggle'
+import { ProjectsDisclaimer } from '@/components/projects/ProjectsDisclaimer'
 import { NotFound } from '@/components/NotFound'
 import { PageDescription, PageHeader, TextLink } from '@/components/ui'
 import { BadgeContainer, TechBadge } from '@/components/ui/badge'
@@ -85,47 +85,46 @@ function RouteComponent() {
 	}
 
 	return (
-		<ProjectContainer className="mt-4 space-y-4">
-			<BackToProjectsLink className="px-3" />
+		<ProjectContainer className="space-y-8">
+			<div className="space-y-4">
+				<ProjectsDisclaimer />
+				<BackToProjectsLink />
+			</div>
 
-			<Card>
-				<div className="space-y-4">
-					<ProjectHeader proj={proj} />
+			<header className="space-y-5 border-b pb-6">
+				<ProjectHeader proj={proj} />
 
-					<ViewToggle
-						hasCaseStudy={hasCaseStudy}
-						hasEngineering={hasEngineering}
-						activeView={activeView}
-						onSelect={onSelectView}
-					/>
-				</div>
-			</Card>
+				<ViewToggle
+					hasCaseStudy={hasCaseStudy}
+					hasEngineering={hasEngineering}
+					activeView={activeView}
+					onSelect={onSelectView}
+				/>
+			</header>
 
 			{/* The TOC hangs in the right margin rather than taking a column, so
 			    the reading column keeps the same width and position whether or
 			    not it's shown — switching views never shifts the page. */}
 			<div className="relative">
-				<Card>
-					{!hasCaseStudy && !hasEngineering ? (
-						<p className="text-sm text-muted-foreground">
-							No write-up for this project yet — check back soon.
-						</p>
-					) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
-						<CaseStudyBody caseStudy={proj.caseStudy} />
-					) : (
-						<EngineeringBody sections={proj.sections ?? []} />
-					)}
-				</Card>
+				{!hasCaseStudy && !hasEngineering ? (
+					<p className="text-sm text-muted-foreground">
+						No write-up for this project yet — check back soon.
+					</p>
+				) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
+					<CaseStudyBody caseStudy={proj.caseStudy} />
+				) : (
+					<EngineeringBody sections={proj.sections ?? []} />
+				)}
 
 				{showToc && (
 					<TableOfContents
 						entries={tocEntries}
-						className="absolute top-0 left-full ml-4 h-full w-52"
+						className="absolute top-0 left-full ml-8 h-full w-52"
 					/>
 				)}
 			</div>
 
-			<ProjectFooterNav current={proj} className="px-3" />
+			<ProjectFooterNav current={proj} className="border-t pt-6" />
 		</ProjectContainer>
 	)
 }
@@ -142,17 +141,18 @@ function ProjectFooterNav({
 	const next =
 		index >= 0 && index < projects.length - 1 ? projects[index + 1] : undefined
 
-	return (
-		<div className={cn('flex flex-col gap-4', className)}>
-			<BackToProjectsLink />
+	if (prev == null && next == null) {
+		return null
+	}
 
-			{(prev != null || next != null) && (
-				<div className="flex items-start justify-between gap-4 text-sm">
-					<ProjectNavLink project={prev} direction="prev" />
-					<ProjectNavLink project={next} direction="next" />
-				</div>
-			)}
-		</div>
+	return (
+		<nav
+			aria-label="More projects"
+			className={cn('grid grid-cols-2 gap-4', className)}
+		>
+			<ProjectNavLink project={prev} direction="prev" />
+			<ProjectNavLink project={next} direction="next" />
+		</nav>
 	)
 }
 
@@ -167,21 +167,31 @@ function ProjectNavLink({
 		return <span />
 	}
 
+	const isNext = direction === 'next'
+
 	return (
 		<TextLink
 			to="/projects/$projectKey"
 			params={{ projectKey: project.pathname }}
-			className={cn(
-				'inline-flex items-center gap-1',
-				direction === 'next' && 'flex-row-reverse text-right',
-			)}
+			className={cn('flex flex-col gap-1', isNext && 'items-end text-right')}
 		>
-			{direction === 'prev' ? (
-				<ChevronLeft className="h-4 w-4 shrink-0" />
-			) : (
-				<ChevronRight className="h-4 w-4 shrink-0" />
-			)}
-			<span>{project.name}</span>
+			<span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+				{isNext ? 'Next' : 'Previous'}
+			</span>
+
+			<span
+				className={cn(
+					'inline-flex items-center gap-1',
+					isNext && 'flex-row-reverse',
+				)}
+			>
+				{isNext ? (
+					<ChevronRight className="h-4 w-4 shrink-0" />
+				) : (
+					<ChevronLeft className="h-4 w-4 shrink-0" />
+				)}
+				<span>{project.name}</span>
+			</span>
 		</TextLink>
 	)
 }
@@ -203,16 +213,16 @@ function ProjectContainer({
 	...props
 }: React.ComponentProps<'div'>) {
 	return (
-		<div className={cn('mx-auto w-full max-w-3xl', className)} {...props} />
+		<div className={cn('mx-auto w-full max-w-2xl', className)} {...props} />
 	)
 }
 
 function ProjectHeader({ proj }: { proj: Project }) {
 	return (
 		<div>
-			<PageHeader size="sm">{proj.name}</PageHeader>
+			<PageHeader>{proj.name}</PageHeader>
 
-			<PageDescription size="sm" className="mt-1">
+			<PageDescription size="sm" className="mt-2">
 				{proj.description}
 			</PageDescription>
 

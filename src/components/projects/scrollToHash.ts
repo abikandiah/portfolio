@@ -19,7 +19,11 @@ function scrollToHash(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
 	}
 
 	event.preventDefault()
-	document.getElementById(id)?.scrollIntoView()
+	document.getElementById(id)?.scrollIntoView({
+		behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+			? 'auto'
+			: 'smooth',
+	})
 }
 
 export { scrollToHash }

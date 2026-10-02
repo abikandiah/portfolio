@@ -65,9 +65,9 @@ export function PageDescription({
 	size,
 	className,
 	...props
-}: React.ComponentProps<'h2'> & VariantProps<typeof pageDescriptionVariants>) {
+}: React.ComponentProps<'p'> & VariantProps<typeof pageDescriptionVariants>) {
 	return (
-		<h2
+		<p
 			className={cn(pageDescriptionVariants({ size, className }))}
 			{...props}
 		/>
