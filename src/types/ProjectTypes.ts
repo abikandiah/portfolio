@@ -45,7 +45,7 @@ class ProjectSection implements ProjectSectionProps {
 		this.body = props.body
 
 		if (this.title != null) {
-			this.pathname = toSlug(this.title)
+			this.pathname = toUrl(this.title)
 		}
 	}
 }
@@ -81,6 +81,21 @@ class Project implements ProjectProps {
 			this.sections = props.sections.map(
 				(section) => new ProjectSection(section),
 			)
+
+			// Titles like "A & B" and "A B" slug the same, and duplicate ids
+			// would send the TOC and anchor links to the first match.
+			const seen = new Set<string>()
+			for (const section of this.sections) {
+				if (section.pathname == null) {
+					continue
+				}
+				if (seen.has(section.pathname)) {
+					throw new Error(
+						`${this.name}: two sections share the anchor "${section.pathname}"`,
+					)
+				}
+				seen.add(section.pathname)
+			}
 		}
 	}
 
@@ -101,18 +116,19 @@ class Project implements ProjectProps {
 	}
 }
 
+// Used for both project URLs and section anchors (which get shared as
+// copied links), so strip anything that isn't a letter or digit —
+// "Properties & Units" becomes `properties-units`, not `properties-&-units`.
 function toUrl(str: string): string {
-	return str.toLowerCase().replaceAll(' ', '-')
-}
-
-// Section anchors get shared as copied links, so strip anything that isn't
-// a letter or digit — "Properties & Units" becomes `properties-units`,
-// not `properties-&-units`.
-function toSlug(str: string): string {
-	return str
+	const slug = str
 		.toLowerCase()
 		.replace(/[^a-z0-9]+/g, '-')
 		.replace(/^-|-$/g, '')
+
+	if (slug === '') {
+		throw new Error(`"${str}" has no letters or digits to build a URL from`)
+	}
+	return slug
 }
 
 export { Project, ProjectSection, projectType, projectView, toUrl }

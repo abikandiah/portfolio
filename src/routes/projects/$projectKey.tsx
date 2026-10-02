@@ -12,7 +12,10 @@ import type { TocEntry } from '@/components/projects/TableOfContents'
 import { projectView } from '@/types/ProjectTypes'
 import { CaseStudyBody } from '@/components/projects/CaseStudyBody'
 import { Section } from '@/components/projects/Section'
-import { TableOfContents } from '@/components/projects/TableOfContents'
+import {
+	InlineTableOfContents,
+	TableOfContents,
+} from '@/components/projects/TableOfContents'
 import { ViewToggle } from '@/components/projects/ViewToggle'
 import { ProjectsDisclaimer } from '@/components/projects/ProjectsDisclaimer'
 import { NotFound } from '@/components/NotFound'
@@ -101,6 +104,13 @@ function RouteComponent() {
 					onSelect={onSelectView}
 				/>
 			</header>
+
+			{/* Keyed so it starts collapsed again after Previous/Next — the route
+			    component is reused across projects, and <details> would otherwise
+			    carry its open state over. */}
+			{showToc && (
+				<InlineTableOfContents key={projectKey} entries={tocEntries} />
+			)}
 
 			{/* The TOC hangs in the right margin rather than taking a column, so
 			    the reading column keeps the same width and position whether or
@@ -213,7 +223,10 @@ function ProjectContainer({
 	...props
 }: React.ComponentProps<'div'>) {
 	return (
-		<div className={cn('mx-auto w-full max-w-2xl', className)} {...props} />
+		<div
+			className={cn('mx-auto w-full max-w-2xl px-3', className)}
+			{...props}
+		/>
 	)
 }
 

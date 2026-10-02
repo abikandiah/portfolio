@@ -7,14 +7,10 @@
 // router picks up on it and starts tracking that entry too. The only
 // reliable fix is to never touch the URL/history for this at all: just
 // scroll the element into view and leave the hash (and the router) alone.
+//
+// Modified clicks (new tab, etc.) are left to the browser.
 function scrollToHash(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
-	if (
-		event.button !== 0 ||
-		event.metaKey ||
-		event.ctrlKey ||
-		event.shiftKey ||
-		event.altKey
-	) {
+	if (!isPlainClick(event)) {
 		return
 	}
 
@@ -26,4 +22,14 @@ function scrollToHash(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
 	})
 }
 
-export { scrollToHash }
+function isPlainClick(event: React.MouseEvent) {
+	return (
+		event.button === 0 &&
+		!event.metaKey &&
+		!event.ctrlKey &&
+		!event.shiftKey &&
+		!event.altKey
+	)
+}
+
+export { isPlainClick, scrollToHash }

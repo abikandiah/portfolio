@@ -17,6 +17,9 @@ const projectsMap: Map<string, Project> = new Map()
 
 function addProject(props: ProjectProps): Project {
 	const proj = new Project(props)
+	if (projectsMap.has(proj.pathname)) {
+		throw new Error(`Two projects share the URL "${proj.pathname}"`)
+	}
 	projectsMap.set(proj.pathname, proj)
 	return proj
 }
