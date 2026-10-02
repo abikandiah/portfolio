@@ -178,7 +178,7 @@ function ProjectFooterNav({
 	return (
 		<nav
 			aria-label="More projects"
-			className={cn('grid grid-cols-2 gap-4', className)}
+			className={cn('grid grid-cols-2 gap-4 text-sm', className)}
 		>
 			<ProjectNavLink project={prev} direction="prev" />
 			<ProjectNavLink project={next} direction="next" />
@@ -203,25 +203,20 @@ function ProjectNavLink({
 		<TextLink
 			to="/projects/$projectKey"
 			params={{ projectKey: project.pathname }}
-			className={cn('flex flex-col gap-1', isNext && 'items-end text-right')}
+			// The arrow and side carry the direction visually; spell it out
+			// for screen readers, which only get the project name otherwise.
+			aria-label={`${isNext ? 'Next' : 'Previous'} project: ${project.name}`}
+			className={cn(
+				'inline-flex items-center gap-1 self-start',
+				isNext && 'flex-row-reverse justify-self-end text-right',
+			)}
 		>
-			<span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-				{isNext ? 'Next' : 'Previous'}
-			</span>
-
-			<span
-				className={cn(
-					'inline-flex items-center gap-1',
-					isNext && 'flex-row-reverse',
-				)}
-			>
-				{isNext ? (
-					<ChevronRight className="h-4 w-4 shrink-0" />
-				) : (
-					<ChevronLeft className="h-4 w-4 shrink-0" />
-				)}
-				<span>{project.name}</span>
-			</span>
+			{isNext ? (
+				<ChevronRight className="h-4 w-4 shrink-0" />
+			) : (
+				<ChevronLeft className="h-4 w-4 shrink-0" />
+			)}
+			<span>{project.name}</span>
 		</TextLink>
 	)
 }
