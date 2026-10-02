@@ -17,10 +17,15 @@ const projectsMap: Map<string, Project> = new Map()
 
 function addProject(props: ProjectProps): Project {
 	const proj = new Project(props)
-	if (projectsMap.has(proj.pathname)) {
-		throw new Error(`Two projects share the URL "${proj.pathname}"`)
+	// Logged rather than thrown so one bad name can't take the whole site
+	// down — the project just isn't routable. project.test.ts fails on these.
+	if (proj.pathname === '') {
+		console.error(`"${proj.name}" has no letters or digits to build a URL from`)
+	} else if (projectsMap.has(proj.pathname)) {
+		console.error(`Two projects share the URL "${proj.pathname}"`)
+	} else {
+		projectsMap.set(proj.pathname, proj)
 	}
-	projectsMap.set(proj.pathname, proj)
 	return proj
 }
 

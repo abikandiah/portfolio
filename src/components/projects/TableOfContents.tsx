@@ -41,7 +41,19 @@ function TableOfContents({ entries, className }: TableOfContentsProps) {
 		// you've scrolled past the final section, unlike an
 		// IntersectionObserver "currently visible" set (which goes empty
 		// once nothing is left to intersect and never updates again).
+		//
+		// Once the page is scrolled to the bottom, the last heading wins: a
+		// short final section can never scroll up to the reading line, and
+		// would otherwise never be marked active.
 		function updateActive() {
+			const scrolledToBottom =
+				window.innerHeight + window.scrollY >=
+				document.documentElement.scrollHeight - 2
+			if (scrolledToBottom) {
+				setActiveId(headings[headings.length - 1].id)
+				return
+			}
+
 			let current = headings[0]
 			for (const heading of headings) {
 				if (heading.getBoundingClientRect().top <= READING_LINE_PX) {
@@ -94,7 +106,10 @@ function TableOfContents({ entries, className }: TableOfContentsProps) {
 		// wrapper it would un-stick after the first screen. The nav itself is
 		// sized to its own content rather than stretching to match.
 		<div className={cn('hidden xl:block', className)}>
-			<div className="sticky top-20">
+			{/* Capped to the viewport (less the top-20 offset and a little
+			    bottom room) so a long TOC on a short screen scrolls instead of
+			    pinning its last entries off-screen. */}
+			<div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
 				<nav aria-label="Table of contents">
 					<div className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
 						On this page

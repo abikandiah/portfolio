@@ -16,7 +16,12 @@ import {
 	InlineTableOfContents,
 	TableOfContents,
 } from '@/components/projects/TableOfContents'
-import { ViewToggle } from '@/components/projects/ViewToggle'
+import {
+	ALL_VIEWS,
+	VIEW_PANEL_ID,
+	ViewToggle,
+	viewTabId,
+} from '@/components/projects/ViewToggle'
 import { ProjectsDisclaimer } from '@/components/projects/ProjectsDisclaimer'
 import { NotFound } from '@/components/NotFound'
 import { PageDescription, PageHeader, TextLink } from '@/components/ui'
@@ -72,6 +77,10 @@ function RouteComponent() {
 	const hasCaseStudy = proj.caseStudy != null
 	const hasEngineering = proj.sections != null && proj.sections.length > 0
 	const activeView = resolveView(requestedView, hasCaseStudy, hasEngineering)
+	const availableViews = ALL_VIEWS.filter((view) =>
+		view === projectView.CaseStudy ? hasCaseStudy : hasEngineering,
+	)
+	const hasViewTabs = availableViews.length > 1
 
 	const tocEntries: Array<TocEntry> = (proj.sections ?? []).flatMap(
 		(section) =>
@@ -98,8 +107,7 @@ function RouteComponent() {
 				<ProjectHeader proj={proj} />
 
 				<ViewToggle
-					hasCaseStudy={hasCaseStudy}
-					hasEngineering={hasEngineering}
+					availableViews={availableViews}
 					activeView={activeView}
 					onSelect={onSelectView}
 				/>
@@ -116,15 +124,27 @@ function RouteComponent() {
 			    the reading column keeps the same width and position whether or
 			    not it's shown — switching views never shifts the page. */}
 			<div className="relative">
-				{!hasCaseStudy && !hasEngineering ? (
-					<p className="text-sm text-muted-foreground">
-						No write-up for this project yet — check back soon.
-					</p>
-				) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
-					<CaseStudyBody caseStudy={proj.caseStudy} />
-				) : (
-					<EngineeringBody sections={proj.sections ?? []} />
-				)}
+				{/* Only a tabpanel when there are tabs to control it. */}
+				<div
+					{...(hasViewTabs && {
+						role: 'tabpanel',
+						id: VIEW_PANEL_ID,
+						'aria-labelledby': viewTabId(activeView),
+						tabIndex: 0,
+						className:
+							'rounded outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
+					})}
+				>
+					{!hasCaseStudy && !hasEngineering ? (
+						<p className="text-sm text-muted-foreground">
+							No write-up for this project yet — check back soon.
+						</p>
+					) : activeView === projectView.CaseStudy && proj.caseStudy != null ? (
+						<CaseStudyBody caseStudy={proj.caseStudy} />
+					) : (
+						<EngineeringBody sections={proj.sections ?? []} />
+					)}
+				</div>
 
 				{showToc && (
 					<TableOfContents

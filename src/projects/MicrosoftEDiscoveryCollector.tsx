@@ -4,7 +4,7 @@ import { TextLink } from '../components/ui'
 import { thirdPartyServicesProject } from './ThirdPartyServicesFramework'
 import type { ProjectProps } from '@/types/ProjectTypes'
 import { techType } from '@/types/TechTypes'
-import { projectType, toUrl } from '@/types/ProjectTypes'
+import { projectPathname, projectType } from '@/types/ProjectTypes'
 
 export const microsoftEDiscoveryProject: ProjectProps = {
 	type: projectType.Work,
@@ -59,7 +59,7 @@ function DeepDive() {
 				This feature is an implementation of the{' '}
 				<TextLink
 					to="/projects/$projectKey"
-					params={{ projectKey: toUrl(thirdPartyServicesProject.name) }}
+					params={{ projectKey: projectPathname(thirdPartyServicesProject) }}
 				>
 					{thirdPartyServicesProject.name}
 				</TextLink>

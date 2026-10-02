@@ -2,7 +2,7 @@ import { cn } from '@abumble/design-system/utils'
 import { Check, Link as LinkIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { scrollToHash } from '@/components/projects/scrollToHash'
+import { isPlainClick, scrollToHash } from '@/components/projects/scrollToHash'
 
 function Section({
 	title,
@@ -22,8 +22,11 @@ function Section({
 			{title && (
 				<h2
 					id={id}
+					// Focusable from script only, so jumping here from the TOC can
+					// move keyboard focus to the section (see scrollToHash).
+					tabIndex={id != null ? -1 : undefined}
 					className={cn(
-						'group/heading scroll-mt-20 flex items-center gap-1.5 font-semibold text-lg text-foreground',
+						'group/heading scroll-mt-20 flex items-center gap-1.5 font-semibold text-lg text-foreground outline-none',
 						headingClassName,
 					)}
 				>
@@ -48,6 +51,12 @@ function SectionAnchor({ id, title }: { id: string; title: string }) {
 
 	async function onClick(event: React.MouseEvent<HTMLAnchorElement>) {
 		const url = `${window.location.origin}${window.location.pathname}${window.location.search}#${id}`
+
+		// Modified clicks (new tab, etc.) are left to the browser — don't
+		// also overwrite the clipboard behind the user's back.
+		if (!isPlainClick(event)) {
+			return
+		}
 
 		scrollToHash(event, id)
 

@@ -14,12 +14,22 @@ function scrollToHash(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
 		return
 	}
 
+	const target = document.getElementById(id)
+	if (target == null) {
+		return
+	}
+
 	event.preventDefault()
-	document.getElementById(id)?.scrollIntoView({
+	target.scrollIntoView({
 		behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
 			? 'auto'
 			: 'smooth',
 	})
+	// Native hash navigation would move the focus start point to the target;
+	// preventDefault skips that, so do it by hand — otherwise the next Tab
+	// goes back to the link (or, from the collapsed inline TOC, the top of
+	// the page). preventScroll leaves the smooth scroll above in charge.
+	target.focus({ preventScroll: true })
 }
 
 function isPlainClick(event: React.MouseEvent) {

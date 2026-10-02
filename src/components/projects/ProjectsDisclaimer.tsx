@@ -9,16 +9,18 @@ const DISCLAIMER_DISMISSED_KEY = 'bee_disclaimer_dismissed'
 // once in the /projects layout) so the banner lines up with the page below
 // it — the list and the narrower write-up pages have different widths.
 function ProjectsDisclaimer({ className }: { className?: string }) {
-	const [dismissed, setDismissed] = useState(
-		stringToBoolean(localStorage.getItem(DISCLAIMER_DISMISSED_KEY)),
-	)
+	const [dismissed, setDismissed] = useState(readDismissed)
 
 	if (dismissed) {
 		return null
 	}
 
 	function onDismiss() {
-		localStorage.setItem(DISCLAIMER_DISMISSED_KEY, true.toString())
+		try {
+			localStorage.setItem(DISCLAIMER_DISMISSED_KEY, true.toString())
+		} catch {
+			// Storage unavailable — it stays dismissed until the next visit.
+		}
 		setDismissed(true)
 	}
 
@@ -41,6 +43,16 @@ function ProjectsDisclaimer({ className }: { className?: string }) {
 			</p>
 		</Banner>
 	)
+}
+
+// Storage can throw (blocked site data, private modes, sandboxed iframes) —
+// treat that as "not dismissed" rather than crashing the page.
+function readDismissed(): boolean {
+	try {
+		return stringToBoolean(localStorage.getItem(DISCLAIMER_DISMISSED_KEY))
+	} catch {
+		return false
+	}
 }
 
 export { ProjectsDisclaimer }

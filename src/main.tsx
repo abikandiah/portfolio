@@ -9,6 +9,7 @@ import { routeTree } from './routeTree.gen'
 
 import { NotFound } from './components/NotFound.tsx'
 import reportWebVitals from './reportWebVitals.ts'
+import { installStorageFallback } from './storageFallback.ts'
 import '@fontsource-variable/inter'
 import './styles.css'
 
@@ -33,6 +34,8 @@ declare module '@tanstack/react-router' {
 		router: typeof router
 	}
 }
+
+installStorageFallback()
 
 // Linen is the only accent theme now that the picker is gone. Clear any
 // value a visit from before that removal left in localStorage so
