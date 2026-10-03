@@ -28,9 +28,7 @@ interface ContentProject {
 
 // Optional — most projects have no case study.
 function caseStudyFor(indexPath: string): CaseStudyContent | undefined {
-	return caseStudyFiles[indexPath.replace(/index\.md$/, 'case-study.md')] as
-		| CaseStudyContent
-		| undefined
+	return caseStudyFiles[indexPath.replace(/index\.md$/, 'case-study.md')]
 }
 
 /**
