@@ -15,9 +15,13 @@ function WorkExperience() {
 			<ol className="home-timeline">
 				<ExpandableRow
 					title="Sabbatical"
-					subtitle="Individual Contributor"
+					subtitle="Independent Study"
 					duration="2025 – 2026"
 					logoSrc={bee}
+					bullets={[
+						'A deliberate break to reset my career goals and get back to learning, building and exploring',
+						'Sharpened my full-stack skills through side projects and studied AI development and system design',
+					]}
 				/>
 
 				<ExpandableRow
@@ -25,13 +29,22 @@ function WorkExperience() {
 					subtitle="Senior Software Engineer"
 					duration="2023 – 2025"
 					logoSrc={nuixLogo}
+					bullets={[
+						"Joined through Nuix's 2023 acquisition of Rampiva; continued as full-stack lead",
+						'Led the third-party services framework and the Google Vault and Microsoft eDiscovery collectors built on it',
+						'Took on cross-team work, coordinating integrations and releases with 6+ teams',
+					]}
 				/>
 
 				<ExpandableRow
 					title="Rampiva"
-					subtitle="Software Developer"
+					subtitle="Software Developer → Full-Stack Lead"
 					duration="2018 – 2023"
 					logoSrc={rampivaLogo}
+					bullets={[
+						'First hire at an eDiscovery workflow-automation startup; grew into the full-stack lead',
+						"Led development of major features, such as the platform's web app, its E2E test suite and Legal Hold",
+					]}
 				/>
 			</ol>
 		</Card>

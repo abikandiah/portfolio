@@ -17,6 +17,11 @@ function Education() {
 					duration="2026 – Present"
 					logoSrc={uoftLogo}
 					current
+					defaultExpanded
+					bullets={[
+						'Returning to my computer engineering roots to pivot from full-stack development into embedded systems and hardware',
+						'Coursework in FPGAs, computer architecture and distributed systems, systems programming in Rust, and a refresher in electrical fundamentals',
+					]}
 				/>
 				<ExpandableRow
 					title="Toronto Metropolitan University"

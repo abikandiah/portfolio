@@ -14,6 +14,8 @@ interface ExpandableRowProps {
 	logoSrc: string
 	current?: boolean
 	bullets?: Array<string>
+	/** Starts open — for the row a skimming reader should see detail on. */
+	defaultExpanded?: boolean
 }
 
 function ExpandableRow({
@@ -23,8 +25,9 @@ function ExpandableRow({
 	logoSrc,
 	current,
 	bullets,
+	defaultExpanded = false,
 }: ExpandableRowProps) {
-	const [expanded, setExpanded] = useState(false)
+	const [expanded, setExpanded] = useState(defaultExpanded)
 	const hasBullets = bullets != null && bullets.length > 0
 
 	// Same structure as a Key Projects row — title and dates on one line,
