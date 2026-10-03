@@ -1,7 +1,7 @@
 ---
 name: write-project
-description: Write (or regenerate) a portfolio project write-up — the Markdown page under src/content/projects/<slug>/ — from a project's source code, README and the author's answers to a questionnaire. Use when the user asks to add a project to the portfolio, write up a project, or regenerate an existing write-up. Takes an optional path to the project's repository; work projects can be written from notes alone.
-argument-hint: '[path to the project repo] [project name]'
+description: Write (or regenerate) a portfolio project write-up — the Markdown page under src/content/projects/<slug>/ — from a project's source code, README and the author's answers to a questionnaire. Use when the user asks to add a project to the portfolio, write up a project, or regenerate an existing write-up. Takes an optional GitHub URL (or local path) for the project's repository; work projects can be written from notes alone.
+argument-hint: '[GitHub URL or local path] [project name]'
 ---
 
 # Write a project write-up
@@ -32,8 +32,31 @@ continue past them in the same turn.
 
 ### 1. Gather inputs
 
-- The project's repository path (from the arguments, or ask). Work projects may have no
-  accessible code, in which case the brief is the only source, and that's fine.
+- The project's source: a GitHub URL (the usual case), a local path, or nothing. Take it
+  from the arguments, or ask. Work projects may have no accessible code, in which case
+  the brief is the only source, and that's fine.
+- **A GitHub URL is cloned into a temporary folder** for the duration of the run. This
+  session runs in a devcontainer where only this repo is mounted, so cloning is how other
+  projects get in:
+
+  ```bash
+  GIT_TERMINAL_PROMPT=0 timeout 120 \
+    git clone --filter=blob:none <url> "${TMPDIR:-/tmp}/write-project/<slug>"
+  ```
+
+  `--filter=blob:none` skips old file versions but keeps the full commit history, which
+  step 3 uses for the years. Public repos clone over HTTPS with no credentials.
+  `GIT_TERMINAL_PROMPT=0` and the timeout make a private repo fail fast instead of
+  waiting on a credentials prompt that can't be answered from here (an SSH URL can stall
+  the same way on a passphrase or host-key prompt). When that happens, ask the user to
+  run the clone themselves with the `!` prefix, then carry on from that folder:
+
+  ```bash
+  ! git clone --filter=blob:none <url> "${TMPDIR:-/tmp}/write-project/<slug>"
+  ```
+
+- Treat the clone as read-only: read it, never modify, build or commit to it.
+- A local path is used as-is, which only works if it's visible inside this container.
 - If `src/content/projects/<slug>/brief.md` already exists, this is a regeneration.
   Read the brief and the current write-up, and skip to step 3. In step 2, ask only what's
   changed.
@@ -51,7 +74,7 @@ Read for the shape of the system, not its details:
 - README, docs, and any architecture notes first.
 - The top-level layout and entry points, to find the 3–7 major components and how they connect.
 - The manifests (package.json, pom.xml, build files) for the tech list.
-- `git log --reverse --format='%ad' --date=short | head -1` and the latest commit for the years, if the user didn't give them.
+- `git -C <clone> log --reverse --format='%ad' --date=short | head -1` and the latest commit for the years, if the user didn't give them.
 - Skim, don't trace. You're looking for: the problem, the components, the flows a user goes
   through, and the two or three design decisions that make the project interesting.
 
@@ -104,6 +127,9 @@ deviate, say so in step 8.
    and related projects resolve.
 
 ### 8. Hand over
+
+Delete the temporary clone (`rm -rf "${TMPDIR:-/tmp}/write-project/<slug>"`). The brief
+holds everything later regenerations need, and a regeneration clones again.
 
 Tell the user:
 
