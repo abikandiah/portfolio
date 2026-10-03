@@ -1,10 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import {
-	BackToTopLink,
-	FloatingBackToTop,
-	PAGE_TOP_ID,
-} from '@/components/projects/BackToTop'
+import { FloatingBackToTop, PAGE_TOP_ID } from '@/components/projects/BackToTop'
 
 function scrollTo(y: number) {
 	act(() => {
@@ -33,7 +29,7 @@ describe('back to top', () => {
 		scrollTo(0)
 	})
 
-	it('shows the floating button only after a screen of scrolling', () => {
+	it('shows the floating button only once scrolled down, without a title', () => {
 		render(<FloatingBackToTop />)
 		const button = screen.getByLabelText('Back to top', { selector: 'button' })
 
@@ -48,17 +44,39 @@ describe('back to top', () => {
 		expect(button.getAttribute('aria-hidden')).toBe('true')
 	})
 
+	it('appears once the title has scrolled out of view', () => {
+		render(
+			<>
+				<h1 id={PAGE_TOP_ID} tabIndex={-1}>
+					Title
+				</h1>
+				<FloatingBackToTop />
+			</>,
+		)
+		const title = document.getElementById(PAGE_TOP_ID)!
+		const link = screen.getByRole('button', { hidden: true })
+		expect(link.getAttribute('aria-hidden')).toBe('true')
+		expect(link.tabIndex).toBe(-1)
+
+		vi.spyOn(title, 'getBoundingClientRect').mockReturnValue({
+			bottom: -10,
+		} as DOMRect)
+		scrollTo(300)
+		expect(link.getAttribute('aria-hidden')).toBe('false')
+		expect(link.tabIndex).toBe(0)
+	})
+
 	it('scrolls to the top and moves focus to the title', () => {
 		render(
 			<>
 				<h1 id={PAGE_TOP_ID} tabIndex={-1}>
 					Title
 				</h1>
-				<BackToTopLink />
+				<FloatingBackToTop />
 			</>,
 		)
 
-		fireEvent.click(screen.getByRole('button', { name: 'Back to top' }))
+		fireEvent.click(screen.getByRole('button', { hidden: true }))
 
 		expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' })
 		expect(document.activeElement?.id).toBe(PAGE_TOP_ID)

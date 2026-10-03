@@ -10,11 +10,7 @@ import type {
 } from '@/types/ProjectTypes'
 import type { TocEntry } from '@/components/projects/TableOfContents'
 import { projectView } from '@/types/ProjectTypes'
-import {
-	BackToTopLink,
-	FloatingBackToTop,
-	PAGE_TOP_ID,
-} from '@/components/projects/BackToTop'
+import { FloatingBackToTop, PAGE_TOP_ID } from '@/components/projects/BackToTop'
 import { CaseStudyBody } from '@/components/projects/CaseStudyBody'
 import { Section } from '@/components/projects/Section'
 import {
@@ -164,27 +160,46 @@ function RouteComponent() {
 				</div>
 
 				{showToc && (
-					<TableOfContents
-						entries={tocEntries}
-						className="absolute top-0 left-full ml-8 h-full w-52"
-					/>
+					<PageRail>
+						<TableOfContents entries={tocEntries} />
+					</PageRail>
 				)}
+
+				<FloatingBackToTop />
 			</div>
 
-			<RelatedProjects proj={proj} />
+			{/* The way on from the end of a write-up: to a related project, or
+			    back to the list. Ruled off, and the related projects are link
+			    tiles rather than prose rows, so it reads as the page's footer
+			    rather than one more section of the write-up. */}
+			<div className="space-y-8 border-t pt-8">
+				<RelatedProjects proj={proj} />
 
-			{/* The way on from the end of a write-up: back to the list, or back
-			    up the page. */}
-			<nav
-				aria-label="Page"
-				className="flex items-center justify-between gap-4 border-t pt-6"
-			>
-				<BackToProjectsLink />
-				<BackToTopLink />
-			</nav>
-
-			<FloatingBackToTop />
+				<nav aria-label="Page">
+					<BackToProjectsLink />
+				</nav>
+			</div>
 		</ProjectContainer>
+	)
+}
+
+/**
+ * The column hanging in the right margin beside the write-up (xl and up,
+ * where the margin is wide enough), holding the TOC. It hangs in the
+ * margin rather than taking a grid column, so the reading column keeps the same
+ * width and position whether or not it's shown.
+ *
+ * Two layers: this outer div spans the full height of the write-up (its
+ * parent is the relative wrapper around it), giving the inner sticky div
+ * room to track the whole way down — sticky only moves within its
+ * containing block, so without the tall wrapper it would un-stick after
+ * the first screen.
+ */
+function PageRail({ children }: { children: React.ReactNode }) {
+	return (
+		<div className="absolute top-0 left-full ml-8 hidden h-full w-52 xl:block">
+			<div className="sticky top-20">{children}</div>
+		</div>
 	)
 }
 
@@ -282,9 +297,6 @@ function RelatedProjects({ proj }: { proj: Project }) {
 		return null
 	}
 
-	// Part of the article, not site navigation: each related project comes
-	// with its description — a reason to read it next — laid out in the same
-	// ruled rows as a :::terms list (the write-up-rows utilities).
 	return (
 		<section aria-labelledby={RELATED_PROJECTS_ID}>
 			<h2
@@ -294,28 +306,35 @@ function RelatedProjects({ proj }: { proj: Project }) {
 				Related Projects
 			</h2>
 
-			<ul className="write-up-rows">
+			<ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 				{related.map((match) => (
 					<li key={match.pathname}>
-						<Link
-							to="/projects/$projectKey"
-							params={{ projectKey: match.pathname }}
-							className="group write-up-row outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-						>
-							<span className="font-semibold text-foreground group-hover:text-primary">
-								{match.name}
-								{/* Inline, so it follows the name's last line rather than
-								    the edge of the column when the name wraps. */}
-								<ArrowRight className="ml-1 inline h-4 w-4 align-[-0.15em] transition-transform group-hover:translate-x-0.5" />
-							</span>
-							<span className="text-sm leading-relaxed text-muted-foreground">
-								{match.description}
-							</span>
-						</Link>
+						<RelatedProjectLink proj={match} />
 					</li>
 				))}
 			</ul>
 		</section>
+	)
+}
+
+// A compact "read next" tile: name and a line of meta, no description or
+// tech — enough to pick from, without competing with the write-up above.
+function RelatedProjectLink({ proj }: { proj: Project }) {
+	return (
+		<Link
+			to="/projects/$projectKey"
+			params={{ projectKey: proj.pathname }}
+			className="group flex h-full items-center justify-between gap-4 rounded-lg border border-border px-4 py-3 transition-colors outline-none hover:border-foreground/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+		>
+			<span className="min-w-0">
+				<span className="block font-medium text-foreground">{proj.name}</span>
+				<span className="mt-0.5 block text-xs text-muted-foreground">
+					{proj.type} · {proj.duration}
+				</span>
+			</span>
+
+			<ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+		</Link>
 	)
 }
 

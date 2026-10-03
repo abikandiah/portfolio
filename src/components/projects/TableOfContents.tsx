@@ -1,7 +1,6 @@
 import { cn } from '@abumble/design-system/utils'
 import { ChevronDown } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { BackToTopLink } from '@/components/projects/BackToTop'
 import { isPlainClick, scrollToHash } from '@/components/projects/scrollToHash'
 
 interface TocEntry {
@@ -110,31 +109,26 @@ function TableOfContents({ entries, className }: TableOfContentsProps) {
 	}, [entryKey])
 
 	return (
-		// Hidden below xl — the TOC sits in the page's right margin, and
-		// only from xl is that margin wide enough to hold it beside the 2xl
-		// reading column (narrower screens get InlineTableOfContents instead).
-		// At xl+ it's split into two layers: this outer div is sized by the
-		// caller to the full height of the content it sits beside, giving the
-		// inner sticky div room to track the whole way down — sticky only ever
-		// moves within its containing block's height, so without this tall
-		// wrapper it would un-stick after the first screen. The nav itself is
-		// sized to its own content rather than stretching to match.
-		<div className={cn('hidden xl:block', className)}>
-			{/* Capped to the viewport (less the top-20 offset and a little
-			    bottom room) so a long TOC on a short screen scrolls instead of
-			    pinning its last entries off-screen. */}
-			<div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
-				<nav aria-label="Table of contents">
-					<div className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-						On this page
-					</div>
-
-					<TocList entries={entries} activeId={activeId} />
-				</nav>
-
-				<BackToTopLink className="mt-4 ml-3" />
+		// Hidden below xl — only from xl is the page's right margin wide
+		// enough to hold it beside the 2xl reading column (narrower screens
+		// get InlineTableOfContents instead). Meant for the page rail, which
+		// keeps it in view; capped to the viewport (less the rail's top-20
+		// offset, and room for the back-to-top button at the bottom of the
+		// screen) so a long TOC on a short screen scrolls instead of pinning
+		// its last entries off-screen.
+		<nav
+			aria-label="Table of contents"
+			className={cn(
+				'hidden max-h-[calc(100vh-10rem)] overflow-y-auto xl:block',
+				className,
+			)}
+		>
+			<div className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+				On this page
 			</div>
-		</div>
+
+			<TocList entries={entries} activeId={activeId} />
+		</nav>
 	)
 }
 
