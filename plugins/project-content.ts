@@ -41,7 +41,10 @@ import type { TTech } from '../src/types/TechTypes.ts'
 const CONTENT_FILE =
 	/\/src\/content\/projects\/([^/]+)\/(index|case-study)\.md$/
 
-const WORDS_PER_MINUTE = 200
+// Reading speed for the "N min read" estimate. Slower than the usual
+// ~200–250 wpm for general prose, since these are dense technical
+// write-ups — but it estimates reading time, not time to fully digest.
+const WORDS_PER_MINUTE = 120
 
 class ContentError extends Error {
 	constructor(
