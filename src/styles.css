@@ -121,3 +121,90 @@ body {
 .tech-badge-neutral {
 	background: var(--muted-foreground);
 }
+
+/*
+ * Project write-ups (Markdown and TSX alike — both render inside .write-up).
+ * The look of every block in the write-up format is decided here, so
+ * generated and hand-written pages can't drift apart visually.
+ */
+
+/* A clear step between section (h2, text-2xl) and sub-heading (h3) sizes —
+   sub-headings at body size read as bold text rather than structure. */
+.write-up .sub-heading {
+	@apply mt-10 mb-1 text-lg tracking-tight;
+}
+
+/* A case study's content sits directly in .write-up, so one that opens
+   with a sub-heading shouldn't start with a gap. */
+.write-up > .sub-heading:first-child {
+	@apply mt-0;
+}
+
+/* The opening paragraph of the first section is the page's intro: set a
+   size up so the page has an obvious way in. */
+.write-up > section:first-child > p:first-of-type {
+	@apply text-lg text-foreground/90;
+}
+
+/* :::terms — "Term: definition" rows. Stacked on phones; a term column
+   beside the definitions from sm up. */
+.write-up-terms {
+	@apply my-5 divide-y divide-border border-y border-border;
+}
+.write-up-terms > div {
+	@apply grid gap-1 py-3 sm:grid-cols-[11rem_1fr] sm:gap-6;
+}
+.write-up-terms dt {
+	@apply font-semibold text-foreground;
+}
+.write-up-terms dd {
+	@apply m-0;
+}
+.write-up-terms dd > p + * {
+	@apply mt-2;
+}
+
+/* :::steps — a numbered sequence joined by a rail, for processes and
+   lifecycles (ordinary numbered lists stay plain). */
+.write-up-steps {
+	@apply my-5 list-none p-0;
+	counter-reset: write-up-step;
+}
+.write-up-steps > li {
+	@apply relative pb-5 pl-10;
+	counter-increment: write-up-step;
+}
+.write-up-steps > li:last-child {
+	@apply pb-0;
+}
+.write-up-steps > li::before {
+	@apply absolute top-0 left-0 grid h-6.5 w-6.5 place-items-center rounded-full border border-border bg-background text-xs font-semibold text-muted-foreground;
+	content: counter(write-up-step);
+}
+.write-up-steps > li:not(:last-child)::after {
+	@apply absolute top-7 bottom-1 left-[0.78rem] w-px bg-border;
+	content: '';
+}
+
+/* Banners inside write-ups are asides, not alerts: a slimmer rail, tighter
+   padding and smaller type than the design system's default. */
+.write-up [data-banner-type] {
+	@apply my-5 py-2.5 pr-4 pl-3.5 text-sm;
+	border-left-width: 2px;
+}
+.write-up [data-banner-type] svg {
+	@apply mt-0.5 h-4 w-4;
+}
+.write-up [data-banner-type] section > p + p {
+	@apply mt-2;
+}
+
+/* Relationship tables: the first column names the thing. It's kept on one
+   line from sm up; on phones it wraps rather than pushing the table wider
+   than the screen. */
+.write-up td:first-child {
+	@apply align-top font-medium sm:whitespace-nowrap;
+}
+.write-up td {
+	@apply whitespace-normal;
+}

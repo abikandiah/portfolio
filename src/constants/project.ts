@@ -1,17 +1,8 @@
 import type { ProjectProps } from '@/types/ProjectTypes'
 import { Project } from '@/types/ProjectTypes'
-import { automatedTranslationsProject as automatedTranslations } from '@/projects/AutomatedTranslations'
-import { dataUploadProject as dataUpload } from '@/projects/DataUpload'
-import { javaToReactFormBuilderProject } from '@/projects/form-builder/ReactFormBuilder'
-import { googleVaultProject as googleVaultCollector } from '@/projects/GoogleVaultCollector'
-import { legalHoldNotificationsProject as legalHoldNotifications } from '@/projects/LegalHoldNotifications'
-import { microsoftEDiscoveryProject as microsoftEDiscoveryCollector } from '@/projects/MicrosoftEDiscoveryCollector'
-import { platformWebApp } from '@/projects/PlatformWebApp'
+import { loadContentProjects } from '@/content/loadProjects'
 import { chip8EmulatorProject } from '@/projects/Chip8Emulator'
 import { propMangeProject } from '@/projects/PropMange'
-import { selenumE2ETestSuiteProject as selenumE2ETestSuite } from '@/projects/SeleniumE2ETestSuite'
-import { thirdPartyServicesProject } from '@/projects/ThirdPartyServicesFramework'
-import { webPortfolioProject as webPortfolio } from '@/projects/WebPortfolio'
 
 const projectsMap: Map<string, Project> = new Map()
 
@@ -29,18 +20,37 @@ function addProject(props: ProjectProps): Project {
 	return proj
 }
 
-const propMange = addProject(propMangeProject)
-addProject(platformWebApp)
-addProject(legalHoldNotifications)
-const javaToReactFormBuilder = addProject(javaToReactFormBuilderProject)
-const thirdPartyServices = addProject(thirdPartyServicesProject)
+// Write-ups in src/content/projects/ register themselves. The two TSX
+// projects predate the Markdown format and are due to be regenerated into it.
+addProject(propMangeProject)
 addProject(chip8EmulatorProject)
-addProject(webPortfolio)
-addProject(googleVaultCollector)
-addProject(microsoftEDiscoveryCollector)
-addProject(dataUpload)
-addProject(selenumE2ETestSuite)
-addProject(automatedTranslations)
+
+const contentProjects = loadContentProjects()
+for (const { props } of contentProjects) {
+	addProject(props)
+}
+
+// Cross-references are only known once every project is registered.
+// Logged rather than thrown, like the slug checks above; project.test.ts
+// fails on any of these.
+for (const proj of projectsMap.values()) {
+	for (const related of proj.related) {
+		if (related === proj.pathname) {
+			console.error(`${proj.name}: lists itself as a related project`)
+		} else if (!projectsMap.has(related)) {
+			console.error(`${proj.name}: related project "${related}" doesn't exist`)
+		}
+	}
+}
+for (const { props, projectLinks } of contentProjects) {
+	for (const link of projectLinks) {
+		if (!projectsMap.has(link)) {
+			console.error(
+				`${props.name}: links to missing project "/projects/${link}"`,
+			)
+		}
+	}
+}
 
 // Reverse-chronological: most recently active projects first. This is the
 // canonical browsing order (the /projects grid, projectsByType below). See
@@ -63,13 +73,24 @@ const projectsByType: ProjectMap = projects.reduce((prev, curr) => {
 
 // Key Projects, hand-picked and in display order — deliberately independent
 // of the reverse-chronological `projects` sort above. "Key" means important,
-// not "most recent." These reuse the Project instances `addProject` already
-// created above, rather than re-deriving them by name, so a rename can't
-// silently break this list.
-const featuredProjects: Array<Project> = [
-	propMange,
-	javaToReactFormBuilder,
-	thirdPartyServices,
+// not "most recent." Listed by pathname (the content folder name); a missing
+// one is logged, which project.test.ts turns into a failure, so a rename
+// can't silently drop a project from the home page.
+const featuredPathnames = [
+	'propmange',
+	'java-to-react-form-builder',
+	'third-party-services-framework',
 ]
+
+const featuredProjects: Array<Project> = featuredPathnames.flatMap(
+	(pathname) => {
+		const proj = projectsMap.get(pathname)
+		if (proj == null) {
+			console.error(`Featured project "${pathname}" doesn't exist`)
+			return []
+		}
+		return [proj]
+	},
+)
 
 export { featuredProjects, projects, projectsByType, projectsMap }

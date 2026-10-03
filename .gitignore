@@ -8,4 +8,6 @@ count.txt
 .nitro
 .tanstack
 
-.claude
+# Local Claude settings stay private; project skills are shared.
+.claude/*
+!.claude/skills/

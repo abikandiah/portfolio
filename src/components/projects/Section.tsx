@@ -94,4 +94,4 @@ function SectionAnchor({ id, title }: { id: string; title: string }) {
 	)
 }
 
-export { Section }
+export { Section, SectionAnchor }

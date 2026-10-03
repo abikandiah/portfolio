@@ -10,6 +10,7 @@ npm run build     # Production build (Vite + tsc)
 npm run serve     # Preview production build
 npm run test      # Run Vitest tests
 npm run lint      # Run ESLint
+npm run lint:content [-- slug]  # Style-lint project write-ups
 npm run format    # Run Prettier
 npm run check     # Format + lint with auto-fix
 ```
@@ -26,7 +27,11 @@ Dynamic project routes use `$projectKey` — the key maps to project pathnames r
 
 ### Project Data System
 
-Projects live in `src/projects/` as class instances implementing `ProjectProps`. They're registered in `src/constants/project.ts` in a `projectsByType` map keyed by URL pathname. To add a project: create a file in `src/projects/`, then add it to the registry in `src/constants/project.ts`.
+Project write-ups are Markdown in `src/content/projects/<slug>/` — `index.md` (frontmatter + write-up), optional `case-study.md`, and `brief.md` (questionnaire answers, ignored by the build). Adding a folder adds the project; `src/content/loadProjects.tsx` globs them and `src/constants/project.ts` registers them (plus the two legacy TSX projects in `src/projects/`, PropMange and Chip8, due to be regenerated). The folder name must equal the slug of the project's name.
+
+`plugins/project-content.ts` (a Vite plugin) compiles each file at build time and **rejects anything outside the write-up format** with a `file:line` error. The format — `##` sections, `###` sub-headings, and the `:::terms` / `:::steps` / `:::info` / `:::note` / `::redacted` / ```` ```mermaid ```` blocks — is documented in `.claude/skills/write-project/format.md`. `src/components/projects/content/WriteUpContent.tsx` maps the compiled elements to components; their styles live under `.write-up` in `src/styles.css`.
+
+New write-ups are produced with the `write-project` skill (`.claude/skills/write-project/`), whose `style-guide.md` defines the voice and abstraction level. `npm run lint:content` runs its style lint.
 
 ### Technology / Badge System
 

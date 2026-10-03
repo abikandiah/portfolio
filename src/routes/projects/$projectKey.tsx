@@ -15,6 +15,7 @@ import { Section } from '@/components/projects/Section'
 import {
 	InlineTableOfContents,
 	TableOfContents,
+	flattenEntries,
 } from '@/components/projects/TableOfContents'
 import {
 	ALL_VIEWS,
@@ -28,10 +29,10 @@ import { PageDescription, PageHeader, TextLink } from '@/components/ui'
 import { BadgeContainer, TechBadge } from '@/components/ui/badge'
 import { projects, projectsMap } from '@/constants/project'
 
-// Below this many sections, a sidebar TOC is more furniture than help — the
-// page already reads fine at a glance, so it only appears once there's
-// enough structure to actually get lost in.
-const MIN_SECTIONS_FOR_TOC = 4
+// Below this many headings (sections and their sub-headings together), a
+// TOC is more furniture than help — the page already reads fine at a
+// glance, so it only appears once there's enough structure to get lost in.
+const MIN_HEADINGS_FOR_TOC = 4
 
 interface ProjectSearch {
 	view?: TProjectView
@@ -85,12 +86,21 @@ function RouteComponent() {
 	const tocEntries: Array<TocEntry> = (proj.sections ?? []).flatMap(
 		(section) =>
 			section.title != null && section.pathname != null
-				? [{ title: section.title, pathname: section.pathname }]
+				? [
+						{
+							title: section.title,
+							pathname: section.pathname,
+							children: section.headings.map((heading) => ({
+								title: heading.title,
+								pathname: heading.id,
+							})),
+						},
+					]
 				: [],
 	)
 	const showToc =
 		activeView === projectView.Engineering &&
-		tocEntries.length >= MIN_SECTIONS_FOR_TOC
+		flattenEntries(tocEntries).length >= MIN_HEADINGS_FOR_TOC
 
 	function onSelectView(view: TProjectView) {
 		navigate({ search: { view }, replace: true })
@@ -104,7 +114,7 @@ function RouteComponent() {
 			</div>
 
 			<header className="space-y-5 border-b pb-6">
-				<ProjectHeader proj={proj} />
+				<ProjectHeader proj={proj} activeView={activeView} />
 
 				<ViewToggle
 					availableViews={availableViews}
@@ -153,6 +163,8 @@ function RouteComponent() {
 					/>
 				)}
 			</div>
+
+			<RelatedProjects proj={proj} />
 
 			<ProjectFooterNav current={proj} className="border-t pt-6" />
 		</ProjectContainer>
@@ -245,9 +257,36 @@ function ProjectContainer({
 	)
 }
 
-function ProjectHeader({ proj }: { proj: Project }) {
+function ProjectHeader({
+	proj,
+	activeView,
+}: {
+	proj: Project
+	activeView: TProjectView
+}) {
+	// The write-up and case study differ in length, so this follows the view.
+	const readingMinutes =
+		activeView === projectView.CaseStudy
+			? proj.readingMinutes.caseStudy
+			: proj.readingMinutes.engineering
+	const meta = [
+		proj.type,
+		proj.duration,
+		proj.role,
+		readingMinutes != null ? `${readingMinutes} min read` : undefined,
+	].filter((item): item is string => item != null)
+
 	return (
 		<div>
+			<p className="mb-2 flex flex-wrap gap-x-2 text-sm text-muted-foreground">
+				{meta.map((item, index) => (
+					<Fragment key={item}>
+						{index > 0 && <span aria-hidden="true">·</span>}
+						<span>{item}</span>
+					</Fragment>
+				))}
+			</p>
+
 			<PageHeader>{proj.name}</PageHeader>
 
 			<PageDescription size="sm" className="mt-2">
@@ -274,9 +313,40 @@ function ProjectHeader({ proj }: { proj: Project }) {
 	)
 }
 
+function RelatedProjects({ proj }: { proj: Project }) {
+	const related = proj.related.flatMap((pathname) => {
+		const match = projectsMap.get(pathname)
+		return match != null ? [match] : []
+	})
+
+	if (related.length === 0) {
+		return null
+	}
+
+	return (
+		<nav aria-label="Related projects" className="text-sm">
+			<h2 className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+				Related
+			</h2>
+			<ul className="flex flex-wrap gap-x-5 gap-y-1">
+				{related.map((match) => (
+					<li key={match.pathname}>
+						<TextLink
+							to="/projects/$projectKey"
+							params={{ projectKey: match.pathname }}
+						>
+							{match.name}
+						</TextLink>
+					</li>
+				))}
+			</ul>
+		</nav>
+	)
+}
+
 function EngineeringBody({ sections }: { sections: Array<ProjectSection> }) {
 	return (
-		<div className="flex flex-col gap-6">
+		<div className="write-up flex flex-col gap-10">
 			{sections.map((section, index) => (
 				<Fragment key={index}>
 					{index > 0 && <Separator />}
@@ -293,7 +363,7 @@ function ProjectBodySection({ section }: { section: ProjectSection }) {
 			title={section.title}
 			id={section.pathname}
 			className="p-text space-y-4"
-			headingClassName="mb-1"
+			headingClassName="mb-2 text-2xl tracking-tight"
 		>
 			<section.body />
 		</Section>

@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import type { TTech } from './TechTypes'
+import { toUrl } from '@/lib/slug'
 
 const projectType = {
 	Work: 'Work',
@@ -15,10 +16,17 @@ const projectView = {
 
 type TProjectView = (typeof projectView)[keyof typeof projectView]
 
+interface SectionHeading {
+	title: string
+	id: string
+}
+
 interface ProjectSectionProps {
 	title?: string
 	body: React.ComponentType
 	pathname?: string
+	/** `###` sub-headings with anchors — nested under the section in the TOC. */
+	headings?: Array<SectionHeading> | undefined
 }
 
 interface ProjectProps {
@@ -33,16 +41,30 @@ interface ProjectProps {
 	icon?: ComponentType<any> | undefined
 	sections?: Array<ProjectSectionProps> | undefined
 	caseStudy?: React.ComponentType | undefined
+
+	/** e.g. "Solo", "Lead developer" — shown in the header's meta row. */
+	role?: string | undefined
+	/** Pathnames of closely connected projects, linked above the footer. */
+	related?: Array<string> | undefined
+	/** Per view, since a write-up and a case study differ in length. */
+	readingMinutes?: ReadingMinutes | undefined
+}
+
+interface ReadingMinutes {
+	engineering?: number | undefined
+	caseStudy?: number | undefined
 }
 
 class ProjectSection implements ProjectSectionProps {
 	title?: string
 	pathname?: string
 	body: React.ComponentType
+	headings: Array<SectionHeading>
 
 	constructor(props: ProjectSectionProps) {
 		this.title = props.title
 		this.body = props.body
+		this.headings = props.headings ?? []
 
 		if (this.title != null) {
 			// No anchor (rather than id="") if the title has nothing to slug —
@@ -67,6 +89,10 @@ class Project implements ProjectProps {
 	sections?: Array<ProjectSection> | undefined
 	caseStudy?: React.ComponentType | undefined
 
+	role?: string | undefined
+	related: Array<string>
+	readingMinutes: ReadingMinutes
+
 	constructor(props: ProjectProps) {
 		this.type = props.type
 		this.name = props.name
@@ -78,6 +104,9 @@ class Project implements ProjectProps {
 		this.pathname = projectPathname(props)
 		this.url = props.url
 		this.caseStudy = props.caseStudy
+		this.role = props.role
+		this.related = props.related ?? []
+		this.readingMinutes = props.readingMinutes ?? {}
 
 		if (Array.isArray(props.sections)) {
 			this.sections = props.sections.map(
@@ -126,17 +155,6 @@ class Project implements ProjectProps {
 	}
 }
 
-// Used for both project URLs and section anchors (which get shared as
-// copied links), so strip anything that isn't a letter or digit —
-// "Properties & Units" becomes `properties-units`, not `properties-&-units`.
-// Returns '' if there's nothing left; callers decide what that means.
-function toUrl(str: string): string {
-	return str
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/^-|-$/g, '')
-}
-
 // The /projects/$projectKey key for a project. Takes the raw props so
 // project files can link to each other without importing the registry
 // (which imports them — a cycle).
@@ -145,4 +163,11 @@ function projectPathname(props: Pick<ProjectProps, 'name'>): string {
 }
 
 export { Project, ProjectSection, projectPathname, projectType, projectView }
-export type { ProjectProps, ProjectSectionProps, TProjectType, TProjectView }
+export type {
+	ProjectProps,
+	ProjectSectionProps,
+	ReadingMinutes,
+	SectionHeading,
+	TProjectType,
+	TProjectView,
+}

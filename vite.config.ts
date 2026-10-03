@@ -8,9 +8,12 @@ import viteReact from '@vitejs/plugin-react'
 
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
+import { projectContent } from './plugins/project-content'
+
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
+		projectContent(),
 		tanstackRouter({ autoCodeSplitting: true }),
 		viteReact(),
 		tailwindcss(),

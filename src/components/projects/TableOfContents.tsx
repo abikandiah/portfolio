@@ -6,6 +6,15 @@ import { isPlainClick, scrollToHash } from '@/components/projects/scrollToHash'
 interface TocEntry {
 	title: string
 	pathname: string
+	/** Sub-headings, listed indented under their section. */
+	children?: Array<TocEntry>
+}
+
+function flattenEntries(entries: Array<TocEntry>): Array<TocEntry> {
+	return entries.flatMap((entry) => [
+		entry,
+		...flattenEntries(entry.children ?? []),
+	])
 }
 
 // How far from the top of the viewport a heading counts as "reached" —
@@ -25,10 +34,14 @@ function TableOfContents({ entries, className }: TableOfContentsProps) {
 	const [activeId, setActiveId] = useState<string | undefined>(
 		entries[0]?.pathname,
 	)
-	const entryKey = entries.map((entry) => entry.pathname).join(',')
+	const entryKey = flattenEntries(entries)
+		.map((entry) => entry.pathname)
+		.join(',')
 
 	useEffect(() => {
-		const headings = entries
+		// Sections and sub-headings alike — whichever heading was passed last
+		// is the active entry, at any depth.
+		const headings = flattenEntries(entries)
 			.map((entry) => document.getElementById(entry.pathname))
 			.filter((el): el is HTMLElement => el != null)
 
@@ -146,7 +159,7 @@ function InlineTableOfContents({ entries, className }: TableOfContentsProps) {
 				<span>
 					On this page
 					<span className="ml-1.5 text-muted-foreground">
-						({entries.length})
+						({flattenEntries(entries).length})
 					</span>
 				</span>
 
@@ -164,13 +177,22 @@ function TocList({
 	entries,
 	activeId,
 	onNavigate,
+	nested = false,
 }: {
 	entries: Array<TocEntry>
 	activeId?: string
 	onNavigate?: () => void
+	nested?: boolean
 }) {
 	return (
-		<ul className="space-y-1 border-l border-foreground/15 text-sm">
+		<ul
+			className={cn(
+				'space-y-1 text-sm',
+				// The rail is drawn once, by the top-level list; nested lists sit
+				// inside it and only indent.
+				nested ? 'mt-1' : 'border-l border-foreground/15',
+			)}
+		>
 			{entries.map((entry) => (
 				<li key={entry.pathname}>
 					<a
@@ -185,7 +207,8 @@ function TocList({
 						}}
 						aria-current={activeId === entry.pathname ? 'location' : undefined}
 						className={cn(
-							'-ml-px block border-l-2 py-1 pl-3 transition-colors',
+							'-ml-px block border-l-2 py-1 transition-colors',
+							nested ? 'pl-6 text-[0.8125rem]' : 'pl-3',
 							activeId === entry.pathname
 								? 'border-foreground font-medium text-foreground'
 								: 'border-transparent text-muted-foreground hover:border-foreground/30 hover:text-foreground',
@@ -193,11 +216,20 @@ function TocList({
 					>
 						{entry.title}
 					</a>
+
+					{entry.children != null && entry.children.length > 0 && (
+						<TocList
+							entries={entry.children}
+							activeId={activeId}
+							onNavigate={onNavigate}
+							nested
+						/>
+					)}
 				</li>
 			))}
 		</ul>
 	)
 }
 
-export { InlineTableOfContents, TableOfContents }
+export { flattenEntries, InlineTableOfContents, TableOfContents }
 export type { TocEntry }
