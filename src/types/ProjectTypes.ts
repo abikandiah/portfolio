@@ -133,15 +133,15 @@ class Project implements ProjectProps {
 		}
 	}
 
-	/** Display text derived from startYear/endYear, e.g. "2024", "2018 - 2025", "2026 - Present". */
+	/** Display text derived from startYear/endYear, e.g. "2024", "2018 – 2025", "2026 – Present". */
 	get duration(): string {
 		if (this.endYear == null) {
-			return `${this.startYear} - Present`
+			return `${this.startYear} – Present`
 		}
 		if (this.endYear === this.startYear) {
 			return `${this.startYear}`
 		}
-		return `${this.startYear} - ${this.endYear}`
+		return `${this.startYear} – ${this.endYear}`
 	}
 
 	/** Sort key for reverse-chronological ordering — ongoing projects sort as most recent. */

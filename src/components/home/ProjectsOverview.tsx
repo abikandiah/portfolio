@@ -1,6 +1,6 @@
-import { Card, CardContent } from '@abumble/design-system/components/Card'
+import { Card } from '@abumble/design-system/components/Card'
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, FolderCode } from 'lucide-react'
+import { ChevronRight, FolderCode } from 'lucide-react'
 import { CardH2Header } from '../ui/card'
 import { TechBadgeList } from '../ui/badge'
 import type { Project } from '@/types/ProjectTypes'
@@ -8,14 +8,16 @@ import { featuredProjects } from '@/constants/project'
 
 function ProjectsOverview() {
 	return (
-		<Card>
+		<Card className="home-card">
 			<CardH2Header title={'Key Projects'} Icon={FolderCode} />
 
-			<CardContent className="space-y-2">
+			<ul className="-my-1">
 				{featuredProjects.map((proj) => (
-					<ProjectOverview key={proj.name} proj={proj} />
+					<li key={proj.pathname}>
+						<ProjectOverview proj={proj} />
+					</li>
 				))}
-			</CardContent>
+			</ul>
 		</Card>
 	)
 }
@@ -27,26 +29,31 @@ function ProjectOverview({ proj }: { proj: Project }) {
 		<Link
 			to="/projects/$projectKey"
 			params={{ projectKey: proj.pathname }}
-			className="group block rounded-lg p-3 -mx-3 transition-colors hover:bg-foreground/4 focus-visible:outline-2 focus-visible:outline-ring"
+			className="group -mx-3 flex items-start gap-3 rounded-lg px-3 py-3 transition-colors hover:bg-foreground/4 focus-visible:outline-2 focus-visible:outline-ring"
 		>
-			<div className="flex flex-auto">
-				<span className="text-sm font-medium text-foreground leading-6">
-					{name}
-				</span>
+			<div className="min-w-0 flex-auto">
+				<div className="flex items-baseline gap-2">
+					<span className="text-sm leading-6 font-medium text-foreground">
+						{name}
+					</span>
+					<span className="ml-auto shrink-0 text-xs leading-5 text-muted-foreground tabular-nums">
+						{duration}
+					</span>
+				</div>
 
-				<span className="ml-auto text-xs leading-5 text-muted-foreground">
-					{duration}
-				</span>
+				<p className="line-clamp-2 text-sm leading-5 text-muted-foreground">
+					{description}
+				</p>
+
+				<TechBadgeList tech={tech} max={3} size="sm" className="mt-2" />
 			</div>
 
-			<p className="text-sm leading-5 text-muted-foreground">{description}</p>
-
-			<TechBadgeList tech={tech} size="sm" className="mt-2" />
-
-			<span className="inline-flex items-center gap-1 text-xs text-link mt-2">
-				View Project
-				<ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-			</span>
+			{/* Always visible, so the row reads as a link on touch screens too,
+			    where there's no hover state to give it away. */}
+			<ChevronRight
+				aria-hidden="true"
+				className="mt-1 h-4 w-4 flex-none text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground"
+			/>
 		</Link>
 	)
 }

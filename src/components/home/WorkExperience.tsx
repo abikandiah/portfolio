@@ -4,32 +4,33 @@ import { CardH2Header } from '../ui/card'
 import { ExpandableRow } from './ExpandableRow'
 import bee from '@/assets/bee.svg'
 import nuixLogo from '@/assets/nuix.png'
-import rampivaLogo from '@/assets/rampiva.png'
+import rampivaLogo from '@/assets/rampiva-badge-logo.svg'
 
 function WorkExperience() {
 	return (
-		<Card>
+		<Card className="home-card">
 			<CardH2Header title={'Experience'} Icon={BriefcaseBusiness} />
 
-			<ol className="space-y-2">
+			{/* A career reads as a sequence: the logos sit on a rail. */}
+			<ol className="home-timeline">
 				<ExpandableRow
 					title="Sabbatical"
 					subtitle="Individual Contributor"
-					duration="2025 - 2026"
+					duration="2025 – 2026"
 					logoSrc={bee}
 				/>
 
 				<ExpandableRow
 					title="Nuix"
 					subtitle="Senior Software Engineer"
-					duration="2023 - 2025"
+					duration="2023 – 2025"
 					logoSrc={nuixLogo}
 				/>
 
 				<ExpandableRow
 					title="Rampiva"
 					subtitle="Software Developer"
-					duration="2018 - 2023"
+					duration="2018 – 2023"
 					logoSrc={rampivaLogo}
 				/>
 			</ol>

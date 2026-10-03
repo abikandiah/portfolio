@@ -81,12 +81,14 @@ function DownloadResume() {
 
 function MainContent() {
 	return (
-		<div className="grid grid-cols-1 gap-y-4 px-6 lg:grid-cols-2 lg:px-0">
+		// Each card fits its content; the columns aren't stretched to match,
+		// which would leave empty space at the bottom of the shorter one.
+		<div className="grid grid-cols-1 items-start gap-y-4 px-3 sm:px-6 lg:grid-cols-2 lg:px-0">
 			<div className="flex flex-col">
 				<ProjectsOverview />
 			</div>
 
-			<div className="space-y-4 lg:pl-4">
+			<div className="flex flex-col gap-4 lg:pl-4">
 				<Education />
 				<WorkExperience />
 			</div>
