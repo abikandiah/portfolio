@@ -1,5 +1,7 @@
 import type { ComponentType } from 'react'
 import type { TTech } from './TechTypes'
+import type { TProjectView } from '@/lib/projectView'
+import { projectView } from '@/lib/projectView'
 import { toUrl } from '@/lib/slug'
 
 const projectType = {
@@ -8,13 +10,6 @@ const projectType = {
 } as const
 
 type TProjectType = (typeof projectType)[keyof typeof projectType]
-
-const projectView = {
-	CaseStudy: 'case-study',
-	Engineering: 'engineering',
-} as const
-
-type TProjectView = (typeof projectView)[keyof typeof projectView]
 
 interface SectionHeading {
 	title: string

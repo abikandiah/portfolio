@@ -2,6 +2,7 @@ import { cn } from '@abumble/design-system/utils'
 import { useRef } from 'react'
 import type { TProjectView } from '@/types/ProjectTypes'
 import { projectView } from '@/types/ProjectTypes'
+import { VIEW_PANEL_ID, viewTabId } from '@/lib/pageIds'
 
 const VIEW_LABELS: Record<TProjectView, string> = {
 	[projectView.CaseStudy]: 'Case Study',
@@ -14,15 +15,6 @@ const ALL_VIEWS: Array<TProjectView> = [
 	projectView.CaseStudy,
 	projectView.Engineering,
 ]
-
-// The toggle follows the WAI-ARIA tabs pattern: the page renders the active
-// view's content in a role="tabpanel" with this id, labelled by the
-// selected tab.
-const VIEW_PANEL_ID = 'project-view-panel'
-
-function viewTabId(view: TProjectView) {
-	return `project-view-tab-${view}`
-}
 
 interface ViewToggleProps {
 	availableViews: Array<TProjectView>

@@ -53,8 +53,12 @@ const PROSE_SMELLS: Array<[RegExp, string]> = [
 	[/\b\w+\(\)/, 'function call'],
 ]
 
-// "I", "I'm", "I've", "I'd", "I'll", with straight or curly apostrophes.
-const FIRST_PERSON = /(^|[\s("“])I(['’](m|ve|d|ll))?(?=[\s,.;:!?)]|$)/
+// "I", "I'm", "I've", "I'd", "I'll" (straight or curly apostrophes) as a
+// word followed by a space. Requiring the space, and skipping the names
+// numerals follow, leaves Roman numerals alone ("Phase I.", "Part I,",
+// "Phase I of"); a sentence-final "...than I." goes unflagged, which is rare.
+const FIRST_PERSON =
+	/(^|[\s("“])(?<!\b(?:Phase|Part|Stage|Step|Chapter|Section|Volume|Version|Level|Tier|Type|Class|Act|Book|War)\s)I(?:['’](?:m|ve|d|ll))?(?=\s)/
 
 // Inline code is for names a user sees (operations, options), so anything
 // shaped like source code is suspect.

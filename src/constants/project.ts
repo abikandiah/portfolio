@@ -1,6 +1,7 @@
 import type { ProjectProps } from '@/types/ProjectTypes'
 import { Project } from '@/types/ProjectTypes'
-import { loadContentProjects } from '@/content/loadProjects'
+import { findDraftReferences } from '@/content/draftReferences'
+import { contentReferences, loadContentProjects } from '@/content/loadProjects'
 import { chip8EmulatorProject } from '@/projects/Chip8Emulator'
 import { propMangeProject } from '@/projects/PropMange'
 
@@ -92,5 +93,20 @@ const featuredProjects: Array<Project> = featuredPathnames.flatMap(
 		return [proj]
 	},
 )
+
+// Nothing published may point at a draft — not a write-up, and not the home
+// page. Drafts only drop out of production builds, where a dangling link
+// would 404 (or a featured project silently vanish); checking the
+// references directly catches it in dev and tests too.
+for (const message of findDraftReferences([
+	...contentReferences(),
+	{
+		slug: 'featured projects (src/constants/project.ts)',
+		draft: false,
+		references: featuredPathnames,
+	},
+])) {
+	console.error(message)
+}
 
 export { featuredProjects, projects, projectsByType, projectsMap }

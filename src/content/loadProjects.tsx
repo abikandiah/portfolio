@@ -1,6 +1,6 @@
 import type { CaseStudyContent, ProjectContent } from '@/content/types'
 import type { ProjectProps } from '@/types/ProjectTypes'
-import { findDraftReferences } from '@/content/draftReferences'
+import type { ReferencingProject } from '@/content/draftReferences'
 import { WriteUpContent } from '@/components/projects/content/WriteUpContent'
 
 /*
@@ -33,25 +33,25 @@ function caseStudyFor(indexPath: string): CaseStudyContent | undefined {
 		| undefined
 }
 
+/**
+ * What every write-up — drafts included, in every mode — points at, for the
+ * registry's draft check. Drafts only drop out of production builds, so
+ * this is the one view of them that tests can see.
+ */
+function contentReferences(): Array<ReferencingProject> {
+	return Object.entries(projectFiles).map(([path, content]) => ({
+		slug: content.slug,
+		draft: content.meta.draft === true,
+		references: [
+			...(content.meta.related ?? []),
+			...content.projectLinks,
+			...(caseStudyFor(path)?.projectLinks ?? []),
+		],
+	}))
+}
+
 function loadContentProjects(): Array<ContentProject> {
 	const loaded: Array<ContentProject> = []
-
-	// Logged rather than thrown, like the registry's other checks;
-	// project.test.ts fails on any of these.
-	const draftReferences = findDraftReferences(
-		Object.entries(projectFiles).map(([path, content]) => ({
-			slug: content.slug,
-			draft: content.meta.draft === true,
-			references: [
-				...(content.meta.related ?? []),
-				...content.projectLinks,
-				...(caseStudyFor(path)?.projectLinks ?? []),
-			],
-		})),
-	)
-	for (const message of draftReferences) {
-		console.error(message)
-	}
 
 	for (const [path, content] of Object.entries(projectFiles)) {
 		const { meta } = content
@@ -99,4 +99,4 @@ function loadContentProjects(): Array<ContentProject> {
 	return loaded
 }
 
-export { loadContentProjects }
+export { contentReferences, loadContentProjects }

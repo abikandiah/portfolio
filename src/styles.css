@@ -146,13 +146,22 @@ body {
 	@apply text-lg text-foreground/90;
 }
 
-/* :::terms — "Term: definition" rows. Stacked on phones; a term column
-   beside the definitions from sm up. */
+/* Ruled two-column rows — a name beside what it is. Stacked on phones; a
+   name column beside the text from sm up. Shared by :::terms and the
+   related-projects list, so the two can't drift apart. */
+@utility write-up-rows {
+	@apply divide-y divide-border border-y border-border;
+}
+@utility write-up-row {
+	@apply grid gap-1 py-3 sm:grid-cols-[11rem_1fr] sm:gap-6;
+}
+
+/* :::terms — "Term: definition" rows. */
 .write-up-terms {
-	@apply my-5 divide-y divide-border border-y border-border;
+	@apply my-5 write-up-rows;
 }
 .write-up-terms > div {
-	@apply grid gap-1 py-3 sm:grid-cols-[11rem_1fr] sm:gap-6;
+	@apply write-up-row;
 }
 .write-up-terms dt {
 	@apply font-semibold text-foreground;

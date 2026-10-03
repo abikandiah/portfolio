@@ -28,35 +28,37 @@ function useIsDark() {
 function Diagram({ code = '', caption }: { code?: string; caption?: string }) {
 	const isDark = useIsDark()
 	const renderId = `diagram-${useId().replace(/[^a-zA-Z0-9]/g, '')}`
-	const [svg, setSvg] = useState<string>()
-	const [failed, setFailed] = useState(false)
+	// Results are keyed by the code they were drawn from. A theme change keeps
+	// showing the current drawing until its re-render lands (no flash back to
+	// the placeholder); only new code invalidates it. Failure is per code too
+	// — a syntax error fails in every theme.
+	const [rendered, setRendered] = useState<{ code: string; svg: string }>()
+	const [failedCode, setFailedCode] = useState<string>()
+	const svg = rendered?.code === code ? rendered.svg : undefined
+	const failed = failedCode === code
 
 	useEffect(() => {
 		let cancelled = false
-		// A new diagram or theme starts over — including after a failure.
-		setSvg(undefined)
-		setFailed(false)
 
 		import('mermaid')
 			.then(async ({ default: mermaid }) => {
 				mermaid.initialize({
 					startOnLoad: false,
 					securityLevel: 'strict',
+					// Throw on bad syntax instead of drawing Mermaid's own error
+					// graphic — the fallback below shows the source instead.
+					suppressErrorRendering: true,
 					theme: isDark ? 'dark' : 'neutral',
 					fontFamily: "'Inter Variable', sans-serif",
 				})
 				const result = await mermaid.render(renderId, code)
 				if (!cancelled) {
-					setSvg(result.svg)
+					setRendered({ code, svg: result.svg })
 				}
 			})
 			.catch(() => {
-				// On a syntax error Mermaid can leave its temporary wrapper
-				// (id "d" + the render id) holding an error graphic at the end
-				// of <body>.
-				document.getElementById(`d${renderId}`)?.remove()
 				if (!cancelled) {
-					setFailed(true)
+					setFailedCode(code)
 				}
 			})
 

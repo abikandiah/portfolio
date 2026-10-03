@@ -12,6 +12,7 @@ import reportWebVitals from './reportWebVitals.ts'
 import { installStorageFallback } from './storageFallback.ts'
 import '@fontsource-variable/inter'
 import './styles.css'
+import { APP_ROOT_ID } from '@/lib/pageIds'
 
 // Create a new router instance
 
@@ -62,7 +63,7 @@ try {
 }
 
 // Render the app
-const rootElement = document.getElementById('app')
+const rootElement = document.getElementById(APP_ROOT_ID)
 if (rootElement && !rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement)
 	root.render(

@@ -115,6 +115,18 @@ describe('write-up format', () => {
 			'## Overview\n\n- ### Inside',
 			/belong directly in a section/,
 		],
+		// Regression: a heading could take an id the page itself uses,
+		// duplicating it — aria-labelledby and TOC jumps hit the wrong one.
+		[
+			'a section named after a page element',
+			'## Related Projects\n\nText.',
+			/"related-projects", which the project page already uses/,
+		],
+		[
+			'a sub-heading named after a page element',
+			'## Overview\n\n### Project Title\n\nText.',
+			/"project-title", which the project page already uses/,
+		],
 		// Regression: used to render raw checkboxes.
 		['task lists', '## Overview\n\n- [ ] Todo', /task lists/],
 	])('rejects %s', (_, body, message) => {
@@ -203,6 +215,15 @@ describe('draft references', () => {
 		).toEqual([expect.stringContaining('published: points at "upcoming"')])
 	})
 
+	it('flags the featured list pointing at a draft', () => {
+		expect(
+			findDraftReferences([
+				project('featured projects', false, ['upcoming']),
+				project('upcoming', true),
+			]),
+		).toEqual([expect.stringContaining('points at "upcoming"')])
+	})
+
 	it('lets drafts point anywhere, and published projects at each other', () => {
 		expect(
 			findDraftReferences([
@@ -247,6 +268,20 @@ describe('write-up lint', () => {
 		)
 		expect(issues.filter((issue) => issue.level === 'error')).toHaveLength(2)
 	})
+
+	// Regression: Roman numerals read as "I".
+	it.each(['Phase I.', 'Part I, then more.', 'Phase I of the rollout.'])(
+		'leaves the numeral in "%s" alone',
+		(sentence) => {
+			const issues = lintWriteUp(
+				`${FRONTMATTER}\n## Overview\n\n${sentence}\n`,
+				FILE,
+			)
+			expect(issues.map((issue) => issue.message).join('\n')).not.toMatch(
+				/first person singular/,
+			)
+		},
+	)
 
 	it('flags first person in a Work write-up, including contractions', () => {
 		for (const sentence of [

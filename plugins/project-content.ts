@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm'
 import remarkParse from 'remark-parse'
 import { unified } from 'unified'
 import { parse as parseYaml } from 'yaml'
+import { RESERVED_PAGE_IDS } from '../src/lib/pageIds.ts'
 import { toUrl } from '../src/lib/slug.ts'
 import { techType } from '../src/types/TechTypes.ts'
 import type { Root as HastRoot } from 'hast'
@@ -486,6 +487,37 @@ function toTree(children: Array<RootContent>): HastRoot {
 	return tree
 }
 
+// Claims a heading's anchor, rejecting one that's empty, already used in
+// this write-up, or taken by the page around it.
+function claimAnchor(
+	title: string,
+	marker: string,
+	file: string,
+	seen: Set<string>,
+	node: Nodes,
+): string {
+	const id = toUrl(title)
+	if (id === '') {
+		throw new ContentError(
+			file,
+			`"${marker} ${title}" has no letters or digits to build an anchor from`,
+			node,
+		)
+	}
+	if (RESERVED_PAGE_IDS.has(id)) {
+		throw new ContentError(
+			file,
+			`"${marker} ${title}" would take the anchor "${id}", which the project page already uses — reword the heading`,
+			node,
+		)
+	}
+	if (seen.has(id)) {
+		throw new ContentError(file, `two headings share the anchor "${id}"`, node)
+	}
+	seen.add(id)
+	return id
+}
+
 function assignHeadingIds(
 	children: Array<RootContent>,
 	file: string,
@@ -495,22 +527,7 @@ function assignHeadingIds(
 	for (const node of children) {
 		if (node.type === 'heading' && node.depth === 3) {
 			const title = plainText(node)
-			const id = toUrl(title)
-			if (id === '') {
-				throw new ContentError(
-					file,
-					`"### ${title}" has no letters or digits to build an anchor from`,
-					node,
-				)
-			}
-			if (seen.has(id)) {
-				throw new ContentError(
-					file,
-					`two headings share the anchor "${id}"`,
-					node,
-				)
-			}
-			seen.add(id)
+			const id = claimAnchor(title, '###', file, seen, node)
 			node.data = { ...node.data, hProperties: { id } }
 			headings.push({ title, id })
 		}
@@ -557,22 +574,7 @@ function compileProject(
 			// directive) is restored before the title and anchor are read.
 			transformChildren(node, state)
 			const title = plainText(node)
-			const id = toUrl(title)
-			if (id === '') {
-				throw new ContentError(
-					file,
-					`"## ${title}" has no letters or digits to build an anchor from`,
-					node,
-				)
-			}
-			if (seen.has(id)) {
-				throw new ContentError(
-					file,
-					`two headings share the anchor "${id}"`,
-					node,
-				)
-			}
-			seen.add(id)
+			claimAnchor(title, '##', file, seen, node)
 			current = { title, children: [] }
 			groups.push(current)
 		} else if (current == null) {

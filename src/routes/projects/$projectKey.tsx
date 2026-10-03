@@ -1,7 +1,7 @@
 import { Separator } from '@abumble/design-system/components/Separator'
 import { cn } from '@abumble/design-system/utils'
-import { createFileRoute } from '@tanstack/react-router'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Link, createFileRoute } from '@tanstack/react-router'
+import { ArrowRight, ChevronLeft } from 'lucide-react'
 import { Fragment } from 'react/jsx-runtime'
 import type {
 	Project,
@@ -10,6 +10,11 @@ import type {
 } from '@/types/ProjectTypes'
 import type { TocEntry } from '@/components/projects/TableOfContents'
 import { projectView } from '@/types/ProjectTypes'
+import {
+	BackToTopLink,
+	FloatingBackToTop,
+	PAGE_TOP_ID,
+} from '@/components/projects/BackToTop'
 import { CaseStudyBody } from '@/components/projects/CaseStudyBody'
 import { Section } from '@/components/projects/Section'
 import {
@@ -27,7 +32,8 @@ import { ProjectsDisclaimer } from '@/components/projects/ProjectsDisclaimer'
 import { NotFound } from '@/components/NotFound'
 import { PageDescription, PageHeader, TextLink } from '@/components/ui'
 import { BadgeContainer, TechBadge } from '@/components/ui/badge'
-import { projects, projectsMap } from '@/constants/project'
+import { projectsMap } from '@/constants/project'
+import { RELATED_PROJECTS_ID } from '@/lib/pageIds'
 
 // Below this many headings (sections and their sub-headings together), a
 // TOC is more furniture than help — the page already reads fine at a
@@ -123,9 +129,10 @@ function RouteComponent() {
 				/>
 			</header>
 
-			{/* Keyed so it starts collapsed again after Previous/Next — the route
-			    component is reused across projects, and <details> would otherwise
-			    carry its open state over. */}
+			{/* Keyed so it starts collapsed again after following a link to
+			    another project (a related project, or one in the write-up) —
+			    the route component is reused across projects, and <details>
+			    would otherwise carry its open state over. */}
 			{showToc && (
 				<InlineTableOfContents key={projectKey} entries={tocEntries} />
 			)}
@@ -166,70 +173,18 @@ function RouteComponent() {
 
 			<RelatedProjects proj={proj} />
 
-			<ProjectFooterNav current={proj} className="border-t pt-6" />
+			{/* The way on from the end of a write-up: back to the list, or back
+			    up the page. */}
+			<nav
+				aria-label="Page"
+				className="flex items-center justify-between gap-4 border-t pt-6"
+			>
+				<BackToProjectsLink />
+				<BackToTopLink />
+			</nav>
+
+			<FloatingBackToTop />
 		</ProjectContainer>
-	)
-}
-
-function ProjectFooterNav({
-	current,
-	className,
-}: {
-	current: Project
-	className?: string
-}) {
-	const index = projects.findIndex((p) => p.pathname === current.pathname)
-	const prev = index > 0 ? projects[index - 1] : undefined
-	const next =
-		index >= 0 && index < projects.length - 1 ? projects[index + 1] : undefined
-
-	if (prev == null && next == null) {
-		return null
-	}
-
-	return (
-		<nav
-			aria-label="More projects"
-			className={cn('grid grid-cols-2 gap-4 text-sm', className)}
-		>
-			<ProjectNavLink project={prev} direction="prev" />
-			<ProjectNavLink project={next} direction="next" />
-		</nav>
-	)
-}
-
-function ProjectNavLink({
-	project,
-	direction,
-}: {
-	project?: Project
-	direction: 'prev' | 'next'
-}) {
-	if (project == null) {
-		return <span />
-	}
-
-	const isNext = direction === 'next'
-
-	return (
-		<TextLink
-			to="/projects/$projectKey"
-			params={{ projectKey: project.pathname }}
-			// The arrow and side carry the direction visually; spell it out
-			// for screen readers, which only get the project name otherwise.
-			aria-label={`${isNext ? 'Next' : 'Previous'} project: ${project.name}`}
-			className={cn(
-				'inline-flex items-center gap-1 self-start',
-				isNext && 'flex-row-reverse justify-self-end text-right',
-			)}
-		>
-			{isNext ? (
-				<ChevronRight className="h-4 w-4 shrink-0" />
-			) : (
-				<ChevronLeft className="h-4 w-4 shrink-0" />
-			)}
-			<span>{project.name}</span>
-		</TextLink>
 	)
 }
 
@@ -287,7 +242,11 @@ function ProjectHeader({
 				))}
 			</p>
 
-			<PageHeader>{proj.name}</PageHeader>
+			{/* The back-to-top target: focusable from script only, so returning
+			    to the top moves keyboard focus here too. */}
+			<PageHeader id={PAGE_TOP_ID} tabIndex={-1} className="outline-none">
+				{proj.name}
+			</PageHeader>
 
 			<PageDescription size="sm" className="mt-2">
 				{proj.description}
@@ -323,24 +282,40 @@ function RelatedProjects({ proj }: { proj: Project }) {
 		return null
 	}
 
+	// Part of the article, not site navigation: each related project comes
+	// with its description — a reason to read it next — laid out in the same
+	// ruled rows as a :::terms list (the write-up-rows utilities).
 	return (
-		<nav aria-label="Related projects" className="text-sm">
-			<h2 className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-				Related
+		<section aria-labelledby={RELATED_PROJECTS_ID}>
+			<h2
+				id={RELATED_PROJECTS_ID}
+				className="mb-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase"
+			>
+				Related Projects
 			</h2>
-			<ul className="flex flex-wrap gap-x-5 gap-y-1">
+
+			<ul className="write-up-rows">
 				{related.map((match) => (
 					<li key={match.pathname}>
-						<TextLink
+						<Link
 							to="/projects/$projectKey"
 							params={{ projectKey: match.pathname }}
+							className="group write-up-row outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 						>
-							{match.name}
-						</TextLink>
+							<span className="font-semibold text-foreground group-hover:text-primary">
+								{match.name}
+								{/* Inline, so it follows the name's last line rather than
+								    the edge of the column when the name wraps. */}
+								<ArrowRight className="ml-1 inline h-4 w-4 align-[-0.15em] transition-transform group-hover:translate-x-0.5" />
+							</span>
+							<span className="text-sm leading-relaxed text-muted-foreground">
+								{match.description}
+							</span>
+						</Link>
 					</li>
 				))}
 			</ul>
-		</nav>
+		</section>
 	)
 }
 

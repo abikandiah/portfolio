@@ -1,6 +1,7 @@
 import { cn } from '@abumble/design-system/utils'
 import { ChevronDown } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { BackToTopLink } from '@/components/projects/BackToTop'
 import { isPlainClick, scrollToHash } from '@/components/projects/scrollToHash'
 
 interface TocEntry {
@@ -130,6 +131,8 @@ function TableOfContents({ entries, className }: TableOfContentsProps) {
 
 					<TocList entries={entries} activeId={activeId} />
 				</nav>
+
+				<BackToTopLink className="mt-4 ml-3" />
 			</div>
 		</div>
 	)
