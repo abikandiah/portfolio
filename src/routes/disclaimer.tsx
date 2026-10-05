@@ -12,11 +12,12 @@ function RouteComponent() {
 
 function Disclaimer() {
 	return (
-		<div className="space-y-4 m-5">
+		// Prose, so it takes the write-ups' reading column.
+		<div className="mx-auto mt-8 w-full max-w-2xl space-y-4 px-3">
 			<section>
 				<PageHeader>Disclaimer</PageHeader>
 
-				<PageDescription className="mt-1">
+				<PageDescription size="sm" className="mt-2">
 					Please read this carefully before reviewing project details.
 				</PageDescription>
 			</section>
