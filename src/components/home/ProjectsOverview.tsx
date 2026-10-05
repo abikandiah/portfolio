@@ -1,16 +1,14 @@
-import { Card } from '@abumble/design-system/components/Card'
 import { Link } from '@tanstack/react-router'
 import { ChevronRight, FolderCode } from 'lucide-react'
-import { CardH2Header } from '../ui/card'
+import { TextLink } from '../ui'
 import { TechBadgeList } from '../ui/badge'
+import { HomeSection } from './HomeSection'
 import type { Project } from '@/types/ProjectTypes'
 import { featuredProjects } from '@/constants/project'
 
 function ProjectsOverview() {
 	return (
-		<Card className="home-card">
-			<CardH2Header title={'Key Projects'} Icon={FolderCode} />
-
+		<HomeSection title="Key Projects" Icon={FolderCode}>
 			<ul className="-my-1">
 				{featuredProjects.map((proj) => (
 					<li key={proj.pathname}>
@@ -18,7 +16,15 @@ function ProjectsOverview() {
 					</li>
 				))}
 			</ul>
-		</Card>
+
+			<TextLink
+				to="/projects"
+				className="mt-3 inline-flex items-center gap-1 self-start text-sm font-medium"
+			>
+				All projects
+				<ChevronRight className="h-4 w-4" aria-hidden="true" />
+			</TextLink>
+		</HomeSection>
 	)
 }
 

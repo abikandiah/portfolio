@@ -55,9 +55,12 @@ function ExpandableRow({
 
 	if (!hasBullets) {
 		return (
-			<li className="home-row">
+			<li className="home-row w-full">
 				<Logo src={logoSrc} title={title} />
 				{body}
+				{/* Holds the chevron's place, so the dates line up with the
+				    expandable rows'. */}
+				<span aria-hidden="true" className="w-4 flex-none" />
 			</li>
 		)
 	}

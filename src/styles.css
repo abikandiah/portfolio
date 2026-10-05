@@ -156,6 +156,13 @@ body {
 	@apply grid gap-1 py-3 sm:grid-cols-[11rem_1fr] sm:gap-6;
 }
 
+/* The centred column for pages that list rows (the home page). Wider than
+   the write-ups' max-w-2xl prose column, since rows carry dates and badges
+   on the right rather than long lines of text. */
+@utility list-column {
+	@apply mx-auto w-full max-w-3xl;
+}
+
 /* :::terms — "Term: definition" rows. */
 .write-up-terms {
 	@apply my-5 write-up-rows;
@@ -218,26 +225,11 @@ body {
 	@apply whitespace-normal;
 }
 
-/*
- * Home page cards. Written as unlayered rules on [data-slot='card'] for the
- * same reason as .interactive-card above: the design system's .card is
- * unlayered, so Tailwind utilities can't override its gap or padding.
- * Tighter than the default on phones, where the card padding and the rows'
- * own padding otherwise squeeze the text.
- */
-[data-slot='card'].home-card {
-	gap: 0.75rem;
-	padding: 1rem;
-}
-@media (min-width: 40rem) {
-	[data-slot='card'].home-card {
-		padding: 1.5rem;
-	}
-}
-
-/* One Education or Experience row: logo beside title, dates and detail. */
+/* One Education or Experience row: logo beside title, dates and detail.
+   No width here: this rule is unlayered, so it would beat the expandable
+   rows' w-[calc(100%+1.5rem)] utility and pull their chevrons inward. */
 .home-row {
-	@apply relative flex w-full items-start gap-4 py-2.5;
+	@apply relative flex items-start gap-4 py-2.5;
 }
 
 /* Experience as a timeline: a rail from each logo's centre to the next

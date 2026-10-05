@@ -1,6 +1,5 @@
 import { BriefcaseBusiness } from 'lucide-react'
-import { Card } from '@abumble/design-system/components/Card'
-import { CardH2Header } from '../ui/card'
+import { HomeSection } from './HomeSection'
 import { ExpandableRow } from './ExpandableRow'
 import bee from '@/assets/bee.svg'
 import nuixLogo from '@/assets/nuix.png'
@@ -8,9 +7,7 @@ import rampivaLogo from '@/assets/rampiva-badge-logo.svg'
 
 function WorkExperience() {
 	return (
-		<Card className="home-card">
-			<CardH2Header title={'Experience'} Icon={BriefcaseBusiness} />
-
+		<HomeSection title="Experience" Icon={BriefcaseBusiness}>
 			{/* A career reads as a sequence: the logos sit on a rail. */}
 			<ol className="home-timeline">
 				<ExpandableRow
@@ -47,7 +44,7 @@ function WorkExperience() {
 					]}
 				/>
 			</ol>
-		</Card>
+		</HomeSection>
 	)
 }
 
