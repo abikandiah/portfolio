@@ -110,10 +110,7 @@ function RouteComponent() {
 
 	return (
 		<ProjectContainer className="space-y-8">
-			<div className="space-y-4">
-				<ProjectsDisclaimer />
-				<BackToProjectsLink />
-			</div>
+			<BackToProjectsLink />
 
 			<header className="space-y-5 border-b pb-6">
 				<ProjectHeader proj={proj} activeView={activeView} />
@@ -124,6 +121,10 @@ function RouteComponent() {
 					onSelect={onSelectView}
 				/>
 			</header>
+
+			{/* After the header, as on the projects list: the page opens on the
+			    project, not a notice. */}
+			<ProjectsDisclaimer />
 
 			{/* Keyed so it starts collapsed again after following a link to
 			    another project (a related project, or one in the write-up) —

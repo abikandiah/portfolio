@@ -41,15 +41,17 @@ function RouteComponent() {
 		// The same column and gutters as the home page, so its rows line up
 		// with the home page's Key Projects.
 		<div className="list-column flex flex-col gap-6 px-3 pb-12 sm:px-6">
-			<ProjectsDisclaimer />
-
+			{/* Sized like the write-ups' titles, and ahead of the disclaimer so
+			    the page opens on what it is rather than a notice. */}
 			<div>
-				<PageHeader size="sm">Projects</PageHeader>
+				<PageHeader>Projects</PageHeader>
 
-				<PageDescription size="sm" className="mt-1">
+				<PageDescription size="sm" className="mt-2">
 					A collection of things I've built, at work and on my own.
 				</PageDescription>
 			</div>
+
+			<ProjectsDisclaimer />
 
 			<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 				<CategoryFilter value={category} onChange={setCategory} />
