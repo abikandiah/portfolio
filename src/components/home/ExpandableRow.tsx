@@ -31,7 +31,7 @@ function ExpandableRow({
 	const hasBullets = bullets != null && bullets.length > 0
 
 	// Same structure as a Key Projects row — title and dates on one line,
-	// detail beneath — so all three home cards line up.
+	// detail beneath — so all three home sections line up.
 	const body = (
 		<div className="min-w-0 flex-auto">
 			<div className="flex items-baseline gap-2">

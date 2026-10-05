@@ -7,9 +7,11 @@ interface FooterProps {
 }
 
 function Footer({ showLinks = true, showSocials = true }: FooterProps) {
+	// The same column as the home and projects pages, so the footer lines up
+	// with the content above it rather than the page edges.
 	return (
 		<footer className="mt-auto px-3">
-			<div className="center-page py-8 px-6 mt-18 flex flex-col md:flex-row items-center md:items-end justify-center gap-6">
+			<div className="list-column py-8 px-3 sm:px-6 mt-18 flex flex-col md:flex-row items-center md:items-end justify-center gap-6">
 				{showSocials && (
 					<SocialLinks
 						className="flex items-center gap-4"

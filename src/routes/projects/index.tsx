@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import type { TProjectType } from '@/types/ProjectTypes'
-import { ProjectCard } from '@/components/projects/ProjectCard'
+import { ProjectRows } from '@/components/projects/ProjectRow'
 import { PageDescription, PageHeader } from '@/components/ui'
 import { ProjectsDisclaimer } from '@/components/projects/ProjectsDisclaimer'
 import { projects, projectsByType } from '@/constants/project'
@@ -38,7 +38,9 @@ function RouteComponent() {
 	}, [category, query])
 
 	return (
-		<div className="flex flex-col gap-6 px-3">
+		// The same column and gutters as the home page, so its rows line up
+		// with the home page's Key Projects.
+		<div className="list-column flex flex-col gap-6 px-3 pb-12 sm:px-6">
 			<ProjectsDisclaimer />
 
 			<div>
@@ -59,11 +61,7 @@ function RouteComponent() {
 					No projects match "{query}".
 				</p>
 			) : (
-				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{filteredProjects.map((proj) => (
-						<ProjectCard key={proj.name} proj={proj} />
-					))}
-				</div>
+				<ProjectRows projects={filteredProjects} />
 			)}
 		</div>
 	)

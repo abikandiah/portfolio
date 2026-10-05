@@ -27,21 +27,6 @@ body {
 }
 
 /*
- * Only *clickable* cards (project cards) get a hover cue, and it's a
- * border-darken rather than the old lift + shadow — sharper, and it
- * doesn't imply interactivity on the static Education/Experience cards.
- * Plain Tailwind hover: utilities can't win here since `.card` itself is
- * unlayered CSS (see [data-slot="card"] in the design system), so this
- * is written as a matching unlayered rule.
- */
-[data-slot='card'].interactive-card {
-	transition: border-color 150ms ease;
-}
-[data-slot='card'].interactive-card:hover {
-	border-color: color-mix(in oklch, var(--foreground) 25%, var(--border));
-}
-
-/*
  * Tech badges: one neutral tag style for every badge (see
  * `.tech-tag` and `techBadgeVariants` in badge.tsx) plus a small
  * per-family accent dot, so color is a scannable cue rather than the
@@ -156,9 +141,9 @@ body {
 	@apply grid gap-1 py-3 sm:grid-cols-[11rem_1fr] sm:gap-6;
 }
 
-/* The centred column for pages that list rows (the home page). Wider than
-   the write-ups' max-w-2xl prose column, since rows carry dates and badges
-   on the right rather than long lines of text. */
+/* The centred column for pages that list rows (home, the projects list),
+   and the footer. Wider than the write-ups' max-w-2xl prose column, since
+   rows carry dates and badges on the right rather than long lines of text. */
 @utility list-column {
 	@apply mx-auto w-full max-w-3xl;
 }
