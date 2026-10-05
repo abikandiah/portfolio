@@ -29,6 +29,7 @@ import { NotFound } from '@/components/NotFound'
 import { PageDescription, PageHeader, TextLink } from '@/components/ui'
 import { BadgeContainer, TechBadge } from '@/components/ui/badge'
 import { projectsMap } from '@/constants/project'
+import { pageTitle } from '@/lib/pageTitle'
 import { RELATED_PROJECTS_ID } from '@/lib/pageIds'
 
 // Below this many headings (sections and their sub-headings together), a
@@ -49,6 +50,12 @@ export const Route = createFileRoute('/projects/$projectKey')({
 			return { view: search.view }
 		}
 		return {}
+	},
+	head: ({ params }) => {
+		const proj = projectsMap.get(params.projectKey)
+		return {
+			meta: [{ title: pageTitle(proj == null ? 'Not Found' : proj.name) }],
+		}
 	},
 	component: RouteComponent,
 })
@@ -220,12 +227,7 @@ function ProjectContainer({
 	className,
 	...props
 }: React.ComponentProps<'div'>) {
-	return (
-		<div
-			className={cn('mx-auto w-full max-w-2xl px-3', className)}
-			{...props}
-		/>
-	)
+	return <div className={cn('prose-column px-3', className)} {...props} />
 }
 
 function ProjectHeader({

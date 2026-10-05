@@ -24,7 +24,7 @@ function App() {
 				className="-mx-3 -mt-14"
 				style={{ height: '224px' }}
 			/>
-			<div className="list-column flex flex-col pb-12">
+			<div className="list-column flex flex-col">
 				<ProfileIntro />
 				<WorkExperience />
 				<Education />

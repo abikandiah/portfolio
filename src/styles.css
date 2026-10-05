@@ -142,10 +142,15 @@ body {
 }
 
 /* The centred column for pages that list rows (home, the projects list),
-   and the footer. Wider than the write-ups' max-w-2xl prose column, since
+   and the footer. Wider than prose-column, below, since
    rows carry dates and badges on the right rather than long lines of text. */
 @utility list-column {
 	@apply mx-auto w-full max-w-3xl;
+}
+
+/* The centred reading column for prose: the write-ups and the disclaimer. */
+@utility prose-column {
+	@apply mx-auto w-full max-w-2xl;
 }
 
 /* :::terms — "Term: definition" rows. */

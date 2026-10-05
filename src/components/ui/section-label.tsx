@@ -3,7 +3,7 @@ import * as React from 'react'
 // A home-page section's label: small, muted and uppercase, matching the
 // write-ups' "On this page" and "Related Projects" labels, so the
 // sections' content — not their headers — is the loudest thing in them.
-function CardH2Header({
+function SectionLabel({
 	Icon,
 	title,
 }: {
@@ -18,4 +18,4 @@ function CardH2Header({
 	)
 }
 
-export { CardH2Header }
+export { SectionLabel }

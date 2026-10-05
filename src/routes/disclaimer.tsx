@@ -1,8 +1,10 @@
 import { UnorderedList } from '@abumble/design-system/components/List'
 import { createFileRoute } from '@tanstack/react-router'
 import { PageDescription, PageHeader } from '@/components/ui'
+import { pageTitle } from '@/lib/pageTitle'
 
 export const Route = createFileRoute('/disclaimer')({
+	head: () => ({ meta: [{ title: pageTitle('Disclaimer') }] }),
 	component: RouteComponent,
 })
 
@@ -13,7 +15,7 @@ function RouteComponent() {
 function Disclaimer() {
 	return (
 		// Prose, so it takes the write-ups' reading column.
-		<div className="mx-auto mt-8 w-full max-w-2xl space-y-4 px-3">
+		<div className="prose-column mt-8 space-y-4 px-3">
 			<section>
 				<PageHeader>Disclaimer</PageHeader>
 

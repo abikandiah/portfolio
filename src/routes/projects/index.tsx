@@ -7,8 +7,10 @@ import { ProjectRows } from '@/components/projects/ProjectRow'
 import { PageDescription, PageHeader } from '@/components/ui'
 import { ProjectsDisclaimer } from '@/components/projects/ProjectsDisclaimer'
 import { projects, projectsByType } from '@/constants/project'
+import { pageTitle } from '@/lib/pageTitle'
 
 export const Route = createFileRoute('/projects/')({
+	head: () => ({ meta: [{ title: pageTitle('Projects') }] }),
 	component: RouteComponent,
 })
 
@@ -40,7 +42,7 @@ function RouteComponent() {
 	return (
 		// The same column and gutters as the home page, so its rows line up
 		// with the home page's Key Projects.
-		<div className="list-column flex flex-col gap-6 px-3 pb-12 sm:px-6">
+		<div className="list-column flex flex-col gap-6 px-3 sm:px-6">
 			{/* Sized like the write-ups' titles, and ahead of the disclaimer so
 			    the page opens on what it is rather than a notice. */}
 			<div>

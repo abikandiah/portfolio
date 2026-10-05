@@ -1,4 +1,4 @@
-import { CardH2Header } from '../ui/card'
+import { SectionLabel } from '../ui/section-label'
 
 interface HomeSectionProps {
 	title: string
@@ -11,7 +11,7 @@ interface HomeSectionProps {
 function HomeSection({ title, Icon, children }: HomeSectionProps) {
 	return (
 		<section className="flex flex-col gap-3 border-t px-3 py-8 sm:px-6">
-			<CardH2Header title={title} Icon={Icon} />
+			<SectionLabel title={title} Icon={Icon} />
 			{children}
 		</section>
 	)

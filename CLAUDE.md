@@ -39,7 +39,7 @@ New write-ups are produced with the `write-project` skill (`.claude/skills/write
 
 ### UI Components
 
-- `src/components/ui/` — primitives: `PageHeader`, `PageDescription`, `TextLink`, `ExternalSite`, plus CVA-based `badge` and `card`
+- `src/components/ui/` — primitives: `PageHeader`, `PageDescription`, `TextLink`, `ExternalSite`, plus the CVA-based `badge` and the home sections' `SectionLabel`
 - `@abumble/design-system` — private npm package providing `cn` utility and additional components
 - Icons via `lucide-react`
 
