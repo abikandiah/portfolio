@@ -20,10 +20,9 @@ export const Route = createFileRoute('/')({
 function App() {
 	return (
 		<>
-			<LandscapeContainer
-				className="-mx-3 -mt-14"
-				style={{ height: '224px' }}
-			/>
+			{/* `!`: the design system's unlayered `.image-background` sets its
+			    own height, which would otherwise beat these utilities. */}
+			<LandscapeContainer className="-mx-3 -mt-14 h-44! sm:h-56!" />
 			<div className="list-column flex flex-col">
 				<ProfileIntro />
 				<WorkExperience />
@@ -36,7 +35,7 @@ function App() {
 
 function ProfileIntro() {
 	return (
-		<div className="flex flex-col gap-4 px-6 pb-8 pt-4 sm:pt-6">
+		<div className="flex flex-col gap-4 px-6 pb-8 pt-2 sm:pt-4">
 			<div className="flex flex-col items-center gap-2 text-center">
 				<FaceContextMenu src={profilePhoto} />
 
@@ -207,16 +206,23 @@ function FaceContextMenu({ src }: { src: string }) {
 		}
 	}, [])
 
+	// The SVG is a line drawing, so the banner shows through it where they
+	// overlap. A disc in the page background fills just the face (r=10 of the
+	// 24-unit viewBox, so inset 2/24), leaving the margin around it clear. It
+	// sits outside the img so `dark:invert` doesn't flip its colour.
 	return (
-		<img
-			ref={imgRef}
-			onPointerEnter={onPointerEnter}
-			onPointerMove={onPointerMove}
-			onPointerLeave={onPointerLeave}
-			className="h-28 w-28 shrink-0 -mt-2 rounded-full object-cover ring-4 ring-background shadow-lg sm:h-40 sm:w-40 dark:invert"
-			src={src}
-			alt="Abilaesh Kandiah's Profile Photo"
-		/>
+		<div className="relative -mt-8 shrink-0 sm:-mt-10">
+			<span className="absolute inset-[9%] rounded-full bg-background" />
+			<img
+				ref={imgRef}
+				onPointerEnter={onPointerEnter}
+				onPointerMove={onPointerMove}
+				onPointerLeave={onPointerLeave}
+				className="relative h-28 w-28 rounded-full object-cover ring-4 ring-background shadow-lg sm:h-40 sm:w-40 dark:invert"
+				src={src}
+				alt="Abilaesh Kandiah's Profile Photo"
+			/>
+		</div>
 	)
 }
 
