@@ -43,19 +43,22 @@ function ProfileIntro() {
 					<PageHeader>Abilaesh Kandiah</PageHeader>
 
 					<PageDescription className="mt-1">
-						Full-Stack Developer
+						Senior Software Engineer
 					</PageDescription>
 				</div>
 			</div>
 
 			<section className="flex flex-col gap-4">
 				<p className="p-text">
-					Hey, I'm Abi, a seasoned full-stack developer with over 7 years of
-					experience dedicated to bringing ideas to life. I architect and
-					deliver complete, robust solutions—from database design to launching
-					polished UIs. Leveraging React, JavaScript, Java, Node, and Python
-					alongside modern CI/CD and cloud platforms (AWS/Azure/GCP), I manage
-					the full operational loop to build it right.
+					Hey, I'm Abi. I've spent 7 years owning full-stack systems end-to-end,
+					from database design and multi-threaded backend services to web
+					front-ends and CI/CD. At Rampiva (acquired by Nuix in 2023), I built a
+					resumable upload system for terabyte-scale data, a framework behind
+					10+ third-party integrations, and the core web app for its eDiscovery
+					automation platform. Now I'm heading back to the hardware I first
+					studied, with a focus on embedded systems and IoT. To get there, I'm
+					doing an MEng in Electrical &amp; Computer Engineering at the
+					University of Toronto.
 				</p>
 
 				<div className="flex flex-wrap items-center justify-between gap-4">
