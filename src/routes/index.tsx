@@ -50,15 +50,14 @@ function ProfileIntro() {
 
 			<section className="flex flex-col gap-4">
 				<p className="p-text">
-					Hey, I'm Abi. I've spent 7 years owning full-stack systems end-to-end,
-					from database design and multi-threaded backend services to web
-					front-ends and CI/CD. At Rampiva (acquired by Nuix in 2023), I built a
-					resumable upload system for terabyte-scale data, a framework behind
-					10+ third-party integrations, and the core web app for its eDiscovery
+					Hey, I'm Abi. I've spent 7 years building full-stack systems, from
+					database design and multi-threaded backend services to web front-ends
+					and CI/CD. At Rampiva (acquired by Nuix in 2023), I built a resumable
+					upload system for terabyte-scale data, a framework behind 10+
+					third-party integrations, and the core web app for its eDiscovery
 					automation platform. Now I'm heading back to the hardware I first
-					studied, with a focus on embedded systems and IoT. To get there, I'm
-					doing an MEng in Electrical &amp; Computer Engineering at the
-					University of Toronto.
+					studied, doing an MEng at the University of Toronto focused on
+					embedded systems and IoT.
 				</p>
 
 				<div className="flex flex-wrap items-center justify-between gap-4">
