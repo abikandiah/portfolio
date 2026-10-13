@@ -13,7 +13,7 @@ related: [abumble-design-system]
 
 This site is a developer portfolio: a single place to show a career timeline, the projects completed along the way, and the technologies behind them. It's built as a React single-page application (SPA) and hosted on Cloudflare Pages.
 
-It was built solo with the assistance of Claude Code, with every change reviewed by hand.
+It was built solo with AI assistance, with every change reviewed by hand.
 
 ### The Site
 

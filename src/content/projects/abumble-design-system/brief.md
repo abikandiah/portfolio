@@ -40,3 +40,7 @@ Source: https://github.com/abikandiah/design-system
 I didn't keep rebuilding the same components. I started this design system after and
 during my first web app, because it made sense, and AI-assisted coding made it easier to
 manage, maintain and build.
+
+## Naming AI tools
+
+Don't name any AI tool or vendor on the page (no "Claude" or "Claude Code"). Say "AI assistance" or "AI coding" generically.

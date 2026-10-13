@@ -4,4 +4,4 @@ I also decided early to design it as if it had to scale. One landlord with a han
 
 Then there was hosting it. Rather than reaching for a managed platform, I ran everything myself in Docker Compose: my own identity provider, a reverse proxy, a database, and a Cloudflare Tunnel to put it all online without opening a single port. Wiring together OIDC, a gateway and a tunnel meant setting up and managing the whole infrastructure, not just writing the code that runs on it.
 
-The other half of the experiment was the way I built it. It was developed mostly through AI: I brainstormed and discussed designs with Claude Code, let it generate most of the implementation, and reviewed every change. Learning how to develop with these tools was as much a part of the project as the technologies it uses.
+The other half of the experiment was the way I built it. It was developed mostly through AI: I brainstormed and discussed designs with an AI coding assistant, let it generate most of the implementation, and reviewed every change. Learning how to develop with these tools was as much a part of the project as the technologies it uses.

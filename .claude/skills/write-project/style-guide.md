@@ -31,7 +31,8 @@ able to sketch the architecture, not find their way around the codebase.
 - **Say how it was built.** If the brief says the project was AI-assisted, say so in one
   plain sentence in the Overview ("It was built with AI assistance, with every change
   reviewed by hand"), worded to match how much help it was. Don't apologize for it or
-  dress it up. Size the page to the effort too: a quick project gets a short, modest page.
+  dress it up. Keep it generic ("AI assistance", "AI coding"): never name the AI tool or
+  vendor. Size the page to the effort too: a quick project gets a short, modest page.
 - Spell out an acronym the first time if a non-specialist might not know it: "CRUD
   (Create, Read, Update, Delete)", "OIDC (OpenID Connect)".
 

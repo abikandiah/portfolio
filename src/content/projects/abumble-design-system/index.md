@@ -12,7 +12,7 @@ related: [web-portfolio, propmange]
 
 This package is a single, shared library of components and themes for a family of personal web projects, so each new site starts from the same building blocks and styles instead of defining them again. It's published to npm and added to each project as a regular dependency, and it's used by both [Web Portfolio](/projects/web-portfolio) and [PropMange](/projects/propmange).
 
-It's built on two starting points, **shadcn/ui** for the components and **Tailwind CSS** for the styling, and is essentially a custom flavour of both. It was built solo with the assistance of Claude Code, with every change reviewed by hand.
+It's built on two starting points, **shadcn/ui** for the components and **Tailwind CSS** for the styling, and is essentially a custom flavour of both. It was built solo with AI assistance, with every change reviewed by hand.
 
 ### Components
 

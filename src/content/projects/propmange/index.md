@@ -24,7 +24,7 @@ related: [abumble-design-system]
 
 ## Overview
 
-PropMange is a property management system that brings property managers, landlords and tenants into one application, covering properties, leases, tenant access and communication. It was built as a learning project, in a domain large enough to need real authorization and data ownership, for learning Spring Boot, PostgreSQL and self-hosting a complete production stack. It supports many organizations rather than a single landlord. It was built with AI assistance (Claude Code), with most of the code generated and every change reviewed by hand.
+PropMange is a property management system that brings property managers, landlords and tenants into one application, covering properties, leases, tenant access and communication. It was built as a learning project, in a domain large enough to need real authorization and data ownership, for learning Spring Boot, PostgreSQL and self-hosting a complete production stack. It supports many organizations rather than a single landlord. It was built with AI assistance, with most of the code generated and every change reviewed by hand.
 
 The system is built as a combination of self-hosted, containerized components:
 

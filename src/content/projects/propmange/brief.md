@@ -30,3 +30,7 @@ Source: https://github.com/abikandiah/prop-manager (Spring Boot API and infrastr
 - Centre: the self-hosted infrastructure and the offline-first frontend, as one story of how the system runs.
 - Multi-org access, leases, tenant portal, invites and notifications are covered briefly.
 - Tickets, chat and maintenance appear only as a roadmap.
+
+## Naming AI tools
+
+Don't name any AI tool or vendor on the page (no "Claude" or "Claude Code"). Say "AI assistance" or "AI coding" generically.

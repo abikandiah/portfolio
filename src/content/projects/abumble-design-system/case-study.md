@@ -4,4 +4,4 @@ shadcn/ui and Tailwind CSS were the natural starting points. shadcn/ui hands you
 
 Publishing it to npm was a small but important step. It means each project adds the design system as a normal dependency rather than a local one, and picks up changes by updating a version.
 
-AI-assisted coding is a big part of why this is manageable. A shared library is extra work to build, maintain and keep consistent alongside the projects that use it, and Claude Code made that overhead small enough to be worth it. It's also never really finished: every new site I build will start from it.
+AI-assisted coding is a big part of why this is manageable. A shared library is extra work to build, maintain and keep consistent alongside the projects that use it, and AI coding made that overhead small enough to be worth it. It's also never really finished: every new site I build will start from it.

@@ -38,3 +38,7 @@ writes the Design portion (`index.md` body) only.
    from each project's code plus my answers, then reviewed by me.
 4. **Hosting?** No deploy flow — simply hosted on Cloudflare Pages.
 5. **Claude Code badge?** No — it's not really part of the tech stack.
+
+## Naming AI tools
+
+Don't name any AI tool or vendor on the page (no "Claude" or "Claude Code"). Say "AI assistance" or "AI coding" generically.
