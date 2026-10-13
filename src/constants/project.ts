@@ -2,7 +2,6 @@ import type { ProjectProps } from '@/types/ProjectTypes'
 import { Project } from '@/types/ProjectTypes'
 import { findDraftReferences } from '@/content/draftReferences'
 import { contentReferences, loadContentProjects } from '@/content/loadProjects'
-import { chip8EmulatorProject } from '@/projects/Chip8Emulator'
 import { propMangeProject } from '@/projects/PropMange'
 
 const projectsMap: Map<string, Project> = new Map()
@@ -21,10 +20,9 @@ function addProject(props: ProjectProps): Project {
 	return proj
 }
 
-// Write-ups in src/content/projects/ register themselves. The two TSX
-// projects predate the Markdown format and are due to be regenerated into it.
+// Write-ups in src/content/projects/ register themselves. The TSX project
+// predates the Markdown format and is due to be regenerated into it.
 addProject(propMangeProject)
-addProject(chip8EmulatorProject)
 
 const contentProjects = loadContentProjects()
 for (const { props } of contentProjects) {
