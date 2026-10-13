@@ -6,7 +6,6 @@ endYear: 2026
 description: An emulator for the CHIP-8 virtual machine, written in C and playable in the terminal or in the browser through WebAssembly.
 tech: [C, WebAssembly, Emscripten, JavaScript, HTML, CSS]
 url: https://chip8.akandiah.ca
-draft: true
 ---
 
 ## Overview
