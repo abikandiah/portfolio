@@ -1,0 +1,7 @@
+PropMange was never meant to be a product. I wanted to learn the backend and infrastructure side properly: Java with Spring Boot, PostgreSQL and database design, and what it actually takes to run a full stack myself. A to-do app wasn't going to teach me that, so I picked a domain big enough to force the hard problems: property management, where managers, landlords, tenants and eventually maintenance crews all need to share one system.
+
+I also decided early to design it as if it had to scale. One landlord with a handful of units would have been far simpler, but supporting many organizations, with people holding different roles in each and permissions that flow down from an organization to a property to a single unit, meant working through authorization and data ownership properly.
+
+Then there was hosting it. Rather than reaching for a managed platform, I ran everything myself in Docker Compose: my own identity provider, a reverse proxy, a database, and a Cloudflare Tunnel to put it all online without opening a single port. Wiring together OIDC, a gateway and a tunnel meant setting up and managing the whole infrastructure, not just writing the code that runs on it.
+
+The other half of the experiment was the way I built it. It was developed mostly through AI: I brainstormed and discussed designs with Claude Code, let it generate most of the implementation, and reviewed every change. Learning how to develop with these tools was as much a part of the project as the technologies it uses.

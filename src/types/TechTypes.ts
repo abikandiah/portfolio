@@ -34,6 +34,10 @@ const techType = {
 	C: 'C',
 	WebAssembly: 'WebAssembly',
 	Emscripten: 'Emscripten',
+	Cloudflare: 'Cloudflare',
+	Caddy: 'Caddy',
+	Logto: 'Logto',
+	IndexedDB: 'IndexedDB',
 } as const
 
 type TTech = (typeof techType)[keyof typeof techType]
@@ -73,6 +77,7 @@ const techFamilyMap: Record<TTech, string> = {
 	[techType.OIDC]: 'tech-badge-purple',
 	[techType.JWT]: 'tech-badge-purple',
 	[techType.LDAP]: 'tech-badge-purple',
+	[techType.Logto]: 'tech-badge-purple',
 
 	// cyan
 	[techType.React]: 'tech-badge-cyan',
@@ -91,11 +96,14 @@ const techFamilyMap: Record<TTech, string> = {
 	[techType.HTML]: 'tech-badge-orange',
 	[techType.Jenkins]: 'tech-badge-orange',
 	[techType.GoogleVault]: 'tech-badge-orange',
+	[techType.Cloudflare]: 'tech-badge-orange',
 
 	// green
 	[techType.Fiddler]: 'tech-badge-green',
 	[techType.WebWorkers]: 'tech-badge-green',
 	[techType.Selenium]: 'tech-badge-green',
+	[techType.Caddy]: 'tech-badge-green',
+	[techType.IndexedDB]: 'tech-badge-green',
 
 	// indigo
 	[techType.ReactRouter]: 'tech-badge-indigo',

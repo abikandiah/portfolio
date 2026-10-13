@@ -2,7 +2,6 @@ import type { ProjectProps } from '@/types/ProjectTypes'
 import { Project } from '@/types/ProjectTypes'
 import { findDraftReferences } from '@/content/draftReferences'
 import { contentReferences, loadContentProjects } from '@/content/loadProjects'
-import { propMangeProject } from '@/projects/PropMange'
 
 const projectsMap: Map<string, Project> = new Map()
 
@@ -20,10 +19,7 @@ function addProject(props: ProjectProps): Project {
 	return proj
 }
 
-// Write-ups in src/content/projects/ register themselves. The TSX project
-// predates the Markdown format and is due to be regenerated into it.
-addProject(propMangeProject)
-
+// Write-ups in src/content/projects/ register themselves.
 const contentProjects = loadContentProjects()
 for (const { props } of contentProjects) {
 	addProject(props)

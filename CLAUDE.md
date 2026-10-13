@@ -27,7 +27,7 @@ Dynamic project routes use `$projectKey` — the key maps to project pathnames r
 
 ### Project Data System
 
-Project write-ups are Markdown in `src/content/projects/<slug>/` — `index.md` (frontmatter + write-up), optional `case-study.md`, and `brief.md` (questionnaire answers, ignored by the build). Adding a folder adds the project; `src/content/loadProjects.tsx` globs them and `src/constants/project.ts` registers them (plus the legacy TSX project `src/projects/PropMange.tsx`, due to be regenerated). The folder name must equal the slug of the project's name.
+Project write-ups are Markdown in `src/content/projects/<slug>/` — `index.md` (frontmatter + write-up), optional `case-study.md`, and `brief.md` (questionnaire answers, ignored by the build). Adding a folder adds the project; `src/content/loadProjects.tsx` globs them and `src/constants/project.ts` registers them. The folder name must equal the slug of the project's name.
 
 `plugins/project-content.ts` (a Vite plugin) compiles each file at build time and **rejects anything outside the write-up format** with a `file:line` error. The format — `##` sections, `###` sub-headings, and the `:::terms` / `:::steps` / `:::info` / `:::note` / `::redacted` / ```` ```mermaid ```` blocks — is documented in `.claude/skills/write-project/format.md`. `src/components/projects/content/WriteUpContent.tsx` maps the compiled elements to components; their styles live under `.write-up` in `src/styles.css`.
 
