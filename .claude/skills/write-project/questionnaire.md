@@ -8,10 +8,13 @@
 2. **When?** Start year and end year, or "ongoing".
 3. **What problem did it solve, and for whom?** One or two sentences in your own words.
    What was painful or impossible before?
-4. **What was your role?** Solo, lead, one of a team (how big)? Which parts were yours?
-   This becomes the meta row ("Solo", "Lead developer", ...). Leave it blank to omit it.
-5. **What are you most proud of?** The one or two things a reader should come away
-   remembering.
+4. **What was your role, and how was it built?** Solo, lead, one of a team (how big)?
+   Which parts were yours? Was it AI-assisted, and how much (guided, pair-programmed,
+   mostly generated and reviewed)? The role becomes the meta row ("Solo", "Lead
+   developer", ...). Leave it blank to omit it. AI assistance is stated on the page.
+5. **What should a reader come away remembering?** The part you're proudest of, or
+   enjoyed most. "Nothing in particular, it was a quick project" is a fine answer. The
+   page then stays modest.
 6. **Any numbers?** Scale, speed, volume, adoption, time saved (e.g. "500 Mb/s", "200+
    operations", "prevented hundreds of regressions"). Only ones you're comfortable
    publishing.

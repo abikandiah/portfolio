@@ -145,4 +145,8 @@ Tell the user:
 The same pipeline applies. Start from `brief.md` and the current page, and keep anything the
 user hand-edited unless they say otherwise. To replace the old TSX project
 (PropMange), write the new folder, remove the TSX file and its `addProject` line from
-`src/constants/project.ts`, and keep the project's name so its URL doesn't change.
+`src/constants/project.ts`, and keep the project's name so its URL doesn't change. Then
+update every place that still lists it as a legacy page: the comment above its
+`addProject` line, the Project Data System section of `CLAUDE.md`, and the
+"Do **not** use" note near the top of this file
+(`grep -rn <Name> CLAUDE.md .claude src/constants` finds them).

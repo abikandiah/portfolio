@@ -28,6 +28,10 @@ able to sketch the architecture, not find their way around the codebase.
 - Plain, confident, slightly formal. No marketing ("powerful", "seamless", "cutting-edge"),
   no hedging, no exclamation marks. An occasional light touch is fine ("This is the final
   piece of the puzzle", "found its golden place").
+- **Say how it was built.** If the brief says the project was AI-assisted, say so in one
+  plain sentence in the Overview ("It was built with AI assistance, with every change
+  reviewed by hand"), worded to match how much help it was. Don't apologize for it or
+  dress it up. Size the page to the effort too: a quick project gets a short, modest page.
 - Spell out an acronym the first time if a non-specialist might not know it: "CRUD
   (Create, Read, Update, Delete)", "OIDC (OpenID Connect)".
 
@@ -166,6 +170,7 @@ Run through this in the critic pass. Every "no" is a fix.
 - [ ] Is every piece of implementation detail that remains something the author would bring up unprompted?
 - [ ] Does each section explain _why_, not just _what_?
 - [ ] Is the voice right for the type ("we" for Work, no "I" outside a case study), with no names from the do-not-name list?
+- [ ] If the brief says it was AI-assisted, does the Overview say so plainly, and is the page sized to the effort?
 - [ ] Are banners rare and never adjacent? Does each `:::steps` describe a real sequence?
 - [ ] Does it read like the reference write-ups? Read one, then read the draft. Does the draft sound like the same author?
 - [ ] Are there no claims the brief or code doesn't support? Never invent numbers, users or outcomes.
