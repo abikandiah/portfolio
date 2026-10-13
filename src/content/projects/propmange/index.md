@@ -19,6 +19,7 @@ tech:
     IndexedDB,
   ]
 url: https://prop-mange.akandiah.ca
+related: [abumble-design-system]
 ---
 
 ## Overview

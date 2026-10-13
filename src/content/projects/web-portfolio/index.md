@@ -6,6 +6,7 @@ endYear: 2026
 description: A personal portfolio website to showcase my technical expertise, designed as a modern single-page application (SPA) and hosted on Cloudflare.
 tech: [TypeScript, React, Tanstack, TailwindCSS, Vite, Cloudflare]
 url: https://akandiah.ca
+related: [abumble-design-system]
 ---
 
 ## Overview
